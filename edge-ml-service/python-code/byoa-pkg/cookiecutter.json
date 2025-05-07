@@ -1,0 +1,9 @@
+{
+    "ml_algo": "ALGORITHM NAME: [regression]",
+    "ml_model": "MODEL NAME: [linear]",
+    "base_image": "BASE IMAGE: [hedge-ml-python-base:internal]",
+    "common_libraries_folder": "FULL PATH TO COMMON LIBRARY: [../common]",
+    "training_class_name": "TRAINING CLASS NAME: [RegressionTrainingTask]",
+    "infer_class_name": "INFERENCE CLASS NAME: [RegressionInferenceTask]",
+    "algo_type": ["Anomaly", "Classification", "Regression"]
+}

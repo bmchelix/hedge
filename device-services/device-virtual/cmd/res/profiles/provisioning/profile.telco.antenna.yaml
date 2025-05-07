@@ -1,0 +1,19 @@
+name: "Telco-Antenna"
+manufacturer: "AT and T"
+model: "Telco-Antenna-Model-XP"
+labels:
+  - "Antenna"
+description: "Telecommunication Antenna"
+
+deviceResources:
+  -
+    name: "AntennaDislocation"
+    description: "Metric to measure the degree of mis-alignment"
+    isHidden: false
+    properties:
+      valueType: "Float64"
+      readWrite: "R"
+      defaultValue: "0.95"
+      units : "degree"
+    attributes:
+      { dataGenerator: "float", min: "0.1", max: "2.0", useMultiplier: "false" }

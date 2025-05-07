@@ -1,0 +1,2167 @@
+{
+	"info": {
+		"_postman_id": "dfa18bfb-af9e-4c00-9071-ceae4fef3093",
+		"name": "HedgeML",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "1316125"
+	},
+	"item": [
+		{
+			"name": "registerAutoEncoderAlgo",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "admin",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "admin",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"AutoEncoder-Anomaly\",\r\n    \"description\": \"Hedge AutoEncoder based Anomaly Detection Algorithm\",\r\n    \"type\": \"Anomaly\",\r\n    \"isTrainingExternal\": false,\r\n    \"isDeploymentExternal\": false,\r\n    \"allowDeploymentAtEdge\": true,\r\n    \"publishPredictionsRequired\": true,\r\n    \"trainerImagePath\": \"lpade:hedge-ml-trg-anomaly-autoencoder\",\r\n    \"defaultPredictionPort\": 48910,\r\n    \"predictionImagePath\": \"hedge-ml-pred-anomaly-autoencoder:25.1.00_latest\",\r\n    \"defaultPredictionEndpointUrl\": \"/api/v3/predict\",\r\n    \"predictionOutputKeys\": [\r\n        \"prediction\"\r\n    ],\r\n    \"autoEventGenerationRequired\": true,\r\n    \"thresholdUserParameters\": {},\r\n    \"hyperParameters\": {},\r\n    \"enabled\": true,\r\n    \"addTimeStampToFeature\": false,\r\n    \"isOotb\": true,\r\n    \"supportSlidingWindow\": true\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/api/v3/ml_management/algorithm",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"v3",
+						"ml_management",
+						"algorithm"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "registerTSDeepVarAlgo",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "admin",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "admin",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"Multivariate-DeepVar-TimeSeries\",\r\n    \"description\": \"Helix Edge Multivariate-DeepVar-TimeSeries based Timeseries Algorithm\",\r\n    \"type\": \"Timeseries\",\r\n    \"enabled\": true,\r\n    \"supervised\": true,\r\n    \"outputFeaturesPredefined\": false,\r\n    \"inputFeatures\": [],\r\n    \"outputFeatures\": [],\r\n    \"trainingComputeProvider\": \"AIF\",\r\n    \"isTrainingExternal\": false,\r\n    \"isDeploymentExternal\": false,\r\n    \"allowDeploymentAtEdge\": true,\r\n    \"predictionName\": \"ForeCast\",\r\n    \"publishPredictionsRequired\": true,\r\n    \"autoEventGenerationRequired\": true,\r\n    \"trainerImagePath\": \"lpade:hedge-ml-trg-timeseries-multivariate-deepvar\",\r\n    \"predictionImagePath\": \"hedge-ml-pred-timeseries-multivariate-deepvar:$DOCKER_TAG\",\r\n    \"defaultPredictionEndpointUrl\": \"http://multivariate-deepvar-timeseries:55000/api/v3/predict\",\r\n    \"predictionOutputKeys\": [\r\n        \"prediction\"\r\n    ],\r\n    \"thresholdUserParameters\": {},\r\n    \"hyperParameters\": {\r\n        \"confidence_min\": 0.5,\r\n        \"confidence_max\": 10\r\n    },\r\n    \"isOotb\": true\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/api/v3/ml_management/algorithm",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"v3",
+						"ml_management",
+						"algorithm"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "registerClassificationAlgo",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "admin",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "admin",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n        \"name\": \"RandomForest-Classification\",\r\n        \"description\": \"Helix Edge RandomForest-Classification based Classification Algorithm\",\r\n        \"type\": \"Classification\",\r\n        \"enabled\": true,\r\n        \"outputFeaturesPredefined\": true,\r\n        \"allowDeploymentAtEdge\": true,\r\n        \"requiresDataPipeline\": true,\r\n        \"predictionName\": \"classification\",\r\n        \"isPredictionRealTime\": true,\r\n        \"defaultPredictionEndpointUrl\": \"/api/v3/predict\",\r\n        \"defaultPredictionPort\": 48920,\r\n        \"trainerImagePath\": \"lpade:hedge-ml-trg-classification-randomforest\",\r\n        \"trainerImageDigest\": \"sha256:42293382e31b91b2f1d4a6ff6e88057ec9a96e4310f7a4b9702c2a1e7fa7d318\",\r\n        \"predictionImagePath\": \"hedge-ml-pred-classification-randomforest:25.1.00_latest\",\r\n        \"predictionImageDigest\": \"sha256:47afdd31f991d2a42e3288a67924b709316bd7b1e22e7b7440e5848e34ff0fda\",\r\n        \"predictionPayloadTemplate\": {\r\n            \"name\": \"Classification\",\r\n            \"payloadSample\": \"{\\n\\t\\\"correlation-id-01\\\" : [3, 3.14, 5],\\n\\t\\\"correlation-id-02\\\" : [5, 2.71, 3]\\n}\",\r\n            \"template\": \"{\\n\\t{{- $length := len .CollectedData -}}\\n\\t{{- $counter := 0 -}}\\n\\t{{- range $correlationID, $inferenceData := .CollectedData }}\\n\\t\\\"{{ $correlationID }}\\\" : [\\n\\t\\t{{- range $i, $value := index $inferenceData.Data 0 -}}\\n\\t\\t{{ if $i }}, {{ end }}{{- if eq (printf \\\"%T\\\" $value) \\\"string\\\" -}}\\\"{{ $value }}\\\"{{- else -}}{{ $value }}{{- end -}}\\n\\t\\t{{- end -}}\\n\\t]{{ if lt (add $counter 1) $length }},{{ end }}\\n\\t{{- $counter = (add $counter 1) -}}\\n\\t{{- end -}}\\n\\t}\"\r\n        },\r\n        \"predictionOutputKeys\": [\r\n            \"prediction\"\r\n        ],\r\n        \"autoEventGenerationRequired\": true,\r\n        \"publishPredictionsRequired\": true,\r\n        \"hyperParameters\": {},\r\n        \"isOotb\": true\r\n    }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/api/v3/ml_management/algorithm?generateDigest=false",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"v3",
+						"ml_management",
+						"algorithm"
+					],
+					"query": [
+						{
+							"key": "generateDigest",
+							"value": "false"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getMLAlgorithm",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/api/v3/ml_management/algorithm/all?summaryOnly=true",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"v3",
+						"ml_management",
+						"algorithm",
+						"all"
+					],
+					"query": [
+						{
+							"key": "summaryOnly",
+							"value": "true"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getAlgoPortNoForAllocation",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "admin",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "admin",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/api/v3/ml_management/algorithm/all?summaryOnly=true",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"v3",
+						"ml_management",
+						"algorithm",
+						"all"
+					],
+					"query": [
+						{
+							"key": "summaryOnly",
+							"value": "true"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "CreatemlModelConfigAnomaly",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"WindTurbineAnomaly\",\r\n    \"mlAlgorithm\": \"AutoEncoder-Anomaly\",\r\n    \"description\": \"Training config for WindTurbine\",\r\n    \"mlDataSourceConfig\": {\r\n        \"entityType\": \"Profile\",\r\n        \"entityName\": \"WindTurbine\",\r\n        \"featuresByProfile\": {\r\n            \"WindTurbine\": [\r\n                {\r\n                    \"type\": \"METRIC\",\r\n                    \"name\": \"TurbinePower\",\r\n                    \"isInput\": true,\r\n                    \"isOutput\" : false,\r\n                    \"fromExternalSource\": false\r\n                },\r\n                {\r\n                    \"type\": \"METRIC\",\r\n                    \"name\": \"RotorSpeed\",\r\n                    \"isInput\": true,\r\n                    \"fromExternalSource\": false\r\n                },\r\n                {\r\n                    \"type\": \"METRIC\",\r\n                    \"name\": \"WindDirection\",\r\n                    \"isInput\": true,\r\n                    \"fromExternalSource\": false\r\n                },\r\n                {\r\n                    \"type\": \"METRIC\",\r\n                    \"name\": \"WindSpeed\",\r\n                    \"isInput\": true,\r\n                    \"fromExternalSource\": true\r\n                }\r\n            ]\r\n        },\r\n        \"groupOrJoinKeys\": [\r\n            \"deviceName\"\r\n        ],\r\n        \"trainingDataSourceConfig\": {\r\n            \"filters\": [],\r\n            \"samplingIntervalSecs\": 10,\r\n            \"dataCollectionTotalDurationSec\": 5600\r\n        },\r\n        \"predictionDataSourceConfig\": {\r\n            \"streamType\": \"redis\",\r\n            \"filters\": [],\r\n            \"samplingIntervalSecs\": 30,\r\n            \"topicName\": \"enriched/#\"\r\n        }\r\n    },\r\n    \"enabled\": true,\r\n    \"message\": \" on device {{.deviceName}} detected in Windfarm that might be causing low power generation\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/api/v3/ml_management/algorithm/config?generatePreview=false",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"v3",
+						"ml_management",
+						"algorithm",
+						"config"
+					],
+					"query": [
+						{
+							"key": "generatePreview",
+							"value": "false"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "CreateTSMlModelConfig",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"TSModelConfig\",\r\n    \"mlAlgorithm\": \"Multivariate-DeepVar-TimeSeries\",\r\n    \"version\": \"v3\",\r\n    \"description\": \"TS forecasting for power generation for WindTurbine\",\r\n    \"mlDataSourceConfig\": {\r\n        \"entityType\": \"PROFILE\",\r\n        \"entityName\": \"WindTurbine\",\r\n        \"inputContextCount\": 2,\r\n        \"outputPredictionCount\": 2,\r\n        \"featuresByProfile\": {\r\n            \"WindTurbine\": [\r\n                {\r\n                    \"type\": \"METRIC\",\r\n                    \"name\": \"TurbinePower\",\r\n                    \"isInput\": true,\r\n                    \"isOutput\": true,\r\n                    \"fromExternalSource\": false\r\n                },\r\n                {\r\n                    \"type\": \"METRIC\",\r\n                    \"name\": \"RotorSpeed\",\r\n                    \"isInput\": true,\r\n                    \"isOutput\": true,\r\n                    \"fromExternalSource\": false\r\n                },\r\n                {\r\n                    \"type\": \"METRIC\",\r\n                    \"name\": \"WindDirection\",\r\n                    \"isInput\": true,\r\n                    \"isOutput\": false,\r\n                    \"fromExternalSource\": false\r\n                },\r\n                {\r\n                    \"type\": \"METRIC\",\r\n                    \"name\": \"WindSpeed\",\r\n                    \"isInput\": true,\r\n                    \"isOutput\": false,\r\n                    \"fromExternalSource\": true\r\n                }\r\n            ]\r\n        },\r\n        \"trainingDataSourceConfig\": {\r\n            \"filters\": [],\r\n            \"samplingIntervalSecs\": 61,\r\n            \"dataCollectionTotalDurationSec\": 1800\r\n        },\r\n        \"predictionDataSourceConfig\": {\r\n            \"streamType\": \"redis\",\r\n            \"filters\": [],\r\n            \"topicName\": \"enriched/#\",\r\n            \"predictionEndPointURL\": \"http://ml-inferencing:480999\"\r\n        }\r\n    },\r\n    \"enabled\": true,\r\n    \"message\": \"timeseries forecast for {{.deviceName}} detected\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/api/v3/ml_management/algorithm/config?generatePreview=false",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"v3",
+						"ml_management",
+						"algorithm",
+						"config"
+					],
+					"query": [
+						{
+							"key": "generatePreview",
+							"value": "false"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "CreateClassificationModelConfig",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "admin",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "admin",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"RandomForest-ClassificationConfig\",\r\n    \"version\": \"v3\",\r\n    \"description\": \"Training config for RandomForest-Classification\",\r\n    \"mlAlgorithm\": \"RandomForest-Classification\",\r\n    \"mlDataSourceConfig\": {\r\n        \"entityType\": \"PROFILE\",\r\n        \"groupOrJoinKeys\": [],\r\n        \"entityName\": \"WindTurbine\",\r\n        \"featuresByProfile\": {\r\n            \"WindTurbine\": [\r\n                {\r\n                    \"type\": \"METRIC\",\r\n                    \"name\": \"WindSpeed\",\r\n                    \"isInput\": true,\r\n                    \"isOutput\": false\r\n                },\r\n                {\r\n                    \"type\": \"METRIC\",\r\n                    \"name\": \"TurbinePower\",\r\n                    \"isInput\": true,\r\n                    \"isOutput\": false\r\n                },\r\n                {\r\n                    \"type\": \"METRIC\",\r\n                    \"name\": \"RotorSpeed\",\r\n                    \"isInput\": true,\r\n                    \"isOutput\": false\r\n                }\r\n            ]\r\n        },\r\n        \"externalFeatures\": [\r\n            {\r\n                \"type\": \"CATEGORICAL\",\r\n                \"name\": \"PowerQuality\",\r\n                \"isOutput\": true,\r\n                \"isInput\": false,\r\n                \"isExternal\": true\r\n            }\r\n        ],\r\n        \"trainingDataSourceConfig\": {\r\n            \"dataCollectionTotalDurationSec\": 2592,\r\n            \"samplingIntervalSecs\": 10,\r\n            \"filters\": []\r\n        },\r\n        \"predictionDataSourceConfig\": {\r\n            \"streamType\": \"redis\",\r\n            \"samplingIntervalSecs\": 10,\r\n            \"topicName\": \"enriched/#\",\r\n            \"predictionEndPointURL\": \"http://randomforest-classification:48920/api/v3/predict/RandomForest-Classification/RandomForest-ClassificationConfig\"\r\n        }\r\n    },\r\n    \"message\": \"\",\r\n    \"enabled\": true,\r\n    \"trainedModelCount\": 1,\r\n    \"modified\": 1736354995373,\r\n    \"mlAlgorithmType\": \"Classification\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/api/v3/ml_management/algorithm/config?generatePreview=true",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"v3",
+						"ml_management",
+						"algorithm",
+						"config"
+					],
+					"query": [
+						{
+							"key": "generatePreview",
+							"value": "true"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "CreateDGAmlModelConfig",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "admin",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "admin",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"TransformerDGABasedAnomaly\",\r\n    \"mlAlgorithm\": \"AutoEncoder\",\r\n    \"version\": \"v3\",\r\n    \"description\": \"Training with NG DGA data across 11 transformers\",\r\n    \"mlDataSourceConfig\": {\r\n        \"entityType\": \"Profile\",\r\n        \"entityName\": \"Kelman-Transfix\",\r\n        \"supportSlidingWindow\": true,\r\n        \"featuresByProfile\": {\r\n            \"Kelman-Transfix\": [\r\n                {\r\n                    \"type\": \"METRIC\",\r\n                    \"name\": \"DGA_02\",\r\n                    \"isInput\": true,\r\n                    \"isOutput\": false,\r\n                    \"fromExternalSource\": false\r\n                },\r\n                {\r\n                    \"type\": \"METRIC\",\r\n                    \"name\": \"DGA_03\",\r\n                    \"isInput\": true,\r\n                    \"fromExternalSource\": false\r\n                },\r\n                {\r\n                    \"type\": \"METRIC\",\r\n                    \"name\": \"DGA_04\",\r\n                    \"isInput\": true,\r\n                    \"fromExternalSource\": false\r\n                },\r\n                {\r\n                    \"type\": \"METRIC\",\r\n                    \"name\": \"DGA_05\",\r\n                    \"isInput\": true,\r\n                    \"fromExternalSource\": true\r\n                },\r\n                {\r\n                    \"type\": \"METRIC\",\r\n                    \"name\": \"DGA_06\",\r\n                    \"isInput\": true,\r\n                    \"isOutput\": false,\r\n                    \"fromExternalSource\": false\r\n                },\r\n                {\r\n                    \"type\": \"METRIC\",\r\n                    \"name\": \"DGA_07\",\r\n                    \"isInput\": true,\r\n                    \"fromExternalSource\": false\r\n                },\r\n                {\r\n                    \"type\": \"METRIC\",\r\n                    \"name\": \"DGA_08\",\r\n                    \"isInput\": true,\r\n                    \"fromExternalSource\": false\r\n                },\r\n                {\r\n                    \"type\": \"METRIC\",\r\n                    \"name\": \"DGA_09\",\r\n                    \"isInput\": true,\r\n                    \"fromExternalSource\": true\r\n                },\r\n                {\r\n                    \"type\": \"METRIC\",\r\n                    \"name\": \"DGA_10\",\r\n                    \"isInput\": true,\r\n                    \"isOutput\": false,\r\n                    \"fromExternalSource\": false\r\n                },\r\n                {\r\n                    \"type\": \"METRIC\",\r\n                    \"name\": \"DGA_30\",\r\n                    \"isInput\": true,\r\n                    \"fromExternalSource\": false\r\n                },\r\n                {\r\n                    \"type\": \"METRIC\",\r\n                    \"name\": \"DGA_32\",\r\n                    \"isInput\": true,\r\n                    \"fromExternalSource\": false\r\n                },\r\n                {\r\n                    \"type\": \"METRIC\",\r\n                    \"name\": \"DGA_AT\",\r\n                    \"isInput\": true,\r\n                    \"fromExternalSource\": true\r\n                },\r\n                {\r\n                    \"type\": \"METRIC\",\r\n                    \"name\": \"DGA_NORM\",\r\n                    \"isInput\": true,\r\n                    \"isOutput\": false,\r\n                    \"fromExternalSource\": false\r\n                },\r\n                {\r\n                    \"type\": \"METRIC\",\r\n                    \"name\": \"DGA_OP\",\r\n                    \"isInput\": true,\r\n                    \"fromExternalSource\": false\r\n                },\r\n                {\r\n                    \"type\": \"METRIC\",\r\n                    \"name\": \"DGA_TDG\",\r\n                    \"isInput\": true,\r\n                    \"fromExternalSource\": false\r\n                },\r\n                {\r\n                    \"type\": \"METRIC\",\r\n                    \"name\": \"DGA_TCG\",\r\n                    \"isInput\": true,\r\n                    \"fromExternalSource\": true\r\n                },\r\n                {\r\n                    \"type\": \"CATEGORICAL\",\r\n                    \"name\": \"position\",\r\n                    \"isInput\": true,\r\n                    \"fromExternalSource\": false\r\n                },\r\n                {\r\n                    \"type\": \"CATEGORICAL\",\r\n                    \"name\": \"siteID\",\r\n                    \"isInput\": true,\r\n                    \"fromExternalSource\": false\r\n                }\r\n            ]\r\n        },\r\n        \"groupOrJoinKeys\": [\r\n            \"deviceName\"\r\n        ],\r\n        \"trainingDataSourceConfig\": {\r\n            \"filters\": [],\r\n            \"samplingIntervalSecs\": 420,\r\n            \"dataCollectionTotalDurationSec\": 3296452\r\n        },\r\n        \"predictionDataSourceConfig\": {\r\n            \"streamType\": \"redis\",\r\n            \"filters\": [],\r\n            \"samplingIntervalSecs\": 420,\r\n            \"topicName\": \"enriched/#\",\r\n            \"predictionEndPointURL\": \"http://ml-inferencing:480999\"\r\n        }\r\n    },\r\n    \"enabled\": true,\r\n    \"message\": \" on device {{.deviceName}} detected in Windfarm that might be causing low power generation\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/api/v3/ml_management/algorithm/AutoEncoder/config",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"v3",
+						"ml_management",
+						"algorithm",
+						"AutoEncoder",
+						"config"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "UpdatemlModelConfigConfig",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "admin",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "admin",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"WindTurbineAnomaly\",\r\n    \"mlAlgorithm\": \"AutoEncoder-Anomaly\",\r\n    \"version\": \"v3\",\r\n    \"description\": \"Training config for WindTurbine\",\r\n    \"mlDataSourceConfig\": {\r\n        \"dataConfigPrimaryEntityType\": \"Profile\",\r\n        \"primaryEntityName\": \"WindTurbine\",\r\n        \"featuresByProfile\": {\r\n            \"WindTurbine\": [\r\n                {\r\n                    \"type\": \"METRIC\",\r\n                    \"name\": \"TurbinePower\",\r\n                    \"isInput\": true,\r\n                    \"fromExternalSource\": false\r\n                },\r\n                {\r\n                    \"type\": \"METRIC\",\r\n                    \"name\": \"RotorSpeed\",\r\n                    \"isInput\": true,\r\n                    \"fromExternalSource\": false\r\n                },\r\n                {\r\n                    \"type\": \"METRIC\",\r\n                    \"name\": \"WindDirection\",\r\n                    \"isInput\": true,\r\n                    \"fromExternalSource\": false\r\n                },\r\n                {\r\n                    \"type\": \"METRIC\",\r\n                    \"name\": \"WindSpeed\",\r\n                    \"isInput\": true,\r\n                    \"fromExternalSource\": true\r\n                }\r\n            ]\r\n        },\r\n        \"groupOrJoinKeys\": [\r\n            \"deviceName\"\r\n        ],\r\n        \"trainingDataSourceConfig\": {\r\n            \"filters\": [\r\n                {\r\n                    \"label\": \"deviceName\",\r\n                    \"operator\": \"EQUALS\",\r\n                    \"value\": \"AltaNS12\"\r\n                }\r\n            ],\r\n            \"samplingIntervalSecs\": 30,\r\n            \"dataCollectionTotalDurationSec\": 1800\r\n        },\r\n        \"predictionDataSourceConfig\": {\r\n            \"streamType\": \"redis\",\r\n            \"filters\": [\r\n                {\r\n                    \"label\": \"deviceName\",\r\n                    \"operator\": \"EQUALS\",\r\n                    \"value\": \"AltaNS12\"\r\n                }\r\n            ],\r\n            \"samplingIntervalSecs\": 30,\r\n            \"topicName\": \"enriched/#\",\r\n            \"predictionEndPointURL\": \"http://ml-inferencing:480999\"\r\n        }\r\n    },\r\n    \"enabled\": true,\r\n    \"message\": \" on device {{.deviceName}} detected in Windfarm that might be causing low power generation\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/api/v3/ml_management/algorithm/AutoEncoder/config?generatePreview=true",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"v3",
+						"ml_management",
+						"algorithm",
+						"AutoEncoder",
+						"config"
+					],
+					"query": [
+						{
+							"key": "generatePreview",
+							"value": "true"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "CreateTwinmlModelConfig",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "admin",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "admin",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"WindTurbineAnomaly\",\r\n    \"mlAlgorithm\": \"AutoEncoder-Anomaly\",\r\n    \"version\": \"v3\",\r\n    \"description\": \"Training config for WindTurbine\",\r\n    \"mlDataSourceConfig\": {\r\n        \"entityType\": \"Profile\",\r\n        \"entityName\": \"WindTurbine\",\r\n        \"featuresByProfile\": {\r\n            \"WindTurbine\": [\r\n                {\r\n                    \"type\": \"METRIC\",\r\n                    \"name\": \"TurbinePower\",\r\n                    \"isInput\": true,\r\n                    \"isOutput\": false,\r\n                    \"fromExternalSource\": false,\r\n                    \"deviceSelector\": {\r\n                        \"label\": \"deviceName\",\r\n                        \"Operator\": \"EQUALS\",\r\n                        \"value\": \"AltaNS12\"\r\n                    }\r\n                },\r\n                {\r\n                    \"type\": \"METRIC\",\r\n                    \"name\": \"TurbinePower\",\r\n                    \"isInput\": true,\r\n                    \"isOutput\": false,\r\n                    \"fromExternalSource\": false,\r\n                    \"deviceSelector\": {\r\n                        \"label\": \"deviceName\",\r\n                        \"Operator\": \"EQUALS\",\r\n                        \"value\": \"AltaNS14\"\r\n                    }\r\n                },\r\n                {\r\n                    \"type\": \"METRIC\",\r\n                    \"name\": \"RotorSpeed\",\r\n                    \"isInput\": true,\r\n                    \"fromExternalSource\": false,\r\n                    \"deviceSelector\": {\r\n                        \"label\": \"deviceName\",\r\n                        \"Operator\": \"EQUALS\",\r\n                        \"value\": \"AltaNS12\"\r\n                    }\r\n                },\r\n                {\r\n                    \"type\": \"METRIC\",\r\n                    \"name\": \"WindDirection\",\r\n                    \"isInput\": true,\r\n                    \"fromExternalSource\": false,\r\n                    \"deviceSelector\": {\r\n                        \"label\": \"deviceName\",\r\n                        \"Operator\": \"EQUALS\",\r\n                        \"value\": \"AltaNS14\"\r\n                    }\r\n                },\r\n                {\r\n                    \"type\": \"METRIC\",\r\n                    \"name\": \"WindSpeed\",\r\n                    \"isInput\": true,\r\n                    \"fromExternalSource\": true,\r\n                    \"deviceSelector\": {\r\n                        \"label\": \"deviceName\",\r\n                        \"Operator\": \"EQUALS\",\r\n                        \"value\": \"AltaNS12\"\r\n                    }\r\n                }\r\n            ]\r\n        },\r\n        \"groupOrJoinKeys\": [\r\n            \"deviceName\"\r\n        ],\r\n        \"trainingDataSourceConfig\": {\r\n            \"filters\": [],\r\n            \"samplingIntervalSecs\": 30,\r\n            \"dataCollectionTotalDurationSec\": 1800\r\n        },\r\n        \"predictionDataSourceConfig\": {\r\n            \"streamType\": \"redis\",\r\n            \"filters\": [],\r\n            \"samplingIntervalSecs\": 30,\r\n            \"topicName\": \"enriched/#\",\r\n            \"predictionEndPointURL\": \"http://ml-inferencing:480999\"\r\n        }\r\n    },\r\n    \"enabled\": true,\r\n    \"message\": \" on device {{.deviceName}} detected in Windfarm that might be causing low power generation\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/api/v3/ml_management/algorithm/AutoEncoder/config",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"v3",
+						"ml_management",
+						"algorithm",
+						"AutoEncoder",
+						"config"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "updateTwinmlModelConfig",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "admin",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "admin",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"WindTurbineFarmTwinAnomaly\",\r\n    \"mlAlgorithm\": \"AutoEncoder-Anomaly\",\r\n    \"version\": \"v3\",\r\n    \"description\": \"Training config for WindTurbine Farm digital twin, multiple windturbines of same profile\",\r\n    \"mlDataSourceConfig\": {\r\n        \"entityType\": \"DIGITAL_TWIN\",\r\n        \"entityName\": \"WindTurbineFarm\",\r\n        \"featuresByProfile\": {\r\n            \"WindTurbine\": [\r\n                {\r\n                    \"type\": \"METRIC\",\r\n                    \"name\": \"TurbinePower\",\r\n                    \"isInput\": true,\r\n                    \"isOutput\": false,\r\n                    \"fromExternalSource\": false,\r\n                    \"deviceSelector\": {\r\n                        \"label\": \"deviceName\",\r\n                        \"Operator\": \"EQUALS\",\r\n                        \"value\": \"AltaNS12\"\r\n                    }\r\n                },\r\n                {\r\n                    \"type\": \"METRIC\",\r\n                    \"name\": \"TurbinePower\",\r\n                    \"isInput\": true,\r\n                    \"isOutput\": false,\r\n                    \"fromExternalSource\": false,\r\n                    \"deviceSelector\": {\r\n                        \"label\": \"deviceName\",\r\n                        \"Operator\": \"EQUALS\",\r\n                        \"value\": \"AltaNS14\"\r\n                    }\r\n                },\r\n                {\r\n                    \"type\": \"METRIC\",\r\n                    \"name\": \"RotorSpeed\",\r\n                    \"isInput\": true,\r\n                    \"fromExternalSource\": false,\r\n                    \"deviceSelector\": {\r\n                        \"label\": \"deviceName\",\r\n                        \"Operator\": \"EQUALS\",\r\n                        \"value\": \"AltaNS12\"\r\n                    }\r\n                },\r\n                {\r\n                    \"type\": \"METRIC\",\r\n                    \"name\": \"WindDirection\",\r\n                    \"isInput\": true,\r\n                    \"fromExternalSource\": false,\r\n                    \"deviceSelector\": {\r\n                        \"label\": \"deviceName\",\r\n                        \"Operator\": \"EQUALS\",\r\n                        \"value\": \"AltaNS14\"\r\n                    }\r\n                },\r\n                {\r\n                    \"type\": \"METRIC\",\r\n                    \"name\": \"WindSpeed\",\r\n                    \"isInput\": true,\r\n                    \"fromExternalSource\": true,\r\n                    \"deviceSelector\": {\r\n                        \"label\": \"deviceName\",\r\n                        \"Operator\": \"EQUALS\",\r\n                        \"value\": \"AltaNS12\"\r\n                    }\r\n                }\r\n            ]\r\n        },\r\n        \"groupOrJoinKeys\": [\r\n            \"deviceName\"\r\n        ],\r\n        \"trainingDataSourceConfig\": {\r\n            \"filters\": [],\r\n            \"samplingIntervalSecs\": 30,\r\n            \"dataCollectionTotalDurationSec\": 1800\r\n        },\r\n        \"predictionDataSourceConfig\": {\r\n            \"streamType\": \"redis\",\r\n            \"filters\": [],\r\n            \"samplingIntervalSecs\": 30,\r\n            \"topicName\": \"enriched/#\",\r\n            \"predictionEndPointURL\": \"http://ml-inferencing:480999\"\r\n        }\r\n    },\r\n    \"enabled\": true,\r\n    \"message\": \" on device {{.deviceName}} detected in Windfarm that might be causing low power generation\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/api/v3/ml_management/algorithm/AutoEncoder/config",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"v3",
+						"ml_management",
+						"algorithm",
+						"AutoEncoder",
+						"config"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getTraininDataConfig",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "admin",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "admin",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/api/v3/ml_management/algorithm/AutoEncoder/config/TransformerDGABasedAnomaly",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"v3",
+						"ml_management",
+						"algorithm",
+						"AutoEncoder",
+						"config",
+						"TransformerDGABasedAnomaly"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getAllTrainingConfigurations",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "admin",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "admin",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/api/v3/ml_management/algorithm/RandomForest-Classification/config/all",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"v3",
+						"ml_management",
+						"algorithm",
+						"RandomForest-Classification",
+						"config",
+						"all"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "generateTrainingDataExport",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "admin",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "admin",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"classification_trgdata\",\r\n    \"mlAlgorithm\": \"RandomForest-Classification\",\r\n    \"mlModelConfigName\": \"RandomForest-ClassificationConfig\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/api/v3/ml_management/training_data/export",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"v3",
+						"ml_management",
+						"training_data",
+						"export"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "exportTrainingDataZipStatus",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/api/v3/ml_management/training_data/export/status?mlModelConfigName=TransformerDGABasedAnomaly&mlAlgorithm=AutoEncoder",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"v3",
+						"ml_management",
+						"training_data",
+						"export",
+						"status"
+					],
+					"query": [
+						{
+							"key": "mlModelConfigName",
+							"value": "TransformerDGABasedAnomaly"
+						},
+						{
+							"key": "mlAlgorithm",
+							"value": "AutoEncoder"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "exportTrainingDataZipStatus Copy",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "admin",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "admin",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/api/v3/ml_management/training_data/export?mlModelConfigName=TSModelConfig&mlAlgorithm=Multivariate-DeepVar-TimeSeries",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"v3",
+						"ml_management",
+						"training_data",
+						"export"
+					],
+					"query": [
+						{
+							"key": "mlModelConfigName",
+							"value": "TSModelConfig"
+						},
+						{
+							"key": "mlAlgorithm",
+							"value": "Multivariate-DeepVar-TimeSeries"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "exportTrainingDataZip",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "admin",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "admin",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"AutoEncoder_WindTurbineAnomaly_dataexport\",\r\n    \"description\" : \"AutoEncoder WindTurbineAnomaly dataexport\",\r\n    \"mlAlgorithm\": \"AutoEncoder\",\r\n    \"mlModelConfigName\": \"WindTurbineAnomaly\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/api/v3/ml_management/training_data/export",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"v3",
+						"ml_management",
+						"training_data",
+						"export"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "submitTrainingJob",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "admin",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "admin",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"RandomForest-ClassificationConfig_trg_gkg1\",\r\n    \"description\": \"RandomForest-ClassificationConfig trg 12Jan25\",\r\n    \"mlAlgorithm\": \"RandomForest-Classification\",\r\n    \"mlModelConfigName\": \"RandomForest-ClassificationConfig\",\r\n    \"useUploadedData\": false,\r\n    \"notifyOnCompletion\": false\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/api/v3/ml_management/training_job",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"v3",
+						"ml_management",
+						"training_job"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "submitTSTrgJob",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"TSDepVar_02\",\r\n    \"description\": \"Multivariate-DeepVar-TimeSeries TransformerDGABasedAnomaly trg 12Dec24\",\r\n    \"mlAlgorithm\": \"Multivariate-DeepVar-TimeSeries\",\r\n    \"mlModelConfigName\": \"TSModelConfig\",\r\n    \"useUploadedData\": true,\r\n    \"notifyOnCompletion\": false\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/api/v3/ml_management/training_job",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"v3",
+						"ml_management",
+						"training_job"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getEventConfig",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "admin",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "admin",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/api/v3/ml_management/event_config?mlModelConfigNameName=WindTurbineAnomalyVal&modelVersion=12&mlAlgorithm=HedgeAnomaly",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"v3",
+						"ml_management",
+						"event_config"
+					],
+					"query": [
+						{
+							"key": "mlModelConfigNameName",
+							"value": "WindTurbineAnomalyVal"
+						},
+						{
+							"key": "modelVersion",
+							"value": "12"
+						},
+						{
+							"key": "mlAlgorithm",
+							"value": "HedgeAnomaly"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "updateMLEventConfig",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "admin",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "admin",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"mlAlgorithm\": \"HedgeAnomaly\",\n    \"mlModelConfigName\": \"WindTurbineAnomalyVal\",\n    \"modelName\": \"WindTurbineMac1\",\n    \"modelVersion\": 12,\n    \"eventName\": \"WindTurbineAnomalyEvent\",\n    \"eventMessage\": \"Anomaly detected\",\n    \"thresholdsBySeverity\": {\n        \"CRITICAL\": 3.5,\n        \"MINOR\": 1.9,\n        \"MAJOR\": 2.2\n    },\n    \"stabilizationPeriodByCount\": 1\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/api/v3/ml_management/event_config",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"v3",
+						"ml_management",
+						"event_config"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "AddEventConfigAnomaly",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "admin",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "admin",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"mlAlgorithm\": \"AutoEncoder\",\n    \"trainingDataConfigName\": \"WindTurbineAnomaly\",\n    \"eventName\": \"WindTurbineAnomalyEvent\",\n    \"description\": \"Anomaly detected\",\n    \"conditions\": [\n        {\n            \"thresholdsDefinitions\": [\n                {\n                    \"label\": \"Prediction\",\n                    \"operator\": \"BETWEEN\",\n                    \"lowerThreshold\": 2,\n                    \"upperThreshold\": 3\n                }\n            ],\n            \"severityLevel\": \"MINOR\"\n        },\n        {\n            \"thresholdsDefinitions\": [\n                {\n                    \"label\": \"Prediction\",\n                    \"operator\": \"BETWEEN\",\n                    \"lowerThreshold\": 3,\n                    \"upperThreshold\": 4\n                }\n            ],\n            \"severityLevel\": \"MAJOR\"\n        },\n        {\n            \"thresholdsDefinitions\": [\n                {\n                    \"label\": \"Prediction\",\n                    \"operator\": \"GREATER_THAN\",\n                    \"thresholdValue\": 4\n                }\n            ],\n            \"severityLevel\": \"CRITICAL\"\n        }\n    ],\n    \"modelName\": \"TrainPowerShortageAnomalyNov24Data\",\n    \"stabilizationPeriodByCount\": 1,\n    \"mlAlgorithmType\": \"Anomaly\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/api/v3/ml_management/event_config",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"v3",
+						"ml_management",
+						"event_config"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getTrainingData",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "admin",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "admin",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/api/v3/ml_management/training_data/status?mlModelConfig=TSModelConfig&mlAlgorithm=AutoEncoder",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"v3",
+						"ml_management",
+						"training_data",
+						"status"
+					],
+					"query": [
+						{
+							"key": "mlModelConfig",
+							"value": "TSModelConfig"
+						},
+						{
+							"key": "mlAlgorithm",
+							"value": "AutoEncoder"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "createDataSample",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "admin",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "admin",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/api/v3/ml_management/training_data/sample?mlModelConfigName=TSModelConfig&mlAlgorithm=Multivariate-DeepVar-TimeSeries",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"v3",
+						"ml_management",
+						"training_data",
+						"sample"
+					],
+					"query": [
+						{
+							"key": "mlModelConfigName",
+							"value": "TSModelConfig"
+						},
+						{
+							"key": "mlAlgorithm",
+							"value": "Multivariate-DeepVar-TimeSeries"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DeployModelToNodes",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"mlAlgorithm\": \"HedgeAnomaly\",\r\n    \"mlModelConfigName\": \"WindTurbineAnomalyVal\",\r\n    \"targetNodes\": [\r\n        \"localhost-nodeid-01\"\r\n    ],\r\n    \"commandName\": \"Deploy\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/api/v3/ml_management/model_deployment",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"v3",
+						"ml_management",
+						"model_deployment"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getModelZipFile",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "3cf6bb1e-ad62-40b4-8a9f-ba429042ebfa",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Cookie",
+						"value": "csrf_token=dummy"
+					},
+					{
+						"key": "X-CSRF-Token",
+						"value": "dummy"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"mlAlgorithm\": \"HedgeAnomaly\",\r\n    \"trainingDataConfigName\": \"GirishOlgaTest\",\r\n    \"targetNodes\": [\r\n        \"clm-aus-w1yap1\"\r\n    ],\r\n    \"commandName\": \"Deploy\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/api/v3/ml_management/model/modelFile?mlAlgorithm=HedgeAnomaly&trainingConfig=GirishOlgaTest",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"v3",
+						"ml_management",
+						"model",
+						"modelFile"
+					],
+					"query": [
+						{
+							"key": "mlAlgorithm",
+							"value": "HedgeAnomaly"
+						},
+						{
+							"key": "trainingConfig",
+							"value": "GirishOlgaTest"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getAllJobs",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/api/v2/ml_management/training/training_job/all",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"v2",
+						"ml_management",
+						"training",
+						"training_job",
+						"all"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "deleteJob",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "admin",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "admin",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/api/v2/ml_management/training/training_job/windAnomaly_trg_job_001",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"v2",
+						"ml_management",
+						"training",
+						"training_job",
+						"windAnomaly_trg_job_001"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getJobsByConfig",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "admin",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "admin",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/api/v3/ml_management/training_job?mlModelConfigName=TSModelConfig",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"v3",
+						"ml_management",
+						"training_job"
+					],
+					"query": [
+						{
+							"key": "jobStatus",
+							"value": "TrainingCompleted",
+							"disabled": true
+						},
+						{
+							"key": "mlModelConfigName",
+							"value": "TSModelConfig"
+						},
+						{
+							"key": "algorithm",
+							"value": "Multivariate-DeepVar-TimeSeries",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getLatestModelsForDeployment",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "admin",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "admin",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/api/v3/ml_management/model?mlAlgorithm=HedgeAnomaly&latestVersionsOnly=true",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"v3",
+						"ml_management",
+						"model"
+					],
+					"query": [
+						{
+							"key": "mlAlgorithm",
+							"value": "HedgeAnomaly"
+						},
+						{
+							"key": "latestVersionsOnly",
+							"value": "true"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getModelDeploymentStatus",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/api/v3/ml_management/model_deployment?mlAlgorithm=AutoEncoder&mlModelConfigName=WindTurbineAnomaly&deploymentStatus=ModelDeployed",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"v3",
+						"ml_management",
+						"model_deployment"
+					],
+					"query": [
+						{
+							"key": "mlAlgorithm",
+							"value": "AutoEncoder"
+						},
+						{
+							"key": "mlModelConfigName",
+							"value": "WindTurbineAnomaly"
+						},
+						{
+							"key": "deploymentStatus",
+							"value": "ModelDeployed"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getModelDeploymentsByNode",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "admin",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "admin",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/api/v3/ml_management/nodes/model_deployment?mlAlgorithm=Multivariate-DeepVar-TimeSeries&mlModelConfigName=TSModelConfig&groupByNodes=true",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"v3",
+						"ml_management",
+						"nodes",
+						"model_deployment"
+					],
+					"query": [
+						{
+							"key": "mlAlgorithm",
+							"value": "Multivariate-DeepVar-TimeSeries"
+						},
+						{
+							"key": "mlModelConfigName",
+							"value": "TSModelConfig"
+						},
+						{
+							"key": "groupByNodes",
+							"value": "true"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getModelDeploymentsAll",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/api/v3/ml_management/model_deployment",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"v3",
+						"ml_management",
+						"model_deployment"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getAnomalyPrediction",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"Telco-Tower-A\": [\r\n        [\r\n            2.92,\r\n            3482,\r\n            1.89\r\n        ]\r\n    ]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:48096/api/v2/predict/anomaly/TelcoTowerAnomaly",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "48096",
+					"path": [
+						"api",
+						"v2",
+						"predict",
+						"anomaly",
+						"TelcoTowerAnomaly"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getMetricNames",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:48095/api/v2/ml_management/tsdata/label/__name__",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "48095",
+					"path": [
+						"api",
+						"v2",
+						"ml_management",
+						"tsdata",
+						"label",
+						"__name__"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getNodes",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:48095//api/v2/ml_management/tsdata/label/edgeNode",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "48095",
+					"path": [
+						"",
+						"api",
+						"v2",
+						"ml_management",
+						"tsdata",
+						"label",
+						"edgeNode"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getDevices",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:48095//api/v2/ml_management/tsdata/label/device",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "48095",
+					"path": [
+						"",
+						"api",
+						"v2",
+						"ml_management",
+						"tsdata",
+						"label",
+						"device"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getTrainingDataVictoriaMatrixRangeQuery",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "apiKey a76b3735-55b5-40ce-8b5c-e4761586e4aa",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"name": "Content-Type",
+						"type": "text"
+					},
+					{
+						"key": "X-XSRF-TOKEN",
+						"value": "VND_RSSO_V2.eyJpYXQiOjE1ODMxMjcxOTI0NjYsInNydiI6Imh0dHBzOi8vbG9nZ2VuLnRyeWJtYy5jb20vcnNzbyIsInJsbSI6IioiLCJ0b2tlbklkIjoiXzQ4NmU5MzNlLWYzNTMtNGE4Yy1hM2YyLTQwOGVmZmI3ZGIxZSJ9",
+						"type": "text",
+						"disabled": true
+					},
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n   \"advanceFilter\":{\n      \"eventClass\":\"EVENT\",\n       \"category\": \"IOT\"\n   }\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://clm-aus-swwnes.bmc.com:8428/api/v1/query_range?query={ __name__=~\"CallDrops|CallVolume|AntennaDislocation\", edgeNode=~\"raspi-pune.bmc.com\", device=~\"Telco-Tower-A|Telco-Tower-OSS|Telco-Antenna-North\", devicelabels=~\".*Telco-Tower-A.*\"}&start=1607796017&end=1607798017&step=10",
+					"protocol": "http",
+					"host": [
+						"clm-aus-swwnes",
+						"bmc",
+						"com"
+					],
+					"port": "8428",
+					"path": [
+						"api",
+						"v1",
+						"query_range"
+					],
+					"query": [
+						{
+							"key": "query",
+							"value": "{ __name__=~\"CallDrops|CallVolume|AntennaDislocation\", edgeNode=~\"raspi-pune.bmc.com\", device=~\"Telco-Tower-A|Telco-Tower-OSS|Telco-Antenna-North\", devicelabels=~\".*Telco-Tower-A.*\"}"
+						},
+						{
+							"key": "start",
+							"value": "1607796017"
+						},
+						{
+							"key": "end",
+							"value": "1607798017"
+						},
+						{
+							"key": "step",
+							"value": "10"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "VictoriaQueryDupsDebug",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "apiKey a76b3735-55b5-40ce-8b5c-e4761586e4aa",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"name": "Content-Type",
+						"type": "text"
+					},
+					{
+						"key": "X-XSRF-TOKEN",
+						"value": "VND_RSSO_V2.eyJpYXQiOjE1ODMxMjcxOTI0NjYsInNydiI6Imh0dHBzOi8vbG9nZ2VuLnRyeWJtYy5jb20vcnNzbyIsInJsbSI6IioiLCJ0b2tlbklkIjoiXzQ4NmU5MzNlLWYzNTMtNGE4Yy1hM2YyLTQwOGVmZmI3ZGIxZSJ9",
+						"type": "text",
+						"disabled": true
+					},
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "query",
+							"value": "{__name__=~\"CallDrops|CallVolume|AntennaDislocation\", device=~\"Telco-Tower-A|Telco-Tower-OSS|Telco-Antenna-North\", devicelabels=~\".*Telco-Tower-A.*\"}",
+							"type": "text"
+						},
+						{
+							"key": "start",
+							"value": "1688284805",
+							"type": "text"
+						},
+						{
+							"key": "end",
+							"value": "1688284805",
+							"type": "text"
+						},
+						{
+							"key": "step",
+							"value": "30",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://clm-aus-vpn3l3:8428/api/v1/query_range",
+					"protocol": "http",
+					"host": [
+						"clm-aus-vpn3l3"
+					],
+					"port": "8428",
+					"path": [
+						"api",
+						"v1",
+						"query_range"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "VictoriaQueryDupsDebug Copy",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "apiKey a76b3735-55b5-40ce-8b5c-e4761586e4aa",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"name": "Content-Type",
+						"type": "text"
+					},
+					{
+						"key": "X-XSRF-TOKEN",
+						"value": "VND_RSSO_V2.eyJpYXQiOjE1ODMxMjcxOTI0NjYsInNydiI6Imh0dHBzOi8vbG9nZ2VuLnRyeWJtYy5jb20vcnNzbyIsInJsbSI6IioiLCJ0b2tlbklkIjoiXzQ4NmU5MzNlLWYzNTMtNGE4Yy1hM2YyLTQwOGVmZmI3ZGIxZSJ9",
+						"type": "text",
+						"disabled": true
+					},
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n   \"advanceFilter\":{\n      \"eventClass\":\"EVENT\",\n       \"category\": \"IOT\"\n   }\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://clm-aus-swwnes.bmc.com:8428/api/v1/query_range?query={ __name__=~\"CallDrops|CallVolume|AntennaDislocation\", edgeNode=~\"raspi-pune.bmc.com\", device=~\"Telco-Tower-A|Telco-Tower-OSS|Telco-Antenna-North\", devicelabels=~\".*Telco-Tower-A.*\"}&start=1607796017&end=1607798017&step=10",
+					"protocol": "http",
+					"host": [
+						"clm-aus-swwnes",
+						"bmc",
+						"com"
+					],
+					"port": "8428",
+					"path": [
+						"api",
+						"v1",
+						"query_range"
+					],
+					"query": [
+						{
+							"key": "query",
+							"value": "{ __name__=~\"CallDrops|CallVolume|AntennaDislocation\", edgeNode=~\"raspi-pune.bmc.com\", device=~\"Telco-Tower-A|Telco-Tower-OSS|Telco-Antenna-North\", devicelabels=~\".*Telco-Tower-A.*\"}"
+						},
+						{
+							"key": "start",
+							"value": "1607796017"
+						},
+						{
+							"key": "end",
+							"value": "1607798017"
+						},
+						{
+							"key": "step",
+							"value": "10"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "CreateWindFarmAnomalyConfig",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"WindTurbineAnomalyConfiguration\",\r\n    \"version\": \"v2\",\r\n    \"description\": \"Wind Turbine Anomaly training data from Alta NS14 under normal working\",\r\n    \"groupMetricsBy\": \"Profile\",\r\n    \"trainingDataSetDefinition\": {\r\n        \"Profile\": \"WindTurbine\",\r\n        \"deviceNames\": [\r\n            \"Alta NS14\",\r\n            \"Alta NS12\"\r\n        ],\r\n        \"metricQueries\": [\r\n            {\r\n                \"name\": \"TurbinePower\",\r\n                \"edgeNodes\": [\r\n                    \"raspi-pune.bmc.com\"\r\n                ]\r\n            },\r\n            {\r\n                \"name\": \"GenBearingTemperature\",\r\n                \"edgeNodes\": [\r\n                    \"raspi-pune.bmc.com\"\r\n                ]\r\n            },\r\n            {\r\n                \"name\": \"GenGearboxVibrations\",\r\n                \"edgeNodes\": [\r\n                    \"raspi-pune.bmc.com\"\r\n                ]\r\n            }\r\n        ]\r\n    },\r\n    \"samplingInterval\": 20,\r\n    \"trainingDataCount\": 4000,\r\n    \"enabled\": \"Yes\",\r\n    \"anomalyMessage\": \"Anomaly detected in windtower, normal operations may be impacted\",\r\n    \"trainingProviderDetails\": {\r\n        \"name\": \"Google Cloud Provider(GCP)\"\r\n    },\r\n    \"anomalySeverityConfig\": {}\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:48095/api/v1/anomaly/config",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "48095",
+					"path": [
+						"api",
+						"v1",
+						"anomaly",
+						"config"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "saveToTSDbVictoria",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "apiKey a76b3735-55b5-40ce-8b5c-e4761586e4aa",
+						"type": "text",
+						"disabled": true
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"name": "Content-Type",
+						"type": "text",
+						"disabled": true
+					},
+					{
+						"key": "X-XSRF-TOKEN",
+						"value": "VND_RSSO_V2.eyJpYXQiOjE1ODMxMjcxOTI0NjYsInNydiI6Imh0dHBzOi8vbG9nZ2VuLnRyeWJtYy5jb20vcnNzbyIsInJsbSI6IioiLCJ0b2tlbklkIjoiXzQ4NmU5MzNlLWYzNTMtNGE4Yy1hM2YyLTQwOGVmZmI3ZGIxZSJ9",
+						"type": "text",
+						"disabled": true
+					},
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "IoTEvent {device=\"Telco-PowerSupply-A\", summary=\"High Temperature of 55 degree detected for Telco-PowerSupply-A \", id=\"ev3233\", type=\"EVENT\", edgeNode=\"raspi-pune.bmc.com\", valuetype=\"int64\", profile=\"Power-Supplies\", devicelabels=\"Telco-Tower-A,Grid,Power,Diesel Power,Battery\", profile=\"Power-Supplies\"} 1",
+					"options": {
+						"raw": {
+							"language": "text"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://clm-aus-swwnes.bmc.com:8428/api/v1/import/prometheus",
+					"protocol": "http",
+					"host": [
+						"clm-aus-swwnes",
+						"bmc",
+						"com"
+					],
+					"port": "8428",
+					"path": [
+						"api",
+						"v1",
+						"import",
+						"prometheus"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getCountByevice",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "apiKey a76b3735-55b5-40ce-8b5c-e4761586e4aa",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"name": "Content-Type",
+						"type": "text"
+					},
+					{
+						"key": "X-XSRF-TOKEN",
+						"value": "VND_RSSO_V2.eyJpYXQiOjE1ODMxMjcxOTI0NjYsInNydiI6Imh0dHBzOi8vbG9nZ2VuLnRyeWJtYy5jb20vcnNzbyIsInJsbSI6IioiLCJ0b2tlbklkIjoiXzQ4NmU5MzNlLWYzNTMtNGE4Yy1hM2YyLTQwOGVmZmI3ZGIxZSJ9",
+						"type": "text",
+						"disabled": true
+					},
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n   \"advanceFilter\":{\n      \"eventClass\":\"EVENT\",\n       \"category\": \"IOT\"\n   }\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://clm-aus-swwnes.bmc.com:8428/api/v1/query?query=sum by(device) (IoTEvent{edgeNode=\"raspi-pune.bmc.com\"}[40d])",
+					"protocol": "http",
+					"host": [
+						"clm-aus-swwnes",
+						"bmc",
+						"com"
+					],
+					"port": "8428",
+					"path": [
+						"api",
+						"v1",
+						"query"
+					],
+					"query": [
+						{
+							"key": "query",
+							"value": "sum by(device) (IoTEvent{edgeNode=\"raspi-pune.bmc.com\"}[40d])"
+						},
+						{
+							"key": "start",
+							"value": "1607796017",
+							"disabled": true
+						},
+						{
+							"key": "end",
+							"value": "1607798017",
+							"disabled": true
+						},
+						{
+							"key": "step",
+							"value": "10",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "saveTicketToVictoria",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "apiKey a76b3735-55b5-40ce-8b5c-e4761586e4aa",
+						"type": "text",
+						"disabled": true
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"name": "Content-Type",
+						"type": "text",
+						"disabled": true
+					},
+					{
+						"key": "X-XSRF-TOKEN",
+						"value": "VND_RSSO_V2.eyJpYXQiOjE1ODMxMjcxOTI0NjYsInNydiI6Imh0dHBzOi8vbG9nZ2VuLnRyeWJtYy5jb20vcnNzbyIsInJsbSI6IioiLCJ0b2tlbklkIjoiXzQ4NmU5MzNlLWYzNTMtNGE4Yy1hM2YyLTQwOGVmZmI3ZGIxZSJ9",
+						"type": "text",
+						"disabled": true
+					},
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "Ticket {device=\"HVAC-A\", summary=\"Fuel tank ordered \", id=\"WO-23456\", type=\"Work-Order\", edgeNode=\"raspi-pune.bmc.com\", valuetype=\"int64\", profile=\"Power-Supplies\", devicelabels=\"Telco-Tower-A,Grid,Power,Diesel Power,Battery\", profile=\"HVAC\"} 1",
+					"options": {
+						"raw": {
+							"language": "text"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://35.202.140.177:8428/api/v1/status/tsdb",
+					"protocol": "http",
+					"host": [
+						"35",
+						"202",
+						"140",
+						"177"
+					],
+					"port": "8428",
+					"path": [
+						"api",
+						"v1",
+						"status",
+						"tsdb"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "PredictAnomalyScore",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "admin",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "admin",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"data\": [\r\n        [\r\n            5,35,42,4220,119.5666667\r\n        ]\r\n    ]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://clm-pun-vvriyq:48096/api/v2/predict/HedgeAnomaly/FiveColTemplate",
+					"protocol": "http",
+					"host": [
+						"clm-pun-vvriyq"
+					],
+					"port": "48096",
+					"path": [
+						"api",
+						"v2",
+						"predict",
+						"HedgeAnomaly",
+						"FiveColTemplate"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "PredictTS",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "admin",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "admin",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"AltaNS12\": {\r\n        \"data\": [\r\n            [\r\n                1734533481,\r\n                \"AltaNS12\",\r\n                1844.66,\r\n                28.03731,\r\n                215.5055,\r\n                7.563114\r\n            ],\r\n            [\r\n                1734533541,\r\n                \"AltaNS12\",\r\n                1904.698,\r\n                26.01621,\r\n                210.2682,\r\n                10.85844\r\n            ]\r\n        ],\r\n        \"confidence_interval\": {\r\n            \"min\": 0.5,\r\n            \"max\": 0.9\r\n        }\r\n    },\r\n    \"AltaNS14\": {\r\n        \"data\": [\r\n            [\r\n                1734533201,\r\n                \"AltaNS14\",\r\n                1843.476,\r\n                25.08295,\r\n                223.4915,\r\n                7.16693\r\n            ],\r\n            [\r\n                1734533491,\r\n                \"AltaNS14\",\r\n                1884.502,\r\n                26.74755,\r\n                220.307,\r\n                9.643438\r\n            ],\r\n            [\r\n                1734533551,\r\n                \"AltaNS14\",\r\n                1904.402,\r\n                29.02603,\r\n                247.6655,\r\n                10.72539\r\n            ]\r\n        ],\r\n        \"confidence_interval\": {\r\n            \"min\": 0.5,\r\n            \"max\": 0.9\r\n        }\r\n    }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:55000/api/v3/predict/Multivariate-DeepVar-TimeSeries/TSModelConfig",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "55000",
+					"path": [
+						"api",
+						"v3",
+						"predict",
+						"Multivariate-DeepVar-TimeSeries",
+						"TSModelConfig"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "InferenceReinitialize",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "admin",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "admin",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:48120/api/v2/ml_broker/reinitialize",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "48120",
+					"path": [
+						"api",
+						"v2",
+						"ml_broker",
+						"reinitialize"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

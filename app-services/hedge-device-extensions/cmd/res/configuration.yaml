@@ -1,0 +1,24 @@
+Writable:
+  LogLevel: "INFO"
+
+Service:
+  Host: localhost
+  Port: 48097
+  StartupMsg: hedge device extensions service started
+
+SecretStore:
+  Path: app-hedge-device-extensions/
+  TokenFile: /tmp/edgex/secrets/app-hedge-device-extensions/secrets-token.json
+
+MessageBus:
+  Disabled: false
+
+Trigger:
+  Type: http
+
+ApplicationSettings:
+  LatestDate: 07-20-23
+  VictoriaMetricsURL: 'http://clm-aus-vpn3l3:8428'
+  SystemPublishTopic: 'system-events/core-metadata/hedge/events'
+  ImageDir: "/tmp/content/images"
+  #DatastoreProvider: Hedge # ADE or Hedge

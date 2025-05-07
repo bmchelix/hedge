@@ -1,0 +1,138 @@
+{
+  "userName" : "Sujan Nellikandi",
+  "applicationName" : "Helix Fleet Control",
+  "landingPage" : {
+      "linkDetails" : {
+        "type" : "view",
+        "linkUri" : "/homepage"
+      }
+  },
+  "menuItems" : [
+    {
+      "displayName" : "Vehicles",
+      "linkDetails" : null,
+      "subMenuItems": [
+        {
+          "displayName": "Discover New Vehicles",
+          "linkDetails": {
+            "type" : "view",
+            "linkUri": "/discovery"
+          }
+        },
+        {
+          "displayName": "Profile",
+          "linkDetails": {
+            "type" : "view",
+            "linkUri": "/listprofile"
+          }
+        },
+        {
+          "displayName": "Vehicles",
+          "linkDetails": {
+            "type" : "view",
+            "linkUri": "/listdevice"
+          }
+        }
+      ]
+    },
+    {
+      "displayName" : "Anomaly",
+      "linkDetails" : null,
+      "subMenuItems": [
+        {
+          "displayName": "Configurations",
+          "linkDetails": {
+            "type" : "view",
+            "linkUri": "/listanomalytrainconf"
+          }
+        },
+        {
+          "displayName": "Jobs",
+          "linkDetails": {
+            "type" : "view",
+            "linkUri": "/listanomalytrainingjobs"
+          }
+        },
+        {
+          "displayName": "Model Deployments'",
+          "linkDetails": {
+            "type" : "view",
+            "linkUri": "/listmodelsdeployed"
+          }
+        }
+      ]
+    },
+    {
+      "displayName" : "Analytics",
+      "linkDetails" : {
+        "type" : "frame",
+	"id" : "Analytics",
+        "linkUri" : "/hedge/hedge-grafana"
+      }
+    },
+    {
+      "displayName": "Events and Workflow",
+      "linkDetails": null,
+      "subMenuItems": [
+        {
+          "displayName": "Workflow Designer",
+          "linkDetails": {
+            "type" : "frame",
+            "id" : "process-designer",
+            "linkUri": "/hedge/hedge-node-red/"
+          }
+        },
+        {
+          "displayName": "Rule Designer",
+          "linkDetails": {
+            "type" : "view",
+            "linkUri": "/rule-manager"
+          }
+        },
+        {
+          "displayName": "Rule Designer -- Deprecated",
+          "linkDetails": {
+            "type" : "frame",
+            "id" : "rule-manager",
+            "linkUri": "/web"
+          }
+        },
+        {
+          "displayName": "Digital Twin Data Simulation",
+          "linkDetails": {
+            "type" : "frame",
+            "id" : "digitwin",
+            "linkUri": "/hedge/hedge-node-red/ui/"
+          }
+        }
+      ]
+    },
+    {
+      "displayName": "Administration",
+      "subMenuItems": [
+        {
+          "displayName": "User Role Management",
+          "linkDetails": {
+            "type" : "frame",
+            "id" : "user-role-manger",
+            "linkUri": "/hedge-grafana/org/users"
+          }
+        },
+        {
+          "displayName": "Service Health",
+          "linkDetails": {
+            "type" : "frame",
+            "linkUri": "/consul"
+          }
+        },
+        {
+          "displayName": "Service Configuration",
+          "linkDetails": {
+            "type" : "frame",
+            "linkUri": "/consul/"
+          }
+        }
+      ]
+    }
+  ]
+}

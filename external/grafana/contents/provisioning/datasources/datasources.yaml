@@ -1,0 +1,43 @@
+# # config file version
+apiVersion: 2
+
+# # list of datasources that should be deleted from the database
+#deleteDatasources:
+#   - name: Graphite
+#     orgId: 1
+
+# # list of datasources to insert/update depending
+# # on what's available in the database
+datasources:
+  - name: Metrics
+    type: prometheus
+    access: proxy
+    orgId: 1
+    uid: hedge_metrics_prom_vm
+    url: http://hedge-victoria-metrics:8428
+    isDefault: true
+    version: 2
+    editable: true
+
+  - name: Events
+    type: grafana-opensearch-datasource
+    access: proxy
+    orgId: 1
+    uid: hedge_events_es
+    url: http://hedge-elasticsearch:9200
+    database: event_index
+    basicAuth: true
+    basicAuthUser: admin
+    jsonData:
+      database: "event_index"
+      flavor: "opensearch"
+      logLevelField: ""
+      logMessageField: ""
+      maxConcurrentShardRequests: "2"
+      timeField: "modified"
+      timeInterval: "15s"
+      tlsSkipVerify: true
+      version: 1.0.0
+    secureJsonData:
+      basicAuthPassword: admin
+    editable: true

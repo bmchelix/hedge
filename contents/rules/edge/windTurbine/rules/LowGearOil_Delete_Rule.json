@@ -1,0 +1,27 @@
+{
+    "id": "LowGearOil_Delete_Rule",
+    "sql": "SELECT meta(deviceName) as device, meta(id) as id, round(avg(genGearOilLevelPercent)) as oilLevel  FROM enrichedStream where device=\"AltaNS12\" GROUP BY TUMBLINGWINDOW(ss,30) HAVING avg(genGearOilLevelPercent) > 65.0",
+    "options": {
+        "qos": 1
+    },
+    "actions": [
+        {
+            "rest": {
+                "url": "http://hedge-event-publisher:48102/api/v3/trigger",
+                "method": "post",
+                "isEvent": true,
+                "name" : "generateEvent",
+                "dataTemplate": "{\"id\": \"{{.id}}\", \"device_name\": \"{{.device}}\", \"class\": \"OT_EVENT\",  \"msg\": \"Gearbox Oil replenished {{.oilLevel}}%\", \"event_type\": \"EVENT\", \"status\": \"Closed\", \"name\": \"LowOilLevel\", \"severity\": \"High\", \"related_metric\": \"GearOilLevel\", \"threshold\": 50, \"actual_value\":{{.oilLevel}}, \"unit\": \"%\", \"correlation_id\" : \"{{.device}}LowGearOil_Rule\"}",
+                "sendSingle": true,
+                "retryInterval": 1,
+                "cacheLength": 50,
+                "omitIfEmpty": true
+            }
+        },
+        {
+            "log": {
+                "name" : "log"
+            }
+        }
+    ]
+}

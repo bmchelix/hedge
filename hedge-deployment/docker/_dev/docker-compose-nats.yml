@@ -1,0 +1,21 @@
+volumes:
+  nats-data: {}
+  config: {}
+
+services:
+  nats:
+    image: nats:2.10.18-alpine3.20
+    ports:
+      - "8080:8080"
+      - "4222:4222"
+    command: "--server_name=s1-c1 -c /config/nats-server.conf"
+    container_name: edgex-nats-server
+    hostname: edgex-nats-server
+    read_only: true
+    restart: always
+    security_opt:
+      - no-new-privileges:true
+    user: "root:root"
+    volumes:
+      - nats-data:/tmp/nats
+      - ./nats-config:/config

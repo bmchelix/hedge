@@ -1,0 +1,45 @@
+Writable:
+  LogLevel: INFO
+Service:
+  Host: localhost
+  Port: 48109
+  StartupMsg: Meta-Sync Core started
+
+SecretStore:
+  Path: app-meta-sync/
+  TokenFile: /tmp/edgex/secrets/app-meta-sync/secrets-token.json
+
+MessageBus:
+  Disabled: true
+
+Trigger:
+  Type: external-mqtt
+  SubscribeTopics: $share/metasync/+/BMCMetaSync/#
+  PublishTopic: ''
+  ExternalMqtt:
+    Url: 'tcp://localhost:1883'
+    ConnectTimeout: 30s
+    AutoReconnect: true
+    KeepAlive: 300
+    QoS: 1
+    Retain: true
+    SkipCertVerify: false
+    SecretName: mbconnection
+    AuthMode: usernamepassword
+
+ApplicationSettings:
+  MqttServer: 'localhost'
+  MqttPort: '1883'
+  MqttAuthMode: "usernamepassword"
+  MqttSecretPath: mbconnection
+  QoS: "1"
+  Retain: "true"
+  SubscribeTopic: 'BMCMetaSync'
+  PublishTopic: 'BMCMetaSync'
+  DeviceExtServiceUrl: 'http://localhost:48097'
+  NotificationServiceUrl: 'http://localhost:59860'
+  MetadataServiceUrl: 'http://localhost:59881'
+  HedgeAdminURL: 'http://localhost:48098'
+  NotificationClientURLs: 'http://localhost:59740'
+  NodeType: "CORE"
+  PersistOnError: "false"

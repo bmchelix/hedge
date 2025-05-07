@@ -1,0 +1,4282 @@
+{
+	"info": {
+		"_postman_id": "87ed8245-a06f-46d1-ba68-952aa5d850f9",
+		"name": "ADE_AIF_APIs",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "1316125",
+		"_collection_link": "https://web.postman.co/workspace/Team-Workspace~834f95e8-0aaf-4cc2-8d8f-f2e18f33d800/collection/1316125-87ed8245-a06f-46d1-ba68-952aa5d850f9?source=collection_link"
+	},
+	"item": [
+		{
+			"name": "AIF",
+			"item": [
+				{
+					"name": "Get Access Keys Refresh Token_solQA",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"tests[\"Status code is 200\"] = responseCode.code === 200;\r",
+									"var jsonData = JSON.parse(responseBody);\r",
+									"postman.setEnvironmentVariable(\"refresh_token\",jsonData.token);"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"access_key\": \"XN4FQIH2SJX5B6E0WEZ9TXH7UTDNDK\",\r\n    \"access_secret_key\": \"Fr6ni4oicWEYJ1JIYZWpdCbCJGQHS8iJtX9lI3qAjH7x8ufFKR\"\r\n}"
+						},
+						"url": {
+							"raw": "https://{{tenant_url}}/ims/api/v1/access_keys/login",
+							"protocol": "https",
+							"host": [
+								"{{tenant_url}}"
+							],
+							"path": [
+								"ims",
+								"api",
+								"v1",
+								"access_keys",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Access Keys Refresh Token_autoMAK",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"tests[\"Status code is 200\"] = responseCode.code === 200;\r",
+									"var jsonData = JSON.parse(responseBody);\r",
+									"postman.setEnvironmentVariable(\"refresh_token\",jsonData.token);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"access_key\": \"SIUF9YZND7D2SOBV5B1763CC6RGD0J\",\r\n    \"access_secret_key\": \"iIGB0CdnqHXdc7oR3GEZWtwOkk2YQXVZjM4fpaMZQcAdlZohxQ\",\r\n    \"tenant_id\": \"1841845631\"\r\n}"
+						},
+						"url": {
+							"raw": "https://{{tenant_url}}/ims/api/v1/access_keys/login",
+							"protocol": "https",
+							"host": [
+								"{{tenant_url}}"
+							],
+							"path": [
+								"ims",
+								"api",
+								"v1",
+								"access_keys",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Access Keys RefreshOnPremade",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"tests[\"Status code is 200\"] = responseCode.code === 200;\r",
+									"var jsonData = JSON.parse(responseBody);\r",
+									"postman.setEnvironmentVariable(\"refresh_token\",jsonData.token);"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"access_key\": \"ONDKP2G610UT1ROYXMTBT8B8ESBELP\",\r\n    \"access_secret_key\": \"phC9Gqon4a4Dh1kG1BnaOsXqxIraRwbfdI25zWKtpQ7Xz1XHkw\",\r\n    \"tennant_id\" : \"1078659160\"\r\n}"
+						},
+						"url": {
+							"raw": "https://{{tenant_url}}/ims/api/v1/access_keys/login",
+							"protocol": "https",
+							"host": [
+								"{{tenant_url}}"
+							],
+							"path": [
+								"ims",
+								"api",
+								"v1",
+								"access_keys",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetJWTToken",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"tests[\"Status code is 200\"] = responseCode.code === 200;\r",
+									"var jsonData = JSON.parse(responseBody);\r",
+									"postman.setEnvironmentVariable(\"jwt_token\",jsonData.json_web_token);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"token\": \"{{refresh_token}}\"\r\n}"
+						},
+						"url": {
+							"raw": "https://{{tenant_url}}/ims/api/v1/auth/tokens",
+							"protocol": "https",
+							"host": [
+								"{{tenant_url}}"
+							],
+							"path": [
+								"ims",
+								"api",
+								"v1",
+								"auth",
+								"tokens"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetJWTTokenIOTHedge",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"tests[\"Status code is 200\"] = responseCode.code === 200;\r",
+									"var jsonData = JSON.parse(responseBody);\r",
+									"postman.setEnvironmentVariable(\"jwt_token\",jsonData.json_web_token);"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"token\": \"{{refresh_token}}\"\r\n}"
+						},
+						"url": {
+							"raw": "https://iothedgecom-iotedgeade-trial.qa.sps.secops.bmc.com/ims/api/v1/auth/tokens",
+							"protocol": "https",
+							"host": [
+								"iothedgecom-iotedgeade-trial",
+								"qa",
+								"sps",
+								"secops",
+								"bmc",
+								"com"
+							],
+							"path": [
+								"ims",
+								"api",
+								"v1",
+								"auth",
+								"tokens"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Roles",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{jwt_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://{{tenant_url}}/ims/api/v1/roles",
+							"protocol": "https",
+							"host": [
+								"{{tenant_url}}"
+							],
+							"path": [
+								"ims",
+								"api",
+								"v1",
+								"roles"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create HedgeAnomaly Algo Template",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"tests[\"Status code is 200\"] = responseCode.code === 200;\r",
+									"postman.clearGlobalVariable(\"templateId\");\r",
+									"var jsonData = JSON.parse(responseBody);\r",
+									"postman.setEnvironmentVariable(\"templateId\", jsonData.response.id);"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{jwt_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "authtype",
+								"value": "rsso-jwt",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"HedgeAnomaly\",\r\n    \"type\": \"Anomaly\",\r\n    \"jobScript\": \"YXBpVmVyc2lvbjogYmF0Y2gvdjEKa2luZDogSm9iCm1ldGFkYXRhOgogIG5hbWU6IGhlZGdlLWF1dG9lbmNvZGVyLXRyZy1qb2IKICBuYW1lc3BhY2U6IF9fTkFNRVNQQUNFX18Kc3BlYzoKICB0dGxTZWNvbmRzQWZ0ZXJGaW5pc2hlZDogMjQwCiAgYmFja29mZkxpbWl0OiAwCiAgdGVtcGxhdGU6CiAgICBzcGVjOgogICAgICBpbWFnZVB1bGxTZWNyZXRzOgogICAgICAgIC0gbmFtZTogX19JTUFHRV9QVUxMX1NFQ1JFVFNfXwogICAgICBjb250YWluZXJzOgogICAgICAgIC0gbmFtZTogaGVkZ2UtYXV0b2VuY29kZXItdHJnLWpvYi10bXAtZ2lyaXNoCiAgICAgICAgICBpbWFnZTogX19ET0NLRVJfUkVHSVNUUllfUFJFRklYX18vaGVkZ2UtbWwtYXV0b2VuY29kZXI6MjQuMi4wMF9HQQogICAgICAgICAgaW1hZ2VQdWxsUG9saWN5OiBBbHdheXMKICAgICAgICAgIHJlc291cmNlczoKICAgICAgICAgICAgcmVxdWVzdHM6CiAgICAgICAgICAgICAgbWVtb3J5OiAiMjU2TWkiCiAgICAgICAgICAgICAgY3B1OiAiMjAwbSIKICAgICAgICAgICAgbGltaXRzOgogICAgICAgICAgICAgIG1lbW9yeTogIjFHaSIKICAgICAgICAgICAgICBjcHU6ICI3NTBtIgogICAgICAgICAgdm9sdW1lTW91bnRzOgogICAgICAgICAgICAtIG5hbWU6IGthZmthLXBlbS12b2wKICAgICAgICAgICAgICBtb3VudFBhdGg6IC9vcHQvYm1jL3NlY3VyaXR5CiAgICAgICAgICBlbnY6CiAgICAgICAgICAgIC0gbmFtZTogVEVOQU5UX0lECiAgICAgICAgICAgICAgdmFsdWU6ICIiCiAgICAgICAgICAgIC0gbmFtZTogTkFNRVNQQUNFCiAgICAgICAgICAgICAgdmFsdWU6ICIiCiAgICAgICAgICAgIC0gbmFtZTogVVNFUl9JRAogICAgICAgICAgICAgIHZhbHVlOiAiIgogICAgICAgICAgICAtIG5hbWU6IEFMR09SSVRITV9KU09OCiAgICAgICAgICAgICAgdmFsdWU6ICIiCiAgICAgICAgICAgIC0gbmFtZTogQUxHT1JJVEhNX0lECiAgICAgICAgICAgICAgdmFsdWU6ICIiCiAgICAgICAgICAgIC0gbmFtZTogRVhFQ1VUSU9OX0lECiAgICAgICAgICAgICAgdmFsdWU6ICIiCiAgICAgICAgICAgIC0gbmFtZTogSk9CX0RJUgogICAgICAgICAgICAgIHZhbHVlOiAiL3RtcC9oZWRnZSIKICAgICAgICAgICAgLSBuYW1lOiBBSUZfQ09SRV9TRVJWSUNFX1NFUlZJQ0VfSE9TVAogICAgICAgICAgICAgIHZhbHVlOiAiYWlmLWNvcmUtc2VydmljZSIKICAgICAgICAgICAgLSBuYW1lOiBBSUZfQ09SRV9TRVJWSUNFX1NFUlZJQ0VfUE9SVAogICAgICAgICAgICAgIHZhbHVlOiAiNTAxNzciCiAgICAgICAgICAgIC0gbmFtZTogQ0xPVURfQUNDRVNTX0tFWQogICAgICAgICAgICAgIHZhbHVlRnJvbToKICAgICAgICAgICAgICAgIHNlY3JldEtleVJlZjoKICAgICAgICAgICAgICAgICAga2V5OiBBV1NfQUNDRVNTX0tFWV9JRF9BSUYKICAgICAgICAgICAgICAgICAgbmFtZTogYXdzczNzZWNyZXQKICAgICAgICAgICAgLSBuYW1lOiBDTE9VRF9TRUNSRVRfS0VZCiAgICAgICAgICAgICAgdmFsdWVGcm9tOgogICAgICAgICAgICAgICAgc2VjcmV0S2V5UmVmOgogICAgICAgICAgICAgICAgICBrZXk6IEFXU19TRUNSRVRfQUNDRVNTX0tFWV9BSUYKICAgICAgICAgICAgICAgICAgbmFtZTogYXdzczNzZWNyZXQKICAgICAgICAgICAgLSBuYW1lOiBDTE9VRF9FTkRQT0lOVAogICAgICAgICAgICAgIHZhbHVlOiBodHRwczovL2lkZjRuZGhzZWJ0dy5jb21wYXQub2JqZWN0c3RvcmFnZS51cy1hc2hidXJuLTEub3JhY2xlY2xvdWQuY29tCiAgICAgICAgICAgIC0gbmFtZTogQVdTX1MzX1JFR0lPTgogICAgICAgICAgICAgIHZhbHVlRnJvbToKICAgICAgICAgICAgICAgIHNlY3JldEtleVJlZjoKICAgICAgICAgICAgICAgICAga2V5OiBBV1NfUzNfUkVHSU9OCiAgICAgICAgICAgICAgICAgIG5hbWU6IGF3c3Mzc2VjcmV0CiAgICAgICAgICAgIC0gbmFtZTogQ0xPVURfQlVDS0VUX05BTUUKICAgICAgICAgICAgICB2YWx1ZTogImFpLW1sLW1vZGVscyIKICAgICAgICAgICAgLSBuYW1lOiBTM0ZTX0xPR0dJTkdfTEVWRUwKICAgICAgICAgICAgICB2YWx1ZTogREVCVUcKICAgICAgICAgICAgLSBuYW1lOiBLQUZLQV9DT05ORUNUX1NUUklORwogICAgICAgICAgICAgIHZhbHVlRnJvbToKICAgICAgICAgICAgICAgIHNlY3JldEtleVJlZjoKICAgICAgICAgICAgICAgICAga2V5OiBLQUZLQV9DTFVTVEVSCiAgICAgICAgICAgICAgICAgIG5hbWU6IGthZmthc2VjcmV0CgogICAgICByZXN0YXJ0UG9saWN5OiBOZXZlcgogICAgICBhdXRvbW91bnRTZXJ2aWNlQWNjb3VudFRva2VuOiBmYWxzZQogICAgICB2b2x1bWVzOgogICAgICAgIC0gbmFtZToga2Fma2EtcGVtLXZvbAogICAgICAgICAgc2VjcmV0OgogICAgICAgICAgICBzZWNyZXROYW1lOiBrYWZrYS1wZW0KICAgICAgICAgICAgb3B0aW9uYWw6IHRydWUK\",\r\n    \"description\": \"CA This is predefined algorithm template to train anomaly model using autoencoder, the output is a model that will be deployed at customer edge\",\r\n    \"productType\": \"IOT\",\r\n    \"algorithmSchema\": {\r\n        \"$schema\": \"http://json-schema.org/draft-06/schema#\",\r\n        \"$ref\": \"#/template/definition\",\r\n        \"template\": {\r\n            \"definition\": {\r\n                \"type\": \"object\",\r\n                \"additionalProperties\": false,\r\n                \"properties\": {\r\n                    \"input\": {\r\n                        \"$ref\": \"#/template/input\"\r\n                    },\r\n                    \"config\": {\r\n                        \"$ref\": \"#/template/config\"\r\n                    }\r\n                },\r\n                \"title\": \"HedgeAlgorithmSchema\"\r\n            },\r\n            \"input\": {\r\n                \"type\": \"object\",\r\n                \"additionalProperties\": true,\r\n                \"properties\": {\r\n                    \"training_input_fileId\": {\r\n                        \"type\": \"string\"\r\n                    }\r\n                },\r\n                \"title\" : \"Runtime parameters to initiate train job for Hedge Autoencoder\"\r\n            },\r\n            \"config\": {\r\n                \"type\": \"object\",\r\n                \"additionalProperties\": false,\r\n                \"properties\": {\r\n                    \"name\": {\r\n                        \"type\": \"string\",\r\n                        \"const\": \"AutoEncoder\"\r\n                    },\r\n                    \"batch_size\": {\r\n                        \"type\": \"integer\"\r\n                    },\r\n                    \"num_epochs\": {\r\n                        \"type\": \"integer\"\r\n                    }\r\n                },\r\n                \"title\": \"ConfigSchema\"\r\n            }\r\n        }\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://{{tenant_url}}/aif/api/v1.0/algorithm_template/{{templateId}}",
+							"protocol": "https",
+							"host": [
+								"{{tenant_url}}"
+							],
+							"path": [
+								"aif",
+								"api",
+								"v1.0",
+								"algorithm_template",
+								"{{templateId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getAllAlgoTemplates",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"tests[\"Status code is 200\"] = responseCode.code === 200;\r",
+									"postman.clearGlobalVariable(\"templateId\");\r",
+									"var jsonData = JSON.parse(responseBody);\r",
+									"postman.setEnvironmentVariable(\"templateId\", jsonData.response[0].id);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{jwt_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "authtype",
+								"value": "rsso-jwt",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"url": {
+							"raw": "https://{{tenant_url}}/aif/api/v1.0/algorithm_template?productType=IOT&name=HedgeAnomaly",
+							"protocol": "https",
+							"host": [
+								"{{tenant_url}}"
+							],
+							"path": [
+								"aif",
+								"api",
+								"v1.0",
+								"algorithm_template"
+							],
+							"query": [
+								{
+									"key": "productType",
+									"value": "IOT"
+								},
+								{
+									"key": "name",
+									"value": "HedgeAnomaly"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getAllAlgoTemplates Copy",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"tests[\"Status code is 200\"] = responseCode.code === 200;\r",
+									"postman.clearGlobalVariable(\"templateId\");\r",
+									"var jsonData = JSON.parse(responseBody);\r",
+									"postman.setEnvironmentVariable(\"templateId\", jsonData.response.id);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{jwt_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "authtype",
+								"value": "rsso-jwt",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"url": {
+							"raw": "https://{{tenant_url}}/aif/api/v1.0/algorithm_template/{{templateId}}",
+							"protocol": "https",
+							"host": [
+								"{{tenant_url}}"
+							],
+							"path": [
+								"aif",
+								"api",
+								"v1.0",
+								"algorithm_template",
+								"{{templateId}}"
+							],
+							"query": [
+								{
+									"key": "type",
+									"value": "Anomaly",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Algo Template",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"tests[\"Status code is 200\"] = responseCode.code === 200;\r",
+									"postman.clearGlobalVariable(\"templateId\");\r",
+									"var jsonData = JSON.parse(responseBody);\r",
+									"postman.setEnvironmentVariable(\"templateId\", jsonData.response.id);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{jwt_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "authtype",
+								"value": "rsso-jwt",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"url": {
+							"raw": "https://{{tenant_url}}/aif/api/v1.0/algorithm_template/{{templateId}}",
+							"protocol": "https",
+							"host": [
+								"{{tenant_url}}"
+							],
+							"path": [
+								"aif",
+								"api",
+								"v1.0",
+								"algorithm_template",
+								"{{templateId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Algo Instance Hedge",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"tests[\"Status code is 200\"] = responseCode.code === 200;\r",
+									"postman.clearGlobalVariable(\"instanceId\");\r",
+									"var jsonData = JSON.parse(responseBody);\r",
+									"postman.setEnvironmentVariable(\"instanceId\", jsonData.response.id);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{jwt_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "authtype",
+								"value": "rsso-jwt",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"templateId\": \"{{templateId}}\",\r\n    \"name\": \"HedgeAnomaly222222_2_312\",\r\n    \"description\": \"Hedge Anomaly algo instance, hyperparameters to be passed as env var in jobScript, while runtime parmeters is provide in the config file\",\r\n    \"enable\": \"true\",\r\n    \"executionMode\": \"OnDemand\",\r\n    \"definition\": {\r\n        \"input\": {\r\n            \"training_data_fileId\": \"{{training_data_fileId}}\",\r\n            \"training_config_fileId\": \"{{training_config_fileId}}\",\r\n            \"training_job_fileId\" : \"{{training_job_fileId}}\"\r\n        }\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://{{tenant_url}}/aif/api/v1.0/algorithm",
+							"protocol": "https",
+							"host": [
+								"{{tenant_url}}"
+							],
+							"path": [
+								"aif",
+								"api",
+								"v1.0",
+								"algorithm"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get IOT Algo Instances",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{jwt_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "authtype",
+								"value": "rsso-jwt",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"url": {
+							"raw": "https://{{tenant_url}}/aif/api/v1.0/algorithm?productType=IOT&templateId={{templateId}}",
+							"protocol": "https",
+							"host": [
+								"{{tenant_url}}"
+							],
+							"path": [
+								"aif",
+								"api",
+								"v1.0",
+								"algorithm"
+							],
+							"query": [
+								{
+									"key": "productType",
+									"value": "IOT"
+								},
+								{
+									"key": "withoutDefinition",
+									"value": "true",
+									"disabled": true
+								},
+								{
+									"key": "templateId",
+									"value": "{{templateId}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get IOT Algo Instances Copy",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{jwt_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "authtype",
+								"value": "rsso-jwt",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"url": {
+							"raw": "https://{{tenant_url}}/aif/api/v1.0/algorithm?productType=IOT",
+							"protocol": "https",
+							"host": [
+								"{{tenant_url}}"
+							],
+							"path": [
+								"aif",
+								"api",
+								"v1.0",
+								"algorithm"
+							],
+							"query": [
+								{
+									"key": "productType",
+									"value": "IOT"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DeleteAlgoInstances",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{jwt_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "authtype",
+								"value": "rsso-jwt",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"url": {
+							"raw": "https://{{tenant_url}}/aif/api/v1.0/algorithm/{{instanceId}}",
+							"protocol": "https",
+							"host": [
+								"{{tenant_url}}"
+							],
+							"path": [
+								"aif",
+								"api",
+								"v1.0",
+								"algorithm",
+								"{{instanceId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "execute Algo instance",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"tests[\"Status code is 200\"] = responseCode.code === 200;\r",
+									"postman.clearGlobalVariable(\"executionId\");\r",
+									"var jsonData = JSON.parse(responseBody);\r",
+									"postman.setEnvironmentVariable(\"executionId\", jsonData.response.executionId);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"content-type": true
+						}
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{jwt_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"input\": {\n        \"training_input_filedId\": \"{{fileId}}\"\n    }\n}"
+						},
+						"url": {
+							"raw": "https://{{tenant_url}}/aif/api/v1.0/algorithm/{{instanceId}}/execute",
+							"protocol": "https",
+							"host": [
+								"{{tenant_url}}"
+							],
+							"path": [
+								"aif",
+								"api",
+								"v1.0",
+								"algorithm",
+								"{{instanceId}}",
+								"execute"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getlatestExecutions Copy",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"tests[\"Status code is 200\"] = responseCode.code === 200;\r",
+									"postman.clearGlobalVariable(\"instanceId\");\r",
+									"var jsonData = JSON.parse(responseBody);\r",
+									"postman.setEnvironmentVariable(\"instanceId\", jsonData.response.id);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{jwt_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "authtype",
+								"value": "rsso-jwt",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"templateId\" : \"b558d267-c958-4c4d-8734-b40b0961fdd9\",\r\n    \"name\" : \"Clustering algo instance 7\",\r\n    \"description\" : \"this algo instnace is for CSV\",\r\n    \"definition\": {\r\n    \"input\": {\r\n      \"fileId\": \"{{fileId}}\",\r\n      \"scoringSlot\": \"severity\",\r\n      \"inputSlots\": [\r\n        \"Description\"\r\n      ],\r\n      \"outputSlots\": [\r\n        \"ServiceCI\"\r\n      ],\r\n      \"scoringFunction\": \"max\",\r\n      \"categorySlot\": \"Operational Categorization Tier 2\"\r\n    },\r\n    \"config\": {\r\n      \"params\": {\r\n        \"k\": 10,\r\n        \"initMethod\": \"k-means++\" ,\r\n        \"maxIteration\": 100,\r\n        \"nInit\": 10,\r\n        \"tolerance\": 0.8,\r\n        \"algorithm\": \"full\"\r\n      }\r\n    }\r\n  }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://{{tenant_url}}/aif/api/v1.0/algorithm/latest_execution?productType=IOT",
+							"protocol": "https",
+							"host": [
+								"{{tenant_url}}"
+							],
+							"path": [
+								"aif",
+								"api",
+								"v1.0",
+								"algorithm",
+								"latest_execution"
+							],
+							"query": [
+								{
+									"key": "productType",
+									"value": "IOT"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get all executions of instance",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{jwt_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "authtype",
+								"value": "rsso-jwt",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"url": {
+							"raw": "https://{{tenant_url}}/aif/api/v1.0/algorithm/execution?algorithmId={{instanceId}}",
+							"protocol": "https",
+							"host": [
+								"{{tenant_url}}"
+							],
+							"path": [
+								"aif",
+								"api",
+								"v1.0",
+								"algorithm",
+								"execution"
+							],
+							"query": [
+								{
+									"key": "algorithmId",
+									"value": "{{instanceId}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get all executions of instance Copy",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{jwt_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "authtype",
+								"value": "rsso-jwt",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"url": {
+							"raw": "https://{{tenant_url}}/aif/api/v1.0/algorithm/execution?executionId=48116830-b2a8-4f92-8a7d-0b6ac60241d5",
+							"protocol": "https",
+							"host": [
+								"{{tenant_url}}"
+							],
+							"path": [
+								"aif",
+								"api",
+								"v1.0",
+								"algorithm",
+								"execution"
+							],
+							"query": [
+								{
+									"key": "executionId",
+									"value": "48116830-b2a8-4f92-8a7d-0b6ac60241d5"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Algorithm Execution Summary",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{jwt_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "authtype",
+								"value": "rsso-jwt",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"url": {
+							"raw": "https://{{tenant_url}}/aif/api/v1.0/algorithm/execution/{{executionId}}/summary",
+							"protocol": "https",
+							"host": [
+								"{{tenant_url}}"
+							],
+							"path": [
+								"aif",
+								"api",
+								"v1.0",
+								"algorithm",
+								"execution",
+								"{{executionId}}",
+								"summary"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "FileService",
+			"item": [
+				{
+					"name": "Single File Upload Copy",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"tests[\"Status code is 200\"] = responseCode.code === 200;\r",
+									"postman.clearGlobalVariable(\"fileId\");\r",
+									"var jsonData = JSON.parse(responseBody);\r",
+									"postman.setEnvironmentVariable(\"fileId\", jsonData.response.fileId);\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{jwt_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "multipart/form-data",
+								"type": "text"
+							},
+							{
+								"key": "fileName",
+								"value": "windt.csv",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "file",
+									"type": "file",
+									"src": "/Users/girigupt/go/src/edge-iot/edge-ml-service/anomaly-gcp-trng/autoencoderv2/training/hedge_export.zip"
+								},
+								{
+									"key": "name",
+									"value": "gkg_tp.csv",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "https://{{tenant_url}}/filegw/api/v1.0/files",
+							"protocol": "https",
+							"host": [
+								"{{tenant_url}}"
+							],
+							"path": [
+								"filegw",
+								"api",
+								"v1.0",
+								"files"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Single File Upload",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"tests[\"Status code is 200\"] = responseCode.code === 200;\r",
+									"postman.clearGlobalVariable(\"fileId\");\r",
+									"var jsonData = JSON.parse(responseBody);\r",
+									"postman.setEnvironmentVariable(\"fileId\", jsonData.response.fileId);\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{jwt_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "multipart/form-data",
+								"type": "text"
+							},
+							{
+								"key": "",
+								"value": "",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "file",
+									"type": "file",
+									"src": "/Users/girigupt/Downloads/gkg_tp.csv"
+								}
+							]
+						},
+						"url": {
+							"raw": "https://{{tenant_url}}/filegw/api/v1.0/files/{{fileId}}",
+							"protocol": "https",
+							"host": [
+								"{{tenant_url}}"
+							],
+							"path": [
+								"filegw",
+								"api",
+								"v1.0",
+								"files",
+								"{{fileId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get List of Files Copy",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"tests[\"Status code is 200\"] = responseCode.code === 200;\r",
+									"postman.clearGlobalVariable(\"fileId\");\r",
+									"var jsonData = JSON.parse(responseBody);\r",
+									"postman.setEnvironmentVariable(\"fileId\", jsonData.response.fileId);\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{jwt_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "multipart/form-data",
+								"type": "text"
+							},
+							{
+								"key": "",
+								"value": "",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"url": {
+							"raw": "https://{{tenant_url}}/filegw/api/v1.0/files",
+							"protocol": "https",
+							"host": [
+								"{{tenant_url}}"
+							],
+							"path": [
+								"filegw",
+								"api",
+								"v1.0",
+								"files"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Single File Download",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"tests[\"Status code is 200\"] = responseCode.code === 200;\r",
+									"postman.clearGlobalVariable(\"fileId\");\r",
+									"var jsonData = JSON.parse(responseBody);\r",
+									"postman.setEnvironmentVariable(\"fileId\", jsonData.response.fileId);\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{jwt_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "multipart/form-data",
+								"type": "text"
+							},
+							{
+								"key": "",
+								"value": "",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "file",
+									"type": "file",
+									"src": "/Users/girigupt/go/src/edge-iot/hedge-device-extensions/delme.zip",
+									"disabled": true
+								}
+							]
+						},
+						"url": {
+							"raw": "http://{{tenant_url}}/filegw/api/v1.0/files/{{fileId}}",
+							"protocol": "http",
+							"host": [
+								"{{tenant_url}}"
+							],
+							"path": [
+								"filegw",
+								"api",
+								"v1.0",
+								"files",
+								"{{fileId}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "ADEDataAccess",
+			"item": [
+				{
+					"name": "AddMetricDataToHelixMonitor Copy",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "apiKey 693888097::0EIY7OPBMIA6CBNFCN2N3NSSTCMOKP::K8WZJT4kQ4xCkO4gtO4B6vchaWUHfZcXYDdTUAREp01eR9G3Jj",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"name": "Content-Type",
+								"type": "text"
+							},
+							{
+								"key": "X-XSRF-TOKEN",
+								"value": "VND_RSSO_V2.eyJpYXQiOjE1ODMxMjcxOTI0NjYsInNydiI6Imh0dHBzOi8vbG9nZ2VuLnRyeWJtYy5jb20vcnNzbyIsInJsbSI6IioiLCJ0b2tlbklkIjoiXzQ4NmU5MzNlLWYzNTMtNGE4Yy1hM2YyLTQwOGVmZmI3ZGIxZSJ9",
+								"type": "text",
+								"disabled": true
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "[\n\t{\n\t\t\"labels\": {\n\t\t\t\"metricName\": \"callVolume\",\n\t\t\t\"hostname\": \"raspi-pune\",\n\t\t\t\"domain\": \"Telco\",\n\t\t\t\"device\": \"Telco-Tower-A\",\n\t\t\t\"hostType\": \"iot-device\",\n\t\t\t\"isKpi\": false,\n\t\t\t\"unit\": \"number\",\n\t\t\t\"source\": \"telco-edge-monitor\"\n\t\t},\n\t\t\"samples\": [\n\t\t\t{\n\t\t\t\t\"value\": 2036,\n\t\t\t\t\"timestamp\": 1599214459000\n\t\t\t},\n\t\t\t{\n\t\t\t\t\"value\": 2040,\n\t\t\t\t\"timestamp\": 1599214459006\n\t\t\t}\n\t\t]\n\t}\n]",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://{{tenant_url}}/metrics-gateway-service/api/v1.0/insert",
+							"protocol": "https",
+							"host": [
+								"{{tenant_url}}"
+							],
+							"path": [
+								"metrics-gateway-service",
+								"api",
+								"v1.0",
+								"insert"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "AddMetricDataToHelixMonitor Copy 2",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "apiKey 1571495624::43JNOPE30HGUTUF3GUIZEF4IA2YJBV::49ogxKbpAsfedvm1QhRcgY10D5BOjVKUNjQ34MwrOHhLbbQOv6",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"name": "Content-Type",
+								"type": "text"
+							},
+							{
+								"key": "X-XSRF-TOKEN",
+								"value": "VND_RSSO_V2.eyJpYXQiOjE1ODMxMjcxOTI0NjYsInNydiI6Imh0dHBzOi8vbG9nZ2VuLnRyeWJtYy5jb20vcnNzbyIsInJsbSI6IioiLCJ0b2tlbklkIjoiXzQ4NmU5MzNlLWYzNTMtNGE4Yy1hM2YyLTQwOGVmZmI3ZGIxZSJ9",
+								"type": "text",
+								"disabled": true
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "[\n\t{\n\t\t\"labels\": {\n\t\t\t\"metricName\": \"callVolume\",\n\t\t\t\"hostname\": \"raspi-pune\",\n\t\t\t\"domain\": \"Telco\",\n\t\t\t\"device\": \"Telco-Tower-A\",\n\t\t\t\"hostType\": \"iot-device\",\n\t\t\t\"isKpi\": false,\n\t\t\t\"unit\": \"number\",\n\t\t\t\"source\": \"telco-edge-monitor\"\n\t\t},\n\t\t\"samples\": [\n\t\t\t{\n\t\t\t\t\"value\": 2036,\n\t\t\t\t\"timestamp\": 1599214459000\n\t\t\t},\n\t\t\t{\n\t\t\t\t\"value\": 2040,\n\t\t\t\t\"timestamp\": 1599214459006\n\t\t\t}\n\t\t]\n\t}\n]",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://iothedgecom-iotedgeade-trial.qa.sps.secops.bmc.com/metrics-gateway-service/api/v1.0/insert",
+							"protocol": "https",
+							"host": [
+								"iothedgecom-iotedgeade-trial",
+								"qa",
+								"sps",
+								"secops",
+								"bmc",
+								"com"
+							],
+							"path": [
+								"metrics-gateway-service",
+								"api",
+								"v1.0",
+								"insert"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "VictoriaTestQuery",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{jwt_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "apiKey a76b3735-55b5-40ce-8b5c-e4761586e4aa",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"name": "Content-Type",
+								"type": "text"
+							},
+							{
+								"key": "X-XSRF-TOKEN",
+								"value": "VND_RSSO_V2.eyJpYXQiOjE1ODMxMjcxOTI0NjYsInNydiI6Imh0dHBzOi8vbG9nZ2VuLnRyeWJtYy5jb20vcnNzbyIsInJsbSI6IioiLCJ0b2tlbklkIjoiXzQ4NmU5MzNlLWYzNTMtNGE4Yy1hM2YyLTQwOGVmZmI3ZGIxZSJ9",
+								"type": "text",
+								"disabled": true
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "query",
+									"value": "{__name__=\"Humidity\"}",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "https://{{tenant_url}}/metrics-query-service/api/v1.0/query",
+							"protocol": "https",
+							"host": [
+								"{{tenant_url}}"
+							],
+							"path": [
+								"metrics-query-service",
+								"api",
+								"v1.0",
+								"query"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "VictoriaTestQuery Copy",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{jwt_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "apiKey a76b3735-55b5-40ce-8b5c-e4761586e4aa",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"name": "Content-Type",
+								"type": "text"
+							},
+							{
+								"key": "X-XSRF-TOKEN",
+								"value": "VND_RSSO_V2.eyJpYXQiOjE1ODMxMjcxOTI0NjYsInNydiI6Imh0dHBzOi8vbG9nZ2VuLnRyeWJtYy5jb20vcnNzbyIsInJsbSI6IioiLCJ0b2tlbklkIjoiXzQ4NmU5MzNlLWYzNTMtNGE4Yy1hM2YyLTQwOGVmZmI3ZGIxZSJ9",
+								"type": "text",
+								"disabled": true
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "query",
+									"value": "{__name__=\"Humidity\"}",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "https://{{tenant_url}}/metrics-query-service/api/v1.0/query",
+							"protocol": "https",
+							"host": [
+								"{{tenant_url}}"
+							],
+							"path": [
+								"metrics-query-service",
+								"api",
+								"v1.0",
+								"query"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "VictoriaRangeQuery",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{jwt_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "apiKey a76b3735-55b5-40ce-8b5c-e4761586e4aa",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"name": "Content-Type",
+								"type": "text"
+							},
+							{
+								"key": "X-XSRF-TOKEN",
+								"value": "VND_RSSO_V2.eyJpYXQiOjE1ODMxMjcxOTI0NjYsInNydiI6Imh0dHBzOi8vbG9nZ2VuLnRyeWJtYy5jb20vcnNzbyIsInJsbSI6IioiLCJ0b2tlbklkIjoiXzQ4NmU5MzNlLWYzNTMtNGE4Yy1hM2YyLTQwOGVmZmI3ZGIxZSJ9",
+								"type": "text",
+								"disabled": true
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "query",
+									"value": "{__name__=~\"TurbinePower|RotorSpeed\" }",
+									"type": "text"
+								},
+								{
+									"key": "start",
+									"value": "1688284805",
+									"type": "text"
+								},
+								{
+									"key": "end",
+									"value": "1689065060",
+									"type": "text"
+								},
+								{
+									"key": "step",
+									"value": "30",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "https://{{tenant_url}}/metrics-query-service/api/v1.0/query_range",
+							"protocol": "https",
+							"host": [
+								"{{tenant_url}}"
+							],
+							"path": [
+								"metrics-query-service",
+								"api",
+								"v1.0",
+								"query_range"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "VictoriaRangeQuery morpheus",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{jwt_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "apiKey a76b3735-55b5-40ce-8b5c-e4761586e4aa",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"name": "Content-Type",
+								"type": "text"
+							},
+							{
+								"key": "X-XSRF-TOKEN",
+								"value": "VND_RSSO_V2.eyJpYXQiOjE1ODMxMjcxOTI0NjYsInNydiI6Imh0dHBzOi8vbG9nZ2VuLnRyeWJtYy5jb20vcnNzbyIsInJsbSI6IioiLCJ0b2tlbklkIjoiXzQ4NmU5MzNlLWYzNTMtNGE4Yy1hM2YyLTQwOGVmZmI3ZGIxZSJ9",
+								"type": "text",
+								"disabled": true
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "query",
+									"value": "{__name__=~\"WindSpeed\" }",
+									"type": "text"
+								},
+								{
+									"key": "start",
+									"value": "1688284805",
+									"type": "text"
+								},
+								{
+									"key": "end",
+									"value": "1689065060",
+									"type": "text"
+								},
+								{
+									"key": "step",
+									"value": "30",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{tenant_url_mor}}/metrics-query-service/api/v1.0/query_range",
+							"host": [
+								"{{tenant_url_mor}}"
+							],
+							"path": [
+								"metrics-query-service",
+								"api",
+								"v1.0",
+								"query_range"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "VictoriaSumTest",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{jwt_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "apiKey a76b3735-55b5-40ce-8b5c-e4761586e4aa",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"name": "Content-Type",
+								"type": "text"
+							},
+							{
+								"key": "X-XSRF-TOKEN",
+								"value": "VND_RSSO_V2.eyJpYXQiOjE1ODMxMjcxOTI0NjYsInNydiI6Imh0dHBzOi8vbG9nZ2VuLnRyeWJtYy5jb20vcnNzbyIsInJsbSI6IioiLCJ0b2tlbklkIjoiXzQ4NmU5MzNlLWYzNTMtNGE4Yy1hM2YyLTQwOGVmZmI3ZGIxZSJ9",
+								"type": "text",
+								"disabled": true
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "query",
+									"value": "{__name__=~\"TurbinePower|RotorSpeed\" }",
+									"type": "text"
+								},
+								{
+									"key": "start",
+									"value": "1688284805",
+									"type": "text"
+								},
+								{
+									"key": "end",
+									"value": "1689065060",
+									"type": "text"
+								},
+								{
+									"key": "step",
+									"value": "30",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "https://{{tenant_url}}/metrics-query-service/api/v1.0/query_range",
+							"protocol": "https",
+							"host": [
+								"{{tenant_url}}"
+							],
+							"path": [
+								"metrics-query-service",
+								"api",
+								"v1.0",
+								"query_range"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "VictoriaTestQuery Copy",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{jwt_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "apiKey a76b3735-55b5-40ce-8b5c-e4761586e4aa",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"name": "Content-Type",
+								"type": "text"
+							},
+							{
+								"key": "X-XSRF-TOKEN",
+								"value": "VND_RSSO_V2.eyJpYXQiOjE1ODMxMjcxOTI0NjYsInNydiI6Imh0dHBzOi8vbG9nZ2VuLnRyeWJtYy5jb20vcnNzbyIsInJsbSI6IioiLCJ0b2tlbklkIjoiXzQ4NmU5MzNlLWYzNTMtNGE4Yy1hM2YyLTQwOGVmZmI3ZGIxZSJ9",
+								"type": "text",
+								"disabled": true
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "query",
+									"value": "{__name__=~\"TurbinePower|RotorSpeed\" }",
+									"type": "text"
+								},
+								{
+									"key": "start",
+									"value": "1688650000",
+									"type": "text"
+								},
+								{
+									"key": "end",
+									"value": "1689061994",
+									"type": "text"
+								},
+								{
+									"key": "step",
+									"value": "30",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "https://{{tenant_url}}/metrics-query-service/api/v1.0/query_range?query={__name__=~\"TurbinePower|RotorSpeed\" }&start=1688650000&end=1689061994&step=30",
+							"protocol": "https",
+							"host": [
+								"{{tenant_url}}"
+							],
+							"path": [
+								"metrics-query-service",
+								"api",
+								"v1.0",
+								"query_range"
+							],
+							"query": [
+								{
+									"key": "query",
+									"value": "{__name__=~\"TurbinePower|RotorSpeed\" }"
+								},
+								{
+									"key": "start",
+									"value": "1688650000"
+								},
+								{
+									"key": "end",
+									"value": "1689061994"
+								},
+								{
+									"key": "step",
+									"value": "30"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "VictoriaGetLabels",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{jwt_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "apiKey a76b3735-55b5-40ce-8b5c-e4761586e4aa",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"name": "Content-Type",
+								"type": "text"
+							},
+							{
+								"key": "X-XSRF-TOKEN",
+								"value": "VND_RSSO_V2.eyJpYXQiOjE1ODMxMjcxOTI0NjYsInNydiI6Imh0dHBzOi8vbG9nZ2VuLnRyeWJtYy5jb20vcnNzbyIsInJsbSI6IioiLCJ0b2tlbklkIjoiXzQ4NmU5MzNlLWYzNTMtNGE4Yy1hM2YyLTQwOGVmZmI3ZGIxZSJ9",
+								"type": "text",
+								"disabled": true
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "https://{{tenant_url}}/metrics-query-service/api/v1.0/labels",
+							"protocol": "https",
+							"host": [
+								"{{tenant_url}}"
+							],
+							"path": [
+								"metrics-query-service",
+								"api",
+								"v1.0",
+								"labels"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "VictoriaGetMetricNames",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{jwt_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "apiKey a76b3735-55b5-40ce-8b5c-e4761586e4aa",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"name": "Content-Type",
+								"type": "text"
+							},
+							{
+								"key": "X-XSRF-TOKEN",
+								"value": "VND_RSSO_V2.eyJpYXQiOjE1ODMxMjcxOTI0NjYsInNydiI6Imh0dHBzOi8vbG9nZ2VuLnRyeWJtYy5jb20vcnNzbyIsInJsbSI6IioiLCJ0b2tlbklkIjoiXzQ4NmU5MzNlLWYzNTMtNGE4Yy1hM2YyLTQwOGVmZmI3ZGIxZSJ9",
+								"type": "text",
+								"disabled": true
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "https://{{tenant_url}}/metrics-query-service/api/v1.0/label/__name__/values",
+							"protocol": "https",
+							"host": [
+								"{{tenant_url}}"
+							],
+							"path": [
+								"metrics-query-service",
+								"api",
+								"v1.0",
+								"label",
+								"__name__",
+								"values"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Hedge_APIViaRsso",
+			"item": [
+				{
+					"name": "getRSSOTokenoAuth2 Copy",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "MIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQDMkTsJSlD+gmQuMCP9/lqRSBgdJ/OiBmCLE8YC5q162Zt9ETKqZtb9VRA8ri024fQzNjJrP6qvIzWJkYBGev9mPBQU0QRJy2mX+En+GQz+rmgMOGTPw8vsZFvQcmDXv04fePK4ZIPvR5eNVfG7p/58jBYcvtAYVQO2OmEb1KJNUTGNmaUirL+MeG/tT5EYwSYQ5i8H0Bke7cHPeoF6cSzsGFC8jqnl20XSga+UpIccDROTCLQt5VJYPUr8K+m2A7+3ZiuE/i9SE9Nn68Y+OtUbQ8rf77UxUujcRDO5dlK+e4VdrklZ/hdMG80KoIWOa89LlsjcSPkODy827WAYIU+vAgMBAAECggEAcmijGO4MYFsyhjZ8WrhflLM6cUv/0VU5t27Gpqa2zWdYs9jjejPr92EUpKtRNEmo1t9v0VWZMzxA3ACZOlHd9yKQpJfFizQNiWXelBMUlneaT4NWtnAt47a5NtpRWThwC+AL956Xv0JN+0je2nH5PVTnpQn+vi0F12vNFdCVOSG4v4BF4zM6PAtPI4LsNlajJLdbTg1YJhk66TDI17V9nwenWKaVpUMvxRop1DQD8mzMkAZhgru7MQwn6cW+pHO8kuxxaxYyGDjhD4vOpM6ZhzQOL+5dRKZXdzXPmfC2gMczzzpaYEZ5W4fcyPJyYdjl8HYgpig3F2pslyxLRazvcQKBgQDrP2yugDeMZ8fYwdpt2+AKoQhR7CU/0SNLuleymB+Jww/LW4Xe8MBps2jGf6gs3XZCjxu2MmOsUQg0OCR1l7WfkpJ271azrL64kLYEETYOyhrjWOiXk/G9Jv0QdfZ12z4V9LFLaEg+mkC0j1jHQRhLFIdwy4bJlMVEJRzY/uveNwKBgQDenPPpdWvku/uINdtgpmao8FsGPlOXT9zSv7nBVntBVTU0aBFxxkEtGMp0d68G5XSpqMsdKsZ7BQabne513r6KJhdOI+/DdOxw+gAU9wNua2HYfXZXWQ+JN/t/boybN3lip08hrA5FlPPouTIN77ZKqTLqNmYGNl/XoLWrZY+eSQKBgHyGVz5LqpvM97Gac8hBYmfd8+yBhvov93IHkpJ8Cf2/XmXz7XokkIWjLWwdeOU+2XHEFRQtuislvaT+rvX8N2zfhl4ktQ1o/I/wMhkXDzlm7DK6BmzuKEFLGRwUhUC/rC6tFwhmjA9vUZ8CXikjIPvlQwiHA7NC5+T5jDqlPi+jAoGANRWgZG+Hxwe8t4KASc/kcyy9yANc05xLwEXP+faxdaboBRM79bGdIS/kN1nC9xYId9y0csQciIFuTfWfQ6RWM4NZ01xmdGmRaG91TYqJ2u7oakOg0LuAJOygoIawKONVotza1eC9loIql7hx4zjic3NdnNRUB+83c6fzKmgRk2ECgYEA5ZFnZY0EavUO7fgrOIJVFQvhfD/c8V9LmsEKf0JNY89dako7XFb7ePAcnhgRevywuuG7RFtEwOA1w/cXPAnPpyPlceKz5efsTqhixot71kux65gue56XjWKs0fBhh8YBZCnLsQhf6VzoGKMCDgEuyDEqbGlyNemwVFHUACUVg2w=",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "8eb6c748-8c45-4978-be75-7823b7c0c2ee",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "apiKey 92ad93d9-4816-42d2-9f09-5f14e44527d6",
+								"type": "text",
+								"disabled": true
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"name": "Content-Type",
+								"type": "text"
+							},
+							{
+								"key": "X-XSRF-TOKEN",
+								"value": "VND_RSSO_V2.eyJpYXQiOjE1ODMxMjcxOTI0NjYsInNydiI6Imh0dHBzOi8vbG9nZ2VuLnRyeWJtYy5jb20vcnNzbyIsInJsbSI6IioiLCJ0b2tlbklkIjoiXzQ4NmU5MzNlLWYzNTMtNGE4Yy1hM2YyLTQwOGVmZmI3ZGIxZSJ9",
+								"type": "text",
+								"disabled": true
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Keep-Alive",
+								"value": "true",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "grant_type",
+									"value": "urn:ietf:params:oauth:grant-type:jwt-bearer",
+									"type": "text"
+								},
+								{
+									"key": "client_id",
+									"value": "8eb6c748-8c45-4978-be75-7823b7c0c2ee",
+									"type": "text"
+								},
+								{
+									"key": "audience",
+									"value": "clm-aus-vi37qf.bmc.com",
+									"type": "text"
+								},
+								{
+									"key": "assertion",
+									"value": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhZG1pbiIsIm5hbWUiOiJIZWRnZSBBZG1pbiIsImlhdCI6MTUxNjIzOTAyMiwiaXNzIjoiSGVkZ2VQcmVBdXRoQ2xpZW50IiwiYXVkIjoiY2xtLWF1cy12aTM3cWYuYm1jLmNvbSIsImV4cCI6MTcxNzA1OTE1Nn0.qSkwxtfpBcndSQgsJNguph_QROF2etqclm3LT-ife1CF2mbCEstwFxcaEUCfc9pBk0joP04PcQ0LY6dFUm6smVxUuY_mj2kYFIgPp7uqlEBQ5us-cj1Oq72dZSbwx_cNATZWCmLXjg9hgmc5lSNWe1FfFWrJlDpor0jkx3kvs8Pd6Sm2wEm8Q3gqKSuRX-GQYK35dZzf6yiyz_VP-uOvSvTkP5rzWgVZi_RsZERsSJ52g0uEAaJ2Yz77ppjKFOCE5pUjd2Wbw-APyGoHTy0Gafs0N1_XxAzGe3e_fe_-IxGE7obP4YBAk1n4i49i1txZQhqlqeCAFVjV59ivuMfgow",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "https://demo1-aiops-trial.dsmlab.bmc.com/rsso/oauth2/v1.1/token",
+							"protocol": "https",
+							"host": [
+								"demo1-aiops-trial",
+								"dsmlab",
+								"bmc",
+								"com"
+							],
+							"path": [
+								"rsso",
+								"oauth2",
+								"v1.1",
+								"token"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getRSSOTokenoAuth2 Copy 2",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "MIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQCS+AMjQRGSWg4SMyhKwfLZVRCZX7PaOAZzW3HFHJXdSsoW4NaJwcYpBsm1de34mlWotNNPFDWH6LnFSeLNaNclO9sxMu5F0Z//MvWQfWB0zJ8fzg5rpg4jMIByS185lrklFslSP1U7mPMXUuNA+Sk0bJ1+yE3cPJBJqQ/JiSkYiwczfGhpx3Endpw161gyhL6sUvtEz/tebFx/e3YDtlTQSxH+exuKmJcg6YCZxYMf0czeaNEz/uArqkFGSlG5jnAR3IKtPeaetkc48IfWh5iVsurDCim5RjdRP+fbylPZ/5O7U44yl5pKwYm+PZ0oJRRBwYWDSRj67vrBhVobFJiHAgMBAAECggEAEmXRnrwqgvObB1Q4GwOkbuhjJ4//Z7XTuOUdnNszN3yBR9Plh2EmeURMQ9b7bz+CsZfRS/jvqo/LkZLqPWR+aj7P9Zy2jy7qpHuwmeHYDUcANG8LBxbGdklACw68YO0pSCdOFGmxNcCzzZumrx+BtPpTzOcuN/+s4Eu1mjj9WAD+IUIcYKQogFRinVp96l1Y2QNnwyVM5Kov/ab+gU+wIUwR/1gFzzkQD6mjA1hzFlkeHxn/mAUzsomlcpNKXqxBJMm1V7gI/7EJ2HGCetIwiHxrnBNut3qF5gzwG++U0ojtTpKEH35m1PlFGhOic8MZGrM3ojG+BV1j8emuOrFJAQKBgQDmXnTC4wjS7T+0BAzY5UAQotxJkfVTf+AaXnTBxf8bYbc08mjhZzrhboBZpvAL7JwAvHMiVbb+V56VigbcxqNtjvOgupksLkDzKtqLDFSeAYCbc26lbS0M30RPLF6qIVg9eQMwPtj3tpkOefT0RYc2ApCvah+AGX7i4hf+uZ0KIQKBgQCjUhbSv8TytqEoy7vyG11LG63W0IcG6y7f5ySHy/BYew2VC8Iu7ZrkexBS2oLitIOrLJC/KAXc1/9wcLng+rMY8ihZGoq+cSTF94OcS70L+EUnepMRH//I8fTp6fgu9cJtXaeHtAJWlacbLYtLqmaMD6AZtIRVIfyYtLBhHFVdpwKBgDH5Yaj5aWugbgZWLpdKvCgfvFv1XtvbTLlLrlZu5lWBUCYbRCdJpptKxmssbLyZeooqV2umXok0ZsGX7L8uFDvrG+zNLfdInWxi6n/pj92rA8Q1OVaHpZM6R+5I+Mw9aZAEVW285IJwSSm7ySjIgHl1+v8irWyzmzQKyhvHFkshAoGBAJVoWXy+9rtbm58okm1v3y8AyU2FQqFvsVgfqmmYhe1L1ScOtLwdnd97PXmucKJYpUOI53oYcRSRfRst5L4OWp1tmr+46khCVXPNdNcc6nryysDM/5FhBqybvIPpCKRdK1rFnKcmZCU1jsPsLEwyPNHQ0ZPyckU3bE9+rQSJ2QZtAoGAIccgGPGTs8L9NVtzCIefo5w9WcNZznRUHfMall24bhZCW3gn4bKyIbl4XM4kYfjTvgvSR3UOg/WzR5nA35R9M9ZRdwzqarU3B4kj5r8rguS7LzrPcx9k9IuSB6oPNaEC2RDh/XDUgkFZNJ8mcGuQ0u7PPyCeyWCcx1UzFdNFhRM=",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "713af459-20c3-4650-9a4a-143a59f63b75",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "apiKey 92ad93d9-4816-42d2-9f09-5f14e44527d6",
+								"type": "text",
+								"disabled": true
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"name": "Content-Type",
+								"type": "text"
+							},
+							{
+								"key": "X-XSRF-TOKEN",
+								"value": "VND_RSSO_V2.eyJpYXQiOjE1ODMxMjcxOTI0NjYsInNydiI6Imh0dHBzOi8vbG9nZ2VuLnRyeWJtYy5jb20vcnNzbyIsInJsbSI6IioiLCJ0b2tlbklkIjoiXzQ4NmU5MzNlLWYzNTMtNGE4Yy1hM2YyLTQwOGVmZmI3ZGIxZSJ9",
+								"type": "text",
+								"disabled": true
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Keep-Alive",
+								"value": "true",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "grant_type",
+									"value": "urn:ietf:params:oauth:grant-type:jwt-bearer",
+									"type": "text"
+								},
+								{
+									"key": "client_id",
+									"value": "713af459-20c3-4650-9a4a-143a59f63b75",
+									"type": "text"
+								},
+								{
+									"key": "audience",
+									"value": "clm-aus-w1yaog.bmc.com",
+									"type": "text"
+								},
+								{
+									"key": "assertion",
+									"value": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhZG1pbiIsIm5hbWUiOiJIZWRnZSBBZG1pbiIsImF1ZCI6Imh0dHBzOi8vY2xtLWF1cy12aTM3cWYuYm1jLmNvbSIsImlzcyI6IlByZUF1dGhNTEFnZW50IiwiaWF0IjoxNTE2MjM5MDIyLCJleHAiOjE3MzA5Nzc4Nzh9.klg7y22wRMRP1zjtEJylqPf7tO9qimjJ53MdnELfZaYzq5ypCdogpSaxU80lPPXqpPR4V74F9rzQAGgeie6gVjuMPLVo5frer4PcQzMr-sOwfdF7ce7wiFF4OMTVoOtob9aegZszjM44-z7SL1s0tMmwTkdIKUDIYqWA7PnZjY4QrBpRrgGMrJ6w5htL397VixI0wxVlXmg8qVJY1vfNoCpHvhPK6AXsneZVaEv5E0vMFwn01DCsj_oEiGL1ZIHIT7Q2kH2xJy3DQ95YgzTugezz-GNa5hKn_fugmRDF82zdBvDJe3MkCP2POS2b-hvbCEPHdhBBurVCWEvFltys-A",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "https://biliot-aiops-trial.dsmlab.bmc.com/rsso/oauth2/v1.1/token",
+							"protocol": "https",
+							"host": [
+								"biliot-aiops-trial",
+								"dsmlab",
+								"bmc",
+								"com"
+							],
+							"path": [
+								"rsso",
+								"oauth2",
+								"v1.1",
+								"token"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getRSSOTokenoAuth2worf",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "MIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQCiW9muLzPPcPRP8RRAVwITc/Cs5vy7hlN7yEvYPLNvh5DvFiVtfT9eeF9NIvgVHutmFBuIMbsfYBDsHZNtI7wGQyUHuNJ1exw+7a7Cv1r9/EyOQNzA4K2OlPZC11VoPearfAKKaqqF6DQ9e/qhDOZSVxIzepvQKhQ12tx40b2kUSl8cPUCJ3fRxs8eDQ7A1yg9Kz4x2pxeRq9/eCDVztdWkRg7ev9p8JmrV5fElmxOIwGURhZg9hlD1vKT9NviSIH68vHcPXkt6s7qZP939HoRWfWOq8plmOympVjRM+/DYYLUG7JPLt9qZ5wTz8Y6iMAPY9k7sryEBaWdzNsDXzXpAgMBAAECggEABlIsIedtjXR41onsv2qDxq0bYCfoDAb5RhbwuPz4AW4WOvCySVZ4ep2WHEMxxGS9Rm6e+cjx35FWZ1Lpc/TRs662iNvtuawu19ZaGPPpP30sn9cvoQS+TRBInCaVCSdrzR5ZXPk1JVx6eDBU/CMr7mW8bCuoWEzjF4urTLrhtr1wPulM1jIKZnx3hmKBUanONtvT6TPVlCnbwiSwi2xVct+b99MbgffRX55zEm3O3EcWwpdYf4/x46SdqOwTYcuojeJuZLjdTZBpId2etX0NGGZyqWSvqBaUQKxpJkebTyJdz5E6FXP9lZaPgEy2gGiBAi3Y49Amzx/9I4eChkDuOQKBgQDfOqNLaZT1v9l4yE3/qqBtdhQzYII4BNcDwbgLtfi/UcsitWjcUKzCH68j+OQerQzWPtqsugnRP29g3UtDhRy/SGrV55VA6Sa9Cxu12EILKPVboJmbCuIgMv4OPQ1rneClNaaGUAv9N10iCxB6MqWHBYKo7b7XACaLGPjIMqOCHQKBgQC6MZhPf0z3tTuLuiBpa3wFnBfRX75aN0dx8vt1/BRp3qQP99dO/KMsoma3B/VlpoJ5oCg7Dnj0B5CGXz+pvAgoR8dXYz+et0ZVKwMyiUvvPR62inSbVd/Z0iahv8UInLtQtS3rkI/KnPpqGGCz6eMuVbIgIoEaacFHNyfYpVf5PQKBgG18xTrnvjgKsQ+cryUG+0i08ZOBcl0ngo5FJZAY4Lh11bxgXd4xc4qDH9P0725cUj+C9J5jYQ1Qn8BSyeeEEmV/j2b6/ymnMWjnWeAHAd2XaUBXtP9mhyJj4Ff7eemeteBSQCsAd+DqlrNr2dkVnjpraXqRoViyqjTvOpZ2v9vBAoGBAID1+NiXA2hOTn/o2qopmC0KgDS0a9NwljuGYETH5Buv6VJmBurecOZpVVtQV9egDJ7RHwxIad4bny5yqlWVttCvZpJQW7BCoKQ8tmo6Ti3V13/3ReyQ/gqQU9GUUZQ1ekfcNYIDDpT3RTpWyCPUy1U8ZbN8Mo9o0EXTHfYgD17BAoGBANa4vwRwjx0HmpwauJN4Qzvdo5oP1qWE362WgfwP6JiIuH9K6JscYUAokzVV5bouGXZPwRyqIlBZ87OuRd2T69wLOGbZazImVGcA6NV+7mF/+EQuBrDhzBWiWtHz/o9/QJSAaCWfSIkJZxFtwJuH9+8OAnoN4CiyRGNuVkm1e7g7",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "e6eb6c35-ee1d-4f3e-b1c5-e12dc2e93123",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "apiKey 92ad93d9-4816-42d2-9f09-5f14e44527d6",
+								"type": "text",
+								"disabled": true
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"name": "Content-Type",
+								"type": "text"
+							},
+							{
+								"key": "X-XSRF-TOKEN",
+								"value": "VND_RSSO_V2.eyJpYXQiOjE1ODMxMjcxOTI0NjYsInNydiI6Imh0dHBzOi8vbG9nZ2VuLnRyeWJtYy5jb20vcnNzbyIsInJsbSI6IioiLCJ0b2tlbklkIjoiXzQ4NmU5MzNlLWYzNTMtNGE4Yy1hM2YyLTQwOGVmZmI3ZGIxZSJ9",
+								"type": "text",
+								"disabled": true
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Keep-Alive",
+								"value": "true",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "grant_type",
+									"value": "urn:ietf:params:oauth:grant-type:jwt-bearer",
+									"type": "text"
+								},
+								{
+									"key": "client_id",
+									"value": "e6eb6c35-ee1d-4f3e-b1c5-e12dc2e93123",
+									"type": "text"
+								},
+								{
+									"key": "audience",
+									"value": "worf.qa.sps.secops.bmc.com",
+									"type": "text"
+								},
+								{
+									"key": "assertion",
+									"value": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhZG1pbiIsIm5hbWUiOiJIZWRnZSBBZG1pbiIsImlhdCI6MTUxNjIzOTAyMiwiaXNzIjoiUHJlQXV0aE1MQWdlbnQiLCJhdWQiOiJ3b3JmLnFhLnNwcy5zZWNvcHMuYm1jLmNvbSIsImV4cCI6MTcxNzA1OTE1Nn0.UTohKqELtdugh6qmAxr6bgFaezCWngdPRkzXhfnxltGhYXZ50er0R9nC6BTI58kgLphDBAiHXtEpQaD-X20vsB3J7z-iLFo59_ohJhTQz6z2Y4O_o-cl-U2GoB0dCPvslAoMs8jb06Jif3EJZFM3FMMp0l1rsI7mGBbzjqsKThfelPmwNV3O8OqlMN0i9Adet3cM8djft3heYa5LxLQZe7f40VOEpucpUcXEcgOBFHAO6MAEO8zpOeL25GjEXhTsC1D1-1NXudI4F4iPZkwom1WWeL6hXo5fFDkqAE6yYjJCJTaslWo9n8I-SrSDIITE5jFhKmeCQHAvbo8R9qI3nA",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "https://iothedgecom-iotedgeade-trial.qa.sps.secops.bmc.com/rsso/oauth2/v1.1/token",
+							"protocol": "https",
+							"host": [
+								"iothedgecom-iotedgeade-trial",
+								"qa",
+								"sps",
+								"secops",
+								"bmc",
+								"com"
+							],
+							"path": [
+								"rsso",
+								"oauth2",
+								"v1.1",
+								"token"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getRSSOTokenoAuth2worfNonAdmin",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "MIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQCiW9muLzPPcPRP8RRAVwITc/Cs5vy7hlN7yEvYPLNvh5DvFiVtfT9eeF9NIvgVHutmFBuIMbsfYBDsHZNtI7wGQyUHuNJ1exw+7a7Cv1r9/EyOQNzA4K2OlPZC11VoPearfAKKaqqF6DQ9e/qhDOZSVxIzepvQKhQ12tx40b2kUSl8cPUCJ3fRxs8eDQ7A1yg9Kz4x2pxeRq9/eCDVztdWkRg7ev9p8JmrV5fElmxOIwGURhZg9hlD1vKT9NviSIH68vHcPXkt6s7qZP939HoRWfWOq8plmOympVjRM+/DYYLUG7JPLt9qZ5wTz8Y6iMAPY9k7sryEBaWdzNsDXzXpAgMBAAECggEABlIsIedtjXR41onsv2qDxq0bYCfoDAb5RhbwuPz4AW4WOvCySVZ4ep2WHEMxxGS9Rm6e+cjx35FWZ1Lpc/TRs662iNvtuawu19ZaGPPpP30sn9cvoQS+TRBInCaVCSdrzR5ZXPk1JVx6eDBU/CMr7mW8bCuoWEzjF4urTLrhtr1wPulM1jIKZnx3hmKBUanONtvT6TPVlCnbwiSwi2xVct+b99MbgffRX55zEm3O3EcWwpdYf4/x46SdqOwTYcuojeJuZLjdTZBpId2etX0NGGZyqWSvqBaUQKxpJkebTyJdz5E6FXP9lZaPgEy2gGiBAi3Y49Amzx/9I4eChkDuOQKBgQDfOqNLaZT1v9l4yE3/qqBtdhQzYII4BNcDwbgLtfi/UcsitWjcUKzCH68j+OQerQzWPtqsugnRP29g3UtDhRy/SGrV55VA6Sa9Cxu12EILKPVboJmbCuIgMv4OPQ1rneClNaaGUAv9N10iCxB6MqWHBYKo7b7XACaLGPjIMqOCHQKBgQC6MZhPf0z3tTuLuiBpa3wFnBfRX75aN0dx8vt1/BRp3qQP99dO/KMsoma3B/VlpoJ5oCg7Dnj0B5CGXz+pvAgoR8dXYz+et0ZVKwMyiUvvPR62inSbVd/Z0iahv8UInLtQtS3rkI/KnPpqGGCz6eMuVbIgIoEaacFHNyfYpVf5PQKBgG18xTrnvjgKsQ+cryUG+0i08ZOBcl0ngo5FJZAY4Lh11bxgXd4xc4qDH9P0725cUj+C9J5jYQ1Qn8BSyeeEEmV/j2b6/ymnMWjnWeAHAd2XaUBXtP9mhyJj4Ff7eemeteBSQCsAd+DqlrNr2dkVnjpraXqRoViyqjTvOpZ2v9vBAoGBAID1+NiXA2hOTn/o2qopmC0KgDS0a9NwljuGYETH5Buv6VJmBurecOZpVVtQV9egDJ7RHwxIad4bny5yqlWVttCvZpJQW7BCoKQ8tmo6Ti3V13/3ReyQ/gqQU9GUUZQ1ekfcNYIDDpT3RTpWyCPUy1U8ZbN8Mo9o0EXTHfYgD17BAoGBANa4vwRwjx0HmpwauJN4Qzvdo5oP1qWE362WgfwP6JiIuH9K6JscYUAokzVV5bouGXZPwRyqIlBZ87OuRd2T69wLOGbZazImVGcA6NV+7mF/+EQuBrDhzBWiWtHz/o9/QJSAaCWfSIkJZxFtwJuH9+8OAnoN4CiyRGNuVkm1e7g7",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "e6eb6c35-ee1d-4f3e-b1c5-e12dc2e93123",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "apiKey 92ad93d9-4816-42d2-9f09-5f14e44527d6",
+								"type": "text",
+								"disabled": true
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"name": "Content-Type",
+								"type": "text"
+							},
+							{
+								"key": "X-XSRF-TOKEN",
+								"value": "VND_RSSO_V2.eyJpYXQiOjE1ODMxMjcxOTI0NjYsInNydiI6Imh0dHBzOi8vbG9nZ2VuLnRyeWJtYy5jb20vcnNzbyIsInJsbSI6IioiLCJ0b2tlbklkIjoiXzQ4NmU5MzNlLWYzNTMtNGE4Yy1hM2YyLTQwOGVmZmI3ZGIxZSJ9",
+								"type": "text",
+								"disabled": true
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Keep-Alive",
+								"value": "true",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "grant_type",
+									"value": "urn:ietf:params:oauth:grant-type:jwt-bearer",
+									"type": "text"
+								},
+								{
+									"key": "client_id",
+									"value": "e6eb6c35-ee1d-4f3e-b1c5-e12dc2e93123",
+									"type": "text"
+								},
+								{
+									"key": "audience",
+									"value": "worf.qa.sps.secops.bmc.com",
+									"type": "text"
+								},
+								{
+									"key": "assertion",
+									"value": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJnaXJpc2giLCJuYW1lIjoiSGVkZ2UgQWRtaW4iLCJpYXQiOjE1MTYyMzkwMjIsImlzcyI6IkhlZGdlUHJlQXV0aENsaWVudCIsImF1ZCI6ImNsbS1hdXMtdmkzN3FmLmJtYy5jb20iLCJleHAiOjE3MTcwNTkxNTZ9.jRi8cbsSrFnS76sEG1wMzKUD0AC_ui7i1I7zkGx1Mty-qXsFZuxskFvb4CmdjY5W4a_m-7R8YtJHJEYYp_Pg-6Ra2eIIkRTHVBt_egWr-G974_oxiR9HdGRB6iBcsWFkQsDymRM6sF5XHo1Y95avSMb5Vba7bViEbE-2DTqIP7uTuzSHxca5YLW1DhZ075F0zimiRE3G00kN_5UI58KgajF8L0-D77gYGGZUWueoh50YY7YwSivIGvnd-YiAo65d-UtNprVrbpUvkDkKrdsJbodGkk5pqyHYbK6Wd1TGgaMKasmqdSOD7XAVwacjmnleAEA2Ndg5r32FrMpH5sArpA",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "https://iothedgecom-iotedgeade-trial.qa.sps.secops.bmc.com/rsso/oauth2/v1.1/token",
+							"protocol": "https",
+							"host": [
+								"iothedgecom-iotedgeade-trial",
+								"qa",
+								"sps",
+								"secops",
+								"bmc",
+								"com"
+							],
+							"path": [
+								"rsso",
+								"oauth2",
+								"v1.1",
+								"token"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getRSSOTokenoAuth2SolQA",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "MIIEvAIBADANBgkqhkiG9w0BAQEFAASCBKYwggSiAgEAAoIBAQCp8Sq4IpNihJjj2JAI8VtWeQunJk9YfjGw4wPWhnYj+Q8Bmycn2iMMAwGVwFs7Bpkf7CsPOFD6N5+HgKlxnaMKP+GyzPM2U7aqIIN6O3ve8csDaBbVgfxmrKZECG9UR6PwdAz/ekNd0T0ghUJyvJKDD1KLGyx5M0v3t3L35X6gQ1RN2YITzXn+Zu11Bbf5NrZN9Zuar7asrqYkq8RbD8KrYcRiVmLWSO6SWg+6rg2iY/2mkChvOX7PDCG9kGu6ii8yNzNDUjFz4SJ924fqM2QHSQ3tIcSw/NTbadqDg9s8wB3ODm5Z/l6yK5N/Sswd8dMuQqTNWrtDAZ9Jk+Ta+suxAgMBAAECggEABQo9oJlkMptJHl3pWoKLGWzu4Xf25OJ5zBTVNhecpOyeFqwtO3bWx62ht52/m3pSsGWbUZoFwe37GG/Ce0oO5yghJBiXPj+VejLmzHcEuqrfih5lYK6mJU/3XGHiOsu5aL8gWiFTEEnfrwKUvmrOSmwMRLjf8pGtZOG3JKpCqw7FeP3sBtF/bJoJ1sm+Z1UM+i5GWVaazO77IVdXMB/CWt3lW4PhcsKXjABtoC8NRqEToqzZaZXbsJDOv+ge8UMMJpvy1+23LZooIQZmWjZLlPlsc+FdS9Y6GvtHqfuSyVr45ExttSw6XdE8t5m2nbLH5/POPXgWhAK/5ewI/QGokwKBgQDRWYkgSRtD8gsVcLj/5VnzpjPcUQLXFuWXx4bb1DUqIUvn2hS57AjNgWNum9+JfdQSQlxfySt4KHHPGEeYWy/TBP9RX23EDUPPypmjUSvGUXFTVZLk39OKp4KySMLrRWHkg05IETyS/+udtSiBDtmsKigqIMvNYWNR5QNKG00+OwKBgQDPz5llDYu/ZprWgZMX9BkBfSJACiZBYp20io9r4D7xpPfxXSCTrBFoC+CA/wgNGU+Uy6xMMKBqTO+XunDzoQWYr9NHp0mwoqPoCXypbP/3Xsysu1BJwJwQruiHxTeLsjuF3Ydtmh25oIVgfOKLaWCW38n/OWihpSC8o18tbqMjAwKBgE9AoALS6jl8pemF9OMbBkSQxM1A9dxLVLty04DhAwdh94RcMMB5tJNnyiaTZ7p7Ig+Pg7zXQVeJqBwISwJIcwBlweoiQEGZ6/P79NG45uN67XXozWVLvp+c7oNjvDao23hQpQ/vRok3zRC1BhJlds4QX4gjRkQH/DuCgQ5K66EFAoGAaiBuCSJy1OuUdam0sg3x20XJgQTt5oRzX6lHd2MNIiEKkpPpuCCuvwEZxSb5OJ9NegLN2hcXRVJHJaiMWI9KKWDZuIUhZ/iXVj/KD0hgLDeYtTnv1cpsqUR58iRwqoH6TfIFYJ7NQWhN1SnSFDpbnpFpOlNaMPsAjfWs/Km83HsCgYBIwdYzxEQSlB030d3IIMhOsFW2fbhf3SYWhLBNBpGd6OuM+1ZF8f1EAKGcdGcU5VUKwrawbj18miOnx6n4QKaqLSAeONPubuV0XpukyXO4BysqzxhKA/5ZAcW+tS9DF+oWBXUu+TlqVBmGWsKL2MINcNUIIdvdVDJA20ZcPxLJVQ==",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "f97ef11c-4c6d-49e3-90d3-32a8c24c7038",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "apiKey 92ad93d9-4816-42d2-9f09-5f14e44527d6",
+								"type": "text",
+								"disabled": true
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"name": "Content-Type",
+								"type": "text"
+							},
+							{
+								"key": "X-XSRF-TOKEN",
+								"value": "VND_RSSO_V2.eyJpYXQiOjE1ODMxMjcxOTI0NjYsInNydiI6Imh0dHBzOi8vbG9nZ2VuLnRyeWJtYy5jb20vcnNzbyIsInJsbSI6IioiLCJ0b2tlbklkIjoiXzQ4NmU5MzNlLWYzNTMtNGE4Yy1hM2YyLTQwOGVmZmI3ZGIxZSJ9",
+								"type": "text",
+								"disabled": true
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Keep-Alive",
+								"value": "true",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "grant_type",
+									"value": "urn:ietf:params:oauth:grant-type:jwt-bearer",
+									"type": "text"
+								},
+								{
+									"key": "client_id",
+									"value": "f97ef11c-4c6d-49e3-90d3-32a8c24c7038",
+									"type": "text"
+								},
+								{
+									"key": "audience",
+									"value": "hfsolqa49-solqahedge.cloudsolqa.bmc.com",
+									"type": "text"
+								},
+								{
+									"key": "assertion",
+									"value": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhZG1pbiIsIm5hbWUiOiJIZWRnZSBBZG1pbiIsImlhdCI6MTUxNjIzOTAyMiwiaXNzIjoiSGVkZ2VQcmVBdXRoQ2xpZW50IiwiYXVkIjoiaGZzb2xxYTQ5LXNvbHFhaGVkZ2UuY2xvdWRzb2xxYS5ibWMuY29tIiwiZXhwIjoxNzE3MDU5MTU2fQ.Z-pFxiRtdLXhzdnYJmUwwMuqMdYFqlTeJ2-VSl4MVF9W2PIiVQcNSE6mLxjojFLkIuwl07b3gACmCojf-NF9RKsVae_N1hKqIJwVILEQ7uHl074fpNAITE2_0TUY2L5MTybTEccpJcNcWYYoicc71IgrFzsuajg2jk3BN7XXEgFMfcim99Lmg3bKnu8L90FHVSRq9kUD_UBspGXDhKrshQzHgK8ksYnaVWzuA3Xk1cPUW4pVV_F_58UO4Pz0ngPVMSTxj9ftJM6zek-x6UwJWMk0-tie601MOO3PZ5spFEDWBharUCqJCRQ_rX8fw0YkMJVBpb8ObwZJzsB0h6Cr6g",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "https://hedge-dos.ade-labs.bmc.com/rsso/oauth2/v1.1/token",
+							"protocol": "https",
+							"host": [
+								"hedge-dos",
+								"ade-labs",
+								"bmc",
+								"com"
+							],
+							"path": [
+								"rsso",
+								"oauth2",
+								"v1.1",
+								"token"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getRSSOTokenoAuth2OIS",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "username",
+									"value": "629f158b-e4c1-428b-9179-3e2a0dd013c6",
+									"type": "string"
+								},
+								{
+									"key": "password",
+									"value": "MIIEuwIBADANBgkqhkiG9w0BAQEFAASCBKUwggShAgEAAoIBAQCf8cSZI59MjzUTmJPJjc+6kqH2pLUwRUasJI0PyC3hTf6APj5j0aCPlYBfsytlNpVkjlK5x9oI7sz7irw2nfBB1DLPsN2vmP1qR9jB6VCXMCUc58V8IU1sC8CjOTSEYrNhmIqPQEezdgyigjRMTOkcG3LiDKg3Z9fbQYnQTC2Xe2bXXypd5CyWoAd+HHuqMNGXJKQ2okMzaCfy/9gG0COkxnfH61UhnolkyU4yq7cr8m/yMZfmbBfD/JA8KuuDtrVXUlzvERSfNqbXAvoBGfa7jzjeBvlx5IqlHworWxFxIheN1ugOYkhMnkCVt/lcCiVwz6fHYnIWQF5WHi/H0pkrAgMBAAECgf94llKWz9R4usZakiXERRgPZmDYPlhcxZ7HGVnhzgNgcbsv/EYtRPS3wWNpgb9rm+KMcV1RckrEohy7J7vtjuuQHuE8X7/LD37RuE0wS/SireRF8H0HesigJLr65vzJszBTBYVxy9aMSNXjl3CGH/BBYtbi50QTHcd0sH1d3oFhbqErQxJvyWWmcc0i99oypGtoRCHab9JR+Dh8XX5qS2dVFFWajtB2kxjbyj+FP5c9Dn8hIrs7GBU9tlf1jD7OnFyDMtSyHxLUjRSmokbqwaIzarOhm8+xyQd7A26qx5QFmvCd9rczE19W5TcCI08j7fsu/xCJiLkwkmhIOznPVCECgYEA4ghWh3E2DNiz/zBBDsDBCNU5XT23nu6pygXOsLIbD3pM4rHhH2xI+SgqTaNXLxipj10aRBhfk7OdJK1z4lk5RxKbnUGH5179czK6JBApA7+FVmIupsPweSGcIuteId/jXJjWBdTTdK43JkIOz93z80btLdgBiczHTBehh/A9JmkCgYEAtSZdE9Mi3K4j1eCBKMT7SBKjNBfktNkks4xpaxbwkCazk2WTKs3klcN3O+9ridRgrHGAe94SBiiRvbjl9SqKtf5bNDwGY0qf8THdERLQVe/ogFUiGblaHBz1c8M0vzxA8Ods8EuLd0JDc+oOh5KmlSl47DDtfzBVzn17XOesmHMCgYB0sO1LG01WMIIsmpLbtPNzRfFJi9VCPeB2Ja1hV3HU+cS7vC2G9XZu+ydr0YnvDIJtOxmWUib1r+LOzqVnE70YTij8dJpe/pFGacfjWlxyTOvffuyqt7lsL8fV10FPp7BPW7ASbp+EO3TJUY0oD2QkElfcNQoGRCwXwpNoBMTtEQKBgCEtZJCz88edMT0DwEQaR7d8il2JHr8sofcseUY+zlJodC1Dxj9ptDrlsNnOUNDOj+Ila5XEJ2LvXTn1OlC7uOn6KvQXJkhbK43+RvHQk02aAeg3L2astt89QoswLmH0BCTbDe24uFNgVIBPVtfnuRDKprYDhAvua1jFTKnIWKkXAoGBAMg321GPrLzZQVgIsfZyccAjukKCWYBAoQa0pQ8e39hqd67yglqyEPuHlazhJQUYPHkl+v61gLSKwn4KmatxQSGMsqbqvdy5ihjqn6clgHNfDodBxZZDFYlLciiVUmLgvyEd2reBRqrwipl7x3ArAroiwqE6iYycfW08zabUMkPs",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "apiKey 92ad93d9-4816-42d2-9f09-5f14e44527d6",
+								"type": "text",
+								"disabled": true
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"name": "Content-Type",
+								"type": "text"
+							},
+							{
+								"key": "X-XSRF-TOKEN",
+								"value": "VND_RSSO_V2.eyJpYXQiOjE1ODMxMjcxOTI0NjYsInNydiI6Imh0dHBzOi8vbG9nZ2VuLnRyeWJtYy5jb20vcnNzbyIsInJsbSI6IioiLCJ0b2tlbklkIjoiXzQ4NmU5MzNlLWYzNTMtNGE4Yy1hM2YyLTQwOGVmZmI3ZGIxZSJ9",
+								"type": "text",
+								"disabled": true
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Keep-Alive",
+								"value": "true",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "grant_type",
+									"value": "urn:ietf:params:oauth:grant-type:jwt-bearer",
+									"type": "text"
+								},
+								{
+									"key": "client_id",
+									"value": "629f158b-e4c1-428b-9179-3e2a0dd013c6",
+									"type": "text"
+								},
+								{
+									"key": "audience",
+									"value": "hedgeops.dsmlab.bmc.com",
+									"type": "text"
+								},
+								{
+									"key": "assertion",
+									"value": "eyJzdWIiOiJoZWRnZWFkbWluIiwibmFtZSI6IkhlZGdlIEFkbWluIiwiYXVkIjoiaHR0cHM6Ly9oZWRnZW9wcy5kc21sYWIuYm1jLmNvbSIsImlzcyI6IkhlZGdlUHJlQXV0aGJpbElPdCIsImlhdCI6MTUyNDAwNDAyNSwiZXhwIjoxOTk5MDc3ODc4LCJhbGciOiJSUzI1NiJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.rRuqZXZDRLq6mxj8SjHtabPmOgMJ68bA0D7XXShNbJNUlc0_R8PNzD91md1y13_q6dOgtoFl-JnpTvmUWE5RJXAIVlhQpgsaYwlisp14HIhqOLjlTqiPX1xh7PbTEvP69frV1dPTIEQ9dsXyf-rRgC76-DIuk_vjyDSoUqCf7aNgg3GCiT0kCrBhjjOa-MMWVz0dtHauu6LiYxXsHWnZv7b1QfOmjwIEKI_-t2xjPZLBwcncx4vdvR_guHw19zNzf24gthbIRoyhZqYvFxe82QdCpVHUmmJ2aVkA6IXC6uy-zTxbdsy_4ALeH5hOMKTzRyilN_ZJexRUvX5t2IkoDw.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.K9GfEpt7LVYulLknaW73SRjFepNJTXpMNqTTi-HmAiu7FxC1D1njGmjl8zrHM4iQRuuzoX4buannzLby7Seh0HCIQoOarYbz3OFYB5Oi3EitfiFsFlFfITsPO_GCdjR6bxSUkV4D53WRYNadoLSzvrVWzpDd8eBNa_mRixT6PrHbdqYq1-IGjbfjBxYTcu02mjmoEMpQr7_ZH1QT2-QnegkRBjhOBcspdn6Yd5TGRoG2sJjT92So1IG2ankNbeO4G3t6TUka67sIgdzGoisAuCLi_r1z8W6vmEYX4N5-5VlxL17VCeRuYPCa1Ob9Iwnv24NjZob4pwQJqtpC8ZUTXg",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "https://hedge-solqaoci1-qa.qa.sps.secops.bmc.com/rsso/oauth2/v1.1/token",
+							"protocol": "https",
+							"host": [
+								"hedge-solqaoci1-qa",
+								"qa",
+								"sps",
+								"secops",
+								"bmc",
+								"com"
+							],
+							"path": [
+								"rsso",
+								"oauth2",
+								"v1.1",
+								"token"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getRSSOTokenoAuth2ADEOnPREM",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "MIIEvAIBADANBgkqhkiG9w0BAQEFAASCBKYwggSiAgEAAoIBAQC5w3yplyZACz5NsJKvw9t7xHjYfIE7IHmcwb4QKpXNCzwYr2L13mL3NlFkrhhLzuQDShUwsxw3LqsA230lVblc/+SAWFkwIWcf8bopKE+Kphq+G6N+E7aaM1OblFDM+SJbhafGgIcylhhsTm0DIJNTAXrYjyegzSImYISk1h/W5N0GYgI7vklO0K2t/exUfnEFVNfEHAyLxxRuzw1SdoK39yGuWNrAWPmd3Xmggxct9FJKz5DR/TcXgQlW9lKKFeeu087ebJhf+7ndMWyGUu/G8quGNNsBpn9yc3cdmf9ngqCr9QgamZkD22sp9F3qhnJN3J34hUFCOUHxYI07iK4LAgMBAAECggEAR9GZ7VE4IxOVu2CUXarpvOCZXg1Iw0zLZ70J1+M29katLdgE+QzJE02nSzb5wrlSsyjdp23f7z+2Mkcpi5koaJmwRKSjmrWXUqTYtdfVZMPSXASAgZpqgxRr8x703EJHs72pP1fqrTaVa64ofEiIXNOaJIa4KfWVCeRP9BCqz6AUalUkQDwFFO0wQ79111TZoW1l1l/lT1LsVMf/feGj8VwwfBxw9JS2DFfsu8UoDcQMVTblKnXiLaGvwRlCV514Sie9CBnYMTcYCFdq+9STcruq0qt3F8q16sMES7iO/saEsefYVvt5+XRuDu5Ye2RpkDiVv5MZK3htTGI0vVwdsQKBgQDaxYdL2vUV5lS+G3vCmcro5q1Ir2R5c3nqZcYq6P712f03OBYUMk/0QLcszhbyCDkBpFonMxQjy5qba3w2cftoiK/NTo03cFyMevYEnzQrmMps8buJUyPxmAoj9zXxvkNxbf6FUiQ58cH9gXuT+poeFUHpdKAI9jT4SgYiVxl1GwKBgQDZYANmFgQ87mt3DA1wtENsK53+QM6NqXpLoLEFT6Atuf2tDJpp38/mIMabrG3QYQN4CqDlBxAb9xjOnQwyxJV/tqmLI6oMg8h9B/OqwX5negTYjjJX+oqj0t/zWvYakfU3ZDCDXuxU5FsylrsazIlPIKb4odBO24rgBHZ/z6hp0QKBgEUtHpoC02qoWXV/lUO0g6/feT25kCjDNfLDWcUpxa0Rz/rM9lZOjm+qowE87Y58wSHeyU8J3L1w3SN1+mHw6tFkH0rpIsg79FfLbc2KVeHPP3rxeR50NrJnJBW5TspxIjxUzp1zmtbjtjal4eCp5l/K0vuyEASlbZxxM71aE0evAoGAa7KMPInv85hUmhjYl9xYA0Hg91V4gOtU8h9dVTpMLBuYOaKi5o3C3Uuj2wElLzbBlzn82TwUmSZlnghlQMnxH+OKQKuc1rJ8JKZJ7XIMhIwJ1pktDDXPdrdFybZpdGSYT6dN+eiPwseY/4l6jh6EcTXGRC03nbpcJf1QEKb70+ECgYAmKRFI3ugabd+mi5EwxckCbItj/HowSdZmDEzEdvMMGpn5l9tJJrMNXivYOyr87rOs1pwoe/U0ONekqmYtoSkl8rGywo50flowXbQHLaEWuOCPgyVQnOTlzu4ySdNSLEda624+/nD5Kp4V/sqjlcBikLHYCkOWechJ3BvvEVYJwA==",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "50fff734-616e-42af-9f33-1dfda0233b69",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "apiKey 92ad93d9-4816-42d2-9f09-5f14e44527d6",
+								"type": "text",
+								"disabled": true
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "X-XSRF-TOKEN",
+								"value": "VND_RSSO_V2.eyJpYXQiOjE1ODMxMjcxOTI0NjYsInNydiI6Imh0dHBzOi8vbG9nZ2VuLnRyeWJtYy5jb20vcnNzbyIsInJsbSI6IioiLCJ0b2tlbklkIjoiXzQ4NmU5MzNlLWYzNTMtNGE4Yy1hM2YyLTQwOGVmZmI3ZGIxZSJ9",
+								"type": "text",
+								"disabled": true
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Keep-Alive",
+								"value": "true",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "grant_type",
+									"value": "urn:ietf:params:oauth:grant-type:jwt-bearer",
+									"type": "text"
+								},
+								{
+									"key": "client_id",
+									"value": "50fff734-616e-42af-9f33-1dfda0233b69",
+									"type": "text"
+								},
+								{
+									"key": "audience",
+									"value": "hedgeqa.dsmlab.bmc.com",
+									"type": "text"
+								},
+								{
+									"key": "assertion",
+									"value": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhZG1pbiIsIm5hbWUiOiJIZWRnZSBBZG1pbiIsImF1ZCI6Imh0dHBzOi8vaGVkZ2VxYS5kc21sYWIuYm1jLmNvbSIsImlzcyI6IkhlZGdlUHJlQXV0aGFkZW9ucHJlbSIsImlhdCI6MTUyNDAwNDAyNSwiZXhwIjoxOTk5MDc3ODc4LCJhbGciOiJSUzI1NiJ9.j--tQPv2L16WpTXJJ4u0VJfC-GahzZ0kFmhMYPyKtmxMbEc7DaMiYXn_Vpze1q9LbvCacrJKnMUF3kIkOrn4nP9c7wTv2J4VNi0HpTG9jVoyqHmhiQY-7v-hWVe8KG9GDydw4zDgNJjNBAdWkXRBIVTay3Qv0yCRsaNid1NiI315Rf29_ksRVjCj2A9GPE2bMXakH2TQObCNoAKsSTSxS0u6-Tu5SaqUB5GRxrsuJlC23UObeGn7G3xuu6lcy--2T-55ZzcMOEd1_ih-lnJP6YionEt8IzftWc6sVjCxiZQs6pem3_sG9Y4z9HoEaslrEqyL1u35IV-uzy8DsjZDAQ",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "https://dvade-private-dev.dsmlab.bmc.com/rsso/oauth2/v1.1/token",
+							"protocol": "https",
+							"host": [
+								"dvade-private-dev",
+								"dsmlab",
+								"bmc",
+								"com"
+							],
+							"path": [
+								"rsso",
+								"oauth2",
+								"v1.1",
+								"token"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getRSSOTokenoAuth2AutoMAK",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "MIIEvAIBADANBgkqhkiG9w0BAQEFAASCBKYwggSiAgEAAoIBAQCMn+9L++FEYY+/24QwoCP3AVcC5dy8dyqe35m0t2jsBDeyHh1/w9x1DGOyymq+fczevrMdL3UiCPQzlS0QphQrP5JUd6ViSPU0WkN/o30h4zk8JN+NZG6Cu/uKhs46PHsjuSRFGWU49PTxPbAAlRXFs0Zi3yKo+93sR4OuACcVI8IlLWFR+IZ3BOLVc4OrK87tJjVFoEQYLeIlR+dEbo6jyZvsqCFUMTx1isHDw8mgSXjfPoQgxRtbAXU3UPACXcV3gSBxbV+ylEqLPqmWnYJG5xP12vDUzLiTZq0SjKLdkdmMApQH9dLtPOBBAp76i38lYUkdsAldAvW2hRdLDXwtAgMBAAECggEAEVxxc6UOI54T3DDiugobRpRwxJfST6Y6qdCbLldyaaj/o0rag3qPzheQe3NICGqJj3plrJW+VUxbsb6aCLMoTEqV6z22OlMdirAWIzzw5u0hlM5Mly0uA4/ntyt7bG8pGLjzxGAlQgnj76CZCQle3cCLUQuRQOGPfWs605GLQa2wmgpcWxtD55ujbCxpG7qvJi461iLVj+uaamcVCEvvQlIII0Bh0u663o2lvxauUaDopcUg1sQfpxvrObSxJHbJ7I+23YlG8oTqf9BbrwGAku9UNLKSzdEnW4tb2UdrJIml6CHrnEmfMcKz45iljeHlS0pzchgPyGHml+xZmqqO9QKBgQC2+VkE1ggJOwg12iz8TOaawHh5sY2uCJ63Wqin7gkarqpFLgobYvaLe9EsNxhAL78Ibvp3lohGEEmti5gCSWC8Qscu/05I/cjB8JuKyFaW1zOK8R/28NsLdlN1iBQ6eTo6KLDqq/d+tU9pGGLM4JqEBj2N6kewFsyVMcfoHTlMjwKBgQDEv7dt/3qxWX1zLlkPmycF46xG2LXbzaXPkqqn3UdwyRH45CBAXyEh49hkY56NMer24zCSMOs4WYHi5KVA1hFeRmyyOJBIGlUaqcwcMyPH5ANsCQpYYxNFwUO1csNx2o5owKGPmQUVr3+vd/XwtlL2+Iv2SYok7XC43PwpvIVBgwKBgBGsP9bhvWD23LIm4pVz8AoecQSAC8k1d+8JyKR/r01udW+9JKjEhD+ws+FraOI6Ol9cKMEIPx1VUWh7xTDjWX6VjJuTeUI/kPZ6gOuEsihbnNTcuVOmq+GNij4d6KZFM0SOzZe9CGiqpoLmIhTb1NDPsX5VlJsDeLsoVcCroe8tAoGAa1J813bF0ZoUMVE16apjhfXkUp0Bzo2GBg1mI70zrBUyRYcDBLofk6H6twAUS8bP+a6CHyyqEonYrRC2CAD9ZmSaBDmQkpQymiHHIhbPTMlXCIaB6ybYK3O54G9ip2dlyURSnMcGnAaoaunP8WczKF750fXZcj1HAMAimQ2pzssCgYBGVNbY9/yRCu6oI7L4e/0s8PhW5CGG0kAY/y3EG11Hv0UR8Yu+YGpYfZl87HtHEO4KyQIDiLoPhhzqrAplZEHHbxzdU6aE08/+KThimRL4EzuBUvrHbKYnetmYwWcq150HQDRdYJJEuILAH1TQQ8nfPGr7emLoU7hJ8+uv45V/OQ==",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "b26b4efe-b565-402e-829f-26cdbc3c9b25",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "apiKey 92ad93d9-4816-42d2-9f09-5f14e44527d6",
+								"type": "text",
+								"disabled": true
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"name": "Content-Type",
+								"type": "text"
+							},
+							{
+								"key": "X-XSRF-TOKEN",
+								"value": "VND_RSSO_V2.eyJpYXQiOjE1ODMxMjcxOTI0NjYsInNydiI6Imh0dHBzOi8vbG9nZ2VuLnRyeWJtYy5jb20vcnNzbyIsInJsbSI6IioiLCJ0b2tlbklkIjoiXzQ4NmU5MzNlLWYzNTMtNGE4Yy1hM2YyLTQwOGVmZmI3ZGIxZSJ9",
+								"type": "text",
+								"disabled": true
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Keep-Alive",
+								"value": "true",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "grant_type",
+									"value": "urn:ietf:params:oauth:grant-type:jwt-bearer",
+									"type": "text"
+								},
+								{
+									"key": "client_id",
+									"value": "b26b4efe-b565-402e-829f-26cdbc3c9b25",
+									"type": "text"
+								},
+								{
+									"key": "audience",
+									"value": "automak-fleet.innovationlabs.bmc.com",
+									"type": "text"
+								},
+								{
+									"key": "assertion",
+									"value": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhZG1pbiIsIm5hbWUiOiJIZWRnZSBBdXRvTUFLIEFkbWluIiwiaXNzIjoiSGVkZ2VQcmVBdXRoQXV0b01BSyIsImF1ZCI6ImF1dG9tYWstZmxlZXQuaW5ub3ZhdGlvbmxhYnMuYm1jLmNvbSIsImlhdCI6MTUxNjIzOTAyMiwiZXhwIjoxNzM0MTgxOTk3fQ.106JRt9eKhYg666B4uey58rTvlkLyZSZ2T8tX68LAZox47xlSztRyJmVFgtOuGbGpL-v-Rl4fYnalq6Sfokcqio9yh38y1OA0IzsVX1QQccx3zaNF5_R0QwNkcAzPZzrCP9i6qioOB7nFXTQv6r2asAFF7r9AtjPsaZKRJTAvISUhxVVUsCFstQagpC-PasAuxYIuSRBO1SMXH5cwtZ0Y0wjZ78j979cIpq9LpqfL58V0tafhDG6idq3OuRd0cqV8dSHK-8eu-DwS1W0A9AihdPP0qsNw87TWiBj1y2B5IV4nflSjiWUX_gOkLFkxchRrGRsq-51Qzi95pmDuwBX-A",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "https://automak-itom-demo.onbmc.com/rsso/oauth2/v1.1/token",
+							"protocol": "https",
+							"host": [
+								"automak-itom-demo",
+								"onbmc",
+								"com"
+							],
+							"path": [
+								"rsso",
+								"oauth2",
+								"v1.1",
+								"token"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getRSSOTokenInstrospect Copy",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "MIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQCS+AMjQRGSWg4SMyhKwfLZVRCZX7PaOAZzW3HFHJXdSsoW4NaJwcYpBsm1de34mlWotNNPFDWH6LnFSeLNaNclO9sxMu5F0Z//MvWQfWB0zJ8fzg5rpg4jMIByS185lrklFslSP1U7mPMXUuNA+Sk0bJ1+yE3cPJBJqQ/JiSkYiwczfGhpx3Endpw161gyhL6sUvtEz/tebFx/e3YDtlTQSxH+exuKmJcg6YCZxYMf0czeaNEz/uArqkFGSlG5jnAR3IKtPeaetkc48IfWh5iVsurDCim5RjdRP+fbylPZ/5O7U44yl5pKwYm+PZ0oJRRBwYWDSRj67vrBhVobFJiHAgMBAAECggEAEmXRnrwqgvObB1Q4GwOkbuhjJ4//Z7XTuOUdnNszN3yBR9Plh2EmeURMQ9b7bz+CsZfRS/jvqo/LkZLqPWR+aj7P9Zy2jy7qpHuwmeHYDUcANG8LBxbGdklACw68YO0pSCdOFGmxNcCzzZumrx+BtPpTzOcuN/+s4Eu1mjj9WAD+IUIcYKQogFRinVp96l1Y2QNnwyVM5Kov/ab+gU+wIUwR/1gFzzkQD6mjA1hzFlkeHxn/mAUzsomlcpNKXqxBJMm1V7gI/7EJ2HGCetIwiHxrnBNut3qF5gzwG++U0ojtTpKEH35m1PlFGhOic8MZGrM3ojG+BV1j8emuOrFJAQKBgQDmXnTC4wjS7T+0BAzY5UAQotxJkfVTf+AaXnTBxf8bYbc08mjhZzrhboBZpvAL7JwAvHMiVbb+V56VigbcxqNtjvOgupksLkDzKtqLDFSeAYCbc26lbS0M30RPLF6qIVg9eQMwPtj3tpkOefT0RYc2ApCvah+AGX7i4hf+uZ0KIQKBgQCjUhbSv8TytqEoy7vyG11LG63W0IcG6y7f5ySHy/BYew2VC8Iu7ZrkexBS2oLitIOrLJC/KAXc1/9wcLng+rMY8ihZGoq+cSTF94OcS70L+EUnepMRH//I8fTp6fgu9cJtXaeHtAJWlacbLYtLqmaMD6AZtIRVIfyYtLBhHFVdpwKBgDH5Yaj5aWugbgZWLpdKvCgfvFv1XtvbTLlLrlZu5lWBUCYbRCdJpptKxmssbLyZeooqV2umXok0ZsGX7L8uFDvrG+zNLfdInWxi6n/pj92rA8Q1OVaHpZM6R+5I+Mw9aZAEVW285IJwSSm7ySjIgHl1+v8irWyzmzQKyhvHFkshAoGBAJVoWXy+9rtbm58okm1v3y8AyU2FQqFvsVgfqmmYhe1L1ScOtLwdnd97PXmucKJYpUOI53oYcRSRfRst5L4OWp1tmr+46khCVXPNdNcc6nryysDM/5FhBqybvIPpCKRdK1rFnKcmZCU1jsPsLEwyPNHQ0ZPyckU3bE9+rQSJ2QZtAoGAIccgGPGTs8L9NVtzCIefo5w9WcNZznRUHfMall24bhZCW3gn4bKyIbl4XM4kYfjTvgvSR3UOg/WzR5nA35R9M9ZRdwzqarU3B4kj5r8rguS7LzrPcx9k9IuSB6oPNaEC2RDh/XDUgkFZNJ8mcGuQ0u7PPyCeyWCcx1UzFdNFhRM=",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "713af459-20c3-4650-9a4a-143a59f63b75",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "apiKey 92ad93d9-4816-42d2-9f09-5f14e44527d6",
+								"type": "text",
+								"disabled": true
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"name": "Content-Type",
+								"type": "text"
+							},
+							{
+								"key": "X-XSRF-TOKEN",
+								"value": "VND_RSSO_V2.eyJpYXQiOjE1ODMxMjcxOTI0NjYsInNydiI6Imh0dHBzOi8vbG9nZ2VuLnRyeWJtYy5jb20vcnNzbyIsInJsbSI6IioiLCJ0b2tlbklkIjoiXzQ4NmU5MzNlLWYzNTMtNGE4Yy1hM2YyLTQwOGVmZmI3ZGIxZSJ9",
+								"type": "text",
+								"disabled": true
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Keep-Alive",
+								"value": "true",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "token",
+									"value": "281d65bb-a0f2-4b60-8ca1-bd9f5f51f164",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "https://biliot-aiops-trial.dsmlab.bmc.com/rsso/oauth2/introspect",
+							"protocol": "https",
+							"host": [
+								"biliot-aiops-trial",
+								"dsmlab",
+								"bmc",
+								"com"
+							],
+							"path": [
+								"rsso",
+								"oauth2",
+								"introspect"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getRSSOTokenInstrospectSolQA",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "MIIEvAIBADANBgkqhkiG9w0BAQEFAASCBKYwggSiAgEAAoIBAQCp8Sq4IpNihJjj2JAI8VtWeQunJk9YfjGw4wPWhnYj+Q8Bmycn2iMMAwGVwFs7Bpkf7CsPOFD6N5+HgKlxnaMKP+GyzPM2U7aqIIN6O3ve8csDaBbVgfxmrKZECG9UR6PwdAz/ekNd0T0ghUJyvJKDD1KLGyx5M0v3t3L35X6gQ1RN2YITzXn+Zu11Bbf5NrZN9Zuar7asrqYkq8RbD8KrYcRiVmLWSO6SWg+6rg2iY/2mkChvOX7PDCG9kGu6ii8yNzNDUjFz4SJ924fqM2QHSQ3tIcSw/NTbadqDg9s8wB3ODm5Z/l6yK5N/Sswd8dMuQqTNWrtDAZ9Jk+Ta+suxAgMBAAECggEABQo9oJlkMptJHl3pWoKLGWzu4Xf25OJ5zBTVNhecpOyeFqwtO3bWx62ht52/m3pSsGWbUZoFwe37GG/Ce0oO5yghJBiXPj+VejLmzHcEuqrfih5lYK6mJU/3XGHiOsu5aL8gWiFTEEnfrwKUvmrOSmwMRLjf8pGtZOG3JKpCqw7FeP3sBtF/bJoJ1sm+Z1UM+i5GWVaazO77IVdXMB/CWt3lW4PhcsKXjABtoC8NRqEToqzZaZXbsJDOv+ge8UMMJpvy1+23LZooIQZmWjZLlPlsc+FdS9Y6GvtHqfuSyVr45ExttSw6XdE8t5m2nbLH5/POPXgWhAK/5ewI/QGokwKBgQDRWYkgSRtD8gsVcLj/5VnzpjPcUQLXFuWXx4bb1DUqIUvn2hS57AjNgWNum9+JfdQSQlxfySt4KHHPGEeYWy/TBP9RX23EDUPPypmjUSvGUXFTVZLk39OKp4KySMLrRWHkg05IETyS/+udtSiBDtmsKigqIMvNYWNR5QNKG00+OwKBgQDPz5llDYu/ZprWgZMX9BkBfSJACiZBYp20io9r4D7xpPfxXSCTrBFoC+CA/wgNGU+Uy6xMMKBqTO+XunDzoQWYr9NHp0mwoqPoCXypbP/3Xsysu1BJwJwQruiHxTeLsjuF3Ydtmh25oIVgfOKLaWCW38n/OWihpSC8o18tbqMjAwKBgE9AoALS6jl8pemF9OMbBkSQxM1A9dxLVLty04DhAwdh94RcMMB5tJNnyiaTZ7p7Ig+Pg7zXQVeJqBwISwJIcwBlweoiQEGZ6/P79NG45uN67XXozWVLvp+c7oNjvDao23hQpQ/vRok3zRC1BhJlds4QX4gjRkQH/DuCgQ5K66EFAoGAaiBuCSJy1OuUdam0sg3x20XJgQTt5oRzX6lHd2MNIiEKkpPpuCCuvwEZxSb5OJ9NegLN2hcXRVJHJaiMWI9KKWDZuIUhZ/iXVj/KD0hgLDeYtTnv1cpsqUR58iRwqoH6TfIFYJ7NQWhN1SnSFDpbnpFpOlNaMPsAjfWs/Km83HsCgYBIwdYzxEQSlB030d3IIMhOsFW2fbhf3SYWhLBNBpGd6OuM+1ZF8f1EAKGcdGcU5VUKwrawbj18miOnx6n4QKaqLSAeONPubuV0XpukyXO4BysqzxhKA/5ZAcW+tS9DF+oWBXUu+TlqVBmGWsKL2MINcNUIIdvdVDJA20ZcPxLJVQ==",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "f97ef11c-4c6d-49e3-90d3-32a8c24c7038",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "apiKey 92ad93d9-4816-42d2-9f09-5f14e44527d6",
+								"type": "text",
+								"disabled": true
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"name": "Content-Type",
+								"type": "text"
+							},
+							{
+								"key": "X-XSRF-TOKEN",
+								"value": "VND_RSSO_V2.eyJpYXQiOjE1ODMxMjcxOTI0NjYsInNydiI6Imh0dHBzOi8vbG9nZ2VuLnRyeWJtYy5jb20vcnNzbyIsInJsbSI6IioiLCJ0b2tlbklkIjoiXzQ4NmU5MzNlLWYzNTMtNGE4Yy1hM2YyLTQwOGVmZmI3ZGIxZSJ9",
+								"type": "text",
+								"disabled": true
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Keep-Alive",
+								"value": "true",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "token",
+									"value": "fe4e4cff-e517-42bb-ad17-fc62b558525b\n",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "https://hedge-dos.ade-labs.bmc.com/rsso/oauth2/introspect",
+							"protocol": "https",
+							"host": [
+								"hedge-dos",
+								"ade-labs",
+								"bmc",
+								"com"
+							],
+							"path": [
+								"rsso",
+								"oauth2",
+								"introspect"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getTokenFromRefreshToken",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "MIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQCS+AMjQRGSWg4SMyhKwfLZVRCZX7PaOAZzW3HFHJXdSsoW4NaJwcYpBsm1de34mlWotNNPFDWH6LnFSeLNaNclO9sxMu5F0Z//MvWQfWB0zJ8fzg5rpg4jMIByS185lrklFslSP1U7mPMXUuNA+Sk0bJ1+yE3cPJBJqQ/JiSkYiwczfGhpx3Endpw161gyhL6sUvtEz/tebFx/e3YDtlTQSxH+exuKmJcg6YCZxYMf0czeaNEz/uArqkFGSlG5jnAR3IKtPeaetkc48IfWh5iVsurDCim5RjdRP+fbylPZ/5O7U44yl5pKwYm+PZ0oJRRBwYWDSRj67vrBhVobFJiHAgMBAAECggEAEmXRnrwqgvObB1Q4GwOkbuhjJ4//Z7XTuOUdnNszN3yBR9Plh2EmeURMQ9b7bz+CsZfRS/jvqo/LkZLqPWR+aj7P9Zy2jy7qpHuwmeHYDUcANG8LBxbGdklACw68YO0pSCdOFGmxNcCzzZumrx+BtPpTzOcuN/+s4Eu1mjj9WAD+IUIcYKQogFRinVp96l1Y2QNnwyVM5Kov/ab+gU+wIUwR/1gFzzkQD6mjA1hzFlkeHxn/mAUzsomlcpNKXqxBJMm1V7gI/7EJ2HGCetIwiHxrnBNut3qF5gzwG++U0ojtTpKEH35m1PlFGhOic8MZGrM3ojG+BV1j8emuOrFJAQKBgQDmXnTC4wjS7T+0BAzY5UAQotxJkfVTf+AaXnTBxf8bYbc08mjhZzrhboBZpvAL7JwAvHMiVbb+V56VigbcxqNtjvOgupksLkDzKtqLDFSeAYCbc26lbS0M30RPLF6qIVg9eQMwPtj3tpkOefT0RYc2ApCvah+AGX7i4hf+uZ0KIQKBgQCjUhbSv8TytqEoy7vyG11LG63W0IcG6y7f5ySHy/BYew2VC8Iu7ZrkexBS2oLitIOrLJC/KAXc1/9wcLng+rMY8ihZGoq+cSTF94OcS70L+EUnepMRH//I8fTp6fgu9cJtXaeHtAJWlacbLYtLqmaMD6AZtIRVIfyYtLBhHFVdpwKBgDH5Yaj5aWugbgZWLpdKvCgfvFv1XtvbTLlLrlZu5lWBUCYbRCdJpptKxmssbLyZeooqV2umXok0ZsGX7L8uFDvrG+zNLfdInWxi6n/pj92rA8Q1OVaHpZM6R+5I+Mw9aZAEVW285IJwSSm7ySjIgHl1+v8irWyzmzQKyhvHFkshAoGBAJVoWXy+9rtbm58okm1v3y8AyU2FQqFvsVgfqmmYhe1L1ScOtLwdnd97PXmucKJYpUOI53oYcRSRfRst5L4OWp1tmr+46khCVXPNdNcc6nryysDM/5FhBqybvIPpCKRdK1rFnKcmZCU1jsPsLEwyPNHQ0ZPyckU3bE9+rQSJ2QZtAoGAIccgGPGTs8L9NVtzCIefo5w9WcNZznRUHfMall24bhZCW3gn4bKyIbl4XM4kYfjTvgvSR3UOg/WzR5nA35R9M9ZRdwzqarU3B4kj5r8rguS7LzrPcx9k9IuSB6oPNaEC2RDh/XDUgkFZNJ8mcGuQ0u7PPyCeyWCcx1UzFdNFhRM=",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "713af459-20c3-4650-9a4a-143a59f63b75",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "apiKey 92ad93d9-4816-42d2-9f09-5f14e44527d6",
+								"type": "text",
+								"disabled": true
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"name": "Content-Type",
+								"type": "text"
+							},
+							{
+								"key": "X-XSRF-TOKEN",
+								"value": "VND_RSSO_V2.eyJpYXQiOjE1ODMxMjcxOTI0NjYsInNydiI6Imh0dHBzOi8vbG9nZ2VuLnRyeWJtYy5jb20vcnNzbyIsInJsbSI6IioiLCJ0b2tlbklkIjoiXzQ4NmU5MzNlLWYzNTMtNGE4Yy1hM2YyLTQwOGVmZmI3ZGIxZSJ9",
+								"type": "text",
+								"disabled": true
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Keep-Alive",
+								"value": "true",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "token",
+									"value": "281d65bb-a0f2-4b60-8ca1-bd9f5f51f164",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "https://biliot-aiops-trial.dsmlab.bmc.com/rsso/oauth2/token",
+							"protocol": "https",
+							"host": [
+								"biliot-aiops-trial",
+								"dsmlab",
+								"bmc",
+								"com"
+							],
+							"path": [
+								"rsso",
+								"oauth2",
+								"token"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "hedegAPIViaAuthProxyw1aog",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "b02f3591-881a-4d86-8c48-be48c5c8d051",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "apiKey 92ad93d9-4816-42d2-9f09-5f14e44527d6",
+								"disabled": true
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "X-XSRF-TOKEN",
+								"value": "VND_RSSO_V2.eyJpYXQiOjE1ODMxMjcxOTI0NjYsInNydiI6Imh0dHBzOi8vbG9nZ2VuLnRyeWJtYy5jb20vcnNzbyIsInJsbSI6IioiLCJ0b2tlbklkIjoiXzQ4NmU5MzNlLWYzNTMtNGE4Yy1hM2YyLTQwOGVmZmI3ZGIxZSJ9",
+								"disabled": true
+							},
+							{
+								"key": "Accept",
+								"value": "application/json"
+							},
+							{
+								"key": "X-Requested-By",
+								"value": "XMLHttpRequest",
+								"disabled": true
+							}
+						],
+						"url": {
+							"raw": "https://clm-aus-w1yaog.bmc.com/hedge/api/v3/ml_management/training/algorithm/all",
+							"protocol": "https",
+							"host": [
+								"clm-aus-w1yaog",
+								"bmc",
+								"com"
+							],
+							"path": [
+								"hedge",
+								"api",
+								"v3",
+								"ml_management",
+								"training",
+								"algorithm",
+								"all"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "hedegPostgrestRSSOw1aog Copy",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "49a175e8-2ae1-42eb-8e0a-8418c07c6129",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "apiKey 92ad93d9-4816-42d2-9f09-5f14e44527d6",
+								"type": "text",
+								"disabled": true
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"name": "Content-Type",
+								"type": "text"
+							},
+							{
+								"key": "X-XSRF-TOKEN",
+								"value": "VND_RSSO_V2.eyJpYXQiOjE1ODMxMjcxOTI0NjYsInNydiI6Imh0dHBzOi8vbG9nZ2VuLnRyeWJtYy5jb20vcnNzbyIsInJsbSI6IioiLCJ0b2tlbklkIjoiXzQ4NmU5MzNlLWYzNTMtNGE4Yy1hM2YyLTQwOGVmZmI3ZGIxZSJ9",
+								"type": "text",
+								"disabled": true
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "X-Requested-By",
+								"value": "XMLHttpRequest",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"url": {
+							"raw": "https://clm-aus-w1yaog.bmc.com/hedge/etl/vehicle_information",
+							"protocol": "https",
+							"host": [
+								"clm-aus-w1yaog",
+								"bmc",
+								"com"
+							],
+							"path": [
+								"hedge",
+								"etl",
+								"vehicle_information"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "hedegPostgrestKong",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoiZmxlZXQifQ.ak76kY3vWNra64diHhbiW5vlzXoHeoa3qoth9IHPYZ4",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "apiKey 92ad93d9-4816-42d2-9f09-5f14e44527d6",
+								"type": "text",
+								"disabled": true
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"name": "Content-Type",
+								"type": "text"
+							},
+							{
+								"key": "X-XSRF-TOKEN",
+								"value": "VND_RSSO_V2.eyJpYXQiOjE1ODMxMjcxOTI0NjYsInNydiI6Imh0dHBzOi8vbG9nZ2VuLnRyeWJtYy5jb20vcnNzbyIsInJsbSI6IioiLCJ0b2tlbklkIjoiXzQ4NmU5MzNlLWYzNTMtNGE4Yy1hM2YyLTQwOGVmZmI3ZGIxZSJ9",
+								"type": "text",
+								"disabled": true
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "X-Requested-By",
+								"value": "XMLHttpRequest",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"url": {
+							"raw": "http://clm-aus-w1yaog.bmc.com:8000/hedge/etl/vehicle_information",
+							"protocol": "http",
+							"host": [
+								"clm-aus-w1yaog",
+								"bmc",
+								"com"
+							],
+							"port": "8000",
+							"path": [
+								"hedge",
+								"etl",
+								"vehicle_information"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "hedegPostgrestDirectAutomak",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoiZmxlZXQifQ.ak76kY3vWNra64diHhbiW5vlzXoHeoa3qoth9IHPYZ4",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "apiKey 92ad93d9-4816-42d2-9f09-5f14e44527d6",
+								"type": "text",
+								"disabled": true
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"name": "Content-Type",
+								"type": "text"
+							},
+							{
+								"key": "X-XSRF-TOKEN",
+								"value": "VND_RSSO_V2.eyJpYXQiOjE1ODMxMjcxOTI0NjYsInNydiI6Imh0dHBzOi8vbG9nZ2VuLnRyeWJtYy5jb20vcnNzbyIsInJsbSI6IioiLCJ0b2tlbklkIjoiXzQ4NmU5MzNlLWYzNTMtNGE4Yy1hM2YyLTQwOGVmZmI3ZGIxZSJ9",
+								"type": "text",
+								"disabled": true
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "X-Requested-By",
+								"value": "XMLHttpRequest",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"url": {
+							"raw": "https://automak-pgrestsvc.innovationlabs.bmc.com/user_information",
+							"protocol": "https",
+							"host": [
+								"automak-pgrestsvc",
+								"innovationlabs",
+								"bmc",
+								"com"
+							],
+							"path": [
+								"user_information"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "hedegPostgrestDirectAutomakTestInstance",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoiZmxlZXQifQ.ak76kY3vWNra64diHhbiW5vlzXoHeoa3qoth9IHPYZ4",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "apiKey 92ad93d9-4816-42d2-9f09-5f14e44527d6",
+								"type": "text",
+								"disabled": true
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"name": "Content-Type",
+								"type": "text"
+							},
+							{
+								"key": "X-XSRF-TOKEN",
+								"value": "VND_RSSO_V2.eyJpYXQiOjE1ODMxMjcxOTI0NjYsInNydiI6Imh0dHBzOi8vbG9nZ2VuLnRyeWJtYy5jb20vcnNzbyIsInJsbSI6IioiLCJ0b2tlbklkIjoiXzQ4NmU5MzNlLWYzNTMtNGE4Yy1hM2YyLTQwOGVmZmI3ZGIxZSJ9",
+								"type": "text",
+								"disabled": true
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "X-Requested-By",
+								"value": "XMLHttpRequest",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"url": {
+							"raw": "https://marvel-postgrest-endpoint.qa.sps.secops.bmc.com:3000/user_information",
+							"protocol": "https",
+							"host": [
+								"marvel-postgrest-endpoint",
+								"qa",
+								"sps",
+								"secops",
+								"bmc",
+								"com"
+							],
+							"port": "3000",
+							"path": [
+								"user_information"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "hedegAPIAutoMAK",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "3bb5d833-3a01-4c15-93cb-ac8126a442fe",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "apiKey 92ad93d9-4816-42d2-9f09-5f14e44527d6",
+								"type": "text",
+								"disabled": true
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"name": "Content-Type",
+								"type": "text"
+							},
+							{
+								"key": "X-XSRF-TOKEN",
+								"value": "VND_RSSO_V2.eyJpYXQiOjE1ODMxMjcxOTI0NjYsInNydiI6Imh0dHBzOi8vbG9nZ2VuLnRyeWJtYy5jb20vcnNzbyIsInJsbSI6IioiLCJ0b2tlbklkIjoiXzQ4NmU5MzNlLWYzNTMtNGE4Yy1hM2YyLTQwOGVmZmI3ZGIxZSJ9",
+								"type": "text",
+								"disabled": true
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "X-Requested-By",
+								"value": "XMLHttpRequest",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"url": {
+							"raw": "https://automak-fleet.innovationlabs.bmc.com/hedge/api/v2/ml_management/training/algorithm/all",
+							"protocol": "https",
+							"host": [
+								"automak-fleet",
+								"innovationlabs",
+								"bmc",
+								"com"
+							],
+							"path": [
+								"hedge",
+								"api",
+								"v2",
+								"ml_management",
+								"training",
+								"algorithm",
+								"all"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "hedegAPIAutoOIS",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "3bb5d833-3a01-4c15-93cb-ac8126a442fe",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "apiKey 92ad93d9-4816-42d2-9f09-5f14e44527d6",
+								"type": "text",
+								"disabled": true
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"name": "Content-Type",
+								"type": "text"
+							},
+							{
+								"key": "X-XSRF-TOKEN",
+								"value": "VND_RSSO_V2.eyJpYXQiOjE1ODMxMjcxOTI0NjYsInNydiI6Imh0dHBzOi8vbG9nZ2VuLnRyeWJtYy5jb20vcnNzbyIsInJsbSI6IioiLCJ0b2tlbklkIjoiXzQ4NmU5MzNlLWYzNTMtNGE4Yy1hM2YyLTQwOGVmZmI3ZGIxZSJ9",
+								"type": "text",
+								"disabled": true
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "X-Requested-By",
+								"value": "XMLHttpRequest",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"url": {
+							"raw": "https://automak-fleet.innovationlabs.bmc.com/hedge/api/v3/ml_management/training/algorithm/all",
+							"protocol": "https",
+							"host": [
+								"automak-fleet",
+								"innovationlabs",
+								"bmc",
+								"com"
+							],
+							"path": [
+								"hedge",
+								"api",
+								"v3",
+								"ml_management",
+								"training",
+								"algorithm",
+								"all"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "hedegAPIAutoMAKCreateUser",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "3bb5d833-3a01-4c15-93cb-ac8126a442fe",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "apiKey 92ad93d9-4816-42d2-9f09-5f14e44527d6",
+								"type": "text",
+								"disabled": true
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"name": "Content-Type",
+								"type": "text"
+							},
+							{
+								"key": "X-XSRF-TOKEN",
+								"value": "VND_RSSO_V2.eyJpYXQiOjE1ODMxMjcxOTI0NjYsInNydiI6Imh0dHBzOi8vbG9nZ2VuLnRyeWJtYy5jb20vcnNzbyIsInJsbSI6IioiLCJ0b2tlbklkIjoiXzQ4NmU5MzNlLWYzNTMtNGE4Yy1hM2YyLTQwOGVmZmI3ZGIxZSJ9",
+								"type": "text",
+								"disabled": true
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "X-Requested-By",
+								"value": "XMLHttpRequest",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"url": {
+							"raw": "https://automak-fleet.innovationlabs.bmc.com/hedge/api/v3/usr_mgmt/user/00001/resource_url/all",
+							"protocol": "https",
+							"host": [
+								"automak-fleet",
+								"innovationlabs",
+								"bmc",
+								"com"
+							],
+							"path": [
+								"hedge",
+								"api",
+								"v3",
+								"usr_mgmt",
+								"user",
+								"00001",
+								"resource_url",
+								"all"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "hedegPostgrestAPI",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "3bb5d833-3a01-4c15-93cb-ac8126a442fe",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "apiKey 92ad93d9-4816-42d2-9f09-5f14e44527d6",
+								"type": "text",
+								"disabled": true
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"name": "Content-Type",
+								"type": "text"
+							},
+							{
+								"key": "X-XSRF-TOKEN",
+								"value": "VND_RSSO_V2.eyJpYXQiOjE1ODMxMjcxOTI0NjYsInNydiI6Imh0dHBzOi8vbG9nZ2VuLnRyeWJtYy5jb20vcnNzbyIsInJsbSI6IioiLCJ0b2tlbklkIjoiXzQ4NmU5MzNlLWYzNTMtNGE4Yy1hM2YyLTQwOGVmZmI3ZGIxZSJ9",
+								"type": "text",
+								"disabled": true
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "X-Requested-By",
+								"value": "XMLHttpRequest",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"url": {
+							"raw": "https://automak-fleet.innovationlabs.bmc.com/hedge/etl/vehicle_information",
+							"protocol": "https",
+							"host": [
+								"automak-fleet",
+								"innovationlabs",
+								"bmc",
+								"com"
+							],
+							"path": [
+								"hedge",
+								"etl",
+								"vehicle_information"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "hedegAPIViaAuthProxyWorf",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "49a175e8-2ae1-42eb-8e0a-8418c07c6129",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "apiKey 92ad93d9-4816-42d2-9f09-5f14e44527d6",
+								"type": "text",
+								"disabled": true
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"name": "Content-Type",
+								"type": "text"
+							},
+							{
+								"key": "X-XSRF-TOKEN",
+								"value": "VND_RSSO_V2.eyJpYXQiOjE1ODMxMjcxOTI0NjYsInNydiI6Imh0dHBzOi8vbG9nZ2VuLnRyeWJtYy5jb20vcnNzbyIsInJsbSI6IioiLCJ0b2tlbklkIjoiXzQ4NmU5MzNlLWYzNTMtNGE4Yy1hM2YyLTQwOGVmZmI3ZGIxZSJ9",
+								"type": "text",
+								"disabled": true
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "X-Requested-By",
+								"value": "XMLHttpRequest",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"url": {
+							"raw": "https://clm-aus-w1yaog.bmc.com/hedge/api/v3/ml_management/training/algorithm/all",
+							"protocol": "https",
+							"host": [
+								"clm-aus-w1yaog",
+								"bmc",
+								"com"
+							],
+							"path": [
+								"hedge",
+								"api",
+								"v3",
+								"ml_management",
+								"training",
+								"algorithm",
+								"all"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "hedegAPIViaAuthProxySolQA",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "6849335f-4b18-4d38-ae4a-7222ac094f7b",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "apiKey 92ad93d9-4816-42d2-9f09-5f14e44527d6",
+								"type": "text",
+								"disabled": true
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"name": "Content-Type",
+								"type": "text"
+							},
+							{
+								"key": "X-XSRF-TOKEN",
+								"value": "VND_RSSO_V2.eyJpYXQiOjE1ODMxMjcxOTI0NjYsInNydiI6Imh0dHBzOi8vbG9nZ2VuLnRyeWJtYy5jb20vcnNzbyIsInJsbSI6IioiLCJ0b2tlbklkIjoiXzQ4NmU5MzNlLWYzNTMtNGE4Yy1hM2YyLTQwOGVmZmI3ZGIxZSJ9",
+								"type": "text",
+								"disabled": true
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "X-Requested-By",
+								"value": "XMLHttpRequest",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"url": {
+							"raw": "https://hfsolqa49-solqahedge.cloudsolqa.bmc.com/hedge/api/v3/ml_management/algorithm/all",
+							"protocol": "https",
+							"host": [
+								"hfsolqa49-solqahedge",
+								"cloudsolqa",
+								"bmc",
+								"com"
+							],
+							"path": [
+								"hedge",
+								"api",
+								"v3",
+								"ml_management",
+								"algorithm",
+								"all"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "hedegAPIViaAuthProxySolQA Copy",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "6849335f-4b18-4d38-ae4a-7222ac094f7b",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "apiKey 92ad93d9-4816-42d2-9f09-5f14e44527d6",
+								"type": "text",
+								"disabled": true
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"name": "Content-Type",
+								"type": "text"
+							},
+							{
+								"key": "X-XSRF-TOKEN",
+								"value": "VND_RSSO_V2.eyJpYXQiOjE1ODMxMjcxOTI0NjYsInNydiI6Imh0dHBzOi8vbG9nZ2VuLnRyeWJtYy5jb20vcnNzbyIsInJsbSI6IioiLCJ0b2tlbklkIjoiXzQ4NmU5MzNlLWYzNTMtNGE4Yy1hM2YyLTQwOGVmZmI3ZGIxZSJ9",
+								"type": "text",
+								"disabled": true
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "X-Requested-By",
+								"value": "XMLHttpRequest",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"url": {
+							"raw": "https://hfsolqa49-solqahedge.cloudsolqa.bmc.com/hedge/api/v3/ml_management/algorithm/all",
+							"protocol": "https",
+							"host": [
+								"hfsolqa49-solqahedge",
+								"cloudsolqa",
+								"bmc",
+								"com"
+							],
+							"path": [
+								"hedge",
+								"api",
+								"v3",
+								"ml_management",
+								"algorithm",
+								"all"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Hedge_ML",
+			"item": [
+				{
+					"name": "SubmitNewTrgJob",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\" : \"WindTurbineAnomaly_aif_localEnvVaraif04\",\n    \"description\" : \"Test with new AIF bits\",\n    \"mlAlgorithm\" : \"HedgeAnomaly\",\n    \"mlModelConfigName\" : \"WindTurbineAnomaly\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/api/v3/ml_management/training/training_job",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"v3",
+								"ml_management",
+								"training",
+								"training_job"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "CreateTrainingConfig",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"WindTurbineAnomaly\",\n    \"version\": \"v2\",\n    \"description\": \"Training config for WindTurbine\",\n    \"primaryProfile\": \"WindTurbine\",\n    \"featuresByProfile\": {\n        \"WindTurbine\": [\n            {\n                \"type\": \"METRIC\",\n                \"name\": \"TurbinePower\",\n                \"isInput\": true,\n                \"isOutput\": false\n            },\n            {\n                \"type\": \"METRIC\",\n                \"name\": \"RotorSpeed\",\n                \"isInput\": true,\n                \"isOutput\": false\n            },\n            {\n                \"type\": \"METRIC\",\n                \"name\": \"WindDirection\",\n                \"isInput\": true,\n                \"isOutput\": false\n            },\n            {\n                \"type\": \"METRIC\",\n                \"name\": \"WindSpeed\",\n                \"isInput\": true,\n                \"isOutput\": false\n            },\n            {\n                \"type\": \"METRIC\",\n                \"name\": \"RotorBlade1Angle\",\n                \"isInput\": true,\n                \"isOutput\": false\n            },\n            {\n                \"type\": \"METRIC\",\n                \"name\": \"RotorBlade2Angle\",\n                \"isInput\": true,\n                \"isOutput\": false\n            },\n            {\n                \"type\": \"METRIC\",\n                \"name\": \"RotorBlade3Angle\",\n                \"isInput\": true,\n                \"isOutput\": false\n            }\n        ]\n    },\n    \"groupByMetaData\": [],\n    \"trainingDataFilters\": [],\n    \"samplingIntervalSecs\": 30,\n    \"TrainingDurationSecs\": 1800,\n    \"enabled\": true,\n    \"inferencingMessagePrefix\": \"Anomaly detected in Windfarm that might be causing low power generation\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/api/v3/ml_management/training/algorithm/HedgeAnomaly/config",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"v3",
+								"ml_management",
+								"training",
+								"algorithm",
+								"HedgeAnomaly",
+								"config"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DeployModel2Nodes",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"mlAlgorithm\": \"HedgeAnomaly\",\n    \"mlModelConfigName\": \"WindTurbineAnomaly3\",\n    \"targetNodes\": [\n        \"localhost-nodeid-01\"\n    ],\n    \"commandName\": \"Deploy\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/api/v3/ml_management/model_deployment",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"v3",
+								"ml_management",
+								"model_deployment"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "ADEDataStore",
+			"item": [
+				{
+					"name": "getEventClassDefinition",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{jwt_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{tenant_url}}/events-service/api/v1.0/events/classes/OT_EVENT?idType=name",
+							"host": [
+								"{{tenant_url}}"
+							],
+							"path": [
+								"events-service",
+								"api",
+								"v1.0",
+								"events",
+								"classes",
+								"OT_EVENT"
+							],
+							"query": [
+								{
+									"key": "idType",
+									"value": "name"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getEventClassDefinition Copy",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{jwt_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{tenant_url}}/events-service/api/v1.0/events/classes/OT_EVENT?idType=name",
+							"host": [
+								"{{tenant_url}}"
+							],
+							"path": [
+								"events-service",
+								"api",
+								"v1.0",
+								"events",
+								"classes",
+								"OT_EVENT"
+							],
+							"query": [
+								{
+									"key": "idType",
+									"value": "name"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "CreateIOTEventClass",
+					"protocolProfileBehavior": {
+						"followOriginalHttpMethod": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{jwt_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"OT_EVENT\",\n  \"parentClassName\": \"EVENT\",\n  \"attributes\": [\n    {\n      \"name\": \"ot_event_type\",\n      \"dataType\": \"STRING\",\n      \"default\": \"\",\n      \"enum\": false,\n      \"allFacet\": [\n        {\n          \"name\": \"read_only\",\n          \"value\": \"true\"\n        }\n      ]\n    },\n    {\n      \"name\": \"ot_event_name\",\n      \"dataType\": \"STRING\",\n      \"default\": \"\",\n      \"enum\": false,\n      \"allFacet\": [\n        {\n          \"name\": \"read_only\",\n          \"value\": \"true\"\n        },\n        {\n          \"name\": \"mandatory\",\n          \"value\": \"true\"\n        },\n        {\n          \"name\": \"dup_detect\",\n          \"value\": \"true\"\n        }\n      ]\n    },\n    {\n      \"name\": \"class\",\n      \"dataType\": \"STRING\",\n      \"default\": \"OT_EVENT\",\n      \"enum\": false,\n      \"allFacet\": [\n        {\n          \"name\": \"read_only\",\n          \"value\": \"true\"\n        }\n      ]\n    },\n    {\n      \"name\": \"ot_profile\",\n      \"dataType\": \"STRING\",\n      \"default\": \"\",\n      \"enum\": false,\n      \"allFacet\": [\n        {\n          \"name\": \"read_only\",\n          \"value\": \"true\"\n        },\n        {\n          \"name\": \"topology_lookup\",\n          \"value\": \"true\"\n        },\n        {\n          \"name\": \"hidden\",\n          \"value\": \"true\"\n        }\n      ]\n    },\n    {\n      \"name\": \"object\",\n      \"dataType\": \"STRING\",\n      \"default\": \"\",\n      \"enum\": false,\n      \"allFacet\": []\n    },\n    {\n      \"name\": \"object_class\",\n      \"dataType\": \"STRING\",\n      \"default\": \"\",\n      \"enum\": false,\n      \"allFacet\": []\n    },\n    {\n      \"name\": \"ot_device_name\",\n      \"dataType\": \"STRING\",\n      \"default\": \"\",\n      \"enum\": false,\n      \"allFacet\": [\n        {\n          \"name\": \"read_only\",\n          \"value\": \"true\"\n        },\n        {\n          \"name\": \"dup_detect\",\n          \"value\": \"true\"\n        }\n      ]\n    },\n    {\n      \"name\": \"ot_event_source\",\n      \"dataType\": \"STRING\",\n      \"default\": \"userAction\",\n      \"enum\": false,\n      \"allFacet\": [\n        {\n          \"name\": \"read_only\",\n          \"value\": \"true\"\n        }\n      ]\n    },\n    {\n      \"name\": \"ot_thresholds\",\n      \"dataType\": \"STRING\",\n      \"default\": \"\",\n      \"enum\": false,\n      \"allFacet\": [\n        {\n          \"name\": \"read_only\",\n          \"value\": \"true\"\n        }\n      ]\n    },\n    {\n      \"name\": \"ot_actual_values\",\n      \"dataType\": \"STRING\",\n      \"default\": \"\",\n      \"enum\": false,\n      \"allFacet\": [\n        {\n          \"name\": \"read_only\",\n          \"value\": \"false\"\n        }\n      ]\n    },\n    {\n      \"name\": \"ot_related_metrics\",\n      \"dataType\": \"STRING\",\n      \"default\": \"\",\n      \"enum\": false,\n      \"allFacet\": [\n        {\n          \"name\": \"read_only\",\n          \"value\": \"true\"\n        }\n      ]\n    },\n    {\n      \"name\": \"ot_unit\",\n      \"dataType\": \"STRING\",\n      \"default\": \"\",\n      \"enum\": false,\n      \"allFacet\": [\n        {\n          \"name\": \"read_only\",\n          \"value\": \"true\"\n        }\n      ]\n    },\n    {\n      \"name\": \"ot_remediations\",\n      \"dataType\": \"STRING_LIST\",\n      \"default\": \"\",\n      \"enum\": false,\n      \"allFacet\": [\n        {\n          \"name\": \"read_only\",\n          \"value\": \"false\"\n        }\n      ]\n    },\n    {\n      \"name\": \"ot_additional_data\",\n      \"dataType\": \"STRING_LIST\",\n      \"default\": \"\",\n      \"enum\": false,\n      \"allFacet\": [\n        {\n          \"name\": \"read_only\",\n          \"value\": \"false\"\n        }\n      ]\n    }\n  ]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{tenant_url}}/events-service/api/v1.0/events/classes",
+							"host": [
+								"{{tenant_url}}"
+							],
+							"path": [
+								"events-service",
+								"api",
+								"v1.0",
+								"events",
+								"classes"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "CreateIOTEventClass Copy",
+					"protocolProfileBehavior": {
+						"followOriginalHttpMethod": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{jwt_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"OT_EVENT\",\n  \"parentClassName\": \"EVENT\",\n  \"attributes\": [\n    {\n      \"name\": \"ot_event_type\",\n      \"dataType\": \"STRING\",\n      \"default\": \"\",\n      \"enum\": false,\n      \"allFacet\": [\n        {\n          \"name\": \"read_only\",\n          \"value\": \"true\"\n        }\n      ]\n    },\n    {\n      \"name\": \"ot_event_name\",\n      \"dataType\": \"STRING\",\n      \"default\": \"\",\n      \"enum\": false,\n      \"allFacet\": [\n        {\n          \"name\": \"read_only\",\n          \"value\": \"true\"\n        },\n        {\n          \"name\": \"mandatory\",\n          \"value\": \"true\"\n        },\n        {\n          \"name\": \"dup_detect\",\n          \"value\": \"true\"\n        }\n      ]\n    },\n    {\n      \"name\": \"class\",\n      \"dataType\": \"STRING\",\n      \"default\": \"OT_EVENT\",\n      \"enum\": false,\n      \"allFacet\": [\n        {\n          \"name\": \"read_only\",\n          \"value\": \"true\"\n        }\n      ]\n    },\n    {\n      \"name\": \"ot_profile\",\n      \"dataType\": \"STRING\",\n      \"default\": \"\",\n      \"enum\": false,\n      \"allFacet\": [\n        {\n          \"name\": \"read_only\",\n          \"value\": \"true\"\n        },\n        {\n          \"name\": \"topology_lookup\",\n          \"value\": \"true\"\n        },\n        {\n          \"name\": \"hidden\",\n          \"value\": \"true\"\n        }\n      ]\n    },\n    {\n      \"name\": \"object\",\n      \"dataType\": \"STRING\",\n      \"default\": \"\",\n      \"enum\": false,\n      \"allFacet\": []\n    },\n    {\n      \"name\": \"object_class\",\n      \"dataType\": \"STRING\",\n      \"default\": \"\",\n      \"enum\": false,\n      \"allFacet\": []\n    },\n    {\n      \"name\": \"ot_device_name\",\n      \"dataType\": \"STRING\",\n      \"default\": \"\",\n      \"enum\": false,\n      \"allFacet\": [\n        {\n          \"name\": \"read_only\",\n          \"value\": \"true\"\n        },\n        {\n          \"name\": \"dup_detect\",\n          \"value\": \"true\"\n        }\n      ]\n    },\n    {\n      \"name\": \"ot_event_source\",\n      \"dataType\": \"STRING\",\n      \"default\": \"userAction\",\n      \"enum\": false,\n      \"allFacet\": [\n        {\n          \"name\": \"read_only\",\n          \"value\": \"true\"\n        }\n      ]\n    },\n    {\n      \"name\": \"ot_thresholds\",\n      \"dataType\": \"STRING\",\n      \"default\": \"\",\n      \"enum\": false,\n      \"allFacet\": [\n        {\n          \"name\": \"read_only\",\n          \"value\": \"true\"\n        }\n      ]\n    },\n    {\n      \"name\": \"ot_actual_values\",\n      \"dataType\": \"STRING\",\n      \"default\": \"\",\n      \"enum\": false,\n      \"allFacet\": [\n        {\n          \"name\": \"read_only\",\n          \"value\": \"false\"\n        }\n      ]\n    },\n    {\n      \"name\": \"ot_related_metrics\",\n      \"dataType\": \"STRING\",\n      \"default\": \"\",\n      \"enum\": false,\n      \"allFacet\": [\n        {\n          \"name\": \"read_only\",\n          \"value\": \"true\"\n        }\n      ]\n    },\n    {\n      \"name\": \"ot_unit\",\n      \"dataType\": \"STRING\",\n      \"default\": \"\",\n      \"enum\": false,\n      \"allFacet\": [\n        {\n          \"name\": \"read_only\",\n          \"value\": \"true\"\n        }\n      ]\n    },\n    {\n      \"name\": \"ot_remediations\",\n      \"dataType\": \"STRING_LIST\",\n      \"default\": \"\",\n      \"enum\": false,\n      \"allFacet\": [\n        {\n          \"name\": \"read_only\",\n          \"value\": \"false\"\n        }\n      ]\n    },\n    {\n      \"name\": \"ot_additional_data\",\n      \"dataType\": \"STRING_LIST\",\n      \"default\": \"\",\n      \"enum\": false,\n      \"allFacet\": [\n        {\n          \"name\": \"read_only\",\n          \"value\": \"false\"\n        }\n      ]\n    }\n  ]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{tenant_url}}/events-service/api/v1.0/events/classes",
+							"host": [
+								"{{tenant_url}}"
+							],
+							"path": [
+								"events-service",
+								"api",
+								"v1.0",
+								"events",
+								"classes"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "deleteIOTEventClass",
+					"protocolProfileBehavior": {
+						"followOriginalHttpMethod": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{jwt_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{tenant_url}}/events-service/api/v1.0/events/classes/{{iot_event_class_id}}",
+							"host": [
+								"{{tenant_url}}"
+							],
+							"path": [
+								"events-service",
+								"api",
+								"v1.0",
+								"events",
+								"classes",
+								"{{iot_event_class_id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "SendEvent",
+					"protocolProfileBehavior": {
+						"followOriginalHttpMethod": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{jwt_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "apiKey 1571495624::43JNOPE30HGUTUF3GUIZEF4IA2YJBV::49ogxKbpAsfedvm1QhRcgY10D5BOjVKUNjQ34MwrOHhLbbQOv6",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "[\n    {\n        \"_identifier\": \"windAnomaly-id-003\",\n        \"class\": \"OT_EVENT\",\n        \"ot_event_type\": \"ANOMALY\",\n        \"ot_event_name\": \"windturbinePowerAnomaly\",\n        \"ot_threshold\": \"0.6\",\n        \"ot_actual_value\": \"0.87\",\n        \"ot_related_metric\": \"sigma\",\n        \"ot_additional_data\": [\n            \"power:12MW\"\n        ],\n        \"severity\": \"MAJOR\",\n        \"msg\": \"Wind Turbine anomaly summary text goes here (msg)\",\n        \"source_identifier\": \"AltaNS12_Anomaly_config_001\",\n        \"status\": \"OPEN\",\n        \"source_hostname\": \"clm-pun-wpn32s\",\n        \"source_port\": \"3181\",\n        \"source_address\": \"1.92.168.0.1\",\n        \"location\": \"Lula Nagar\",\n        \"tags\": [\n            \"power\",\n            \"32MW\",\n            \"GE\"\n        ],\n        \"priority\": \"PRIORITY_3\",\n        \"object\": \"AltaNS12\",\n        \"object_class\": \"WindTurbine\",\n        \"ot_profile\": \"WindTurbine\",\n        \"ot_device_name\": \"AltaNS12\",\n        \"details\": \"Detail information about the event situation\"\n    }\n]",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{tenant_url}}/events-service/api/v1.0/events",
+							"host": [
+								"{{tenant_url}}"
+							],
+							"path": [
+								"events-service",
+								"api",
+								"v1.0",
+								"events"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "SearchEvents",
+					"protocolProfileBehavior": {
+						"followOriginalHttpMethod": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{jwt_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "apiKey 693888097::0EIY7OPBMIA6CBNFCN2N3NSSTCMOKP::K8WZJT4kQ4xCkO4gtO4B6vchaWUHfZcXYDdTUAREp01eR9G3Jj",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"criteria\": {\n        \"groupingOperator\": \"AND\",\n        \"leftExpression\": {\n            \"value\": \"OPEN\",\n            \"identifier\": \"status\",\n            \"operator\": \"equals\"\n        },\n        \"rightExpression\": {\n            \"value\": \"OT_EVENT\",\n            \"identifier\": \"class\",\n            \"operator\": \"equals\"\n        }\n    },\n    \"advanceFilter\": {\n        \"status\": \"OPEN,ACK,ASSIGNED\",\n        \"severity\": \"CRITICAL,MAJOR,MINOR,WARNING,INFO\"\n    },\n    \"timeFilter\": {\n        \"startTime\": 1711007657910,\n        \"endTime\": 1711008557910\n    },\n    \"startIndex\": 1,\n    \"totalResultCount\": 200,\n    \"slotList\": [\n        \"status\",\n        \"severity\",\n        \"priority\",\n        \"creation_time\",\n        \"source_hostname\",\n        \"class\",\n        \"msg\",\n        \"_identifier\",\n        \"_handle\",\n        \"_notes\",\n        \"mc_action_count\",\n        \"_ci_id\",\n        \"source_hostname\",\n        \"source_identifier\",\n        \"user_assigned\",\n        \"apm_application_id\",\n        \"apm_nodeID\",\n        \"apm_application\",\n        \"al_parameter_id\",\n        \"object_class\",\n        \"TSIMServerID\"\n    ]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{tenant_url}}/tsws/monitoring/api/v1.0/events/search?withCount=true",
+							"host": [
+								"{{tenant_url}}"
+							],
+							"path": [
+								"tsws",
+								"monitoring",
+								"api",
+								"v1.0",
+								"events",
+								"search"
+							],
+							"query": [
+								{
+									"key": "withCount",
+									"value": "true"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "patchEvent",
+					"protocolProfileBehavior": {
+						"followOriginalHttpMethod": true,
+						"followAuthorizationHeader": false
+					},
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "apiKey 693888097::0EIY7OPBMIA6CBNFCN2N3NSSTCMOKP::K8WZJT4kQ4xCkO4gtO4B6vchaWUHfZcXYDdTUAREp01eR9G3Jj",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"msg\": \"Edge Anomaly detected\",\n    \"severity\": \"MAJOR\",\n    \"priority\": \"PRIORITY_4\",\n    \"ot_additional_data\": [\n        \"model=Neos4-new2\"\n    ],\n    \"ot_actual_value\": \"2.300000\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{tenant_url}}/events-service/api/v1.0/events/608b7881-2ae3-e507-872f-80182d536fde",
+							"host": [
+								"{{tenant_url}}"
+							],
+							"path": [
+								"events-service",
+								"api",
+								"v1.0",
+								"events",
+								"608b7881-2ae3-e507-872f-80182d536fde"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "closeEvent",
+					"protocolProfileBehavior": {
+						"followOriginalHttpMethod": true
+					},
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "apiKey 693888097::0EIY7OPBMIA6CBNFCN2N3NSSTCMOKP::K8WZJT4kQ4xCkO4gtO4B6vchaWUHfZcXYDdTUAREp01eR9G3Jj",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"eventIds\": [\n        \"windAnomaly-id-001\"\n    ],\n    \"slots\": {\n        \"notes\": \"closing\"\n    }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{tenant_url}}/events-service/api/v1.0/events/operations/close",
+							"host": [
+								"{{tenant_url}}"
+							],
+							"path": [
+								"events-service",
+								"api",
+								"v1.0",
+								"events",
+								"operations",
+								"close"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Events",
+			"item": [
+				{
+					"name": "triggerNewEvent",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"id\": \"\",\n    \"name\": \"WindTurbine_Anomaly\",\n    \"device_name\": \"AltaNS19\",\n    \"profile\": \"WindTurbine\",\n    \"class\": \"OT_EVENT\",\n    \"event_type\": \"ANOMALY\",\n    \"msg\": \"Edge Anomaly detected\",\n    \"status\": \"Open\",\n    \"severity\": \"MAJOR\",\n    \"related_metric\": \"WindSpeed,Power\",\n    \"threshold\": 2.0,\n    \"actual_value\": 4.3,\n    \"unit\": \"sigma\",\n    \"location\": \"Pune\",\n    \"correlation_id\": \"anomayCorrelationHelix13\",\n    \"version\": 2,\n    \"additional_data\": {\n        \"model\": \"Neos4-newt55\",\n        \"year\": \"2015\"\n    },\n    \"remediations\": [\n        {\n            \"id\": \"WO023234\",\n            \"type\": \"Work-Order\",\n            \"summary\": \"Work order created to refill the oil\",\n            \"status\": \"In Progress\"\n        }\n    ],\n    \"new_event\": true\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:48102/api/v2/trigger",
+							"host": [
+								"localhost"
+							],
+							"port": "48102",
+							"path": [
+								"api",
+								"v2",
+								"trigger"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "New Request",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\n    \"correlationId\":\"anomayCorrelationHelix13:40df2c97-39b8-cde8-d669-8ce3dd814a5c\",\n    \"deviceName\":\"AltaNS19\",\n\t\"name\": \"LowOilEvent\",\n\t\"type\": \"NewServiceRequest\",\n\t\"problem\":\"Low Oil\",\n\t\"severity\": \"MAJOR\",\n\t\"eventId\":\"40df2c97-39b8-cde8-d669-8ce3dd814a5c\",\n\t\"status\":\"Open\",\n\t\"commandParameters\": {\n\t    \"serviceID\": \"11903\",\n        \"refLink\": \"https://mobility19-dsom-dwp.trybmc.com/dwp/app/#/activity\",\n        \"Fuel Level\": \"30%\",\n        \"Reason for Request\": \"Low Oil level\",\n        \"summary\": \"Order Onsite Fuel Service\",\n        \"ticketType\" : \"Work-Order\"\n  }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:48102/api/v2/cccc",
+							"host": [
+								"localhost"
+							],
+							"port": "48102",
+							"path": [
+								"api",
+								"v2",
+								"cccc"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

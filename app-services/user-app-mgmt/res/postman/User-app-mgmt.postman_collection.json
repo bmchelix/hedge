@@ -1,0 +1,1096 @@
+{
+	"info": {
+		"_postman_id": "52a17549-da17-49ab-b51c-e67edc514299",
+		"name": "User-app-mgmt",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Get Usercontext",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "admin",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "admin",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"url": {
+					"raw": "{{url}}/api/v3/usr_mgmt/usercontext",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"v2",
+						"usr_mgmt",
+						"usercontext"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get user userId/all",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "admin",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "admin",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"url": {
+					"raw": "{{url}}/api/v3/usr_mgmt/user/all",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"v2",
+						"usr_mgmt",
+						"user",
+						"all"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get role role_name/all",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "admin",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "admin",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/api/v3/usr_mgmt/role/all",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"v2",
+						"usr_mgmt",
+						"role",
+						"all"
+					]
+				},
+				"description": "Get the List resources for the Role"
+			},
+			"response": []
+		},
+		{
+			"name": "Get user resource url",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "admin",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "admin",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"url": {
+					"raw": "{{url}}/api/v3/usr_mgmt/user/admin/resource_url/all",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"v2",
+						"usr_mgmt",
+						"user",
+						"admin",
+						"resource_url",
+						"all"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get user resources",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "admin",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "admin",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"url": {
+					"raw": "{{url}}/api/v3/usr_mgmt/user/admin/resources",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"v2",
+						"usr_mgmt",
+						"user",
+						"admin",
+						"resources"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get user preference userId",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "admin",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "admin",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/api/v3/usr_mgmt/user_preference/test",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"v2",
+						"usr_mgmt",
+						"user_preference",
+						"test"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get resource name/all",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "admin",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "admin",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/api/v3/usr_mgmt/resource/all",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"v2",
+						"usr_mgmt",
+						"resource",
+						"all"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create user",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "admin",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "admin",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"fullName\": \"Pepe Perez\",\r\n    \"userId\": \"pepe\",\r\n    \"password\": \"pass\",\r\n    \"email\": \"my@mail.com\",\r\n    \"status\": \"Active\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/api/v3/usr_mgmt/user",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"v2",
+						"usr_mgmt",
+						"user"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create role",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "admin",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "admin",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"Dashboard-editor\",\r\n    \"description\": \"Dashboard-editor\",\r\n    \"roleType\": \"businessuser\",\r\n    \"defaultResourceName\" : \"devices\"\r\n}"
+				},
+				"url": {
+					"raw": "{{url}}/api/v3/usr_mgmt/role",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"v2",
+						"usr_mgmt",
+						"role"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create resouce",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "admin",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "admin",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"grafana-dashboard\",\r\n    \"displayName\": \"Grafana Dashboard\",\r\n    \"toolTip\": \"\",\r\n    \"isTerminalItem\": true,\r\n    \"linkDetails\": {\r\n        \"linkUri\": \"/hedge-grafana\",\r\n        \"linkType\": \"\",\r\n        \"id\": \"\"\r\n    }\r\n}"
+				},
+				"url": {
+					"raw": "{{url}}/api/v3/usr_mgmt/resource",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"v2",
+						"usr_mgmt",
+						"resource"
+					]
+				},
+				"description": "CreateResource"
+			},
+			"response": []
+		},
+		{
+			"name": "Create user preference",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "admin",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "admin",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"userId\": \"admin\",\r\n    \"homePage\": \"devices_profile\"\r\n}"
+				},
+				"url": {
+					"raw": "{{url}}/api/v3/usr_mgmt/user_preference",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"v2",
+						"usr_mgmt",
+						"user_preference"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create user-role",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"userId\": \"pepe123\",\r\n    \"role\": [\"DashboardUser\", \"Dashboard-editor\"]\r\n}"
+				},
+				"url": {
+					"raw": "{{url}}/api/v3/usr_mgmt/user/role",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"v2",
+						"usr_mgmt",
+						"user",
+						"role"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create role-resource-permission",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "admin",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "admin",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"roleName\": \"DashboardUser\",\r\n    \"resourceName\": [\"dashboard\"],\r\n    \"permission\": [\"R\"]\r\n}"
+				},
+				"url": {
+					"raw": "{{url}}/api/v3/usr_mgmt/role/resource",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"v2",
+						"usr_mgmt",
+						"role",
+						"resource"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update user",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "admin",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "admin",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"userId\": \"pepe\",\r\n    \"email\": \"pp@mail.com\",\r\n    \"fullName\": \"Pepe Perez II\",\r\n    \"status\": \"Active\"\r\n}"
+				},
+				"url": {
+					"raw": "{{url}}/api/v3/usr_mgmt/user",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"v2",
+						"usr_mgmt",
+						"user"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Reset user password",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "admin",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "admin",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"userId\": \"pepe\",\r\n    \"email\": \"pp@mail.com\",\r\n    \"password\": \"newpassword\"\r\n}"
+				},
+				"url": {
+					"raw": "{{url}}/api/v3/usr_mgmt/user/pwd",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"v2",
+						"usr_mgmt",
+						"user",
+						"pwd"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update role",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "admin",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "admin",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"dashboard-editor\",\r\n    \"description\": \"/dashboard-editor\",\r\n    \"roleType\": \"businessuser\"\r\n}"
+				},
+				"url": {
+					"raw": "{{url}}/api/v3/usr_mgmt/role",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"v2",
+						"usr_mgmt",
+						"role"
+					]
+				},
+				"description": "Update Role "
+			},
+			"response": []
+		},
+		{
+			"name": "Update resource",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "admin",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "admin",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"grafana-dashboard\",\r\n    \"displayName\": \"Grafana Dashboard2\",\r\n    \"toolTip\": \"\",\r\n    \"isTerminalItem\": false,\r\n    \"linkDetails\": {\r\n        \"linkUri\": \"/hedge-grafana\",\r\n        \"linkType\": \"\",\r\n        \"id\": \"\"\r\n    }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/api/v3/usr_mgmt/resource",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"v2",
+						"usr_mgmt",
+						"resource"
+					]
+				},
+				"description": "Get List the resources for each Role"
+			},
+			"response": []
+		},
+		{
+			"name": "Update user preference",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "admin",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "admin",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"userId\": \"admin\",\r\n    \"homePage\": \"devices_device\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/api/v3/usr_mgmt/user_preference",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"v2",
+						"usr_mgmt",
+						"user_preference"
+					]
+				},
+				"description": "Get List the resources for each Role"
+			},
+			"response": []
+		},
+		{
+			"name": "Update role-resource-permission",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "admin",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "admin",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"roleName\": \"DashboardUser\",\r\n    \"resourceName\": [\"dashboard\"],\r\n    \"permission\": [\"RW\"]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/api/v3/usr_mgmt/role/resource",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"v2",
+						"usr_mgmt",
+						"role",
+						"resource"
+					]
+				},
+				"description": "Get List the resources for each Role"
+			},
+			"response": []
+		},
+		{
+			"name": "Delete user",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "admin",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "admin",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"url": {
+					"raw": "{{url}}/api/v3/usr_mgmt/user/pepe",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"v2",
+						"usr_mgmt",
+						"user",
+						"pepe"
+					]
+				},
+				"description": "Delete User"
+			},
+			"response": []
+		},
+		{
+			"name": "Delete role",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "admin",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "admin",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"url": {
+					"raw": "{{url}}/api/v3/usr_mgmt/role/Dashboard-editor",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"v2",
+						"usr_mgmt",
+						"role",
+						"Dashboard-editor"
+					]
+				},
+				"description": "Delete User"
+			},
+			"response": []
+		},
+		{
+			"name": "Delete resource",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "admin",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "admin",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"url": {
+					"raw": "{{url}}/api/v3/usr_mgmt/resource/grafana-dashboard",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"v2",
+						"usr_mgmt",
+						"resource",
+						"grafana-dashboard"
+					]
+				},
+				"description": "Delete User"
+			},
+			"response": []
+		},
+		{
+			"name": "Delete user preference",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "admin",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "admin",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"url": {
+					"raw": "{{url}}/api/v3/usr_mgmt/user_preference/admin",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"v2",
+						"usr_mgmt",
+						"user_preference",
+						"admin"
+					]
+				},
+				"description": "Delete User"
+			},
+			"response": []
+		},
+		{
+			"name": "Delete user-role",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "admin",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "admin",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"url": {
+					"raw": "{{url}}/api/v3/usr_mgmt/user/pepe/DashboardUser",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"v2",
+						"usr_mgmt",
+						"user",
+						"pepe",
+						"DashboardUser"
+					]
+				},
+				"description": "Delete User"
+			},
+			"response": []
+		},
+		{
+			"name": "Delete role-resource-permission Copy",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "admin",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "admin",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"url": {
+					"raw": "{{url}}/api/v3/usr_mgmt/role/resource/DashboardUser/dashboard",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"v2",
+						"usr_mgmt",
+						"role",
+						"resource",
+						"DashboardUser",
+						"dashboard"
+					]
+				},
+				"description": "Delete User"
+			},
+			"response": []
+		}
+	],
+	"auth": {
+		"type": "basic",
+		"basic": [
+			{
+				"key": "password",
+				"value": "admin",
+				"type": "string"
+			},
+			{
+				"key": "username",
+				"value": "admin",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}

@@ -1,0 +1,33 @@
+Model Statistics:
+# of Layers: 6
+Total # of Neurons: 65
+Total # of Epochs ran before Stopping: 23
+
+Training Statistics:
+Loss: [0.4475845694541931, 0.7222222089767456]
+MSE: 0      0.121014
+1      0.015623
+2      0.383390
+3      0.149032
+4      0.034701
+         ...   
+751    0.200601
+752    0.869574
+753    0.266840
+754    0.815650
+755    0.486781
+Length: 756, dtype: float64
+MSE Median: 0.2777790149780409
+Absolute Deviation: 0      0.156765
+1      0.262156
+2      0.105611
+3      0.128747
+4      0.243078
+         ...   
+751    0.077178
+752    0.591795
+753    0.010939
+754    0.537871
+755    0.209002
+Length: 756, dtype: float64
+Median Absolute Deviation: 0.21407562329596339

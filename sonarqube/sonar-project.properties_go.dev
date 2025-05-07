@@ -1,0 +1,12 @@
+sonar.host.url=http://clm-aus-w8rrkh.bmc.com:9000
+sonar.projectKey=DEV-BE
+sonar.projectName=DEV-BE
+sonar.projectVersion=1.0
+sonar.sourceEncoding=UTF-8
+sonar.sources=app-services,common,edge-ml-service,hedge-init
+sonar.exclusions=**/*_test.go,**/tests/**,**/test/**,**/archive/**,**/db/**,**/dto/**,**/vendor/**,**/testdata/*,**/*.ts,**/*.js,**/*.py,**/*router.go,**/*.sh,edge-ml-service/cmd/test-mqtt/**,edge-ml-service/internal/training/gcp/**,edge-ml-service/internal/router/**,app-services/hedge-admin/internal/service/elasticService.go,app-services/meta-sync/internal/service/**,app-services/meta-sync/db/**,app-services/hedge-device-extensions/pkg/**,app-services/hedge-device-extensions/internal/errors/**,app-services/hedge-device-extensions/internal/util/**,app-services/user-app-mgmt/pkg/config/**,app-services/data-enrichment/config/**,app-services/hedge-admin/internal/config/**,app-services/hedge-event-publisher/config/**,app-services/user-app-mgmt/pkg/converter/**,app-services/user-app-mgmt/pkg/dto/**,app-services/user-app-mgmt/pkg/repository/**,app-services/hedge-export/cmd/config/**,app-services/hedge-export/internal/service/**,app-services/node-data-sync/**,common/config/options.go,common/client/**,common/models/**,common/service/**,common/telemetry/**,app-services/**/main.go,app-services/digital-twin/**
+sonar.tests=/hedge
+sonar.test.inclusions=**/*_test.go
+sonar.test.exclusions=**/vendor/**,**/*.ts,**/*.js,**/*.py
+sonar.go.file.suffixes=_test.go
+sonar.go.coverage.reportPaths=/hedge/sonarqube/coverage.go_dev.out

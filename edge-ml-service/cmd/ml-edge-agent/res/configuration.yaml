@@ -1,0 +1,44 @@
+Writable:
+  LogLevel: INFO
+
+Service:
+  Host: localhost
+  Port: 49100
+  StartupMsg: hedge-ml-edge-agent Service has started
+
+SecretStore:
+  Path: app-hedge-ml-edge-agent/
+  TokenFile: /tmp/edgex/secrets/app-hedge-ml-edge-agent/secrets-token.json
+
+MessageBus:
+  Disabled: true
+
+Trigger:
+  Type: external-mqtt
+  SubscribeTopics: +/+/model/deploy/#
+  PublishTopic: hedge/model/deploy/status
+  ExternalMqtt:
+    Url: 'tcp://localhost:1883'
+    ConnectTimeout: 95s
+    AutoReconnect: true
+    KeepAlive: 300
+    QoS: 0
+    Retain: false
+    SkipCertVerify: true
+    SecretName: mbconnection
+    AuthMode: usernamepassword
+
+ApplicationSettings:
+  ModelDeployTopic: "model/deploy"
+  LocalMLModelDir: "./res/models"
+  ModelDownloadEnabled: 'true'
+  ReinitializeEndpoint: 'http://localhost:48120/api/v3/ml_broker/reinitialize'
+  # leave Remote_Node_Id as blank for core machine when ModelDownloadEndpoint is automatically handled in code
+  Remote_Node_Id: 'clm-pun-vvriyq'
+  #Via nats-proxy, for local testing etc, please replace nats-proxy to one of the node machines host and ensure port 48200 is open
+  #ModelDownloadEndpoint: 'http://nats-proxy:48200/api/v3/ml_management/model/modelFile'
+  ModelDownloadEndpoint: 'http://localhost:48095/api/v3/ml_management/model/modelFile'
+  InsecureSkipVerify: 'true'
+  ImageRegistry: 'pun-harbor-reg1.bmc.com/iot/'
+  # keep true only for dev/QA envs for now
+  ExposePredictContainerPort: "true"

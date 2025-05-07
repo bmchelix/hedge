@@ -1,0 +1,52 @@
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+# ============================================================================
+
+# Default value: placeholder to pull latest version for dev, will be overridden from Makefile
+ARG ALPINE_BASE=psg-hrbr-aus.bmc.com/psg/python:latest-312-alpine
+FROM ${ALPINE_BASE}
+
+# Switch to root user for installation
+USER root
+
+# Update and install basic required packages
+RUN apk update && \
+    apk upgrade && \
+    apk add --no-cache libstdc++ hdf5-dev py3-pip
+
+# Set locale and environment variables
+ENV LANG=C.UTF-8
+ENV LC_ALL=en_US.utf8
+
+WORKDIR /opt/bmc
+
+RUN python3 -m venv /opt/venv
+ENV PATH="/opt/venv/bin:$PATH"
+
+RUN pip install --upgrade pip && pip install --upgrade idna tqdm certifi urllib3 watchdog
+
+# Create a non-root user
+RUN addgroup -S mluser && adduser -S mluser -G mluser
+
+# Set the appropriate ownership for the directory
+RUN chown -R mluser:mluser /opt/bmc
+
+# Set user for the image
+USER mluser
+
+# Set environment variables for Python
+ENV PYTHONDONTWRITEBYTECODE=1
+ENV PYTHONUNBUFFERED=1
+
+# Final command, to be overridden by the derived image
+ENTRYPOINT ["python", "-V"]

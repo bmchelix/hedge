@@ -1,0 +1,464 @@
+name: "WaterCooler"
+manufacturer: "Suzlon"
+model: "Model SX"
+labels:
+  - "Water"
+  - "Cooler"
+description: "Water Cooler"
+
+deviceResources:
+  -
+    name: "cooler_inlet_temperature"
+    description: "Water inlet temperature in Celcius"
+    attributes:
+      { dataGenerator: "float", min: "50", max: "70", useMultiplier: "false" }
+    properties:
+      value:
+        { type: "Float64", readWrite: "R", defaultValue: "60", floatEncoding: "eNotation" }
+      units:
+        { type: "String", readWrite: "R", defaultValue: "degree C" }
+  -
+    name: "cooler_outlet_temperature"
+    description: "Water outlet temperature in Celcius"
+    attributes:
+      { dataGenerator: "float", min: "2", max: "6", useMultiplier: "false" }
+    properties:
+      value:
+        { type: "Float64", readWrite: "R", defaultValue: "4", floatEncoding: "eNotation"  }
+      units:
+        { type: "String", readWrite: "R", defaultValue: "degree C" }
+  -
+    name: "cooler_water_ph"
+    description: "PH of the water"
+    attributes:
+      { dataGenerator: "float", min: "6.9", max: "7.2", useMultiplier: "false" }
+    properties:
+      value:
+        { type: "Float64", readWrite: "R", defaultValue: "7", floatEncoding: "eNotation"  }
+      units:
+        { type: "String", readWrite: "R", defaultValue: "pH" }
+  -
+    name: "cooler_breakdown_monthly_hours"
+    description: "Monthly Break down in hours"
+    attributes:
+      { dataGenerator: "float", min: "9.5", max: "10", useMultiplier: "false" }
+    properties:
+      value:
+        { type: "Float64", readWrite: "R", defaultValue: "9", floatEncoding: "eNotation"  }
+      units:
+        { type: "String", readWrite: "R", defaultValue: "hours/month" }
+  -
+    name: "cooler_leakage_percentage"
+    description: "Leakage of water cooler in %"
+    attributes:
+      { dataGenerator: "float", min: "2", max: "3", useMultiplier: "false" }
+    properties:
+      value:
+        { type: "Float64", readWrite: "R", defaultValue: "2.5", floatEncoding: "eNotation"  }
+      units:
+        { type: "String", readWrite: "R", defaultValue: "degree" }
+  -
+    name: "cooler_atm_pressure_bar"
+    description: "External Air Pressure in bar"
+    attributes:
+      { dataGenerator: "float", min: "1.1", max: "1.2", useMultiplier: "false" }
+    properties:
+      value:
+        { type: "Float64", readWrite: "R", defaultValue: "1.15", floatEncoding: "eNotation"  }
+      units:
+        { type: "String", readWrite: "R", defaultValue: "bar" }
+  -
+    name: "cooler_inlet_air_speed"
+    description: "Inlet air speed in m/s"
+    attributes:
+      { dataGenerator: "float", min: "30", max: "33", useMultiplier: "false" }
+    properties:
+      value:
+        { type: "Float64", readWrite: "R", defaultValue: "32", floatEncoding: "eNotation"  }
+      units:
+        { type: "String", readWrite: "R", defaultValue: "m/s" }
+  -
+    name: "cooler_hydrocarbon_water_content_ug_per_litre"
+    description: "cooler_hydrocarbon_water_content_ug_per_litre"
+    attributes:
+      { dataGenerator: "float", min: "2", max: "2.5", useMultiplier: "false" }
+    properties:
+      value:
+        { type: "Float64", readWrite: "R", defaultValue: "2.2", floatEncoding: "eNotation"  }
+      units:
+        { type: "String", readWrite: "R", defaultValue: "ug/l" }
+  -
+    name: "cooler_atm_humidity"
+    description: "Humidity in atmosphere in %"
+    attributes:
+      { dataGenerator: "float", min: "40", max: "45", useMultiplier: "false" }
+    properties:
+      value:
+        { type: "Float64", readWrite: "R", defaultValue: "43", floatEncoding: "eNotation"  }
+      units:
+        { type: "String", readWrite: "R", defaultValue: "%" }
+  -
+    name: "cooler_atm_temperature"
+    description: "Atmosphere temperature in degree C"
+    attributes:
+      { dataGenerator: "float", min: "15", max: "18", useMultiplier: "false" }
+    properties:
+      value:
+        { type: "Float64", readWrite: "R", defaultValue: "17", floatEncoding: "eNotation"  }
+      units:
+        { type: "String", readWrite: "R", defaultValue: "degree C" }
+  -
+    name: "cooler_water_consumption_cubic_m_per_hour"
+    description: "Water consumption per hour in cubic m"
+    attributes:
+      { dataGenerator: "float", min: "3350", max: "3400", useMultiplier: "false" }
+    properties:
+      value:
+        { type: "Float64", readWrite: "R", defaultValue: "3450", floatEncoding: "eNotation"  }
+      units:
+        { type: "String", readWrite: "R", defaultValue: "cubic meter/hour" }
+  -
+    name: "cooler_cold_water_pump_power_kw"
+    description: "water cold water pump power in kw"
+    attributes:
+      { dataGenerator: "float", min: "1800", max: "1900", useMultiplier: "false" }
+    properties:
+      value:
+        { type: "Float64", readWrite: "R", defaultValue: "1850", floatEncoding: "eNotation"  }
+      units:
+        { type: "String", readWrite: "R", defaultValue: "KW" }
+  -
+    name: "cooler_ph_pump_power_w"
+    description: "water_ph pump power_w"
+    attributes:
+      { dataGenerator: "float", min: "2400", max: "2500", useMultiplier: "false" }
+    properties:
+      value:
+        { type: "Float64", readWrite: "R", defaultValue: "2450", floatEncoding: "eNotation"  }
+      units:
+        { type: "String", readWrite: "R", defaultValue: "watt" }
+  -
+    name: "cooler_ph_pump_vibration"
+    description: "pH pump vibration"
+    attributes:
+      { dataGenerator: "float", min: "6.5", max: "7", useMultiplier: "false" }
+    properties:
+      value:
+        { type: "Float64", readWrite: "R", defaultValue: "6.75", floatEncoding: "eNotation"  }
+      units:
+        { type: "String", readWrite: "R", defaultValue: "meter per second square" }
+  -
+    name: "cooler_ph_pump_temperature"
+    description: "ph_pump_temperature"
+    attributes:
+      { dataGenerator: "float", min: "50", max: "60", useMultiplier: "false" }
+    properties:
+      value:
+        { type: "Float64", readWrite: "R", defaultValue: "55", floatEncoding: "eNotation"  }
+      units:
+        { type: "String", readWrite: "R", defaultValue: "degree C" }
+  -
+    name: "cooler_tower_fan_speed_rpm"
+    description: "cooling_tower_fan_speed_rpm"
+    attributes:
+      { dataGenerator: "float", min: "380", max: "390", useMultiplier: "false" }
+    properties:
+      value:
+        { type: "Float64", readWrite: "R", defaultValue: "385", floatEncoding: "eNotation"  }
+      units:
+        { type: "String", readWrite: "R", defaultValue: "rpm" }
+  -
+    name: "cooler_tower_wind_speed"
+    description: "cooling_tower_wind_speed"
+    attributes:
+      { dataGenerator: "float", min: "25", max: "30", useMultiplier: "false" }
+    properties:
+      value:
+        { type: "Float64", readWrite: "R", defaultValue: "28", floatEncoding: "eNotation"  }
+      units:
+        { type: "String", readWrite: "R", defaultValue: "m per sec" }
+
+deviceCommands:
+  -
+    name: "cooler_inlet_temperature"
+    get:
+      - { operation: "get", deviceResource: "cooler_inlet_temperature" }
+  -
+    name: "TurbinePower"
+    get:
+      - { operation: "get", deviceResource: "TurbinePower" }
+  -
+    name: "cooler_water_ph"
+    get:
+      - { operation: "get", deviceResource: "cooler_water_ph" }
+  -
+    name: "cooler_breakdown_monthly_hours"
+    get:
+      - { operation: "get", deviceResource: "cooler_breakdown_monthly_hours" }
+  -
+    name: "cooler_leakage_percentage"
+    get:
+      - { operation: "get", deviceResource: "cooler_leakage_percentage" }
+  -
+    name: "cooler_atm_pressure_bar"
+    get:
+      - { operation: "get", deviceResource: "cooler_atm_pressure_bar" }
+  -
+    name: "cooler_inlet_air_speed"
+    get:
+      - { operation: "get", deviceResource: "cooler_inlet_air_speed" }
+  -
+    name: "NacelleYawError"
+    get:
+      - { operation: "get", deviceResource: "NacelleYawError" }
+  -
+    name: "cooler_hydrocarbon_water_content_ug_per_litre"
+    get:
+      - { operation: "get", deviceResource: "cooler_hydrocarbon_water_content_ug_per_litre" }
+  -
+    name: "cooler_atm_humidity"
+    get:
+      - { operation: "get", deviceResource: "cooler_atm_humidity" }
+  -
+    name: "cooler_atm_temperature"
+    get:
+      - { operation: "get", deviceResource: "cooler_atm_temperature" }
+  -
+    name: "cooler_water_consumption_cubic_m_per_hour"
+    get:
+      - { operation: "get", deviceResource: "cooler_water_consumption_cubic_m_per_hour" }
+  -
+    name: "cooler_cold_water_pump_power_kw"
+    get:
+      - { operation: "get", deviceResource: "cooler_cold_water_pump_power_kw" }
+  -
+    name: "cooler_ph_pump_power_w"
+    get:
+      - { operation: "get", deviceResource: "cooler_ph_pump_power_w" }
+  -
+    name: "cooler_ph_pump_vibration"
+    get:
+      - { operation: "get", deviceResource: "cooler_ph_pump_vibration" }
+  -
+    name: "cooler_ph_pump_temperature"
+    get:
+      - { operation: "get", deviceResource: "cooler_ph_pump_temperature" }
+  -
+    name: "cooler_tower_fan_speed_rpm"
+    get:
+      - { operation: "get", deviceResource: "cooler_tower_fan_speed_rpm" }
+  -
+    name: "cooler_tower_wind_speed"
+    get:
+      - { operation: "get", deviceResource: "cooler_tower_wind_speed" }
+
+coreCommands:
+  -
+    name: "cooler_inlet_temperature"
+    get:
+      path: "/api/v1/device/{deviceId}/cooler_inlet_temperature"
+      responses:
+        -
+          code: "200"
+          description: ""
+          expectedValues: ["cooler_inlet_temperature"]
+        -
+          code: "503"
+          description: "service unavailable"
+          expectedValues: []
+  -
+    name: "cooler_water_ph"
+    get:
+      path: "/api/v1/device/{deviceId}/cooler_water_ph"
+      responses:
+        -
+          code: "200"
+          description: ""
+          expectedValues: ["cooler_water_ph"]
+        -
+          code: "503"
+          description: "service unavailable"
+          expectedValues: []
+  -
+    name: "cooler_breakdown_monthly_hours"
+    get:
+      path: "/api/v1/device/{deviceId}/cooler_breakdown_monthly_hours"
+      responses:
+        -
+          code: "200"
+          description: ""
+          expectedValues: ["cooler_breakdown_monthly_hours"]
+        -
+          code: "503"
+          description: "service unavailable"
+          expectedValues: []
+  -
+    name: "cooler_leakage_percentage"
+    get:
+      path: "/api/v1/device/{deviceId}/cooler_leakage_percentage"
+      responses:
+        -
+          code: "200"
+          description: ""
+          expectedValues: ["cooler_leakage_percentage"]
+        -
+          code: "503"
+          description: "service unavailable"
+          expectedValues: []
+  -
+    name: "cooler_atm_pressure_bar"
+    get:
+      path: "/api/v1/device/{deviceId}/cooler_atm_pressure_bar"
+      responses:
+        -
+          code: "200"
+          description: ""
+          expectedValues: ["cooler_atm_pressure_bar"]
+        -
+          code: "503"
+          description: "service unavailable"
+          expectedValues: []
+  -
+    name: "cooler_inlet_air_speed"
+    get:
+      path: "/api/v1/device/{deviceId}/cooler_inlet_air_speed"
+      responses:
+        -
+          code: "200"
+          description: ""
+          expectedValues: ["cooler_inlet_air_speed"]
+        -
+          code: "503"
+          description: "service unavailable"
+          expectedValues: []
+  -
+    name: "cooler_hydrocarbon_water_content_ug_per_litre"
+    get:
+      path: "/api/v1/device/{deviceId}/cooler_hydrocarbon_water_content_ug_per_litre"
+      responses:
+        -
+          code: "200"
+          description: ""
+          expectedValues: ["cooler_hydrocarbon_water_content_ug_per_litre"]
+        -
+          code: "503"
+          description: "service unavailable"
+          expectedValues: []
+  -
+    name: "cooler_atm_humidity"
+    get:
+      path: "/api/v1/device/{deviceId}/cooler_atm_humidity"
+      responses:
+        -
+          code: "200"
+          description: ""
+          expectedValues: ["cooler_atm_humidity"]
+        -
+          code: "503"
+          description: "service unavailable"
+          expectedValues: []
+  -
+    name: "cooler_atm_temperature"
+    get:
+      path: "/api/v1/device/{deviceId}/cooler_atm_temperature"
+      responses:
+        -
+          code: "200"
+          description: ""
+          expectedValues: ["cooler_atm_temperature"]
+        -
+          code: "503"
+          description: "service unavailable"
+          expectedValues: []
+  -
+    name: "cooler_water_consumption_cubic_m_per_hour"
+    get:
+      path: "/api/v1/device/{deviceId}/cooler_water_consumption_cubic_m_per_hour"
+      responses:
+        -
+          code: "200"
+          description: ""
+          expectedValues: ["cooler_water_consumption_cubic_m_per_hour"]
+        -
+          code: "503"
+          description: "service unavailable"
+          expectedValues: []
+  -
+    name: "cooler_cold_water_pump_power_kw"
+    get:
+      path: "/api/v1/device/{deviceId}/cooler_cold_water_pump_power_kw"
+      responses:
+        -
+          code: "200"
+          description: ""
+          expectedValues: ["cooler_cold_water_pump_power_kw"]
+        -
+          code: "503"
+          description: "service unavailable"
+          expectedValues: []
+  -
+    name: "cooler_ph_pump_power_w"
+    get:
+      path: "/api/v1/device/{deviceId}/cooler_ph_pump_power_w"
+      responses:
+        -
+          code: "200"
+          description: ""
+          expectedValues: ["cooler_ph_pump_power_w"]
+        -
+          code: "503"
+          description: "service unavailable"
+          expectedValues: []
+  -
+    name: "cooler_ph_pump_vibration"
+    get:
+      path: "/api/v1/device/{deviceId}/cooler_ph_pump_vibration"
+      responses:
+        -
+          code: "200"
+          description: ""
+          expectedValues: ["cooler_ph_pump_vibration"]
+        -
+          code: "503"
+          description: "service unavailable"
+          expectedValues: []
+  -
+    name: "cooler_ph_pump_temperature"
+    get:
+      path: "/api/v1/device/{deviceId}/cooler_ph_pump_temperature"
+      responses:
+        -
+          code: "200"
+          description: ""
+          expectedValues: ["cooler_ph_pump_temperature"]
+        -
+          code: "503"
+          description: "service unavailable"
+          expectedValues: []
+  -
+    name: "cooler_tower_fan_speed_rpm"
+    get:
+      path: "/api/v1/device/{deviceId}/cooler_tower_fan_speed_rpm"
+      responses:
+        -
+          code: "200"
+          description: ""
+          expectedValues: ["cooler_tower_fan_speed_rpm"]
+        -
+          code: "503"
+          description: "service unavailable"
+          expectedValues: []
+  -
+    name: "cooler_tower_wind_speed"
+    get:
+      path: "/api/v1/device/{deviceId}/cooler_tower_wind_speed"
+      responses:
+        -
+          code: "200"
+          description: ""
+          expectedValues: ["cooler_tower_wind_speed"]
+        -
+          code: "503"
+          description: "service unavailable"
+          expectedValues: []
+

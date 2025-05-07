@@ -1,0 +1,33 @@
+Writable:
+  LogLevel: INFO
+
+Service:
+  Host: localhost
+  StartupMsg: hedge-ml-sandbox Service has started
+  RequestTimeout: "10s"
+
+SecretStore:
+  Path: app-hedge-ml-sandbox
+  TokenFile: /tmp/edgex/secrets/app-hedge-ml-sandbox/secrets-token.json
+
+MessageBus:
+  Disabled: true
+
+Trigger:
+  Type: external-mqtt
+  SubscribeTopics: +/model/train
+  PublishTopic: hedge/model/train/status
+  ExternalMqtt:
+    Url: 'tcp://localhost:1883'
+    ConnectTimeout: 95s
+    AutoReconnect: true
+    KeepAlive: 300
+    QoS: 0
+    Retain: false
+    SkipCertVerify: true
+    SecretName: mbconnection
+    AuthMode: usernamepassword
+
+ApplicationSettings:
+  JobDir: "/tmp/jobs"
+  ImageRegistry: 'pun-harbor-reg1.bmc.com/iot/'

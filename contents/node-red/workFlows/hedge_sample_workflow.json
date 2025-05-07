@@ -1,0 +1,1279 @@
+[
+    {
+        "id": "99b74fc89dac18f0",
+        "type": "tab",
+        "label": "sample_ticketSimulator",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "e79bd0cb50dc70be",
+        "type": "inject",
+        "z": "99b74fc89dac18f0",
+        "name": "triggerUpdate TurbinePower",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 160,
+        "y": 220,
+        "wires": [
+            [
+                "68edda03a9d29abb"
+            ]
+        ]
+    },
+    {
+        "id": "68edda03a9d29abb",
+        "type": "function",
+        "z": "99b74fc89dac18f0",
+        "name": "buildUpdateAvgPowerPayload",
+        "func": "device_name = global.get(\"device_name\")\nvar demoControlPayload = [\n    {\n        \"name\": \"ChangeAverage\",\n        \"parameters\": {\n            \"device\": device_name,\n            \"metric\": \"TurbinePower\",\n            \"average\": \"10000\"\n        }\n    }\n]\n\nserver = flow.get(\"edgeXserver\")\nif ( server === null || server === undefined ) {\n    server = \"device-virtual\"\n}\nmsg.url = \"http://\"+server+\":49991/api/v3/dataGenerator/commands\"\n\nmsg.headers = {'Content-Type': 'application/json'};\nmsg.rejectUnauthorized = false\n\nmsg.method = \"PUT\"\nmsg.payload = demoControlPayload\nreturn msg;\n\n\n\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 450,
+        "y": 220,
+        "wires": [
+            [
+                "1713079214e9c47a"
+            ]
+        ]
+    },
+    {
+        "id": "1713079214e9c47a",
+        "type": "http request",
+        "z": "99b74fc89dac18f0",
+        "name": "fireHttpCmdToDeviceService",
+        "method": "use",
+        "ret": "txt",
+        "paytoqs": "ignore",
+        "url": "",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "insecureHTTPParser": false,
+        "authType": "",
+        "senderr": false,
+        "headers": [],
+        "x": 740,
+        "y": 280,
+        "wires": [
+            [
+                "bd05d63e4e908284"
+            ]
+        ]
+    },
+    {
+        "id": "bd05d63e4e908284",
+        "type": "debug",
+        "z": "99b74fc89dac18f0",
+        "name": "printDeviceCmdStatus",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1000,
+        "y": 280,
+        "wires": []
+    },
+    {
+        "id": "64839f05c2f8a407",
+        "type": "change",
+        "z": "99b74fc89dac18f0",
+        "name": "Set_device_name_and_event_name",
+        "rules": [
+            {
+                "p": "device_name",
+                "pt": "global",
+                "t": "set",
+                "to": "AltaNS_04-1047_10",
+                "tot": "str"
+            },
+            {
+                "p": "event_name",
+                "pt": "global",
+                "t": "set",
+                "to": "AutoEncoderTestEvent",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 470,
+        "y": 120,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "1930a50caf230188",
+        "type": "inject",
+        "z": "99b74fc89dac18f0",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": true,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 130,
+        "y": 120,
+        "wires": [
+            [
+                "64839f05c2f8a407"
+            ]
+        ]
+    },
+    {
+        "id": "06be5959ec415185",
+        "type": "inject",
+        "z": "99b74fc89dac18f0",
+        "name": "Trigger Reset TurbinePower",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 180,
+        "y": 340,
+        "wires": [
+            [
+                "dc7546d1a74cffbb"
+            ]
+        ]
+    },
+    {
+        "id": "dc7546d1a74cffbb",
+        "type": "function",
+        "z": "99b74fc89dac18f0",
+        "name": "BuildResetTurbinePower",
+        "func": "device_name = global.get(\"device_name\")\nvar demoControlPayload = [\n    {\n        \"name\": \"ResetValue\",\n        \"parameters\": {\n             \"device\": device_name,\n            \"metric\": \"TurbinePower\"\n        }\n    }\n]\n\nserver = flow.get(\"edgeXserver\")\nif ( server === null || server === undefined ) {\n    server = \"device-virtual\"\n}\nmsg.url = \"http://\"+server+\":49991/api/v3/dataGenerator/commands\"\n\nmsg.headers = {'Content-Type': 'application/json'};\nmsg.rejectUnauthorized = false\n\nmsg.method = \"PUT\"\nmsg.payload = demoControlPayload\nreturn msg;\n\n\n\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 450,
+        "y": 340,
+        "wires": [
+            [
+                "1713079214e9c47a"
+            ]
+        ]
+    },
+    {
+        "id": "b85b601804e5fbc7",
+        "type": "comment",
+        "z": "99b74fc89dac18f0",
+        "name": "Imp: set values of device_name and event_name that you want to create workflow for ",
+        "info": "",
+        "x": 340,
+        "y": 40,
+        "wires": []
+    },
+    {
+        "id": "c389bcad2deab522",
+        "type": "tab",
+        "label": "sample_ticketWorkflow",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "21baf6afa7ef7e4c",
+        "type": "function",
+        "z": "c389bcad2deab522",
+        "name": "buildPrinterIncidentPayload",
+        "func": "var command = {\n    \"id\": \"commandid0034345\",\n    \"correlation_id\": \"commandid0034345_correlationid01\",\n    \"execution_nodetype\" : \"Core\",\n    \"device_name\": \"printer01\",\n    \"name\": \"printerPaused\",\n   \"type\": \"NewServiceRequest\",\n\n\"problem\": \"printer stalled\",\n\t\"source_node\": \"nodexxx\",\n\t\"severity\": \"MAJOR\",\n\t\"event_id\": \"evebtid022\",\n\t\n\t\"command_parameters\": {\n\t    \"serviceID\": \"10225\",\n       \n        \"Description\" : \"printer paused suddenly during demo\",\n        \"Impact\": \"2000\",\n        \"Urgency\": \"2000\"\n  },\n}\nmsg.payload = command\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 500,
+        "y": 260,
+        "wires": [
+            [
+                "a4e350dc32a026e7",
+                "f51fe077e6607bcc"
+            ]
+        ]
+    },
+    {
+        "id": "faf6b8c42ca550f7",
+        "type": "inject",
+        "z": "c389bcad2deab522",
+        "name": "createDWPTicketTestStub",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 170,
+        "y": 260,
+        "wires": [
+            [
+                "21baf6afa7ef7e4c"
+            ]
+        ]
+    },
+    {
+        "id": "a4e350dc32a026e7",
+        "type": "mqtt out",
+        "z": "c389bcad2deab522",
+        "name": "PublishCommand",
+        "topic": "hedge/BMCCommands",
+        "qos": "0",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "bf47c3db.d1bc",
+        "x": 2150,
+        "y": 280,
+        "wires": []
+    },
+    {
+        "id": "f51fe077e6607bcc",
+        "type": "debug",
+        "z": "c389bcad2deab522",
+        "name": "debug 2",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1020,
+        "y": 120,
+        "wires": []
+    },
+    {
+        "id": "553d67eb44723097",
+        "type": "mqtt in",
+        "z": "c389bcad2deab522",
+        "name": "Subscribe2AnomalyEvent",
+        "topic": "hedge/BMCEvents",
+        "qos": "0",
+        "datatype": "auto-detect",
+        "broker": "bf47c3db.d1bc",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 130,
+        "y": 500,
+        "wires": [
+            [
+                "148db33ccd054c61"
+            ]
+        ]
+    },
+    {
+        "id": "c45c068e7a0bb057",
+        "type": "debug",
+        "z": "c389bcad2deab522",
+        "name": "printCmdPayload",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 2150,
+        "y": 580,
+        "wires": []
+    },
+    {
+        "id": "3db7cb640570b943",
+        "type": "switch",
+        "z": "c389bcad2deab522",
+        "name": "statusClosed",
+        "property": "payload.status",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "Closed",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 1,
+        "x": 1370,
+        "y": 580,
+        "wires": [
+            [
+                "5c55daa6d5dc536f"
+            ]
+        ]
+    },
+    {
+        "id": "904d6bfea771cbd0",
+        "type": "function",
+        "z": "c389bcad2deab522",
+        "name": "buildOpenDWPIncidentPayload",
+        "func": "var command = {\n    \"id\": msg.payload.id,\n    \"correlation_id\": msg.payload.correlation_id,\n    \"execution_nodetype\" : \"Core\",\n    \"device_name\": msg.payload.device_name,\n    \"name\": msg.payload.name,\n   \"type\": \"NewServiceRequest\",\n   \"event_type\" : msg.payload.event_type,\n\n    \"problem\": \"Fault detected in printer: \"+msg.payload.device_name,\n\t\"source_node\": msg.payload.source_node,\n\t\"severity\": \"MAJOR\",\n\t\"event_id\": msg.payload.id,\n\t\n\t\"command_parameters\": {\n        \"serviceID\": \"10704\",\n        \"refLink\": \"https://mobility415-dsom-dwp.trybmc.com/dwp/app/#/activity\",\n        \"Printer Name\": \"not a printer demo only:\"+msg.payload.device_name,\n        \"Printer Model\": \"model xyz\",\n        \"ticketType\": \"Work-Order\"\n  },\n}\nmsg.payload = command\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1650,
+        "y": 380,
+        "wires": [
+            [
+                "24fcaae757572e75"
+            ]
+        ]
+    },
+    {
+        "id": "5c55daa6d5dc536f",
+        "type": "function",
+        "z": "c389bcad2deab522",
+        "name": "buildCloseRequestPayload",
+        "func": "var cmd = {\n    \"correlation_id\":msg.payload.correlation_id,\n    \"device_name\":msg.payload.device_name,\n    \"type\" : \"CloseServiceRequest\",\n    \"event_id\": msg.payload.id,\n     \"event_type\" : msg.payload.event_type,\n   // \"remediation_id\": msg.payload.remediations[0].id,\n    \"command_parameters\": {\n        \"summary\": \"Closing the service request: \"\n    }\n};\n\nmsg.payload = cmd;\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1640,
+        "y": 580,
+        "wires": [
+            [
+                "24fcaae757572e75"
+            ]
+        ]
+    },
+    {
+        "id": "24fcaae757572e75",
+        "type": "json",
+        "z": "c389bcad2deab522",
+        "name": "",
+        "property": "payload",
+        "action": "",
+        "pretty": false,
+        "x": 1870,
+        "y": 480,
+        "wires": [
+            [
+                "a4e350dc32a026e7",
+                "c45c068e7a0bb057"
+            ]
+        ]
+    },
+    {
+        "id": "f49a93b331981ca5",
+        "type": "switch",
+        "z": "c389bcad2deab522",
+        "name": "notRemediationTransaction",
+        "property": "payload.remediation_txn",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "false"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 1,
+        "x": 1120,
+        "y": 580,
+        "wires": [
+            [
+                "3db7cb640570b943"
+            ]
+        ]
+    },
+    {
+        "id": "1b492a908c77382a",
+        "type": "switch",
+        "z": "c389bcad2deab522",
+        "name": "CheckNewOOldEvent",
+        "property": "payload.new_event",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "true"
+            },
+            {
+                "t": "false"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 840,
+        "y": 500,
+        "wires": [
+            [
+                "35bbab0c88fa88f2"
+            ],
+            [
+                "f49a93b331981ca5"
+            ]
+        ]
+    },
+    {
+        "id": "35bbab0c88fa88f2",
+        "type": "switch",
+        "z": "c389bcad2deab522",
+        "name": "notAUserAction",
+        "property": "payload.event_type",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "neq",
+                "v": "UserAction",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 1,
+        "x": 1080,
+        "y": 380,
+        "wires": [
+            [
+                "705c93d71085b589",
+                "241166fc82422af0"
+            ]
+        ]
+    },
+    {
+        "id": "641c61bb06951f71",
+        "type": "switch",
+        "z": "c389bcad2deab522",
+        "name": "statusOpen",
+        "property": "payload.status",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "Open",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 1,
+        "x": 1430,
+        "y": 380,
+        "wires": [
+            [
+                "904d6bfea771cbd0"
+            ]
+        ]
+    },
+    {
+        "id": "5b6ec46d2f3fc62e",
+        "type": "mqtt out",
+        "z": "c389bcad2deab522",
+        "name": "PubBMCCommands",
+        "topic": "hedge/BMCCommands",
+        "qos": "2",
+        "retain": "false",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "bf47c3db.d1bc",
+        "x": 500,
+        "y": 720,
+        "wires": []
+    },
+    {
+        "id": "b1fc7ad6985e07a3",
+        "type": "function",
+        "z": "c389bcad2deab522",
+        "name": "buildClosePayload",
+        "func": "cmd =  {\"correlation_id\":\"printerFailure_BambulabsA1MiniPrinter-01:29ee52f8-76ca-c15a-e357-108aa021d94c\",\n\"device_name\":\"BambulabsA1MiniPrinter-01\",\n\"type\":\"CloseServiceRequest\",\n\"event_id\":\"29ee52f8-76ca-c15a-e357-108aa021d94c\",\n\"remediation_id\":\"14928\",\n\"command_parameters\":{\"summary\":\"Closing the service request for printer fault\"}\n};\nmsg.payload = cmd;\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 270,
+        "y": 720,
+        "wires": [
+            [
+                "5b6ec46d2f3fc62e"
+            ]
+        ]
+    },
+    {
+        "id": "c6d476dc7b48c80b",
+        "type": "inject",
+        "z": "c389bcad2deab522",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 100,
+        "y": 720,
+        "wires": [
+            [
+                "b1fc7ad6985e07a3"
+            ]
+        ]
+    },
+    {
+        "id": "d41353d940186b2e",
+        "type": "function",
+        "z": "c389bcad2deab522",
+        "name": "buildFilamentSpoolEmptyEvent",
+        "func": "msg.headers = {};\ntimestamp = msg.payload\nmsg.headers['Authorization'] = 'Basic YWRtaW46YWRtaW4=';\n\nmsg.rejectUnauthorized = false\nmsg.payload = {\n    \"id\": \"A1M-01-event-id\",\n    \"device_name\": \"A1M-01\",\n    \"profile\":\"BambulabsA1MiniProfile\",\n    \"class\": \"EVENT\",\n    \"name\": \"FilamentSpoolEmpty\",\n    \"msg\": \"Red Filament spool will be empty in about 2 days\",\n    \"severity\": \"MINOR\",\n    \"priority\": \"MINOR\",\n    \"source_node\": \"edge-node-01\",\n    \"status\": \"Open\",\n    \"related_metric\": \"filament_spool\",\n    \"threshold\": 4,\n    \"actual_value\": 2,\n    \"unit\": \"days\",\n    \"modified\": timestamp,\n    \"event_type\":\"DUMMY_EVENT\",\n    \"event_source\": \"node-red-workflow\",\n    \"correlation_id\": \"FilamentSpoolEmpty:A1M-01\",\n    \"remediations\" : [\n        {\n        \"id\" : \"14780\",\n        \"summary\": \"Order placed for new filament spool\"\n    }\n    ]\n}\nmsg.url = \"http://hedge-elasticsearch:9200/event_index/_doc/\"+msg.payload.id+\"?refresh\"\nmsg.method = \"PUT\"\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 390,
+        "y": 960,
+        "wires": [
+            [
+                "250197801eac38de"
+            ]
+        ]
+    },
+    {
+        "id": "4b27a7fbaab121fc",
+        "type": "inject",
+        "z": "c389bcad2deab522",
+        "d": true,
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "600",
+        "crontab": "",
+        "once": true,
+        "onceDelay": "1",
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 110,
+        "y": 1060,
+        "wires": [
+            [
+                "d41353d940186b2e",
+                "3a7fef8089458a1c",
+                "74522f2026cfa5d3",
+                "717b932e2614134a"
+            ]
+        ]
+    },
+    {
+        "id": "250197801eac38de",
+        "type": "http request",
+        "z": "c389bcad2deab522",
+        "name": "Post2ElasticDB",
+        "method": "use",
+        "ret": "txt",
+        "paytoqs": "ignore",
+        "url": "",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "insecureHTTPParser": false,
+        "authType": "",
+        "senderr": false,
+        "headers": [],
+        "x": 700,
+        "y": 1060,
+        "wires": [
+            [
+                "8945df8d3b67fa06"
+            ]
+        ]
+    },
+    {
+        "id": "8945df8d3b67fa06",
+        "type": "debug",
+        "z": "c389bcad2deab522",
+        "name": "elasticResponse",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 920,
+        "y": 1060,
+        "wires": []
+    },
+    {
+        "id": "9a48a90c3a974fab",
+        "type": "function",
+        "z": "c389bcad2deab522",
+        "name": "buildFilamentRecalibrateSensorEvent",
+        "func": "msg.headers = {};\ntimestamp = msg.payload\nmsg.headers['Authorization'] = 'Basic YWRtaW46YWRtaW4=';\n\nmsg.rejectUnauthorized = false\nmsg.payload = {\n    \"id\": \"A1M-01-recilbrate-sensor-01\",\n    \"device_name\": \"A1M-01\",\n    \"profile\":\"BambulabsA1MiniProfile\",\n    \"class\": \"EVENT\",\n    \"name\": \"RecalibrateSensorEvent\",\n    \"msg\": \"Calibration issue detected while printing\",\n    \"severity\": \"MINOR\",\n    \"priority\": \"MINOR\",\n    \"source_node\": \"edge-node-01\",\n    \"status\": \"Open\",\n    \"related_metric\": \"PrintState,calibration_accuracy\",\n    \"threshold\": 3,\n    \"actual_value\": 5,\n    \"unit\": \"sigma\",\n    \"modified\": timestamp,\n    \"event_type\":\"DUMMY_EVENT\",\n    \"event_source\": \"node-red-workflow\",\n    \"correlation_id\": \"RecalibrateSensorEvent:A1M-01\",\n    \"remediations\" : [\n        {\n        \"id\" : \"None\",\n        \"summary\": \"Re-calibration initiated to fix accuracy degradation\"\n    }\n    ]\n}\nmsg.url = \"http://hedge-elasticsearch:9200/event_index/_doc/\"+msg.payload.id+\"?refresh\"\nmsg.method = \"PUT\"\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 410,
+        "y": 1500,
+        "wires": [
+            [
+                "250197801eac38de"
+            ]
+        ]
+    },
+    {
+        "id": "3a7fef8089458a1c",
+        "type": "function",
+        "z": "c389bcad2deab522",
+        "name": "buildMotorNoice",
+        "func": "msg.headers = {};\ntimestamp = msg.payload\nmsg.headers['Authorization'] = 'Basic YWRtaW46YWRtaW4=';\n\nmsg.rejectUnauthorized = false\nmsg.payload = {\n    \"id\": \"A1M-01-motor-noise-02\",\n    \"device_name\": \"A1M-02\",\n    \"profile\":\"BambulabsA1MiniProfile\",\n    \"class\": \"EVENT\",\n    \"name\": \"MotorNoiseEvent\",\n    \"msg\": \"Abnormal noise detected in Motor assembly\",\n    \"severity\": \"MINOR\",\n    \"priority\": \"MINOR\",\n    \"source_node\": \"edge-node-01\",\n    \"status\": \"Open\",\n    \"related_metric\": \"PrintState,calibration_accuracy\",\n    \"threshold\": 2.5,\n    \"actual_value\": 3.6,\n    \"unit\": \"sigma\",\n    \"modified\": timestamp,\n    \"event_type\":\"DUMMY_EVENT\",\n    \"event_source\": \"node-red-workflow\",\n    \"correlation_id\": \"MotorNoiseEvent:A1M-02\",\n    \"remediations\" : [\n        {\n        \"id\" : \"14795\",\n        \"summary\": \"Inspect motor assembly for abnormal noise\"\n    }\n    ]\n}\nmsg.url = \"http://hedge-elasticsearch:9200/event_index/_doc/\"+msg.payload.id+\"?refresh\"\nmsg.method = \"PUT\"\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 390,
+        "y": 1160,
+        "wires": [
+            [
+                "250197801eac38de"
+            ]
+        ]
+    },
+    {
+        "id": "74522f2026cfa5d3",
+        "type": "function",
+        "z": "c389bcad2deab522",
+        "name": "buildHighTemperatureEvent",
+        "func": "msg.headers = {};\ntimestamp = msg.payload\nmsg.headers['Authorization'] = 'Basic YWRtaW46YWRtaW4=';\n\nmsg.rejectUnauthorized = false\nmsg.payload = {\n    \"id\": \"A1M-01-high-temp-01\",\n    \"device_name\": \"A1M-01\",\n    \"profile\":\"BambulabsA1MiniProfile\",\n    \"class\": \"EVENT\",\n    \"name\": \"HighTemperatureEvent\",\n    \"msg\": \"High temperature while printing\",\n    \"severity\": \"MINOR\",\n    \"priority\": \"MINOR\",\n    \"source_node\": \"edge-node-01\",\n    \"status\": \"Open\",\n    \"related_metric\": \"PrintState,Temperature\",\n    \"threshold\": 70,\n    \"actual_value\": 80,\n    \"unit\": \"Celcius\",\n    \"modified\": timestamp,\n    \"event_type\":\"DUMMY_EVENT\",\n    \"event_source\": \"node-red-workflow\",\n    \"correlation_id\": \"HighTemperatureEvent:A1M-01\",\n    \"remediations\" : [\n        {\n        \"id\" : \"14798\",\n        \"summary\": \"Replace cooling fan and clean ventilation system\"\n    }\n    ]\n}\nmsg.url = \"http://hedge-elasticsearch:9200/event_index/_doc/\"+msg.payload.id+\"?refresh\"\nmsg.method = \"PUT\"\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 380,
+        "y": 1240,
+        "wires": [
+            [
+                "250197801eac38de"
+            ]
+        ]
+    },
+    {
+        "id": "717b932e2614134a",
+        "type": "function",
+        "z": "c389bcad2deab522",
+        "name": "buildNozzleClogEvent",
+        "func": "msg.headers = {};\ntimestamp = msg.payload\nmsg.headers['Authorization'] = 'Basic YWRtaW46YWRtaW4=';\n\nmsg.rejectUnauthorized = false\nmsg.payload = {\n    \"id\": \"A1M-02-nozzle-clogged-02\",\n    \"device_name\": \"A1M-02\",\n    \"profile\":\"BambulabsA1MiniProfile\",\n    \"class\": \"EVENT\",\n    \"name\": \"NozzleCloggedEvent\",\n    \"msg\": \"Nozzle clogged\",\n    \"severity\": \"MINOR\",\n    \"priority\": \"MINOR\",\n    \"source_node\": \"edge-node-01\",\n    \"status\": \"Open\",\n    \"related_metric\": \"NozzleTemperature\",\n    \"threshold\": 0,\n    \"actual_value\": 1,\n    \"unit\": \"isClogged\",\n    \"modified\": timestamp,\n     \"event_type\":\"DUMMY_EVENT\",\n    \"event_source\": \"node-red-workflow\",\n    \"correlation_id\": \"NozzleCloggedEvent:A1M-02\",\n    \"remediations\" : [\n        {\n        \"id\" : \"14670\",\n        \"summary\": \"Maintenance scheduled to clean nozzle\"\n    }\n    ]\n}\nmsg.url = \"http://hedge-elasticsearch:9200/event_index/_doc/\"+msg.payload.id+\"?refresh\"\nmsg.method = \"PUT\"\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 360,
+        "y": 1340,
+        "wires": [
+            [
+                "250197801eac38de"
+            ]
+        ]
+    },
+    {
+        "id": "2c0fd3014eea3b13",
+        "type": "inject",
+        "z": "c389bcad2deab522",
+        "d": true,
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "2700",
+        "crontab": "",
+        "once": true,
+        "onceDelay": "1",
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 130,
+        "y": 1500,
+        "wires": [
+            [
+                "9a48a90c3a974fab"
+            ]
+        ]
+    },
+    {
+        "id": "3030197c2866035c",
+        "type": "switch",
+        "z": "c389bcad2deab522",
+        "name": "device name match",
+        "property": "payload.device_name",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "device_name",
+                "vt": "global"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 1,
+        "x": 590,
+        "y": 500,
+        "wires": [
+            [
+                "1b492a908c77382a"
+            ]
+        ]
+    },
+    {
+        "id": "148db33ccd054c61",
+        "type": "switch",
+        "z": "c389bcad2deab522",
+        "name": "event_name match",
+        "property": "payload.name",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "event_name",
+                "vt": "global"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 1,
+        "x": 370,
+        "y": 500,
+        "wires": [
+            [
+                "3030197c2866035c"
+            ]
+        ]
+    },
+    {
+        "id": "705c93d71085b589",
+        "type": "debug",
+        "z": "c389bcad2deab522",
+        "name": "debug 3",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1280,
+        "y": 460,
+        "wires": []
+    },
+    {
+        "id": "241166fc82422af0",
+        "type": "switch",
+        "z": "c389bcad2deab522",
+        "name": "notRemediation",
+        "property": "payload.remediation_txn",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "false"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 1,
+        "x": 1260,
+        "y": 380,
+        "wires": [
+            [
+                "641c61bb06951f71"
+            ]
+        ]
+    },
+    {
+        "id": "8291ec6ed9c06e4b",
+        "type": "comment",
+        "z": "c389bcad2deab522",
+        "name": "Sample workflow to create a remediation ticket in DWP based out of an event",
+        "info": "This is a sample workflow for a specific device_name and event_name\nThe device_name and event_name are set in the flow sample_ticketSimulator\n",
+        "x": 310,
+        "y": 80,
+        "wires": []
+    },
+    {
+        "id": "74a8392a0aec6eeb",
+        "type": "comment",
+        "z": "c389bcad2deab522",
+        "name": "Always filter by event of interest only",
+        "info": "",
+        "x": 420,
+        "y": 440,
+        "wires": []
+    },
+    {
+        "id": "605bb1c151a0aa58",
+        "type": "tab",
+        "label": "sample_debugger",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "621beb7751a87899",
+        "type": "mqtt in",
+        "z": "605bb1c151a0aa58",
+        "name": "BMCEvents",
+        "topic": "hedge/BMCEvents",
+        "qos": "0",
+        "datatype": "auto-detect",
+        "broker": "bf47c3db.d1bc",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 130,
+        "y": 280,
+        "wires": [
+            [
+                "932048fd857c959d"
+            ]
+        ]
+    },
+    {
+        "id": "b4775ece65ab6bdb",
+        "type": "debug",
+        "z": "605bb1c151a0aa58",
+        "name": "print_AnomalyEvent",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 800,
+        "y": 280,
+        "wires": []
+    },
+    {
+        "id": "932048fd857c959d",
+        "type": "switch",
+        "z": "605bb1c151a0aa58",
+        "name": "event Name match",
+        "property": "payload.name",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "event_name",
+                "vt": "global"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 1,
+        "x": 350,
+        "y": 280,
+        "wires": [
+            [
+                "ef30c86fdbbe2838"
+            ]
+        ]
+    },
+    {
+        "id": "d658b0401582db32",
+        "type": "mqtt in",
+        "z": "605bb1c151a0aa58",
+        "d": true,
+        "name": "MLPredictions",
+        "topic": "hedge/ml/metrics/predictions",
+        "qos": "0",
+        "datatype": "auto-detect",
+        "broker": "bf47c3db.d1bc",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 130,
+        "y": 180,
+        "wires": [
+            [
+                "17996a8ed9d6cf51"
+            ]
+        ]
+    },
+    {
+        "id": "7fb391e3446d2880",
+        "type": "debug",
+        "z": "605bb1c151a0aa58",
+        "name": "predictions",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 590,
+        "y": 180,
+        "wires": []
+    },
+    {
+        "id": "17996a8ed9d6cf51",
+        "type": "switch",
+        "z": "605bb1c151a0aa58",
+        "name": "device_name match",
+        "property": "payload.entity_name",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "device_name",
+                "vt": "global"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 1,
+        "x": 340,
+        "y": 180,
+        "wires": [
+            [
+                "7fb391e3446d2880"
+            ]
+        ]
+    },
+    {
+        "id": "a6fd7665e1b0fd49",
+        "type": "mqtt in",
+        "z": "605bb1c151a0aa58",
+        "name": "modelDeploy",
+        "topic": "hedge/+/model/deploy/#",
+        "qos": "0",
+        "datatype": "auto-detect",
+        "broker": "bf47c3db.d1bc",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 150,
+        "y": 380,
+        "wires": [
+            [
+                "faac71e67d7cb62b"
+            ]
+        ]
+    },
+    {
+        "id": "faac71e67d7cb62b",
+        "type": "debug",
+        "z": "605bb1c151a0aa58",
+        "name": "modelDeployPrint",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 450,
+        "y": 380,
+        "wires": []
+    },
+    {
+        "id": "f67ffc43f01a3d4e",
+        "type": "debug",
+        "z": "605bb1c151a0aa58",
+        "name": "print_BMCMetrics",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 610,
+        "y": 100,
+        "wires": []
+    },
+    {
+        "id": "7b51698a79b37c9c",
+        "type": "mqtt in",
+        "z": "605bb1c151a0aa58",
+        "d": true,
+        "name": "BMCMetrics",
+        "topic": "hedge/BMCMetrics",
+        "qos": "0",
+        "datatype": "auto-detect",
+        "broker": "bf47c3db.d1bc",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 110,
+        "y": 100,
+        "wires": [
+            [
+                "cbede217426f097a"
+            ]
+        ]
+    },
+    {
+        "id": "cbede217426f097a",
+        "type": "switch",
+        "z": "605bb1c151a0aa58",
+        "name": "device_name match",
+        "property": "payload.metricGroup.tags.deviceName",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "device_name",
+                "vt": "global"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 1,
+        "x": 340,
+        "y": 100,
+        "wires": [
+            [
+                "f67ffc43f01a3d4e"
+            ]
+        ]
+    },
+    {
+        "id": "ef30c86fdbbe2838",
+        "type": "switch",
+        "z": "605bb1c151a0aa58",
+        "name": "device_name match",
+        "property": "payload.device_name",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "device_name",
+                "vt": "global"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 1,
+        "x": 560,
+        "y": 280,
+        "wires": [
+            [
+                "b4775ece65ab6bdb"
+            ]
+        ]
+    },
+    {
+        "id": "2db6d597675267af",
+        "type": "mqtt in",
+        "z": "605bb1c151a0aa58",
+        "name": "BMCCommands",
+        "topic": "hedge/BMCCommands",
+        "qos": "0",
+        "datatype": "auto-detect",
+        "broker": "bf47c3db.d1bc",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 180,
+        "y": 480,
+        "wires": [
+            [
+                "3fd7810432757a74"
+            ]
+        ]
+    },
+    {
+        "id": "640fcb1b8b80a61c",
+        "type": "debug",
+        "z": "605bb1c151a0aa58",
+        "name": "hedge/BMCCommands",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 670,
+        "y": 480,
+        "wires": []
+    },
+    {
+        "id": "3fd7810432757a74",
+        "type": "switch",
+        "z": "605bb1c151a0aa58",
+        "name": "device_name match",
+        "property": "payload.device_name",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "device_name",
+                "vt": "global"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 1,
+        "x": 400,
+        "y": 480,
+        "wires": [
+            [
+                "640fcb1b8b80a61c"
+            ]
+        ]
+    },
+    {
+        "id": "11ab6ca04258f5d9",
+        "type": "comment",
+        "z": "605bb1c151a0aa58",
+        "name": "Observe the payload to view the exact format of prediction, event and command data",
+        "info": "",
+        "x": 340,
+        "y": 40,
+        "wires": []
+    },
+    {
+        "id": "bf47c3db.d1bc",
+        "type": "mqtt-broker",
+        "name": "MessageBroker - Hedge",
+        "broker": "tcp://edgex-mqtt-broker:1883",
+        "port": "1883",
+        "clientid": "",
+        "autoConnect": true,
+        "usetls": false,
+        "compatmode": false,
+        "protocolVersion": "4",
+        "keepalive": "60",
+        "cleansession": true,
+        "autoUnsubscribe": true,
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthPayload": "",
+        "birthMsg": {},
+        "closeTopic": "",
+        "closeQos": "0",
+        "closePayload": "",
+        "closeMsg": {},
+        "willTopic": "",
+        "willQos": "0",
+        "willPayload": "",
+        "willMsg": {},
+        "userProps": "",
+        "sessionExpiry": ""
+    }
+]

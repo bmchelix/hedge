@@ -1,0 +1,318 @@
+[
+    {
+        "id": "053457715c68972f",
+        "type": "tab",
+        "label": "hedge_remediate_test",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "eb713bc12feb22cc",
+        "type": "mqtt in",
+        "z": "053457715c68972f",
+        "name": "ReadEvent",
+        "topic": "BMCEvents",
+        "qos": "2",
+        "datatype": "json",
+        "broker": "bf47c3db.d1bc",
+        "nl": false,
+        "rap": false,
+        "inputs": 0,
+        "x": 80,
+        "y": 260,
+        "wires": [
+            [
+                "33adffe7352f5cfd"
+            ]
+        ]
+    },
+    {
+        "id": "a1dc86c927ee489b",
+        "type": "switch",
+        "z": "053457715c68972f",
+        "name": "CheckIfOpen",
+        "property": "payload.status",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "Open",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 1,
+        "x": 470,
+        "y": 140,
+        "wires": [
+            [
+                "6144b1d5abd46b7f"
+            ]
+        ]
+    },
+    {
+        "id": "6144b1d5abd46b7f",
+        "type": "function",
+        "z": "053457715c68972f",
+        "name": "build low Oil Level Open Command",
+        "func": "\nvar command = {\n    \"id\": msg.payload.id,\n    \"correlationId\":msg.payload.correlation_id,\n    \"deviceName\":msg.payload.device_name,\n\t\"name\":msg.payload.name,\n\t\"type\": \"NewServiceRequest\",\n    \"problem\": \"Gearbox failure due to low oil\",\n    \"severity\": \"MAJOR\",\n\t\"id\":msg.payload.id,\n\t\"status\": msg.payload.status,\n\t\"commandParameters\": {\n        \"serviceID\": \"11903\",\n        \"refLink\": \"https://mobility19-dsom-dwp.trybmc.com/dwp/app/#/activity\",\n        \"Fuel Level\": msg.payload.actual_value.toString(),\n        \"Reason for Request\": \"Gearbox failure again due to low oil\",\n        \"summary\": \"Order Onsite Fuel Service\",\n        \"ticketType\": \"Work-Order\"\n  },\n};\n\nmsg.payload = command\nreturn msg;\n\n\n\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 760,
+        "y": 120,
+        "wires": [
+            [
+                "7c55354dcaa2fcf8"
+            ]
+        ]
+    },
+    {
+        "id": "7c55354dcaa2fcf8",
+        "type": "json",
+        "z": "053457715c68972f",
+        "name": "",
+        "property": "payload",
+        "action": "",
+        "pretty": false,
+        "x": 1030,
+        "y": 180,
+        "wires": [
+            [
+                "0a6ffb4fb5a1ecee",
+                "883f5774b2bbcb67"
+            ]
+        ]
+    },
+    {
+        "id": "0a6ffb4fb5a1ecee",
+        "type": "mqtt out",
+        "z": "053457715c68972f",
+        "name": "PublishToBMCCommands",
+        "topic": "clm-aus-w4gmrd/BMCCommands",
+        "qos": "0",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "bf47c3db.d1bc",
+        "x": 1260,
+        "y": 220,
+        "wires": []
+    },
+    {
+        "id": "883f5774b2bbcb67",
+        "type": "debug",
+        "z": "053457715c68972f",
+        "name": "Device Command Log",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1240,
+        "y": 80,
+        "wires": []
+    },
+    {
+        "id": "33adffe7352f5cfd",
+        "type": "switch",
+        "z": "053457715c68972f",
+        "name": "WindTurbine_ML_Config_Anomaly",
+        "property": "payload.name",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "WindTurbine_ML_Config_Anomaly",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 1,
+        "x": 300,
+        "y": 260,
+        "wires": [
+            [
+                "a1dc86c927ee489b",
+                "8c324690c13ce838"
+            ]
+        ]
+    },
+    {
+        "id": "12a95ef1dab1688f",
+        "type": "function",
+        "z": "053457715c68972f",
+        "name": "TestCmdPayload",
+        "func": "var cmd = {\n  \"id\": \"40e63b76-5ad6-2784-1d2a-f69ef5a50af6\",\n  \"name\": \"WindTurbine_ML_Config_Anomaly\",\n  \"type\": \"CloseServiceRequest\",\n  \"problem\": \"Gearbox failure due to low oil\",\n  \"severity\": \"MAJOR\",\n  \"status\": \"Open\",\n  \"correlationId\" : \"WindTurbine_ML_Config_AltaNS12:40e63b76-5ad6-2784-1d2a-f69ef5a50af6\",\n  \"commandParameters\": {\n    \"serviceID\": \"11903\",\n    \"refLink\": \"https://mobility19-dsom-dwp.trybmc.com/dwp/app/#/activity\",\n    \"Fuel Level\": \"26.498173789056608\",\n    \"Reason for Request\": \"Gearbox failure again due to low oil\",\n    \"summary\": \"Order Onsite Fuel Service\",\n    \"ticketType\": \"Work-Order\"\n  }\n};\n\nmsg.payload = cmd;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 830,
+        "y": 620,
+        "wires": [
+            [
+                "7c55354dcaa2fcf8"
+            ]
+        ]
+    },
+    {
+        "id": "443905d9b3f8a5dc",
+        "type": "inject",
+        "z": "053457715c68972f",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 560,
+        "y": 500,
+        "wires": [
+            [
+                "e0e3923fe781fee5"
+            ]
+        ]
+    },
+    {
+        "id": "8c324690c13ce838",
+        "type": "switch",
+        "z": "053457715c68972f",
+        "name": "CheckIfClosed",
+        "property": "payload.status",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "Closed",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 1,
+        "x": 560,
+        "y": 340,
+        "wires": [
+            [
+                "e3bb35c96ee42350"
+            ]
+        ]
+    },
+    {
+        "id": "e3bb35c96ee42350",
+        "type": "function",
+        "z": "053457715c68972f",
+        "name": "BuildCloseServiceReqPayload",
+        "func": "\nvar cmd = {\n    \"correlationId\":msg.payload.correlation_id,\n    \"deviceName\":msg.payload.device_name,\n    \"remediationId\": msg.payload.remediations[0].id,\n    \"commandParameters\": {\n        \"summary\": \"Closing the service request Demo\"\n    },\n};\n\nmsg.payload = cmd;\nreturn msg;\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 790,
+        "y": 260,
+        "wires": [
+            [
+                "7c55354dcaa2fcf8"
+            ]
+        ]
+    },
+    {
+        "id": "e0e3923fe781fee5",
+        "type": "function",
+        "z": "053457715c68972f",
+        "name": "CloseServiceRequest",
+        "func": "var cmd = {\n\n  \"correlationId\": \"WindTurbine_ML_Config_AltaNS12:42c20996-161d-002a-4cc8-b96fe8e4ce6a\",\n  \"deviceName\": \"AltaNS12\",\n  \"type\" : \"CloseServiceRequest\",\n  \"remediationId\": \"69921\",\n  \"commandParameters\": {\n    \"summary\": \"Closing the service request DemoXXXX\"\n  }\n};\n\nmsg.payload=cmd;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 840,
+        "y": 500,
+        "wires": [
+            [
+                "7c55354dcaa2fcf8"
+            ]
+        ]
+    },
+    {
+        "id": "026e42c20ef5b9a5",
+        "type": "inject",
+        "z": "053457715c68972f",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 540,
+        "y": 620,
+        "wires": [
+            [
+                "12a95ef1dab1688f"
+            ]
+        ]
+    },
+    {
+        "id": "bf47c3db.d1bc",
+        "type": "mqtt-broker",
+        "name": "MessageBroker - Hedge",
+        "broker": "edgex-mqtt-broker",
+        "port": "1883",
+        "autoConnect": true,
+        "usetls": false,
+        "compatmode": false,
+        "protocolVersion": "4",
+        "keepalive": "60",
+        "cleansession": true,
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthPayload": "",
+        "birthMsg": {},
+        "closeTopic": "",
+        "closeQos": "0",
+        "closePayload": "",
+        "closeMsg": {},
+        "willTopic": "",
+        "willQos": "0",
+        "willPayload": "",
+        "willMsg": {},
+        "sessionExpiry": ""
+    }
+]

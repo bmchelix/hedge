@@ -1,0 +1,12 @@
+sonar.host.url=http://clm-aus-w8rrkh.bmc.com:9000
+sonar.projectKey=TEST-SONAR-HEDGE-PY
+sonar.projectName=TEST-SONAR-HEDGE-PY
+sonar.projectVersion=1.0
+sonar.sourceEncoding=UTF-8
+sonar.sources=/edge-iot/edge-ml-service/python-code
+sonar.exclusions=**/archive/**,**/tests/**
+sonar.test.inclusions=**/tests/test_*.py
+sonar.language=py
+sonar.py.file.suffixes=.py
+sonar.python.version=3.11.0
+sonar.python.coverage.reportPaths=/hedge/sonarqube/coverage.py.out

@@ -1,0 +1,31 @@
+Writable:
+  LogLevel: INFO
+
+Service:
+  Host: localhost
+  Port: 49991
+  StartupMsg: device-virtual started
+  RequestTimeout: "10s"
+
+# Only used when EDGEX_SECURITY_SECRET_STORE=true (now required for secure Consul)
+SecretStore:
+  Path: device-virtual/
+  TokenFile: /tmp/edgex/secrets/device-virtual/secrets-token.json
+
+Device:
+  Discovery:
+    Enabled: true
+    Interval: '180d'  # Use quotes for time intervals
+
+# Example structured custom configuration not used at the moment
+VirtualDeviceConfig:
+  DeviceNamePrefix: "Dis_Alta_"
+  MaxDiscoveredDevice: 5
+  Writable:
+    DiscoverSleepDurationSecs: 10  # Indented under Writable
+    LogLevel: INFO
+
+Hedge:
+  Protocols:
+   - ProtocolName: "VirtualProtocol"
+     ProtocolProperties: "DeviceName, DeviceID"

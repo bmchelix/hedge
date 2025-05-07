@@ -1,0 +1,86 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: hedge-auto-job
+  namespace: __NAMESPACE__
+spec:
+  ttlSecondsAfterFinished: 240
+  backoffLimit: 0
+  template:
+    spec:
+      imagePullSecrets:
+        - name: __IMAGE_PULL_SECRETS__
+      containers:
+        - name: hedge-auto-job
+          image: __DOCKER_REGISTRY_PREFIX__/hedge-ml-trg-anomaly-autoencoder:25.2.00_latest
+          #command: ['sh', '-c', 'echo "Hello, Hedge ML debuggers!" && sleep 3600']
+          #imagePullPolicy: IfNotPresent
+          imagePullPolicy: Always
+          resources:
+            requests:
+              memory: "256Mi"
+              cpu: "200m"
+            limits:
+              memory: "1Gi"
+              cpu: "750m"
+          volumeMounts:
+            - name: kafka-pem-vol
+              mountPath: /opt/bmc/security
+          env:
+            - name: TENANT_ID
+              value: ""
+            - name: NAMESPACE
+              value: ""
+            - name: USER_ID
+              value: ""
+            - name: ALGORITHM_JSON
+              value: ""
+            - name: ALGORITHM_ID
+              value: ""
+            - name: EXECUTION_ID
+              value: ""
+            - name: MODELDIR
+              value: "/tmp/hedge"
+            - name: AIF_CORE_SERVICE_SERVICE_HOST
+              value: "aif-core-service"
+            - name: AIF_CORE_SERVICE_SERVICE_PORT
+              value: "50177"
+            - name: IS_SECURE
+              value: ""
+            - name: CLOUD_ACCESS_KEY
+              valueFrom:
+                secretKeyRef:
+                  key: AWS_ACCESS_KEY_ID_AIF
+                  name: awss3secret
+            - name: CLOUD_SECRET_KEY
+              valueFrom:
+                secretKeyRef:
+                  key: AWS_SECRET_ACCESS_KEY_AIF
+                  name: awss3secret
+            - name: CLOUD_ENDPOINT
+              valueFrom:
+                secretKeyRef:
+                  key: AWS_S3_ENDPOINT_WITH_REGION
+                  name: awss3secret
+            - name: AWS_S3_REGION
+              valueFrom:
+                secretKeyRef:
+                  key: AWS_S3_REGION
+                  name: awss3secret
+            - name: CLOUD_BUCKET_NAME
+              value: "aif-ml-models"
+            - name: S3FS_LOGGING_LEVEL
+              value: DEBUG
+            - name: KAFKA_CONNECT_STRING
+              valueFrom:
+                secretKeyRef:
+                  key: KAFKA_CLUSTER
+                  name: kafkasecret
+
+      restartPolicy: Never
+      automountServiceAccountToken: false
+      volumes:
+        - name: kafka-pem-vol
+          secret:
+            secretName: kafka-pem
+            optional: true

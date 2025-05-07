@@ -1,0 +1,194 @@
+name: AirplaneControlSurfacesProfile
+manufacturer: Lockheed Martin
+model: C-130 Hercules
+labels:
+  - "Airplane"
+  - "C-130 Hercules"
+  - "Control Surfaces"
+description: "Airplane control surfaces of the C-130 Hercules Military Airplane"
+
+deviceResources:
+  - name: IsDemoFailureON
+    description: |
+      If request triggered to cause a failure for demo
+        0: no failure
+        1: failure triggered
+    attributes:
+      {dataGenerator: "bool", value: "false", useMultiplier": "false"}
+    properties:
+      valueType: Bool
+      readWrite: RW
+      units: none
+
+  - name: IsLandingGearOpen
+    description: |
+      If request triggered to open/close the landing gears 
+        0: close/retract requested
+        1: open/deploy requested
+    attributes:
+      {dataGenerator: "bool", value: "false", useMultiplier": "false"}
+    properties:
+      valueType: Bool
+      readWrite: RW
+      units: none
+
+  - name: LandingGearSwitchedAt
+    description: Epoch time when landing gear was last switched open or close. 0 indicates unknown time
+    attributes:
+      {dataGenerator: "float", "min": "0", "max": "0", "useMultiplier": "false"}
+    properties:
+      valueType: Float64
+      readWrite: RW
+      units: ms
+
+  - name: IsCargoDoorOpen
+    description: |
+      If request triggered to open/close the cargo door
+        0: close/retract requested
+        1: open/deploy requested
+    attributes:
+      {dataGenerator: "bool", value: "false", "useMultiplier": "false"}
+    properties:
+      valueType: Bool
+      readWrite: RW
+      units: none
+
+  - name: CargoDoorSwitchedAt
+    description: Epoch time when cargo door was last switched open or close. 0 indicates unknown time
+    attributes:
+      {dataGenerator: "float", "min": "0", "max": "0", "useMultiplier": "false"}
+    properties:
+      valueType: Float64
+      readWrite: RW
+      units: ms
+
+  - name: Ailerons
+    description: Position of the ailerons (min:-45, max:+45) degrees
+    attributes:
+      {dataGenerator: "float", "min": "5.0", "max": "7.0", "useMultiplier": "false"}
+    properties:
+      valueType: Float64
+      readWrite: RW
+      units: degrees
+
+  - name: Elevators
+    description: Position of the elevators (min:-45, max:+45) degrees
+    attributes:
+      {dataGenerator: "float", "min": "12.0", "max": "15.0", "useMultiplier": "false"}
+    properties:
+      valueType: Float64
+      readWrite: RW
+      units: degrees
+
+  - name: Rudder
+    description: Position of the rudder (min:-30, max:+30) degrees
+    attributes:
+      {dataGenerator: "float", "min": "-10.0", "max": "-5.0", "useMultiplier": "false"}
+    properties:
+      valueType: Float64
+      readWrite: RW
+      units: degrees
+
+  - name: InboardFlaps
+    description: Position of inboard flaps (min:0, max:+30) degrees
+    attributes:
+      {dataGenerator: "float", "min": "10.0", "max": "12.0", "useMultiplier": "false"}
+    properties:
+      valueType: Float64
+      readWrite: RW
+      units: degrees
+
+  - name: OutboardFlaps
+    description: Position of outboard flaps (min:0, max:+60) degrees
+    attributes:
+      {dataGenerator: "float", "min": "30.0", "max": "33.0", "useMultiplier": "false"}
+    properties:
+      valueType: Float64
+      readWrite: RW
+      units: degrees
+
+  - name: Throttle
+    description: Position of the throttle (min:0, max:100) percent
+    attributes:
+      {dataGenerator: "float", "min": "47.0", "max": "50.0", "useMultiplier": "false"}
+    properties:
+      valueType: Float64
+      readWrite: RW
+      units: percent
+
+  - name: Roll
+    description: Roll attitude of the aircraft (min:-180, max:+180) degrees
+    attributes:
+      {dataGenerator: "float", "min": "-1.0", "max": "1.0", "useMultiplier": "false"}
+    properties:
+      valueType: Float64
+      readWrite: RW
+      units: degrees
+
+  - name: Pitch
+    description: Pitch attitude of the aircraft (min:-90, max:+90) degrees
+    attributes:
+      {dataGenerator: "float", "min": "-1.0", "max": "1.0", "useMultiplier": "false"}
+    properties:
+      valueType: Float64
+      readWrite: RW
+      units: degrees
+
+  - name: Yaw
+    description: Yaw attitude of the aircraft (min:-180, max:+180) degrees
+    attributes:
+      {dataGenerator: "float", "min": "-1.0", "max": "1.0", "useMultiplier": "false"}
+    properties:
+      valueType: Float64
+      readWrite: RW
+      units: degrees
+
+  - name: Slip
+    description: Slip angle of the aircraft (min:-30, max:+30) degrees
+    attributes:
+      {dataGenerator: "float", "min": "-5.0", "max": "5.0", "useMultiplier": "false"}
+    properties:
+      valueType: Float64
+      readWrite: RW
+      units: degrees
+
+  - name: EngineRPM
+    description: Engine RPM (min:0, max:10000) rpm
+    attributes:
+      {dataGenerator: "float", "min": "4800.0", "max": "5200.0", "useMultiplier": "false"}
+    properties:
+      valueType: Float64
+      readWrite: RW
+      units: rpm
+
+  - name: BatteryVolt
+    description: Voltage of the battery (min:0, max:30) Volts
+    attributes:
+      {dataGenerator: "float", "min": "3.3", "max": "5.0", "useMultiplier": "false"}
+    properties:
+      valueType: Float64
+      readWrite: RW
+      units: volts
+
+
+deviceCommands:
+  - name: "Get-ControlSurfaces-Data"
+    readWrite: "R"
+    resourceOperations:
+      - { operation: "get", deviceResource: "IsDemoFailureON" }
+      - { operation: "get", deviceResource: "IsLandingGearOpen" }
+      - { operation: "get", deviceResource: "LandingGearSwitchedAt" }
+      - { operation: "get", deviceResource: "IsCargoDoorOpen" }
+      - { operation: "get", deviceResource: "CargoDoorSwitchedAt" }
+      - { operation: "get", deviceResource: "Ailerons" }
+      - { operation: "get", deviceResource: "Elevators" }
+      - { operation: "get", deviceResource: "Rudder" }
+      - { operation: "get", deviceResource: "InboardFlaps" }
+      - { operation: "get", deviceResource: "OutboardFlaps" }
+      - { operation: "get", deviceResource: "Throttle" }
+      - { operation: "get", deviceResource: "Roll" }
+      - { operation: "get", deviceResource: "Pitch" }
+      - { operation: "get", deviceResource: "Yaw" }
+      - { operation: "get", deviceResource: "Slip" }
+      - { operation: "get", deviceResource: "EngineRPM" }
+      - { operation: "get", deviceResource: "BatteryVolt" }

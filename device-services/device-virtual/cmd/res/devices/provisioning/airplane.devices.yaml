@@ -1,0 +1,129 @@
+deviceList:
+  - name: AirplaneAviationParameters
+    profileName: AirplaneAviationParamsProfile
+    description: Device for capturing aviation telemetry data from a sample C-130J aircraft
+    labels:
+      - Airplane
+      - C-130 Hercules
+      - Aviation Parameters
+    protocols:
+      other:
+        address:
+        port: '501'
+    autoEvents:
+      - interval: 5s
+        onChange: false
+        sourceName: Get-RC-AviationParams-Data
+
+  - name: AirplaneControlSurfaces
+    profileName: AirplaneControlSurfacesProfile
+    description: Device for capturing control surface telemetry data from a sample C-130J aircraft
+    labels:
+      - Airplane
+      - C-130 Hercules
+      - Control Surfaces
+    protocols:
+      other:
+        address:
+        port: '500'
+    autoEvents:
+      - interval: 500ms
+        onChange: false
+        sourceName: Get-ControlSurfaces-Data
+
+  - name: AirplaneMainLandingGear
+    profileName: AirplaneLandingGearProfile
+    description: Device for capturing telemetry data from Main landing gear of C-130J aircraft
+    labels:
+      - Airplane
+      - C-130 Hercules
+      - Main Landing Gear
+    protocols:
+      other:
+        address:
+        port: '501'
+    autoEvents:
+      - interval: 500ms
+        onChange: false
+        sourceName: Get-RC-MainLandingGear-Data
+
+  - name: AirplaneFrontLandingGear
+    profileName: AirplaneLandingGearProfile
+    description: Device for capturing telemetry data from Front landing gear of C-130J aircraft
+    labels:
+      - Airplane
+      - C-130 Hercules
+      - Front Landing Gear
+    protocols:
+      other:
+        address:
+        port: '501'
+    autoEvents:
+      - interval: 5s
+        onChange: false
+        sourceName: Get-RC-FrontLandingGear-Data
+
+
+  - name: AirplaneAviationParameters2
+    profileName: AirplaneAviationParamsProfile
+    description: Device for capturing aviation telemetry data from a sample C-130J aircraft
+    labels:
+      - Airplane
+      - C-130 Hercules
+      - Aviation Parameters
+    protocols:
+      other:
+        address:
+        port: '501'
+    autoEvents:
+      - interval: 5s
+        onChange: false
+        sourceName: Get-RC-AviationParams-Data
+
+  - name: AirplaneControlSurfaces2
+    profileName: AirplaneControlSurfacesProfile
+    description: Device for capturing control surface telemetry data from a sample C-130J aircraft
+    labels:
+      - Airplane
+      - C-130 Hercules
+      - Control Surfaces
+    protocols:
+      other:
+        address:
+        port: '500'
+    autoEvents:
+      - interval: 500ms
+        onChange: false
+        sourceName: Get-ControlSurfaces-Data
+
+  - name: AirplaneMainLandingGear2
+    profileName: AirplaneLandingGearProfile
+    description: Device for capturing telemetry data from Main landing gear of C-130J aircraft
+    labels:
+      - Airplane
+      - C-130 Hercules
+      - Main Landing Gear
+    protocols:
+      other:
+        address:
+        port: '501'
+    autoEvents:
+      - interval: 500ms
+        onChange: false
+        sourceName: Get-RC-MainLandingGear-Data
+
+  - name: AirplaneFrontLandingGear2
+    profileName: AirplaneLandingGearProfile
+    description: Device for capturing telemetry data from Front landing gear of C-130J aircraft
+    labels:
+      - Airplane
+      - C-130 Hercules
+      - Front Landing Gear
+    protocols:
+      other:
+        address:
+        port: '501'
+    autoEvents:
+      - interval: 5s
+        onChange: false
+        sourceName: Get-RC-FrontLandingGear-Data

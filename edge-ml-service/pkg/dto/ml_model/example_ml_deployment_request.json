@@ -1,0 +1,8 @@
+{
+  "mlAlgorithm": "HedgeAnomaly",
+  "mlModelConfigName": "WindTurbineAnomaly",
+  "targetNodes": ["node1", "node2"],
+  "commandName": "Deploy",
+  "modelAvailableDate": 1668704053,
+  "modelVersion": 1
+}

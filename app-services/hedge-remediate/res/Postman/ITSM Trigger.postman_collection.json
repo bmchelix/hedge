@@ -1,0 +1,40 @@
+{
+	"info": {
+		"_postman_id": "106230d2-4db2-4ac7-b2ed-9ccc87886d2a",
+		"name": "ITSM Trigger",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Trigger Pipeline ITSM",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"id\": \"00a71364-bd31-4057-bc38-06d23e1e864c\",\r\n    \"device\": \"Random-Integer-Device\",\r\n    \"bmcEvent\": {\r\n        \"class\": \"TICKET\",\r\n        \"site\": \"Pune\",\r\n        \"summary\": \"Room Temperature : Reached 36.2 degree\",\r\n        \"status\": \"Open\",\r\n        \"additionalData\": {\r\n            \"Please enter Recipient\": \"JOE\",\r\n            \"Client Type\": \"Home Office\",\r\n            \"Additional Question\": \"Temp data data\"\r\n        }\r\n    }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:48095/api/v1/trigger",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "48095",
+					"path": [
+						"api",
+						"v1",
+						"trigger"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}

@@ -1,0 +1,582 @@
+networks:
+  edgex-network:
+    driver: bridge
+
+x-common-env-variables: &x-edgex-env-variables
+  IS_K8S_ENV: false
+  EDGEX_DISABLE_JWT_VALIDATION: true
+  EDGEX_SECURITY_SECRET_STORE: true
+  SECRETSTORE_HOST: edgex-vault
+  SECRETSTORE_PORT: '8200'
+  EDGEX_GROUP: '2001'
+  EDGEX_USER: '2002'
+  DATABASES_PRIMARY_HOST: edgex-redis
+  DATABASE_HOST: edgex-redis
+  MESSAGEQUEUE_EXTERNAL_URL: tcp://edgex-mqtt-broker:1883
+  MESSAGEQUEUE_HOST: edgex-redis
+  MESSAGEQUEUE_INTERNAL_HOST: edgex-redis
+  CLIENTS_CORE_COMMAND_HOST: edgex-core-command
+  CLIENTS_SUPPORT_SCHEDULER_HOST: edgex-support-scheduler
+  STAGEGATE_BOOTSTRAPPER_HOST: edgex-security-bootstrapper
+  STAGEGATE_BOOTSTRAPPER_STARTPORT: '54321'
+  STAGEGATE_DATABASE_HOST: edgex-redis
+  STAGEGATE_DATABASE_PORT: '6379'
+  STAGEGATE_DATABASE_READYPORT: '6379'
+  STAGEGATE_DB_HOST: hedge-db
+  STAGEGATE_DB_PORT: '5432'
+  STAGEGATE_DB_READYPORT: '55432'
+  STAGEGATE_READY_TORUNPORT: '54329'
+  STAGEGATE_REGISTRY_HOST: ${CURRENT_HEDGE_NODE_SERVER_NAME}
+  STAGEGATE_REGISTRY_PORT: '8500'
+  STAGEGATE_REGISTRY_READYPORT: '54324'
+  STAGEGATE_PROXYSETUP_READYPORT: "54325"
+  STAGEGATE_SECRETSTORESETUP_HOST: edgex-security-secretstore-setup
+  STAGEGATE_SECRETSTORESETUP_TOKENS_READYPORT: '54322'
+  STAGEGATE_WAITFOR_TIMEOUT: 60s
+  CURRENT_HEDGE_NODE_SERVER_NAME: ${CURRENT_HEDGE_NODE_SERVER_NAME}
+  CURRENT_HEDGE_NODE_SERVER_DOMAIN_NAME: ${CURRENT_HEDGE_NODE_SERVER_DOMAIN_NAME}
+  CURRENT_HEDGE_NODE_ID: ${CURRENT_HEDGE_NODE_ID}
+  CURRENT_HEDGE_NODE_SERVER_IP: ${CURRENT_HEDGE_NODE_SERVER_IP}
+  CURRENT_HEDGE_NODE_TYPE: ${CURRENT_HEDGE_NODE_TYPE}
+  META_SYNC_HOST: meta-sync
+  META_SYNC_PORT: '48108'
+  APPLICATIONSETTINGS_MQTTSERVER: ${REMOTE_HEDGE_CORE_SERVER_IP:-edgex-mqtt-broker}
+  APPLICATIONSETTINGS_MQTTPORT: 1883
+  APPLICATIONSETTINGS_MQTTAUTHMODE: usernamepassword
+  APPLICATIONSETTINGS_MQTTSECRETPATH: mbconnection
+  APPLICATIONSETTINGS_EDGENODENAME: ${CURRENT_HEDGE_NODE_FRIENDLY_NAME:-hedge-core1}
+  HEDGE_DEVICE_EXTENSIONS_HOST: hedge-device-extensions
+  HEDGE_DEVICE_EXTENSIONS_PORT: '48097'
+  PROXY_SETUP_HOST: edgex-security-proxy-setup
+  IS_EXTERNAL_AUTH: ${IS_EXTERNAL_AUTH:-false}
+  GODEBUG: "tlsrsakex=1"
+  NGINX_PORT: '8000'
+
+services:
+  mqtt-broker:
+    command: /usr/sbin/mosquitto -c /tmp/hedge-secrets/hedge_mosquitto.conf
+    #command: /usr/sbin/mosquitto -c /mosquitto-no-auth.conf ##for insecure mqtt connection
+    container_name: edgex-mqtt-broker
+    hostname: edgex-mqtt-broker
+    image: ${REGISTRY}hedgext-mosquitto:${HEDGEXT_MOSQUITTO_DOCKER_TAG:-latest}
+    networks:
+      edgex-network: {}
+    ports:
+      - 0.0.0.0:1883:1883/tcp
+    read_only: true
+    restart: always
+    security_opt:
+      - no-new-privileges:true
+    volumes:
+      - hedge-secrets:/tmp/hedge-secrets
+
+  # custom build this image to work with our NGINX (setup configs)
+  security-proxy-setup:
+    container_name: edgex-security-proxy-setup
+    depends_on:
+      - security-bootstrapper
+      - security-secretstore-setup
+    entrypoint:
+      - /edgex-init/proxy_setup_wait_install.sh
+    environment:
+      <<: *x-edgex-env-variables
+      COMPOSE_PROFILES: ${COMPOSE_PROFILES}
+    hostname: edgex-security-proxy-setup
+    image: ${REGISTRY}hedgext-security-proxy-setup:${HEDGEXT_SECURITY_PROXY_SETUP_DOCKER_TAG:-latest}
+    networks:
+      edgex-network: {}
+    read_only: true
+    restart: always
+    security_opt:
+      - no-new-privileges:true
+    user: root:root
+    volumes:
+      - edgex-init:/edgex-init
+      - vault-config:/vault/config
+      - nginx-templates:/etc/nginx/templates
+      - nginx-tls:/etc/ssl/nginx
+      - /tmp/edgex/secrets/security-proxy-setup:/tmp/edgex/secrets/security-proxy-setup:ro,z
+
+  nats-server:
+    image: ${REGISTRY}hedgext-nats:${HEDGEXT_NATS_DOCKER_TAG:-latest}
+    command: "-js -c /hedge/hedge-scripts/config/nats_server_nocluster.conf"
+    ports:
+      - 127.0.0.1:4222:4222/tcp
+      - 0.0.0.0:8080:8080/tcp
+    container_name: edgex-nats-server
+    depends_on:
+      - security-bootstrapper
+      - security-secretstore-setup
+    hostname: edgex-nats-server
+    read_only: true
+    restart: always
+    user: root:root
+    networks:
+      edgex-network: {}
+    security_opt:
+      - no-new-privileges:true
+    volumes:
+      - nats-data:/tmp/nats
+      - nginx-tls:/etc/ssl/certs
+      - hedge-scripts:/hedge/hedge-scripts
+      - /tmp/edgex/secrets/nats-server:/tmp/edgex/secrets/nats-server:ro,z
+
+  nginx:
+    command:
+      - /docker-entrypoint.sh
+      - nginx
+      - -g
+      - daemon off;
+    container_name: edgex-nginx
+    depends_on:
+      - security-proxy-setup
+      - security-secretstore-setup
+    entrypoint:
+      - /bin/sh
+      - /edgex-init/nginx_wait_install.sh
+    environment:
+      <<: *x-edgex-env-variables
+      USER_APP_MGMT_URL: http://hedge-user-app-mgmt:48111
+      UID_HTTP_HEADER: ${UID_HTTP_HEADER:-X-Credential-Identifier}
+    hostname: edgex-nginx
+    image: ${REGISTRY}hedgext-nginx:${HEDGEXT_NGINX_DOCKER_TAG:-latest}
+    networks:
+      edgex-network: {}
+    ports:
+      - 0.0.0.0:80:8080/tcp
+      - 0.0.0.0:8000:8000/tcp
+      - 0.0.0.0:443:8443/tcp
+    read_only: false
+    restart: unless-stopped
+    user: root:root
+    security_opt:
+      - no-new-privileges:true
+    tmpfs:
+      - /var/cache/nginx
+      - /var/log/nginx
+      - /var/run
+    volumes:
+      - edgex-init:/edgex-init
+      - nginx-templates:/etc/nginx/templates
+      - nginx-tls:/etc/ssl/nginx
+      - nginx-config:/etc/nginx
+
+  hedge-elasticsearch:
+    profiles: ["all", "es", "demo"]
+    container_name: hedge-elasticsearch
+    environment:
+      - "discovery.type=single-node"
+      - "plugins.security.disabled=true"
+      - "OPENSEARCH_INITIAL_ADMIN_PASSWORD=${ESCRED}"
+    hostname: hedge-elasticsearch
+    image: ${REGISTRY}hedgext-opensearch-es:${HEDGEXT_OPENSEARCH_ES_DOCKER_TAG:-latest}
+    networks:
+      edgex-network: {}
+    ports:
+      - "127.0.0.1:9200:9200"
+      - "127.0.0.1:9600:9600"
+    restart: always
+    volumes:
+      - elasticsearch:/usr/share/opensearch/data
+
+  hedge-victoria-metrics:
+    profiles: ["all", "vm", "demo"]
+    ## Uncomment this for USAF and CGAS demos. Increases retention period from 1 month (default) to 2 years & allows near realtime data persist/query in VM
+    command:
+      - "-retentionPeriod=2"
+      - "-search.latencyOffset=1s"
+      - "-inmemoryDataFlushInterval=1s"
+    container_name: hedge-victoria-metrics
+    hostname: hedge-victoria-metrics
+    image: ${REGISTRY}hedgext-victoria-metrics:${HEDGEXT_VICTORIA_METRICS_DOCKER_TAG:-latest}
+    networks:
+      edgex-network: {}
+    ports:
+      - "127.0.0.1:8428:8428"
+    user: root:root
+    volumes:
+      - victoria-metrics-data:/victoria-metrics-data
+
+  hedge-db:
+    container_name: hedge-db
+    depends_on:
+      - security-bootstrapper
+    entrypoint:
+      - /tmp/hedge-scripts/postgres_wait_install.sh
+    environment:
+      <<: *x-edgex-env-variables
+      POSTGRES_DB: hedge
+      POSTGRES_USER: hedge
+      POSTGRES_PASSWORD_FILE: /tmp/hedge-secrets/.pgpassword
+    hostname: hedge-db
+    image: ${REGISTRY}hedgext-postgres:${HEDGEXT_POSTGRES_DOCKER_TAG:-latest}
+    networks:
+      edgex-network: {}
+    ports:
+      - 127.0.0.1:5432:5432/tcp
+    read_only: true
+    restart: always
+    security_opt:
+      - no-new-privileges:true
+    tmpfs:
+      - /var/run
+      - /tmp
+      - /run
+    user: root:root
+    volumes:
+      - edgex-init:/edgex-init
+      - hedge-secrets:/tmp/hedge-secrets
+      - postgres-data:/var/lib/postgresql/data
+      - hedge-scripts:/tmp/hedge-scripts
+
+  hedge-user-app-mgmt:
+    command: /hedge-user-app-mgmt -cp=consul.http://${CURRENT_HEDGE_NODE_SERVER_NAME}:8500 --registry --configDir=/res
+    container_name: hedge-user-app-mgmt
+    depends_on:
+      - hedge-db
+    entrypoint:
+      - /edgex-init/ready_to_run_wait_install.sh
+    environment:
+      <<: *x-edgex-env-variables
+      SERVICE_HOST: hedge-user-app-mgmt
+      SECRETSTORE_DISABLESCRUBSECRETSFILE: false
+      SECRETSTORE_SECRETSFILE: /tmp/hedge-secrets/hedge_user_app_mgmt_secrets.json
+      APPLICATIONSETTINGS_CONSUL_DC_NAME: ${CURRENT_HEDGE_NODE_DC_NAME:-HEDGE_MANAGEMENT}
+      APPLICATIONSETTINGS_USR_DB_HOST: hedge-db
+      APPLICATIONSETTINGS_USR_DB_NAME: hedge
+      APPLICATIONSETTINGS_USR_DB_USER: hedge
+      APPLICATIONSETTINGS_USR_DB_PORT: 5432
+      APPLICATIONSETTINGS_USERNAME: ${USERNAME}
+      APPLICATIONSETTINGS_USER_EMAIL: ${USER_EMAIL}
+      APPLICATIONSETTINGS_USERID_HEADER: ${UID_HTTP_HEADER:-X-Credential-Identifier}
+      APPLICATIONSETTINGS_IS_EXTERNAL_AUTH: ${IS_EXTERNAL_AUTH:-false}
+      APPLICATIONSETTINGS_USR_APPLICATION_NAME: 'Edge' # product name as it appears in the main UI
+      # APPLICATIONSETTINGS_AUTH_PROFILE_NAME: ${AUTH_PROFILE_NAME}
+      # The below to be removed after the fix
+      APPLICATIONSETTINGS_GRAFANA_SERVER: http://${CURRENT_HEDGE_NODE_SERVER_NAME}:8000/hedge/hedge-grafana
+      APPLICATIONSETTINGS_GRAFANA_ADMIN: admin
+      APPLICATIONSETTINGS_GRAFANA_PASS: bmcAdm1n!
+      APPLICATIONSETTINGS_ENABLE_GRAFANA_SYNC: true
+      HTPASSWD_FILE_PATH: /tmp/nginx/auth/.htpasswd
+      COMPOSE_PROFILES: ${COMPOSE_PROFILES}
+    hostname: hedge-user-app-mgmt
+    image: ${REGISTRY}hedge-user-app-mgmt:${HEDGE_USER_APP_MGMT_DOCKER_TAG:-latest}
+    networks:
+      edgex-network: {}
+    ports:
+      - 127.0.0.1:48111:48111/tcp
+    restart: always
+    security_opt:
+      - no-new-privileges:true
+    volumes:
+      - edgex-init:/edgex-init
+      - hedge-secrets:/tmp/hedge-secrets
+      - nginx-config:/tmp/nginx
+      - /tmp/edgex/secrets/app-hedge-user-app-mgmt:/tmp/edgex/secrets/app-hedge-user-app-mgmt:ro,z
+
+  hedge-ml-management:
+    command: /hedge-ml-management -cp=consul.http://${CURRENT_HEDGE_NODE_SERVER_NAME}:8500 --registry --configDir=/res
+    container_name: hedge-ml-management
+    depends_on:
+      - mqtt-broker
+    entrypoint:
+      - /edgex-init/ready_to_run_wait_install.sh
+    environment:
+      <<: *x-edgex-env-variables
+      SERVICE_HOST: hedge-ml-management
+      SECRETSTORE_DISABLESCRUBSECRETSFILE: false
+      SECRETSTORE_SECRETSFILE: /tmp/hedge-secrets/hedge_ml_management_secrets.json
+      TRIGGER_EXTERNALMQTT_URL: tcp://edgex-mqtt-broker:1883
+      TRIGGER_EXTERNALMQTT_AUTHMODE: usernamepassword
+      TRIGGER_EXTERNALMQTT_SECRETNAME: mbconnection
+      APPLICATIONSETTINGS_LOCAL_DATASTORE_URL: http://hedge-victoria-metrics:8428/api/v1
+      APPLICATIONSETTINGS_TRAINING_PROVIDER: ${TRAINING_PROVIDER:-Hedge}
+      GOOGLE_APPLICATION_CREDENTIALS: /res/sso-gcp-dba-ctm1-pub-cc30691-f87ee70a665a.json
+      APPLICATIONSETTINGS_MODELDIR: hedge_export
+      APPLICATIONSETTINGS_BASETRAININGDATALOCALDIR: /res/models
+      #WRITABLE_STOREANDFORWARD_ENABLED: ${PERSISTONERROR:-false}
+      #APPLICATIONSETTINGS_METRICREPORTINTERVAL: ${METRICREPORTINTERVAL:-1800}
+      APPLICATIONSETTINGS_IMAGEREGISTRY: ${REGISTRY:-pun-harbor-reg1.bmc.com/iot/}
+      APPLICATIONSETTINGS_USERID_HEADER: ${UID_HTTP_HEADER:-X-Credential-Identifier}
+    hostname: hedge-ml-management
+    image: ${REGISTRY}hedge-ml-management:${HEDGE_ML_MANAGEMENT_DOCKER_TAG:-latest}
+    networks:
+      edgex-network: {}
+    ports:
+      - 0.0.0.0:48095:48095/tcp
+    read_only: false
+    restart: always
+    security_opt:
+      - no-new-privileges:true
+    user: root:root
+    volumes:
+      - edgex-init:/edgex-init
+      - hedge-ml-models:/res/models
+      - hedge-ml-jobs:/tmp/jobs
+      - hedge-secrets:/tmp/hedge-secrets
+      - /tmp/edgex/secrets/app-hedge-ml-management:/tmp/edgex/secrets/app-hedge-ml-management:ro,z
+
+  hedge-ml-sandbox:
+    command: sh -c dockerd && sleep 15 && /hedge-ml-sandbox -cp=consul.http://${CURRENT_HEDGE_NODE_SERVER_NAME}:8500 --registry --configDir=/res
+    container_name: hedge-ml-sandbox
+    depends_on:
+      - mqtt-broker
+    environment:
+      <<: *x-edgex-env-variables
+      SERVICE_HOST: hedge-ml-sandbox
+      SECRETSTORE_DISABLESCRUBSECRETSFILE: false
+      SECRETSTORE_SECRETSFILE: /tmp/hedge-secrets/hedge_ml_sandbox_secrets.json
+      TRIGGER_EXTERNALMQTT_URL: tcp://edgex-mqtt-broker:1883
+      TRIGGER_EXTERNALMQTT_AUTHMODE: usernamepassword
+      TRIGGER_EXTERNALMQTT_SECRETNAME: mbconnection
+      #WRITABLE_STOREANDFORWARD_ENABLED: ${PERSISTONERROR:-false}
+      APPLICATIONSETTINGS_JOBDIR: /tmp/jobs
+      APPLICATIONSETTINGS_IMAGEREGISTRY: ${REGISTRY:-pun-harbor-reg1.bmc.com/iot/}
+    hostname: hedge-ml-sandbox
+    image: ${REGISTRY}hedge-ml-sandbox:${HEDGE_ML_SANDBOX_DOCKER_TAG:-latest}
+    networks:
+      edgex-network: {}
+    read_only: false
+    privileged: true
+    restart: always
+    user: root:root
+    volumes:
+      - edgex-init:/edgex-init
+      - hedge-ml-jobs:/tmp/jobs
+      - hedge-secrets:/tmp/hedge-secrets
+      - /tmp/edgex/secrets/app-hedge-ml-sandbox:/tmp/edgex/secrets/app-hedge-ml-sandbox:ro,z
+
+# hedge-digital-twin:
+#   command: /digital-twin -cp=consul.http://${CURRENT_HEDGE_NODE_SERVER_NAME}:8500 --registry --configDir=/res
+#   container_name: hedge-digital-twin
+#   depends_on:
+#     - mqtt-broker
+#   entrypoint:
+#     - /edgex-init/ready_to_run_wait_install.sh
+#   environment:
+#     <<: *x-edgex-env-variables
+#     SERVICE_HOST: hedge-digital-twin
+#     APPLICATIONSETTINGS_MLMANAGEMENTURL: http://hedge-ml-management:48095
+#     APPLICATIONSETTINGS_MLBROKERURL: http://hedge-ml-broker:48120
+#   hostname: hedge-digital-twin
+#   image: ${REGISTRY}hedge-digital-twin:${HEDGE_DIGITAL_TWIN_DOCKER_TAG:-latest}
+#   networks:
+#     edgex-network: {}
+#   ports:
+#     - 0.0.0.0:48090:48090/tcp
+#   read_only: false
+#   restart: always
+#   security_opt:
+#     - no-new-privileges:true
+#   volumes:
+#     - edgex-init:/edgex-init
+#     - hedge-secrets:/tmp/hedge-secrets
+#     - /tmp/edgex/secrets/app-digital-twin:/tmp/edgex/secrets/app-digital-twin:ro,z
+
+  export-biz-data:
+    profiles: ["all", "biz"]
+    command: /export-biz-data -cp=consul.http://${CURRENT_HEDGE_NODE_SERVER_NAME}:8500 --registry --configDir=/res
+    container_name: export-biz-data
+    depends_on:
+      - mqtt-broker
+    entrypoint:
+      - /edgex-init/ready_to_run_wait_install.sh
+    environment:
+      <<: *x-edgex-env-variables
+      SERVICE_HOST: export-biz-data
+      SECRETSTORE_DISABLESCRUBSECRETSFILE: false
+      SECRETSTORE_SECRETSFILE: /tmp/hedge-secrets/hedge_export_biz_data_secrets.json
+      TRIGGER_EDGEXMESSAGEBUS_PUBLISHHOST_HOST: edgex-mqtt-broker
+      # Scheduled interval to poll for new biz data
+      APPLICATIONSETTINGS_TRIGGERINTERVAL: 2
+      APPLICATIONSETTINGS_TRIGGERSERVER : http://export-biz-data:59745/api/v2/trigger
+      APPLICATIONSETTINGS_SCHEME: tcp
+      APPLICATIONSETTINGS_PG_DB_HOST: hedge-fleet-db
+      APPLICATIONSETTINGS_PG_DB_PORT: 5432
+      #APPLICATIONSETTINGS_PG_DB_NAME: fleet
+      #APPLICATIONSETTINGS_PG_DB_USER: readonly_user
+      APPLICATIONSETTINGS_PERSISTONERROR: ${PERSISTONERROR:-false}
+    hostname: export-biz-data
+    image: ${REGISTRY}hedge-export-biz-data:${HEDGE_EXPORT_BIZ_DATA_DOCKER_TAG:-latest}
+    networks:
+      edgex-network: {}
+    ports:
+      - 59745:59745/tcp
+    read_only: true
+    restart: always
+    security_opt:
+      - no-new-privileges:true
+    volumes:
+      - edgex-init:/edgex-init
+      - hedge-secrets:/tmp/hedge-secrets
+      - /tmp/edgex/secrets/app-export-biz-data:/tmp/edgex/secrets/app-export-biz-data:ro,z
+
+  hedge-export:
+    command: /hedge-export -cp=consul.http://${CURRENT_HEDGE_NODE_SERVER_NAME}:8500 --registry --configDir=/res
+    container_name: hedge-export
+    depends_on:
+      - mqtt-broker
+    entrypoint:
+      - /edgex-init/ready_to_run_wait_install.sh
+    environment:
+      <<: *x-edgex-env-variables
+      SERVICE_HOST: hedge-export
+      SECRETSTORE_DISABLESCRUBSECRETSFILE: false
+      SECRETSTORE_SECRETSFILE: /tmp/hedge-secrets/hedge_export_secrets.json
+      APPLICATIONSETTINGS_VICTORIAMETRICSURL: http://hedge-victoria-metrics:8428/api/v1/import/prometheus
+      TRIGGER_EXTERNALMQTT_URL: tcp://edgex-mqtt-broker:1883
+      TRIGGER_EXTERNALMQTT_AUTHMODE: usernamepassword
+      TRIGGER_EXTERNALMQTT_SECRETNAME: mbconnection
+      APPLICATIONSETTINGS_PERSISTONERROR: ${PERSISTONERROR:-false}
+      #WRITABLE_STOREANDFORWARD_ENABLED: ${PERSISTONERROR:-false}
+    hostname: hedge-export
+    image: ${REGISTRY}hedge-export:${HEDGE_EXPORT_DOCKER_TAG:-latest}
+    networks:
+      edgex-network: {}
+    ports:
+      - 127.0.0.1:48099:48099/tcp
+    read_only: true
+    restart: always
+    security_opt:
+      - no-new-privileges:true
+    volumes:
+      - edgex-init:/edgex-init
+      - hedge-secrets:/tmp/hedge-secrets
+      - /tmp/edgex/secrets/app-hedge-export:/tmp/edgex/secrets/app-hedge-export:ro,z
+
+  hedge-event:
+    command: /hedge-event -cp=consul.http://${CURRENT_HEDGE_NODE_SERVER_NAME}:8500 --registry --configDir=/res
+    container_name: hedge-event
+    depends_on:
+      - mqtt-broker
+    entrypoint:
+      - /edgex-init/ready_to_run_wait_install.sh
+    environment:
+      <<: *x-edgex-env-variables
+      SERVICE_HOST: hedge-event
+      SECRETSTORE_DISABLESCRUBSECRETSFILE: false
+      SECRETSTORE_SECRETSFILE: /tmp/hedge-secrets/hedge_event_secrets.json
+      TRIGGER_EXTERNALMQTT_URL: tcp://edgex-mqtt-broker:1883
+      TRIGGER_EXTERNALMQTT_AUTHMODE: usernamepassword
+      TRIGGER_EXTERNALMQTT_SECRETNAME: mbconnection
+      APPLICATIONSETTINGS_VICTORIAMETRICSURL: http://hedge-victoria-metrics:8428
+      APPLICATIONSETTINGS_OPENSEARCHURL: http://hedge-elasticsearch:9200
+    hostname: hedge-event
+    image: ${REGISTRY}hedge-event:${HEDGE_EVENT_DOCKER_TAG:-latest}
+    networks:
+      edgex-network: {}
+    ports:
+      - 127.0.0.1:48104:48104/tcp
+    read_only: true
+    restart: always
+    security_opt:
+      - no-new-privileges:true
+    volumes:
+      - edgex-init:/edgex-init
+      - hedge-secrets:/tmp/hedge-secrets
+      - /tmp/edgex/secrets/app-hedge-event:/tmp/edgex/secrets/app-hedge-event:ro,z
+
+  hedge-ui-server:
+    image: ${REGISTRY}hedge-ui-server:${HEDGE_UI_SERVER_DOCKER_TAG:-latest}
+    ports:
+      - 127.0.0.1:48100:48100/tcp
+    environment:
+      HEDGE_UI_SERVER: ${HEDGE_UI_NODE}
+      CONSUL_URI: ${CONSUL_URI}
+      NODE_RED_URL: ${NODE_RED_URL}
+      DIGITAL_WORKPLACE_URL: ${DIGITAL_WORKPLACE_URL}
+      HELIX_MONITOR_URL: ${HELIX_MONITOR_URL}
+      TICKET_CONSOLE_URL: ${TICKET_CONSOLE_URL}
+      VERSION: ${VERSION}
+    container_name: hedge-ui-server
+    hostname: hedge-ui-server
+    networks:
+      edgex-network: {}
+    volumes:
+      - hedge-ui-config:/res
+
+  hedge-grafana:
+    profiles: ["all", "grafana", "demo"]
+    container_name: hedge-grafana
+    environment:
+      - "GF_INSTALL_PLUGINS=grafana-opensearch-datasource, farski-blendstat-panel, grafana-worldmap-panel, briangann-gauge-panel, digrich-bubblechart-panel, aidanmountford-html-panel, gapit-htmlgraphics-panel, yesoreyeram-boomtable-panel, grafana-piechart-panel, larona-epict-panel, marcuscalidus-svg-panel, agenty-flowcharting-panel, michaeldmoore-annunciator-panel, ryantxu-ajax-panel, natel-discrete-panel, timomyl-breadcrumb-panel"
+      - "GF_PLUGINS_ALLOW_LOADING_UNSIGNED_PLUGINS="
+    hostname: hedge-grafana
+    image: ${REGISTRY}hedgext-grafana:${HEDGEXT_GRAFANA_DOCKER_TAG:-latest}
+    networks:
+      edgex-network: {}
+    ports:
+      - 127.0.0.1:3000:3000/tcp
+    user: grafana
+    volumes:
+      - grafana-storage:/var/lib/grafana
+      - grafana-config:/etc/grafana
+      - grafana-plugins:/var/lib/grafana/plugins
+      - grafana-images:/usr/share/grafana/public/img
+      - grafana-views:/usr/share/grafana/public/views
+
+  hedge-init:
+    #command: /hedge/run.sh
+    container_name: hedge-init
+    depends_on:
+      - consul
+      - security-secretstore-setup
+      - security-bootstrapper
+      - metadata
+      - hedge-device-extensions
+    environment:
+      <<: *x-edgex-env-variables
+      SERVICE_HOST: hedge-init
+      DATASTORE_PROVIDER: ${DATASTORE_PROVIDER}
+      EXECUTION_MODE: POST_PROCESSING
+      COMPOSE_PROFILES: ${COMPOSE_PROFILES}
+      USERNAME: ${USERNAME}
+      PLATCRD: ${PLATCRD}
+      VERSION: ${VERSION}
+    hostname: hedge-init
+    image: ${REGISTRY}hedge-init:${HEDGE_INIT_DOCKER_TAG:-latest}
+    networks:
+      edgex-network: {}
+    read_only: true
+    volumes:
+      - edgex-init:/edgex-init
+      - hedge-scripts:/hedge/hedge-scripts
+      - hedge-secrets:/tmp/hedge-secrets
+      - /tmp/edgex/secrets/hedge-init:/tmp/edgex/secrets/hedge-init:ro,z
+
+  hedge-swagger-ui:
+    command: /swagger-ui
+    image: ${REGISTRY}hedge-swagger-ui:${HEDGE_SWAGGER_UI_DOCKER_TAG:-latest}
+    ports:
+      - 127.0.0.1:48048:48048/tcp
+    environment:
+      <<: *x-edgex-env-variables
+      BASE_URL: ${CURRENT_HEDGE_NODE_SERVER_NAME}
+      DOMAIN: ${CURRENT_HEDGE_NODE_SERVER_DOMAIN_NAME}
+      NGINX_PORT: ${NGINX_PORT}
+    container_name: hedge-swagger-ui
+    hostname: hedge-swagger-ui
+    networks:
+      edgex-network: {}
+
+volumes:
+  hedge-ui-config: {}
+  victoria-metrics-data: {}
+  elasticsearch: {}
+  grafana-storage: {}
+  grafana-config: {}
+  grafana-plugins: {}
+  grafana-images: {}
+  grafana-views: {}
+  consul-acl-token: {}
+  edgex-init: {}
+  nats-data: {}
+  hedge-content: {}
+  hedge-ml-models: {}
+  hedge-ml-jobs: {}
+  nginx-tls: {}
+  nginx-templates: {}
+  nginx-config: {}
+  hedge-scripts: {}
+  hedge-secrets: {}
+  swagger-ui-bundle: {}

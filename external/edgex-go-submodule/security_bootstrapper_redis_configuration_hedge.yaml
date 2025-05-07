@@ -1,0 +1,15 @@
+LogLevel: INFO
+Database:
+  Host: localhost
+  Name: ""          # Unused
+  Password: ""      # Will be set from value in Vault
+  Username: ""      # Will be set from value in Vault
+  Port: 6379
+  Timeout: "5s"
+  Type: redisdb
+DatabaseConfig:
+  Path: /path/to/redis/conf/dir
+  Name: redis.conf
+  MaxClients: 1000
+  DatabaseConfigAdditionalParams:
+    - client-output-buffer-limit pubsub 1024mb 850mb 90

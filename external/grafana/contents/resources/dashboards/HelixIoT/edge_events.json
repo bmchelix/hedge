@@ -1,0 +1,1372 @@
+{
+  "__inputs": [
+    {
+      "name": "DS_BMC_HELIX",
+      "label": "BMC Helix",
+      "description": "",
+      "type": "datasource",
+      "pluginId": "bmchelix-ade-datasource",
+      "pluginName": "BMC Helix"
+    }
+  ],
+  "__elements": {},
+  "__requires": [
+    {
+      "type": "datasource",
+      "id": "bmchelix-ade-datasource",
+      "name": "BMC Helix",
+      "version": "3.0.1"
+    },
+    {
+      "type": "grafana",
+      "id": "grafana",
+      "name": "Grafana",
+      "version": "9.5.3"
+    },
+    {
+      "type": "panel",
+      "id": "stat",
+      "name": "Stat",
+      "version": ""
+    },
+    {
+      "type": "panel",
+      "id": "table",
+      "name": "Table",
+      "version": ""
+    },
+    {
+      "type": "panel",
+      "id": "timeseries",
+      "name": "Time series",
+      "version": ""
+    }
+  ],
+  "annotations": {
+    "list": [
+      {
+        "builtIn": 1,
+        "datasource": "-- Grafana --",
+        "enable": false,
+        "hide": true,
+        "iconColor": "rgba(0, 211, 255, 1)",
+        "limit": 100,
+        "name": "Annotations & Alerts",
+        "showIn": 0,
+        "type": "dashboard"
+      }
+    ]
+  },
+  "description": "",
+  "editable": true,
+  "fiscalYearStartMonth": 0,
+  "graphTooltip": 0,
+  "id": null,
+  "links": [],
+  "liveNow": false,
+  "panels": [
+    {
+      "datasource": {
+        "type": "bmchelix-ade-datasource",
+        "uid": "${DS_BMC_HELIX}"
+      },
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "mappings": [],
+          "noValue": "0",
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "#f83200",
+                "value": null
+              },
+              {
+                "color": "#f83200",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 4,
+        "x": 0,
+        "y": 0
+      },
+      "id": 2,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "sum"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "text": {},
+        "textMode": "auto"
+      },
+      "pluginVersion": "9.5.3",
+      "targets": [
+        {
+          "datasource": {
+            "type": "bmchelix-ade-datasource",
+            "uid": "${DS_BMC_HELIX}"
+          },
+          "queryTypeOptions": [
+            {
+              "$$hashKey": "object:97",
+              "sourceType": "event",
+              "text": "Events",
+              "value": "event"
+            },
+            {
+              "$$hashKey": "object:98",
+              "sourceType": "metric",
+              "text": "Metric",
+              "value": "metric"
+            },
+            {
+              "$$hashKey": "object:99",
+              "sourceType": "cloudsecurity",
+              "text": "CloudSecurity",
+              "value": "cloudsecurity"
+            }
+          ],
+          "refId": "A",
+          "sourceQuery": {
+            "alias": "Critical",
+            "bucketAggs": [
+              {
+                "$$hashKey": "object:71",
+                "field": "creation_time",
+                "id": "2",
+                "settings": {
+                  "interval": "auto",
+                  "min_doc_count": 0,
+                  "trimEdges": 0
+                },
+                "type": "date_histogram"
+              }
+            ],
+            "metrics": [
+              {
+                "$$hashKey": "object:69",
+                "field": "select field",
+                "id": "1",
+                "type": "count"
+              }
+            ],
+            "query": "(!status:CLOSED AND !status:BLACKOUT) AND severity:CRITICAL AND ot_profile:$profileName",
+            "timeField": "creation_time"
+          },
+          "sourceType": "event"
+        }
+      ],
+      "title": "Critical Severity",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "bmchelix-ade-datasource",
+        "uid": "${DS_BMC_HELIX}"
+      },
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "mappings": [],
+          "noValue": "0",
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "#f86e00",
+                "value": null
+              },
+              {
+                "color": "#f86e00",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 4,
+        "x": 4,
+        "y": 0
+      },
+      "id": 14,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "sum"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "text": {},
+        "textMode": "auto"
+      },
+      "pluginVersion": "9.5.3",
+      "targets": [
+        {
+          "datasource": {
+            "type": "bmchelix-ade-datasource",
+            "uid": "${DS_BMC_HELIX}"
+          },
+          "queryTypeOptions": [
+            {
+              "$$hashKey": "object:97",
+              "sourceType": "event",
+              "text": "Events",
+              "value": "event"
+            },
+            {
+              "$$hashKey": "object:98",
+              "sourceType": "metric",
+              "text": "Metric",
+              "value": "metric"
+            },
+            {
+              "$$hashKey": "object:99",
+              "sourceType": "cloudsecurity",
+              "text": "CloudSecurity",
+              "value": "cloudsecurity"
+            }
+          ],
+          "refId": "A",
+          "sourceQuery": {
+            "alias": "Major",
+            "bucketAggs": [
+              {
+                "$$hashKey": "object:110",
+                "field": "creation_time",
+                "id": "2",
+                "settings": {
+                  "interval": "auto",
+                  "min_doc_count": 0,
+                  "trimEdges": 0
+                },
+                "type": "date_histogram"
+              }
+            ],
+            "metrics": [
+              {
+                "$$hashKey": "object:108",
+                "field": "select field",
+                "id": "1",
+                "type": "count"
+              }
+            ],
+            "query": "(!status:CLOSED AND !status:BLACKOUT) AND severity:MAJOR AND ot_profile:$profileName",
+            "timeField": "creation_time"
+          },
+          "sourceType": "event"
+        }
+      ],
+      "title": "Major Severity",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "bmchelix-ade-datasource",
+        "uid": "${DS_BMC_HELIX}"
+      },
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "mappings": [],
+          "noValue": "0",
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "#f1b521",
+                "value": null
+              },
+              {
+                "color": "#f1b521",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 4,
+        "x": 8,
+        "y": 0
+      },
+      "id": 15,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "sum"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "text": {},
+        "textMode": "auto"
+      },
+      "pluginVersion": "9.5.3",
+      "targets": [
+        {
+          "datasource": {
+            "type": "bmchelix-ade-datasource",
+            "uid": "${DS_BMC_HELIX}"
+          },
+          "queryTypeOptions": [
+            {
+              "$$hashKey": "object:97",
+              "sourceType": "event",
+              "text": "Events",
+              "value": "event"
+            },
+            {
+              "$$hashKey": "object:98",
+              "sourceType": "metric",
+              "text": "Metric",
+              "value": "metric"
+            },
+            {
+              "$$hashKey": "object:99",
+              "sourceType": "cloudsecurity",
+              "text": "CloudSecurity",
+              "value": "cloudsecurity"
+            }
+          ],
+          "refId": "A",
+          "sourceQuery": {
+            "alias": "Minor",
+            "bucketAggs": [
+              {
+                "$$hashKey": "object:149",
+                "field": "creation_time",
+                "id": "2",
+                "settings": {
+                  "interval": "auto",
+                  "min_doc_count": 0,
+                  "trimEdges": 0
+                },
+                "type": "date_histogram"
+              }
+            ],
+            "metrics": [
+              {
+                "$$hashKey": "object:147",
+                "field": "select field",
+                "id": "1",
+                "type": "count"
+              }
+            ],
+            "query": "(!status:CLOSED AND !status:BLACKOUT) AND severity:MINOR AND ot_profile:$profileName",
+            "timeField": "creation_time"
+          },
+          "sourceType": "event"
+        }
+      ],
+      "title": "Minor Severity",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "bmchelix-ade-datasource",
+        "uid": "${DS_BMC_HELIX}"
+      },
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "mappings": [],
+          "noValue": "0",
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "#f1b521",
+                "value": null
+              },
+              {
+                "color": "#f1b521",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 6,
+        "x": 12,
+        "y": 0
+      },
+      "id": 4,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "none",
+        "justifyMode": "center",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "sum"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "text": {},
+        "textMode": "auto"
+      },
+      "pluginVersion": "9.5.3",
+      "targets": [
+        {
+          "datasource": {
+            "type": "bmchelix-ade-datasource",
+            "uid": "${DS_BMC_HELIX}"
+          },
+          "queryTypeOptions": [
+            {
+              "$$hashKey": "object:97",
+              "sourceType": "event",
+              "text": "Events",
+              "value": "event"
+            },
+            {
+              "$$hashKey": "object:98",
+              "sourceType": "metric",
+              "text": "Metric",
+              "value": "metric"
+            },
+            {
+              "$$hashKey": "object:99",
+              "sourceType": "cloudsecurity",
+              "text": "CloudSecurity",
+              "value": "cloudsecurity"
+            }
+          ],
+          "refId": "A",
+          "sourceQuery": {
+            "alias": "Open",
+            "bucketAggs": [
+              {
+                "$$hashKey": "object:329",
+                "field": "creation_time",
+                "id": "2",
+                "settings": {
+                  "interval": "auto",
+                  "min_doc_count": 0,
+                  "trimEdges": 0
+                },
+                "type": "date_histogram"
+              }
+            ],
+            "metrics": [
+              {
+                "$$hashKey": "object:327",
+                "field": "select field",
+                "id": "1",
+                "type": "count"
+              }
+            ],
+            "query": "(!status:CLOSED AND !status:BLACKOUT) AND ot_profile:$profileName",
+            "timeField": "creation_time"
+          },
+          "sourceType": "event"
+        }
+      ],
+      "title": "Number of open events",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "bmchelix-ade-datasource",
+        "uid": "${DS_BMC_HELIX}"
+      },
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "mappings": [],
+          "noValue": "0",
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "#89c341",
+                "value": null
+              },
+              {
+                "color": "#89c341",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 6,
+        "x": 18,
+        "y": 0
+      },
+      "id": 5,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "none",
+        "justifyMode": "center",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "sum"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "text": {},
+        "textMode": "auto"
+      },
+      "pluginVersion": "9.5.3",
+      "targets": [
+        {
+          "datasource": {
+            "type": "bmchelix-ade-datasource",
+            "uid": "${DS_BMC_HELIX}"
+          },
+          "queryTypeOptions": [
+            {
+              "$$hashKey": "object:97",
+              "sourceType": "event",
+              "text": "Events",
+              "value": "event"
+            },
+            {
+              "$$hashKey": "object:98",
+              "sourceType": "metric",
+              "text": "Metric",
+              "value": "metric"
+            },
+            {
+              "$$hashKey": "object:99",
+              "sourceType": "cloudsecurity",
+              "text": "CloudSecurity",
+              "value": "cloudsecurity"
+            }
+          ],
+          "refId": "A",
+          "sourceQuery": {
+            "alias": "Closed",
+            "bucketAggs": [
+              {
+                "$$hashKey": "object:368",
+                "field": "creation_time",
+                "id": "2",
+                "settings": {
+                  "interval": "auto",
+                  "min_doc_count": 0,
+                  "trimEdges": 0
+                },
+                "type": "date_histogram"
+              }
+            ],
+            "metrics": [
+              {
+                "$$hashKey": "object:366",
+                "field": "select field",
+                "id": "1",
+                "type": "count"
+              }
+            ],
+            "query": "status:CLOSED AND ot_profile:$profileName",
+            "timeField": "creation_time"
+          },
+          "sourceType": "event"
+        }
+      ],
+      "title": "Number of closed events",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "bmchelix-ade-datasource",
+        "uid": "${DS_BMC_HELIX}"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "custom": {
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 15,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "never",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Minor"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "#f1b521",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Major"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "#f86e00",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Critical"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "#f83200",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 9,
+        "w": 12,
+        "x": 0,
+        "y": 4
+      },
+      "id": 17,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "multi",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "9.5.3",
+      "targets": [
+        {
+          "datasource": {
+            "type": "bmchelix-ade-datasource",
+            "uid": "${DS_BMC_HELIX}"
+          },
+          "refId": "A",
+          "sourceQuery": {
+            "alias": "Minor",
+            "bucketAggs": [
+              {
+                "field": "creation_time",
+                "id": "2",
+                "settings": {
+                  "interval": "auto"
+                },
+                "type": "date_histogram"
+              }
+            ],
+            "metrics": [
+              {
+                "id": "1",
+                "type": "count"
+              }
+            ],
+            "query": "severity:MINOR AND ot_profile:$profileName",
+            "timeField": "creation_time"
+          },
+          "sourceType": "event"
+        },
+        {
+          "datasource": {
+            "type": "bmchelix-ade-datasource",
+            "uid": "${DS_BMC_HELIX}"
+          },
+          "hide": false,
+          "refId": "B",
+          "sourceQuery": {
+            "alias": "Major",
+            "bucketAggs": [
+              {
+                "field": "creation_time",
+                "id": "2",
+                "settings": {
+                  "interval": "auto"
+                },
+                "type": "date_histogram"
+              }
+            ],
+            "metrics": [
+              {
+                "id": "1",
+                "type": "count"
+              }
+            ],
+            "query": "severity:MAJOR AND ot_profile:$profileName",
+            "timeField": "creation_time"
+          },
+          "sourceType": "event"
+        },
+        {
+          "datasource": {
+            "type": "bmchelix-ade-datasource",
+            "uid": "${DS_BMC_HELIX}"
+          },
+          "hide": false,
+          "refId": "C",
+          "sourceQuery": {
+            "alias": "Critical",
+            "bucketAggs": [
+              {
+                "field": "creation_time",
+                "id": "2",
+                "settings": {
+                  "interval": "auto"
+                },
+                "type": "date_histogram"
+              }
+            ],
+            "metrics": [
+              {
+                "id": "1",
+                "type": "count"
+              }
+            ],
+            "query": "severity:CRITICAL AND ot_profile:$profileName",
+            "timeField": "creation_time"
+          },
+          "sourceType": "event"
+        }
+      ],
+      "title": "Events Trend",
+      "transformations": [],
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "bmchelix-ade-datasource",
+        "uid": "${DS_BMC_HELIX}"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "custom": {
+            "align": "auto",
+            "cellOptions": {
+              "type": "auto"
+            },
+            "filterable": true,
+            "inspect": false
+          },
+          "mappings": [
+            {
+              "options": {
+                "CRITICAL": {
+                  "color": "#f83200",
+                  "index": 1,
+                  "text": "Critical"
+                },
+                "MAJOR": {
+                  "color": "#f86e00",
+                  "index": 2,
+                  "text": "Major"
+                },
+                "MINOR": {
+                  "color": "#f1b521",
+                  "index": 0,
+                  "text": "Minor"
+                }
+              },
+              "type": "value"
+            }
+          ],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "status"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 100
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Severity"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 100
+              },
+              {
+                "id": "custom.cellOptions",
+                "value": {
+                  "mode": "gradient",
+                  "type": "color-background"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Device"
+            },
+            "properties": [
+              {
+                "id": "links",
+                "value": [
+                  {
+                    "targetBlank": true,
+                    "title": "Device Details",
+                    "url": "/d/KlYwPzQxR/edge-devices?var-selectedDevice=${__data.fields.Device}&${__url_time_range}"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 17,
+        "w": 12,
+        "x": 12,
+        "y": 4
+      },
+      "id": 18,
+      "options": {
+        "cellHeight": "sm",
+        "footer": {
+          "countRows": false,
+          "fields": "",
+          "reducer": [
+            "sum"
+          ],
+          "show": false
+        },
+        "showHeader": true
+      },
+      "pluginVersion": "9.5.3",
+      "targets": [
+        {
+          "datasource": {
+            "type": "bmchelix-ade-datasource",
+            "uid": "${DS_BMC_HELIX}"
+          },
+          "refId": "A",
+          "sourceQuery": {
+            "alias": "",
+            "bucketAggs": [],
+            "metrics": [
+              {
+                "id": "1",
+                "settings": {
+                  "size": "500"
+                },
+                "type": "raw_data"
+              }
+            ],
+            "query": "ot_profile:$profileName",
+            "timeField": "creation_time"
+          },
+          "sourceType": "event"
+        }
+      ],
+      "title": "All Events",
+      "transformations": [
+        {
+          "id": "filterFieldsByName",
+          "options": {
+            "include": {
+              "pattern": "/status$|creation_time|ot_event_name|ot_device_name|ot_related_metric|ot_threshold|ot_actual_value|priority$|severity|ot_profile/"
+            }
+          }
+        },
+        {
+          "id": "organize",
+          "options": {
+            "excludeByName": {
+              "ot_event_name": true,
+              "ot_threshold": true,
+              "priority": true,
+              "severity_ordinal": true
+            },
+            "indexByName": {
+              "creation_time": 1,
+              "ot_actual_value": 7,
+              "ot_device_name": 3,
+              "ot_event_name": 5,
+              "ot_profile": 4,
+              "ot_related_metric": 6,
+              "ot_threshold": 9,
+              "priority": 8,
+              "severity": 0,
+              "severity_ordinal": 10,
+              "status": 2
+            },
+            "renameByName": {
+              "creation_time": "Created",
+              "ot_actual_value": "Actual Value",
+              "ot_device_name": "Device",
+              "ot_event_name": "Name",
+              "ot_profile": "Profile",
+              "ot_related_metric": "Metric",
+              "ot_threshold": "Threshold",
+              "priority": "Priority",
+              "severity": "Severity",
+              "severity_ordinal": "Value",
+              "status": "Status"
+            }
+          }
+        }
+      ],
+      "type": "table"
+    },
+    {
+      "datasource": {
+        "type": "bmchelix-ade-datasource",
+        "uid": "${DS_BMC_HELIX}"
+      },
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {
+            "align": "left",
+            "cellOptions": {
+              "type": "auto"
+            },
+            "filterable": false,
+            "inspect": false
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 6,
+        "x": 0,
+        "y": 13
+      },
+      "id": 20,
+      "maxPerRow": 2,
+      "options": {
+        "cellHeight": "sm",
+        "footer": {
+          "countRows": false,
+          "fields": "",
+          "reducer": [
+            "sum"
+          ],
+          "show": false
+        },
+        "showHeader": true,
+        "sortBy": [
+          {
+            "desc": true,
+            "displayName": "source_hostname.keyword"
+          }
+        ]
+      },
+      "pluginVersion": "9.5.3",
+      "repeatDirection": "h",
+      "targets": [
+        {
+          "datasource": {
+            "type": "bmchelix-ade-datasource",
+            "uid": "${DS_BMC_HELIX}"
+          },
+          "queryTypeOptions": [
+            {
+              "$$hashKey": "object:97",
+              "sourceType": "event",
+              "text": "Events",
+              "value": "event"
+            },
+            {
+              "$$hashKey": "object:98",
+              "sourceType": "metric",
+              "text": "Metric",
+              "value": "metric"
+            },
+            {
+              "$$hashKey": "object:99",
+              "sourceType": "cloudsecurity",
+              "text": "CloudSecurity",
+              "value": "cloudsecurity"
+            }
+          ],
+          "refId": "A",
+          "sourceQuery": {
+            "bucketAggs": [
+              {
+                "$$hashKey": "object:220",
+                "field": "ot_profile.keyword",
+                "id": "2",
+                "settings": {
+                  "min_doc_count": 1,
+                  "order": "desc",
+                  "orderBy": "_count",
+                  "size": "5"
+                },
+                "type": "terms"
+              }
+            ],
+            "metrics": [
+              {
+                "$$hashKey": "object:218",
+                "field": "select field",
+                "id": "1",
+                "type": "count"
+              }
+            ],
+            "query": "(!status:CLOSED AND !status:BLACKOUT)",
+            "timeField": "creation_time"
+          },
+          "sourceType": "event"
+        }
+      ],
+      "title": "Top 5 Profiles",
+      "transformations": [
+        {
+          "id": "organize",
+          "options": {
+            "excludeByName": {},
+            "indexByName": {},
+            "renameByName": {
+              "Count": "Number of open events",
+              "attributes.source_hostname": "Name",
+              "ot_device_name.keyword": "Device",
+              "ot_profile.keyword": "Profile",
+              "source_hostname.keyword": "CI name"
+            }
+          }
+        }
+      ],
+      "type": "table"
+    },
+    {
+      "datasource": {
+        "type": "bmchelix-ade-datasource",
+        "uid": "${DS_BMC_HELIX}"
+      },
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {
+            "align": "left",
+            "cellOptions": {
+              "type": "auto"
+            },
+            "filterable": false,
+            "inspect": false
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Device"
+            },
+            "properties": [
+              {
+                "id": "custom.width"
+              },
+              {
+                "id": "links",
+                "value": [
+                  {
+                    "targetBlank": true,
+                    "title": "Device Details",
+                    "url": "/d/KlYwPzQxR/edge-devices?var-selectedDevice=${__data.fields.Device}&${__url_time_range}"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 6,
+        "x": 6,
+        "y": 13
+      },
+      "id": 19,
+      "maxPerRow": 2,
+      "options": {
+        "cellHeight": "sm",
+        "footer": {
+          "countRows": false,
+          "fields": "",
+          "reducer": [
+            "sum"
+          ],
+          "show": false
+        },
+        "showHeader": true,
+        "sortBy": [
+          {
+            "desc": true,
+            "displayName": "source_hostname.keyword"
+          }
+        ]
+      },
+      "pluginVersion": "9.5.3",
+      "repeatDirection": "h",
+      "targets": [
+        {
+          "datasource": {
+            "type": "bmchelix-ade-datasource",
+            "uid": "${DS_BMC_HELIX}"
+          },
+          "queryTypeOptions": [
+            {
+              "$$hashKey": "object:97",
+              "sourceType": "event",
+              "text": "Events",
+              "value": "event"
+            },
+            {
+              "$$hashKey": "object:98",
+              "sourceType": "metric",
+              "text": "Metric",
+              "value": "metric"
+            },
+            {
+              "$$hashKey": "object:99",
+              "sourceType": "cloudsecurity",
+              "text": "CloudSecurity",
+              "value": "cloudsecurity"
+            }
+          ],
+          "refId": "A",
+          "sourceQuery": {
+            "bucketAggs": [
+              {
+                "$$hashKey": "object:220",
+                "field": "ot_device_name.keyword",
+                "id": "2",
+                "settings": {
+                  "min_doc_count": 1,
+                  "order": "desc",
+                  "orderBy": "_count",
+                  "size": "10"
+                },
+                "type": "terms"
+              }
+            ],
+            "metrics": [
+              {
+                "$$hashKey": "object:218",
+                "field": "select field",
+                "id": "1",
+                "type": "count"
+              }
+            ],
+            "query": "(!status:CLOSED AND !status:BLACKOUT)",
+            "timeField": "creation_time"
+          },
+          "sourceType": "event"
+        }
+      ],
+      "title": "Top 10 Devices",
+      "transformations": [
+        {
+          "id": "organize",
+          "options": {
+            "excludeByName": {},
+            "indexByName": {},
+            "renameByName": {
+              "Count": "Number of open events",
+              "attributes.source_hostname": "Name",
+              "ot_device_name.keyword": "Device",
+              "source_hostname.keyword": "CI name"
+            }
+          }
+        }
+      ],
+      "type": "table"
+    }
+  ],
+  "refresh": "30s",
+  "schemaVersion": 38,
+  "style": "dark",
+  "tags": [],
+  "templating": {
+    "list": [
+      {
+        "allValue": "*",
+        "current": {},
+        "datasource": {
+          "type": "bmchelix-ade-datasource",
+          "uid": "${DS_BMC_HELIX}"
+        },
+        "definition": "metric,label_values(profile)",
+        "hide": 0,
+        "includeAll": true,
+        "label": "Profile",
+        "multi": true,
+        "name": "profileName",
+        "options": [],
+        "query": "metric,label_values(profile)",
+        "refresh": 1,
+        "regex": "",
+        "skipUrlSync": false,
+        "sort": 0,
+        "type": "query"
+      },
+      {
+        "datasource": {
+          "type": "bmchelix-ade-datasource",
+          "uid": "a0917a0c-2ed8-4370-9c3b-134aa736a64d"
+        },
+        "filters": [],
+        "hide": 0,
+        "name": "Filters",
+        "skipUrlSync": false,
+        "type": "adhoc"
+      }
+    ]
+  },
+  "time": {
+    "from": "now-2d",
+    "to": "now"
+  },
+  "timepicker": {
+    "refresh_intervals": [
+      "10s",
+      "30s",
+      "1m",
+      "5m",
+      "15m",
+      "30m",
+      "1h",
+      "2h",
+      "1d"
+    ]
+  },
+  "timezone": "",
+  "title": "Edge Events",
+  "uid": "RqCnHdXeG",
+  "version": 1,
+  "weekStart": ""
+}

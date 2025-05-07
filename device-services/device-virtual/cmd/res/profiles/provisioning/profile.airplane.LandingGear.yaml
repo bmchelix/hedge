@@ -1,0 +1,404 @@
+name: AirplaneLandingGearProfile
+manufacturer: Lockheed Martin
+model: C-130 Hercules
+labels:
+  - "Airplane"
+  - "C-130 Hercules"
+  - "Landing Gear"
+description: "Airplane landing gear system of the C-130 Hercules Military Airplane"
+
+deviceResources:
+  - name: LGPosition
+    description: |
+      Position of the landing gear (0-90 degree)
+       0: Fully retracted/closed
+      90: Fully extended/opened
+    attributes:
+      {dataGenerator: "float", "min": "0.0", "max": "90.0", "useMultiplier": "false"}
+    properties:
+      valueType: Float64
+      readWrite: RW
+      units: degree
+
+  - name: LGDoorPosition
+    description: |
+      Position of the landing gear door
+      0 = "closed": Door is closed
+      1 = "open": Door is open
+      2 = "in-transit": Door is in transit between open and closed
+    attributes:
+      {dataGenerator: "float", "min": "0.0", "max": "2.0", "useMultiplier": "false"}
+    properties:
+      valueType: Float64
+      readWrite: RW
+      units: none
+
+  - name: LGVibrationAmplitude
+    description: Vibration amplitude of the landing gear
+    attributes:
+      {dataGenerator: "float", "min": "0.00", "max": "1.99", "useMultiplier": "false"}
+    properties:
+      valueType: Float64
+      readWrite: RW
+      units: m/s^2
+
+  - name: LGVibrationFrequency
+    description: Vibration frequency of the landing gear
+    attributes:
+      {dataGenerator: "float", "min": "0.0", "max": "167.0", "useMultiplier": "false"}
+    properties:
+      valueType: Float64
+      readWrite: RW
+      units: Hz
+
+  - name: LGMotorTemperature
+    description: Temperature of the landing gear motor
+    attributes:
+      {dataGenerator: "float", "min": "68.0", "max": "85.0", "useMultiplier": "false"}
+    properties:
+      valueType: Float64
+      readWrite: RW
+      units: F
+
+  - name: LGCurrentFlow
+    description: Current drawn by the landing gear
+    attributes:
+      {dataGenerator: "float", "min": "0.0", "max": "20.0", "useMultiplier": "false"}
+    properties:
+      valueType: Float64
+      readWrite: RW
+      units: Amps
+
+  - name: LGVoltage
+    description: Voltage supplied to the landing gear
+    attributes:
+      {dataGenerator: "float", "min": "0.0", "max": "5.0", "useMultiplier": "false"}
+    properties:
+      valueType: Float64
+      readWrite: RW
+      units: Volts
+
+  - name: LGDeploymentTime
+    description: Time taken for the landing gear to deploy
+    attributes:
+      {dataGenerator: "float", "min": "0.0", "max": "2.5", "useMultiplier": "false"}
+    properties:
+      valueType: Float64
+      readWrite: RW
+      units: seconds
+
+  - name: LGAcceleration
+    description: Acceleration experienced by the landing gear
+    attributes:
+      {dataGenerator: "float", "min": "0.0", "max": "2.0", "useMultiplier": "false"}
+    properties:
+      valueType: Float64
+      readWrite: RW
+      units: g
+
+  - name: LGMotorHealth
+    description: Health of the landing gear motor
+    attributes:
+      {dataGenerator: "float", "min": "73.111", "max": "74.999", "useMultiplier": "false"}
+    properties:
+      valueType: Float64
+      readWrite: RW
+      units: percent
+
+
+  - name: LGShockAbsorberPressure
+    description: Pressure in the landing gear shock absorbers
+    attributes:
+      {dataGenerator: "float", "min": "0.0", "max": "5000.0", "useMultiplier": "false"}
+    properties:
+      valueType: Float64
+      readWrite: RW
+      units: psi
+
+  - name: LGTirePressure
+    description: Tire pressure of the landing gear
+    attributes:
+      {dataGenerator: "float", "min": "0.0", "max": "200.0", "useMultiplier": "false"}
+    properties:
+      valueType: Float64
+      readWrite: RW
+      units: psi
+
+  - name: LGStrutExtension
+    description: Extension of the landing gear struts
+    attributes:
+      {dataGenerator: "float", "min": "0.0", "max": "10.0", "useMultiplier": "false"}
+    properties:
+      valueType: Float64
+      readWrite: RW
+      units: inches
+
+  - name: LGECUStatus
+    description: |
+      Status of the landing gear ECU
+      0 = "normal": ECU is functioning normally
+      1 = "fault": ECU has a fault
+      2 = "in operation": ECU is in operation
+    attributes:
+      {dataGenerator: "float", "min": "0.0", "max": "2.0", "useMultiplier": "false"}
+    properties:
+      valueType: Float64
+      readWrite: RW
+      units: none
+
+  - name: LGBearingTemperature
+    description: Temperature of the landing gear bearings
+    attributes:
+      {dataGenerator: "float", "min": "0.0", "max": "500.0", "useMultiplier": "false"}
+    properties:
+      valueType: Float64
+      readWrite: RW
+      units: Fahrenheit
+
+  - name: LGHydraulicFluidLevel
+    description: Hydraulic fluid level of the landing gear
+    attributes:
+      {dataGenerator: "float", "min": "0.0", "max": "100.0", "useMultiplier": "false"}
+    properties:
+      valueType: Float64
+      readWrite: RW
+      units: percent
+
+  - name: LGHydraulicPumpStatus
+    description: |
+      Status of the landing gear hydraulic pump
+      0 = "off": Pump is off
+      1 = "on": Pump is on
+      2 = "fault": Pump has a fault
+    attributes:
+      {dataGenerator: "float", "min": "0.0", "max": "2.0", "useMultiplier": "false"}
+    properties:
+      valueType: Float64
+      readWrite: RW
+      units: none
+
+  - name: LGEmergencyReleaseStatus
+    description: |
+      Status of the landing gear emergency release
+      0 = "not released": Emergency release not activated
+      1 = "released": Emergency release activated
+    attributes:
+      {dataGenerator: "float", "min": "0.0", "max": "1.0", "useMultiplier": "false"}
+    properties:
+      valueType: Float64
+      readWrite: RW
+      units: none
+
+  - name: LGWheelSpeed
+    description: Speed of the landing gear wheels
+    attributes:
+      {dataGenerator: "float", "min": "0.0", "max": "300.0", "useMultiplier": "false"}
+    properties:
+      valueType: Float64
+      readWrite: RW
+      units: knots
+
+  - name: LGHydraulicPressure
+    description: Hydraulic pressure in the landing gear system
+    attributes:
+      {dataGenerator: "float", "min": "0.0", "max": "5000.0", "useMultiplier": "false"}
+    properties:
+      valueType: Float64
+      readWrite: RW
+      units: psi
+
+  - name: LGSteeringAngle
+    description: Steering angle of the landing gear
+    attributes:
+      {dataGenerator: "float", "min": "-45.0", "max": "45.0", "useMultiplier": "false"}
+    properties:
+      valueType: Float64
+      readWrite: RW
+      units: degrees
+
+  - name: LGSteeringActuatorPosition
+    description: Position of the landing gear steering actuator
+    attributes:
+      {dataGenerator: "float", "min": "0.0", "max": "100.0", "useMultiplier": "false"}
+    properties:
+      valueType: Float64
+      readWrite: RW
+      units: percentage
+
+  - name: LGSteeringCommandSignal
+    description: Command signal for the landing gear steering
+    attributes:
+      {dataGenerator: "float", "min": "-100.0", "max": "100.0", "useMultiplier": "false"}
+    properties:
+      valueType: Float64
+      readWrite: RW
+      units: percentage
+
+  - name: LGSteeringMotorCurrent
+    description: Current of the landing gear steering motor
+    attributes:
+      {dataGenerator: "float", "min": "0.0", "max": "100.0", "useMultiplier": "false"}
+    properties:
+      valueType: Float64
+      readWrite: RW
+      units: amps
+
+  - name: LGCasterAngle
+    description: Caster angle of the landing gear
+    attributes:
+      {dataGenerator: "float", "min": "-45.0", "max": "45.0", "useMultiplier": "false"}
+    properties:
+      valueType: Float64
+      readWrite: RW
+      units: degrees
+
+  - name: LGShimmyDamperStatus
+    description: |
+      Status of the landing gear shimmy damper
+      0 = "normal": Shimmy damper is functioning normally
+      1 = "fault": Shimmy damper has a fault
+    attributes:
+      {dataGenerator: "float", "min": "0.0", "max": "1.0", "useMultiplier": "false"}
+    properties:
+      valueType: Float64
+      readWrite: RW
+      units: none
+
+  - name: LGBrakeTemperature
+    description: Temperature of the landing gear brakes
+    attributes:
+      {dataGenerator: "float", "min": "0.0", "max": "1000.0", "useMultiplier": "false"}
+    properties:
+      valueType: Float64
+      readWrite: RW
+      units: degrees Fahrenheit
+
+  - name: LGBrakeWear
+    description: Wear level of the landing gear brakes
+    attributes:
+      {dataGenerator: "float", "min": "0.0", "max": "100.0", "useMultiplier": "false"}
+    properties:
+      valueType: Float64
+      readWrite: RW
+      units: percent
+
+  - name: LGLoad
+    description: Load on the landing gear
+    attributes:
+      {dataGenerator: "float", "min": "0.0", "max": "50000.0", "useMultiplier": "false"}
+    properties:
+      valueType: Float64
+      readWrite: RW
+      units: pounds
+
+  - name: LGBrakePressure
+    description: Pressure in the landing gear brakes
+    attributes:
+      {dataGenerator: "float", "min": "0.0", "max": "5000.0", "useMultiplier": "false"}
+    properties:
+      valueType: Float64
+      readWrite: RW
+      units: psi
+
+  - name: LGAntiSkidSystemStatus
+    description: |
+      Status of the landing gear anti-skid system
+      0 = "off": Anti-skid system is off
+      1 = "on": Anti-skid system is on
+      2 = "fault": Anti-skid system has a fault
+    attributes:
+      {dataGenerator: "float", "min": "0.0", "max": "2.0", "useMultiplier": "false"}
+    properties:
+      valueType: Float64
+      readWrite: RW
+      units: none
+
+deviceCommands:
+  - name: "Get-RC-MainLandingGear-Data"
+    readWrite: "R"
+    resourceOperations:
+      - { operation: "get", deviceResource: "LGPosition" }
+      - { operation: "get", deviceResource: "LGDoorPosition" }
+      - { operation: "get", deviceResource: "LGVibrationAmplitude" }
+      - { operation: "get", deviceResource: "LGVibrationFrequency" }
+      - { operation: "get", deviceResource: "LGMotorTemperature" }
+      - { operation: "get", deviceResource: "LGCurrentFlow" }
+      - { operation: "get", deviceResource: "LGVoltage" }
+      - { operation: "get", deviceResource: "LGDeploymentTime" }
+      - { operation: "get", deviceResource: "LGAcceleration" }
+      - { operation: "get", deviceResource: "LGMotorHealth" }
+
+  - name: "Get-RC-FrontLandingGear-Data"
+    readWrite: "R"
+    resourceOperations:
+      - { operation: "get", deviceResource: "LGPosition" }
+      - { operation: "get", deviceResource: "LGDoorPosition" }
+      - { operation: "get", deviceResource: "LGVibrationAmplitude" }
+      - { operation: "get", deviceResource: "LGVibrationFrequency" }
+      - { operation: "get", deviceResource: "LGMotorTemperature" }
+      - { operation: "get", deviceResource: "LGCurrentFlow" }
+      - { operation: "get", deviceResource: "LGVoltage" }
+      - { operation: "get", deviceResource: "LGDeploymentTime" }
+      - { operation: "get", deviceResource: "LGAcceleration" }
+      - { operation: "get", deviceResource: "LGMotorHealth" }
+
+
+  - name: "Get-Full-MainLandingGear-Data"
+    readWrite: "R"
+    resourceOperations:
+      - { operation: "get", deviceResource: "LGPosition" }
+      - { operation: "get", deviceResource: "LGDoorPosition" }
+      - { operation: "get", deviceResource: "LGVibrationAmplitude" }
+      - { operation: "get", deviceResource: "LGVibrationFrequency" }
+      - { operation: "get", deviceResource: "LGMotorTemperature" }
+      - { operation: "get", deviceResource: "LGCurrentFlow" }
+      - { operation: "get", deviceResource: "LGVoltage" }
+      - { operation: "get", deviceResource: "LGDeploymentTime" }
+      - { operation: "get", deviceResource: "LGAcceleration" }
+      - { operation: "get", deviceResource: "LGMotorHealth" }
+      - { operation: "get", deviceResource: "LGShockAbsorberPressure" }
+      - { operation: "get", deviceResource: "LGTirePressure" }
+      - { operation: "get", deviceResource: "LGStrutExtension" }
+      - { operation: "get", deviceResource: "LGECUStatus" }
+      - { operation: "get", deviceResource: "LGBearingTemperature" }
+      - { operation: "get", deviceResource: "LGHydraulicFluidLevel" }
+      - { operation: "get", deviceResource: "LGHydraulicPumpStatus" }
+      - { operation: "get", deviceResource: "LGEmergencyReleaseStatus" }
+      - { operation: "get", deviceResource: "LGWheelSpeed" }
+      - { operation: "get", deviceResource: "LGHydraulicPressure" }
+      - { operation: "get", deviceResource: "LGSteeringAngle" }
+      - { operation: "get", deviceResource: "LGSteeringActuatorPosition" }
+      - { operation: "get", deviceResource: "LGSteeringCommandSignal" }
+      - { operation: "get", deviceResource: "LGSteeringMotorCurrent" }
+      - { operation: "get", deviceResource: "LGCasterAngle" }
+      - { operation: "get", deviceResource: "LGShimmyDamperStatus" }
+
+  - name: "Get-Full-FrontLandingGear-Data"
+    readWrite: "R"
+    resourceOperations:
+      - { operation: "get", deviceResource: "LGPosition" }
+      - { operation: "get", deviceResource: "LGDoorPosition" }
+      - { operation: "get", deviceResource: "LGVibrationAmplitude" }
+      - { operation: "get", deviceResource: "LGVibrationFrequency" }
+      - { operation: "get", deviceResource: "LGMotorTemperature" }
+      - { operation: "get", deviceResource: "LGCurrentFlow" }
+      - { operation: "get", deviceResource: "LGVoltage" }
+      - { operation: "get", deviceResource: "LGDeploymentTime" }
+      - { operation: "get", deviceResource: "LGAcceleration" }
+      - { operation: "get", deviceResource: "LGMotorHealth" }
+      - { operation: "get", deviceResource: "LGShockAbsorberPressure" }
+      - { operation: "get", deviceResource: "LGTirePressure" }
+      - { operation: "get", deviceResource: "LGStrutExtension" }
+      - { operation: "get", deviceResource: "LGECUStatus" }
+      - { operation: "get", deviceResource: "LGBearingTemperature" }
+      - { operation: "get", deviceResource: "LGHydraulicFluidLevel" }
+      - { operation: "get", deviceResource: "LGHydraulicPumpStatus" }
+      - { operation: "get", deviceResource: "LGEmergencyReleaseStatus" }
+      - { operation: "get", deviceResource: "LGWheelSpeed" }
+      - { operation: "get", deviceResource: "LGHydraulicPressure" }
+      - { operation: "get", deviceResource: "LGSteeringAngle" }
+      - { operation: "get", deviceResource: "LGSteeringActuatorPosition" }
+      - { operation: "get", deviceResource: "LGSteeringCommandSignal" }
+      - { operation: "get", deviceResource: "LGSteeringMotorCurrent" }
+      - { operation: "get", deviceResource: "LGCasterAngle" }
+      - { operation: "get", deviceResource: "LGShimmyDamperStatus" }

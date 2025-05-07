@@ -1,0 +1,48 @@
+{
+ "name": "bam-bam",
+ "description": "gillian is backkkkk at it",
+ "mlAlgorithm": "HedgeAnomaly",
+ "primaryProfile": "WindTurbine",
+ "featuresByProfile": {
+  "WindTurbine": [
+   {
+    "type": "METRIC",
+    "name": "WindSpeed",
+    "isInput": true,
+    "isOutput": false
+   },
+   {
+    "type": "METRIC",
+    "name": "TurbinePower",
+    "isInput": true,
+    "isOutput": false
+   },
+   {
+    "type": "METRIC",
+    "name": "RotorSpeed",
+    "isInput": true,
+    "isOutput": false
+   }
+  ]
+ },
+ "groupByMetaData": [
+  "deviceName"
+ ],
+ "trainingDataFilters": [
+  {
+   "label": "deviceName",
+   "operator": "CONTAINS",
+   "value": "AltaNS14"
+  }
+ ],
+ "samplingIntervalSecs": 30,
+ "trainingDurationSecs": 864000,
+ "inputTopicForInferencing": "hedge/events/device/WindTurbine/#",
+ "enabled": true,
+ "modelVersion": 1,
+ "featureNameToColumnIndex": {
+  "WindTurbine#RotorSpeed": 2,
+  "WindTurbine#TurbinePower": 1,
+  "WindTurbine#WindSpeed": 0
+ }
+}

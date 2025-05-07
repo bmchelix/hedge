@@ -1,0 +1,51 @@
+Writable:
+  LogLevel: INFO
+Service:
+  Host: localhost
+  Port: 59745
+  StartupMsg: export-biz_data Application Service has started
+
+SecretStore:
+  Path: app-export-biz-data/
+  TokenFile: /tmp/edgex/secrets/app-export-biz-data/secrets-token.json
+
+MessageBus:
+  Type: mqtt
+  Host: localhost
+  Port: 1883
+  Protocol: tcp
+  PublishTopic: "hedge/biz/data/"
+
+Trigger:
+  Type: "http"
+  ExternalMqtt:
+    Qos: 0
+    KeepAlive: 10
+    Retained: false
+    AutoReconnect: true
+    ConnectTimeout: '30s'
+    SkipCertVerify: false
+    AuthMode: usernamepassword
+    SecretName: mbconnection
+
+ApplicationSettings:
+  Pg_db_host: automak-dash.innovationlabs.bmc.com
+  Pg_db_port: '5432'
+  Pg_db_name: fleet
+  Pg_db_user: readonly_user
+  TriggerInterval: '1'
+  TriggerServer: 'http://localhost:59745/api/v3/trigger'
+  Device_Extn: 'http://localhost:48097'
+  Queries: >-
+    SELECT f.str_license_number as deviceName,int_quantity::bigint as
+    billed_fuel_qty, extract(epoch from dt_transaction_date)::bigint as
+    last_fuel_billed_date FROM fuel_information f inner join (SELECT
+    str_license_number, max(dt_transaction_date) as MaxDate from
+    fuel_information group by str_license_number) fm on f.str_license_number =
+    fm.str_license_number and f.dt_transaction_date = fm.MaxDate ; SELECT
+    t.str_license_number as deviceName, t.str_driver_name as driverName,
+    extract(epoch from dt_in_date)::bigint, t.int_driver_code as driverCode from
+    agreement_information t inner join (select str_license_number,
+    max(dt_in_date) as MaxDate from agreement_information group by
+    str_license_number) tm on t.str_license_number = tm.str_license_number and
+    t.dt_in_date = tm.MaxDate

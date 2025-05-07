@@ -1,0 +1,49 @@
+Writable:
+  LogLevel: INFO
+  StoreAndForward:
+    Enabled: false
+    RetryInterval: "2m"
+    MaxRetryCount: 5
+  Telemetry:
+    Interval: "0s"
+
+Service:
+  Host: localhost
+  Port: 48099
+  StartupMsg: hedge export service started
+
+SecretStore:
+  Path: app-hedge-export/
+  TokenFile: /tmp/edgex/secrets/app-hedge-export/secrets-token.json
+
+MessageBus:
+  Disabled: true
+
+Trigger:
+  Type: external-mqtt
+  SubscribeTopics: '$share/s_metrics/+/metrics, $share/s_metrics/+/telemetry/#, $share/s_metrics/+/ml/metrics/predictions'
+  #SubscribeTopics: 'BMCMetrics'
+  PublishTopic: ''
+  ExternalMqtt:
+    Url: 'tcp://localhost:1883'
+    #ClientId: "app-hedge-export"
+    ConnectTimeout: 30s
+    AutoReconnect: true
+    KeepAlive: 300
+    QoS: 0
+    Retain: false
+    SkipCertVerify: true
+    SecretName: mbconnection
+    AuthMode: usernamepassword
+
+ApplicationSettings:
+  PersistOnError: 'false'
+  VictoriaMetricsURL: 'http://bcx-pun-4e49866.bmc.com:8428/api/v1/import/prometheus'
+  EnableExportTelemetry: 'false'
+  SubscribeTopics: 'metrics, telemetry/#, ml/metrics/predictions' #Note that actual topic name is prefixed by hedge/telemetry, hedge/BMCMetrics etc
+
+ExportConfig:
+  #EnableVictoria: true
+  # BatchTimer code is commented out, so not applicable
+  BatchTimer: 1m
+  BatchSize: 10

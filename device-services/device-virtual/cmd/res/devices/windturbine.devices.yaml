@@ -1,0 +1,79 @@
+deviceList:
+  - name: AltaNS12
+    profileName: WindTurbine
+    description: Wind Turbine Instance AltaNS12
+    labels:
+      - Wind Turbine
+    protocols:
+      other:
+        address: hvac-system-01
+        port: '300'
+    autoEvents:
+      - interval: 10s
+        onChange: false
+        sourceName: Get-WindTurbine-Data
+  - name: AltaNS14
+    profileName: WindTurbine
+    description: Wind Turbine Instance AltaNS14
+    labels:
+      - Wind Turbine
+    protocols:
+      other:
+        address: hvac-system-01
+        port: '300'
+    autoEvents:
+      - interval: 10s
+        onChange: false
+        sourceName: Get-WindTurbine-Data
+  - name: AltaNS16
+    profileName: WindTurbine
+    description: Wind Turbine Instance NS16
+    labels:
+      - Wind Turbine
+    protocols:
+      other:
+        address: wind-turbine-03
+        port: '300'
+    autoEvents:
+      - interval: 40s
+        onChange: false
+        sourceName: GenGearOilLevelPercent
+  - name: AltaNS18
+    profileName: WindTurbine
+    description: Wind Turbine Instance NS18
+    labels:
+      - Wind Turbine
+    protocols:
+      other:
+        address: wind-turbine-04
+        port: '300'
+    autoEvents:
+      - interval: 40s
+        onChange: false
+        sourceName: GenGearOilLevelPercent
+  - name: AltaNS20
+    profileName: WindTurbine
+    description: Wind Turbine Instance NS20
+    labels:
+      - Wind Turbine
+    protocols:
+      other:
+        address: wind-turbine-05
+        port: '300'
+    autoEvents:
+      - interval: 60s
+        onChange: false
+        sourceName: GenGearOilLevelPercent
+  - name: AltaNS22
+    profileName: WindTurbine
+    description: Wind Turbine Instance NS22
+    labels:
+      - Wind Turbine
+    protocols:
+      other:
+        address: wind-turbine-06
+        port: '300'
+    autoEvents:
+      - interval: 60s
+        onChange: false
+        sourceName: GenGearOilLevelPercent

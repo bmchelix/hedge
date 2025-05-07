@@ -1,0 +1,28 @@
+[
+  {
+    "id": "bf47c3db.d1bc",
+    "type": "mqtt-broker",
+    "name": "MessageBroker - Hedge",
+    "broker": "edgex-mqtt-broker",
+    "port": "1883",
+    "autoConnect": true,
+    "usetls": false,
+    "compatmode": false,
+    "protocolVersion": "4",
+    "keepalive": "60",
+    "cleansession": true,
+    "birthTopic": "",
+    "birthQos": "0",
+    "birthPayload": "",
+    "birthMsg": {},
+    "closeTopic": "",
+    "closeQos": "0",
+    "closePayload": "",
+    "closeMsg": {},
+    "willTopic": "",
+    "willQos": "0",
+    "willPayload": "",
+    "willMsg": {},
+    "sessionExpiry": ""
+  }
+]

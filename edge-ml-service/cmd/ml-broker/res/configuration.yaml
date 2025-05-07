@@ -1,0 +1,26 @@
+Writable:
+  LogLevel: INFO
+  
+Service:
+  Host: localhost
+  Port: 48120
+  StartupMsg: ml broker service started
+
+SecretStore:
+  Path: app-hedge-ml-broker/
+  TokenFile: /tmp/edgex/secrets/app-hedge-ml-broker/secrets-token.json
+
+Trigger:
+  Type: "edgex-messagebus"
+  # example: "hedge.enriched.events.device.WindTurbine.AltaNS12.Get-WindTurbine-Data"
+  SubscribeTopics: enriched/events/device/#
+  #PublishTopic: hedge/ml/events
+
+ApplicationSettings:
+  LocalMLModelDir: "./res/models"
+  EventPipelineTriggerURL: 'http://localhost:48102/api/v3/trigger'
+  PublishMLPredictionTopic: "ml/metrics/predictions"
+  #ReadMessageBus: "MQTT" not implemented fully, so don't use it
+  ReadMessageBus: "redis"
+  #RealTimePredictions: "true" to be deprecated
+

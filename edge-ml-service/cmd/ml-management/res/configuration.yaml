@@ -1,0 +1,62 @@
+Writable:
+  LogLevel: "INFO"
+
+Service:
+  Host: localhost
+  Port: 48095
+  StartupMsg: Anomaly Detection Broker Service to configure training data and the training job
+
+Clients:
+  support-notifications:
+    Protocol: "http"
+    Host: "localhost"
+    Port: 59860
+
+
+SecretStore:
+  Path: app-hedge-ml-management/
+  TokenFile: /tmp/edgex/secrets/app-hedge-ml-management/secrets-token.json
+
+MessageBus:
+  Disabled: true
+
+Trigger:
+  Type: external-mqtt
+  # either deploy when we get deployment status or train when we get training status in case of local hedge training
+  SubscribeTopics: $share/ml_mgmt/+/model/+/status
+  PublishTopic: ''
+  ExternalMqtt:
+    Url: 'tcp://localhost:1883'
+    ConnectTimeout: 25s
+    AutoReconnect: true
+    KeepAlive: 300
+    QoS: 0
+    SkipCertVerify: true
+    SecretName: mbconnection
+    AuthMode: usernamepassword
+
+ApplicationSettings:
+  ModelDeployTopic: "model/deploy"
+  Local_DataStore_URL: 'http://bcx-pun-4e49866.bmc.com:8428/api/v1'
+  DigitalTwinUrl: 'http://localhost:48090/api/v3'
+  PersistOnError: 'false'
+  BaseTrainingDataLocalDir: /Users/girigupt/go/src/edge-iot/edge-ml-service/cmd/ml-management/res/model
+  Training_Provider: Hedge
+  #PackageUris: gs://hedge_iot_org1/packages/gcp_anomaly_detection_training_production/trainer-0.1.tar.gz
+  #StorageBucket: hedge_iot_org1
+  #ProjectName: projects/sso-gcp-dba-ctm1-pub-cc30691
+  #Region: us-central1
+  ModelDir: hedge_export
+  # JobDir is required for local training and this is shared with ml-sandbox
+  JobDir: /tmp/jobs
+  TrainingTriggerTopic: "hedge/model/train"
+  SubscribeTopics: 'model/deploy/status,model/train/status' #Note that actual topic name is prefixed by hedge
+
+  EstimatedJobDuration: '1800'
+  ImageRegistry: 'pun-harbor-reg1.bmc.com/iot/'
+  #ADE_TENANT_URL: 'https://tenant3-adematrixstack4-trial.dsmlab.bmc.com'
+  #ADE_TENANT_ID: "1666987093"
+  UserId_header: X-Credential-Identifier
+  # Applies to AIF training and implies that the training data is downloaded locally in Hedge vs the other option when the
+  # training data is created in ADE side itself
+  LocalDataCollection: 'true'

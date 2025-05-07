@@ -1,0 +1,11 @@
+**/node_modules
+**/dist
+**/Dev
+*Dockerfile*
+**/.git
+**/.github
+**/*.postman_collection.json
+# To skip copying these files in hedge-admin docker image
+**/_archive
+**/_dev
+contents/demo-scripts/Airplane-CGAS/Simulation

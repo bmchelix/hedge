@@ -1,0 +1,105 @@
+{
+ "mlModelConfig": {
+  "name": "TexasTurbine",
+  "version": "v3",
+  "description": "Training config for deepVar-TimeSeries",
+  "mlAlgorithm": "deepVar-TimeSeries",
+  "mlDataSourceConfig": {
+   "groupOrJoinKeys": [
+    "DeviceName"
+   ],
+   "supportSlidingWindow": true,
+   "timeStampAttributeRequired": true,
+   "groupByAttributesRequired": true,
+   "outputPredictionCount": 5,
+   "featuresByProfile": {
+    "TexasTurbine": [
+     {
+      "type": "METRIC",
+      "name": "SystemPowerGenerated",
+      "isInput": true,
+      "isOutput": true,
+      "isExternal": false
+     },
+     {
+      "type": "METRIC",
+      "name": "Windspeed",
+      "isInput": true,
+      "isOutput": true,
+      "isExternal": false
+     },
+     {
+      "type": "METRIC",
+      "name": "WindDirection",
+      "isInput": true,
+      "isOutput": true,
+      "isExternal": false
+     },
+     {
+      "type": "METRIC",
+      "name": "Pressure",
+      "isInput": true,
+      "isOutput": true,
+      "isExternal": false
+     },
+     {
+      "type": "METRIC",
+      "name": "AirTemperature",
+      "isInput": true,
+      "isOutput": true,
+      "isExternal": false
+     }
+    ]
+   },
+   "featureNameToColumnIndex": {
+    "Timestamp": 0,
+    "DeviceName": 1,
+    "TexasTurbine#SystemPowerGenerated": 2,
+    "TexasTurbine#Windspeed": 3,
+    "TexasTurbine#WindDirection": 4,
+    "TexasTurbine#Pressure": 5,
+    "TexasTurbine#AirTemperature": 6
+   },
+   "trainingDataSourceConfig": {
+    "dataCollectionTotalDurationSec": 3000,
+    "samplingIntervalSecs": 30
+   },
+   "predictionDataSourceConfig": {
+    "streamType": "",
+    "samplingIntervalSecs": 30,
+    "topicName": "events/device/#",
+    "predictionEndPointURL": "http://deepvar-timeseries:53000/api/v3/predict"
+   }
+  },
+  "message": "Timeseries prediction received",
+  "enabled": true,
+  "localModelStorageDir": "/res/edge/models",
+  "trainedModelCount": 3
+ },
+ "mlAlgoDefinition": {
+  "name": "ETS-TimeSeries",
+  "description": "Helix Edge DeepVar based Timeseries Algorithm",
+  "type": "Timeseries",
+  "enabled": true,
+  "outputFeaturesPredefined": false,
+  "allowDeploymentAtEdge": true,
+  "requiresDataPipeline": true,
+  "isPredictionRealTime": true,
+  "defaultPredictionEndpointUrl": "http://deepvar-timeseries:53000/api/v3/predict",
+  "trainerImagePath": "lpade:hedge-ml-trg-timeseries-deepvar",
+  "predictionImagePath": "pun-harbor-reg1.bmc.com/iot/hedge-ml-pred-timeseries-ets:25.1.00_latest",
+  "predictionPayloadTemplate": {
+   "name": "Timeseries",
+   "payloadSample": "{\n\t\"correlation-id-01\" : {\n\t\t\"data\" : [[3, 3.14, 5]],\n\t\t\"confidence_interval\" : {\n\t\t\t\"min\" : 0.6,\n\t\t\t\"max\" : 0.95\n\t\t}\n\t},\n\t\"correlation-id-02\" : {\n\t\t\"data\" : [[5, 2.71, 3],[5.4, 1.41, 6],[5.4, 1.41, 6]],\n\t\t\"confidence_interval\" : {\n\t\t\t\"min\" : 0.6,\n\t\t\t\"max\" : 0.95\n\t\t}\n\t}\n}",
+   "template": "{\n\t{{- $length := len .CollectedData -}}\n\t{{- $counter := 0 -}}\n\t{{- range $correlationID, $inferenceData := .CollectedData }}\n\t\"{{ $correlationID }}\" : {\n\t\t\"data\" : [\n\t\t\t{{- range $rowIndex, $row := $inferenceData.Data -}}\n\t\t\t[{{- range $i, $value := $row -}}{{ if $i }}, {{ end }}{{- if eq (printf \"%T\" $value) \"string\" -}}\"{{ $value }}\"{{- else -}}{{ $value }}{{- end -}}{{- end }}]{{ if lt $rowIndex (sub (len $inferenceData.Data) 1) }},{{ end }}\n\t\t\t{{- end -}}\n\t\t]\n\t\t{{- if and (ne $.HyperParameters.confidence_min nil) (ne $.HyperParameters.confidence_max nil) -}},\n\t\t\"confidence_interval\" : {\n\t\t\t\"min\" : {{ $.HyperParameters.confidence_min }},\n\t\t\t\"max\" : {{ $.HyperParameters.confidence_max }}\n\t\t}\n\t\t{{- end -}}\n\t}{{ if lt (add 1 $counter) $length }},{{ end }}\n\t{{- $counter = (add $counter 1) -}}\n\t{{- end -}}\n}"
+  },
+  "predictionOutputKeys": [
+   "prediction"
+  ],
+  "autoEventGenerationRequired": true,
+  "publishPredictionsRequired": true,
+  "hyperParameters": {},
+  "addTimeStampToFeature": true,
+  "isOotb": true
+ }
+}
