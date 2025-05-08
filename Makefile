@@ -514,7 +514,7 @@ hedge_ml_management: $(SRC_ML) $(SRC_COMMON)
 	docker build \
 		$(DOCKER_LABELS) \
 		$(DOCKER_BUILDARGS) \
-		---target=builder \
+		--target=builder \
 		--label "Name=hedge-ml-management" \
 		-f edge-ml-service/cmd/ml-management/Dockerfile \
 		-t hedge-ml-management:$(GIT_SHA) \
