@@ -41,6 +41,8 @@ COPY go.mod .
 RUN go mod download all
 COPY . .
 
+RUN go test ./edge-ml-service/...
+
 RUN GO111MODULE=on go build -ldflags "-X hedge.Version=latest" -o ml-management ./edge-ml-service/cmd/ml-management/main.go
 
 #==========================================================================================================================================================

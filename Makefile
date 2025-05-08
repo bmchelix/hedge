@@ -249,7 +249,7 @@ clean-docker:
 	rm -f $(DOCKER_ENRICH) $(DOCKER_ADMN) $(DOCKER_DEXT) $(DOCKER_TWIN) $(DOCKER_EVE) $(DOCKER_EPUB) $(DOCKER_EXP) $(DOCKER_RMDT) $(DOCKER_USRMGT) \
 		$(DOCKER_EXPBIZ) $(DOCKER_METNOTIFIER) $(DOCKER_METSYNC) $(DOCKER_NATSPRXY) $(DOCKER_MLMGMT) $(DOCKER_MLBRKR) $(DOCKER_MLAGNT) $(DOCKER_MLSANDBOX) $(DOCKER_MLPYBASE) $(DOCKER_MLAUTO) \
 		$(DOCKER_MLINF) $(DOCKER_MLTRGCLASS) $(DOCKER_MLPREDCLASS) $(DOCKER_MLTRGTIMES) $(DOCKER_MLPREDTIMES) $(DOCKER_MLTRGREGR) $(DOCKER_MLPREDREGR) $(DOCKER_INIT) \
-		$(DOCKER_NGINX) $(DOCKER_UI) $(DOCKER_GRAFANA) hedge_grafana_contents $(DOCKER_NRED) $(DOCKER_KUIPR) $(DOCKER_DSVIRT) $(DOCKER_SWAGGER_UI)
+		$(DOCKER_NGINX) $(DOCKER_GRAFANA) hedge_grafana_contents $(DOCKER_NRED) $(DOCKER_KUIPR) $(DOCKER_DSVIRT) $(DOCKER_SWAGGER_UI)
 
 # This list will be used during 'make docker' to build the docker images
 DOCKER_ENRICH=hedge_data_enrichment
@@ -320,7 +320,7 @@ push-python-test-coverage-base: build-python-test-coverage-base
 docker: $(DOCKER_EDGEX) $(DOCKER_ENRICH) $(DOCKER_ADMN) $(DOCKER_DEXT) $(DOCKER_TWIN) $(DOCKER_EVE) $(DOCKER_EPUB) $(DOCKER_EXP) $(DOCKER_RMDT) $(DOCKER_USRMGT) \
 		$(DOCKER_EXPBIZ) $(DOCKER_METNOTIFIER) $(DOCKER_METSYNC) $(DOCKER_NATSPRXY) $(DOCKER_MLMGMT) $(DOCKER_MLBRKR) $(DOCKER_MLAGNT) $(DOCKER_MLSANDBOX) $(DOCKER_MLAUTO) \
 		$(DOCKER_MLINF) $(DOCKER_MLTRGCLASS) $(DOCKER_MLPREDCLASS) $(DOCKER_MLTRGTIMES) $(DOCKER_MLPREDTIMES) $(DOCKER_MLTRGREGR) $(DOCKER_MLPREDREGR) $(DOCKER_INIT) \
-		$(DOCKER_NGINX) $(DOCKER_UI) $(DOCKER_GRAFANA) hedge_grafana_contents $(DOCKER_NRED) $(DOCKER_KUIPR) $(DOCKER_DSVIRT) $(DOCKER_SWAGGER_UI)
+		$(DOCKER_NGINX) $(DOCKER_GRAFANA) hedge_grafana_contents $(DOCKER_NRED) $(DOCKER_KUIPR) $(DOCKER_DSVIRT) $(DOCKER_SWAGGER_UI)
 
 GIT_SHA=$(shell git rev-parse HEAD)
 DOCKER_VERSION=$(shell docker version --format '{{.Server.Version}}')
@@ -514,6 +514,7 @@ hedge_ml_management: $(SRC_ML) $(SRC_COMMON)
 	docker build \
 		$(DOCKER_LABELS) \
 		$(DOCKER_BUILDARGS) \
+		--build-arg "--target builder" \
 		--label "Name=hedge-ml-management" \
 		-f edge-ml-service/cmd/ml-management/Dockerfile \
 		-t hedge-ml-management:$(GIT_SHA) \
@@ -712,19 +713,19 @@ hedge_nginx: $(SRC_NGINX)
 		touch $@
 
 SRC_UI_PORTAL := $(shell find ui/edge-portal -type f | grep -v ' ')
-hedge_ui_server: $(SRC_UI_PORTAL)
-	docker build \
-		$(DOCKER_LABELS) \
-		$(DOCKER_BUILDARGS) \
-		--label "Name=hedge-ui-server" \
-		--build-arg VERSION=$(HEDGE_RELEASE_VERSION) \
-		--build-arg UX_REGISTRY=$(UX_REGISTRY) \
-		--build-arg ANGULAR_VERSION=$(ANGULAR_VERSION) \
-		-f ui/edge-portal/Dockerfile \
-		-t hedge-ui-server:$(GIT_SHA) \
-		-t hedge-ui-server:$(DOCKER_TAG) \
-		.
-		touch $@
+#hedge_ui_server: $(SRC_UI_PORTAL)
+#	docker build \
+#		$(DOCKER_LABELS) \
+#		$(DOCKER_BUILDARGS) \
+#		--label "Name=hedge-ui-server" \
+#		--build-arg VERSION=$(HEDGE_RELEASE_VERSION) \
+#		--build-arg UX_REGISTRY=$(UX_REGISTRY) \
+#		--build-arg ANGULAR_VERSION=$(ANGULAR_VERSION) \
+#		-f ui/edge-portal/Dockerfile \
+#		-t hedge-ui-server:$(GIT_SHA) \
+#		-t hedge-ui-server:$(DOCKER_TAG) \
+#		.
+#		touch $@
 
 PLATFORM=linux/amd64
 SRC_GRAFANA := $(shell find external/grafana -type f | grep -v ' ')
