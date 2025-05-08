@@ -14,8 +14,15 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v4
 
-    - name: Set up environment
-      run: sudo apt-get update && sudo apt-get install -y make
+    - name: Set up Go
+      uses: actions/setup-go@v4
+      with:
+        go-version-file: 'go.mod'
+        cache: true
 
-    - name: Run make hedge_ml_management
-      run: make hedge_ml_management
+    - name: Build
+      run: |
+        go mod download all
+
+    - name: Unit Test
+      run: go test ./edge-ml-service/...
