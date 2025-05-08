@@ -1,0 +1,26 @@
+Writable:
+  LogLevel: INFO
+
+Service:
+  Host: localhost
+  Port: 48860
+  StartupMsg: metadata-notifier service has started
+
+SecretStore:
+  Path: app-metadata-notifier/
+  TokenFile: /tmp/edgex/secrets/app-metadata-notifier/secrets-token.json
+  Authentication:
+    AuthType: X-Vault-Token
+
+Clients:
+  support-notifications:
+    Protocol: "http"
+    Host: "localhost"
+    Port: 59860
+
+Trigger:
+  Type: "edgex-messagebus"
+  SubscribeTopics: "system-events/core-metadata/#" # Base topic is prepended to this topic when using edgex-messagebus
+
+#ApplicationSettings:
+

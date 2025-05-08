@@ -1,0 +1,76 @@
+with-expecter: True
+packages:
+  hedge/app-services/hedge-device-extensions/pkg/service:
+    interfaces:
+      all: true
+  hedge/app-services/hedge-device-extensions/pkg/db/redis:
+    interfaces:
+      all: True
+  hedge/common/db/redis:
+    interfaces:
+      all: True
+  hedge/app-services/hedge-event-publisher/pkg/db:
+    config:
+      all: True
+    interfaces:
+      Writer:
+        config:
+          with-expector: False
+  hedge/common/service:
+    interfaces:
+      all: True
+  hedge/common/client:
+    interfaces:
+      all: True
+  hedge/edge-ml-service/pkg/db/redis:
+    config:
+      all: True
+    interfaces:
+      Writer:
+        config:
+          with-expector: False
+  hedge/app-services/user-app-mgmt/pkg/config:
+    interfaces:
+      all: True
+  hedge/app-services/user-app-mgmt/pkg/repository:
+    interfaces:
+      all: True
+  hedge/edge-ml-service/pkg/helpers:
+    interfaces:
+      all: True
+  hedge/edge-ml-service/internal/training:
+    interfaces:
+      all: True
+  hedge/edge-ml-service/pkg/ml-agent:
+    interfaces:
+      all: True
+  hedge/edge-ml-service/pkg/docker:
+    interfaces:
+      all: True
+  hedge/edge-ml-service/pkg/training-data:
+    interfaces:
+      all: True
+  hedge/edge-ml-service/pkg/digital-twin:
+    interfaces:
+      all: True
+  hedge/app-services/hedge-remediate/db:
+    interfaces:
+      all: True
+  hedge/app-services/hedge-remediate/functions:
+   interfaces:
+     all: True
+  hedge/app-services/hedge-admin/db:
+    interfaces:
+      all: True
+  hedge/app-services/hedge-event/functions:
+    interfaces:
+      all: True
+  hedge/app-services/hedge-remediate/functions/request_service:
+    interfaces:
+      all: True
+  hedge/app-services/export-biz-data/functions/connection:
+    interfaces:
+      all: True
+  hedge/app-services/data-enrichment/cache:
+    interfaces:
+      all: True

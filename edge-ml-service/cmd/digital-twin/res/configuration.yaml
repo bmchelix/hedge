@@ -1,0 +1,30 @@
+Writable:
+  LogLevel: INFO
+
+Service:
+  Host: localhost
+  Port: 48090
+  StartupMsg: hedge-digital-twin service started
+  RequestTimeout: 30s
+
+SecretStore:
+  Path: app-digital-twin/
+  TokenFile: /tmp/edgex/secrets/app-digital-twin/secrets-token.json
+
+MessageBus:
+  Disabled: true
+
+Trigger:
+  Type: http
+
+
+Clients:
+  support-notifications:
+    Protocol: "http"
+    Host: "localhost"
+    Port: 59860
+
+ApplicationSettings:
+#  PersistOnError: 'true'
+  MLManagementURL: "http://localhost:48095/api/v3/ml_management"
+  MLBrokerURL: "http://localhost:48120/api/v3/ml_broker/prediction/mlconfig"

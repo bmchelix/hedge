@@ -1,0 +1,13 @@
+[run]
+# Omit empty files from coverage measurement
+omit =
+    */__init__.py
+    *test*.py
+    */tuning.py
+    */poc/*
+
+[report]
+# Exclude files with no statements
+exclude_lines =
+    if __name__ == .__main__.
+    pass

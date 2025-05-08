@@ -1,0 +1,80 @@
+{
+ "mlModelConfig": {
+  "name": "HedgeAnomalyConfig",
+  "description": "Training data config for Wind turbine",
+  "mlAlgorithm": "HedgeAnomaly",
+  "mlDataSourceConfig": {
+   "groupOrJoinKeys": [
+    "deviceName"
+   ],
+   "supportSlidingWindow": true,
+   "featuresByProfile": {
+    "WindTurbine": [
+     {
+      "type": "METRIC",
+      "name": "TurbinePower",
+      "isInput": false,
+      "isOutput": true,
+      "isExternal": false
+     },
+     {
+      "type": "METRIC",
+      "name": "RotorSpeed",
+      "isInput": true,
+      "isOutput": false,
+      "isExternal": false
+     },
+     {
+      "type": "METRIC",
+      "name": "WindSpeed",
+      "isInput": true,
+      "isOutput": false,
+      "isExternal": false
+     }
+    ]
+   },
+   "featureNameToColumnIndex": {
+    "WindTurbine#RotorSpeed": 1,
+    "WindTurbine#TurbinePower": 0,
+    "WindTurbine#WindSpeed": 2
+   },
+   "trainingDataSourceConfig": {
+    "dataCollectionTotalDurationSec": 1800,
+    "samplingIntervalSecs": 30
+   },
+   "predictionDataSourceConfig": {
+    "streamType": "",
+    "samplingIntervalSecs": 30,
+    "topicName": "enriched/events/device/WindTurbine/#",
+    "predictionEndPointURL": "",
+    "timeseriesFeaturesSetsCount": 0
+   }
+  },
+  "message": "",
+  "enabled": true,
+  "modelConfigVersion": 41,
+  "trainedModelCount": 40
+ },
+ "mlAlgoDefinition": {
+  "name": "HedgeAnomaly",
+  "description": "Helix Edge AutoEncoder based Anomaly Detection Algorithm",
+  "type": "Anomaly",
+  "enabled": true,
+  "outputFeaturesPredefined": false,
+  "allowDeploymentAtEdge": false,
+  "requiresDataPipeline": false,
+  "isPredictionRealTime": false,
+  "trainerImagePath": "lpade:hedge-ml-trg-anomaly-autoencoder",
+  "defaultPredictionEndpointUrl": "http://AutoEncoder:48096/api/v3/predict",
+  "predictionImagePath": "hedge-ml-pred-anomaly-autoencoder:25.1.00_latest",
+  "predictionPayloadTemplate": {
+   "name": "Anomaly",
+   "payloadSample": "{\n\t\"correlation-id-01\" : [3, 3.14, 5],\n\t\"correlation-id-02\" : [5, 2.71, 3]\n}",
+   "template": "{\n\t{{- $length := len .CollectedData -}}\n\t{{- $counter := 0 -}}\n\t{{- range $correlationID, $inferenceData := .CollectedData }}\n\t\"{{ $correlationID }}\" : [\n\t\t{{- range $i, $value := index $inferenceData.Data 0 -}}\n\t\t{{ if $i }}, {{ end }}{{- if eq (printf \"%T\" $value) \"string\" -}}\"{{ $value }}\"{{- else -}}{{ $value }}{{- end -}}\n\t\t{{- end -}}\n\t]{{ if lt (add $counter 1) $length }},{{ end }}\n\t{{- $counter = (add $counter 1) -}}\n\t{{- end -}}\n\t}"
+  },
+  "predictionOutputKeys": null,
+  "autoEventGenerationRequired": true,
+  "publishPredictionsRequired": true,
+  "hyperParameters": null
+ }
+}

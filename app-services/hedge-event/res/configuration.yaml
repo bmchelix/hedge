@@ -1,0 +1,44 @@
+Writable:
+  LogLevel: "INFO"
+  StoreAndForward:
+    Enabled: false
+    RetryInterval: "2m"
+    MaxRetryCount: 5
+
+Service:
+  Host: localhost
+  Port: 48104
+  StartupMsg: hedge event data pipeline triggered on hedge/events - MQTT message bus Started
+
+SecretStore:
+  Path: app-hedge-event/
+  TokenFile: /tmp/edgex/secrets/app-hedge-event/secrets-token.json
+
+MessageBus:
+  Disabled: true
+  
+Trigger:
+  Type: external-mqtt
+  SubscribeTopics: $share/s_events/+/events
+  PublishTopic: metrics
+  ExternalMqtt:
+    Url: 'tcp://localhost:1883'
+    ConnectTimeout: 25s
+    AutoReconnect: true
+    KeepAlive: 300
+    QoS: 0
+    Retain: false
+    SkipCertVerify: false
+    SecretName: mbconnection
+    AuthMode: usernamepassword
+
+ApplicationSettings:
+  #DataStore_Provider: "Hedge"
+  OpenSearchURL: 'http://bcx-pun-4e49866:9200'
+  PersistOnError: 'false'
+  VictoriaMetricsURL: 'http://bcx-pun-4e49866:8428'
+  #HelixEventURLExtn: "/api/v1.0/events"
+  #HelixCloseEventQueryURLExtn: "/performOperations?idType=_IDENTIFIER&operationId=120&deployment=saas"
+  SubscribeEventTopics: 'events'
+  #EnableLocalCache: "true"
+  SkipCertVerification: "true"

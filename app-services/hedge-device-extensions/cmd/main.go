@@ -1,0 +1,66 @@
+/*******************************************************************************
+ * Copyright 2018 Dell Inc.
+ * (c) Copyright 2020-2025 BMC Software, Inc.
+ *
+ * Contributors: BMC Software, Inc. - BMC Helix Edge
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except
+ * in compliance with the License. You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software distributed under the License
+ * is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express
+ * or implied. See the License for the specific language governing permissions and limitations under
+ * the License.
+ *******************************************************************************/
+package main
+
+import (
+	"hedge/app-services/hedge-device-extensions/internal/router"
+	"hedge/common/client"
+	"hedge/common/telemetry"
+	"github.com/edgexfoundry/app-functions-sdk-go/v3/pkg"
+	"os"
+)
+
+var metricsManager *telemetry.MetricsManager
+
+func main() {
+
+	service, ok := pkg.NewAppService(client.HedgeDeviceExtnsServiceKey) // Key used by Registry (Aka Consul))
+	if !ok {
+		os.Exit(-1)
+	}
+	lc := service.LoggingClient()
+
+	var err error
+	metricsManager, err = telemetry.NewMetricsManager(service, client.HedgeDeviceExtnsServiceName)
+	if err != nil {
+		lc.Errorf("Failed to create metrics manager. Returned error: %v", err)
+		os.Exit(-1)
+	}
+
+	router.NewRouter(service, client.HedgeDeviceExtnsServiceName, metricsManager.MetricsMgr).LoadRestRoutes()
+
+	dtr := router.NewDtRouter(service)
+	if dtr == nil {
+		lc.Errorf("failed to create DtRouter instance")
+		os.Exit(-1)
+	}
+	dtr.LoadDtRoutes()
+
+	metricsManager.Run()
+
+	// 5) Lastly, we'll go ahead and tell the SDK to "start"
+	err = service.Run()
+	if err != nil {
+		lc.Error("Run returned error: ", err.Error())
+		os.Exit(-1)
+	}
+
+	// Do any required cleanup here
+
+	os.Exit(0)
+
+}

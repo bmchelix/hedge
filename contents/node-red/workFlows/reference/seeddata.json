@@ -1,0 +1,979 @@
+[
+  {
+    "id": "ab6a6cbf.14f7c",
+    "type": "tab",
+    "label": "Seed Data",
+    "disabled": false,
+    "info": ""
+  },
+  {
+    "id": "d7e7bb22.b924d8",
+    "type": "http in",
+    "z": "ab6a6cbf.14f7c",
+    "name": "RestURI_ResetAnomalyEvent",
+    "url": "/anomaly/reset/:domain",
+    "method": "put",
+    "upload": false,
+    "swaggerDoc": "",
+    "x": 125,
+    "y": 139,
+    "wires": [
+      [
+        "643657fc.691428",
+        "26316b30.e1c2b4",
+        "c9589138.89e79"
+      ]
+    ]
+  },
+  {
+    "id": "c9589138.89e79",
+    "type": "function",
+    "z": "ab6a6cbf.14f7c",
+    "name": "buildGetCommandIdsPayload",
+    "func": "msg.headers = {};\nmsg.rejectUnauthorized = false\nmsg.headers['Authorization'] = 'Basic YWRtaW46YWRtaW4=';\n\nvar domain = msg.req.params.domain\nvar queryParams=\"?pretty=true&q=\"\nif ( domain.search(\"telco\") >= 0 ) {\n    queryParams = queryParams+\"correlationId:*Anomaly* AND deviceName:Washington AND status:Success AND modified:>1684074039000\"\n} else {\n// For wind-farms, \n    queryParams =queryParams + \"correlationId:*Anomaly* AND profile:WindTurbine AND status:Success\"\n}\n\nconsole.log(domain)\nmsg.url = \"http://hedge-elasticsearch:9200/commandlog_index/_search\"+queryParams\n\n//msg.url = \"http://hedge-elasticsearch:9200/commandlog_index/_doc/\"+msg.payload.id+\"?refresh\"\nmsg.method = \"GET\"\nreturn msg;\n\n",
+    "outputs": 1,
+    "noerr": 0,
+    "initialize": "",
+    "finalize": "",
+    "libs": [],
+    "x": 390,
+    "y": 320,
+    "wires": [
+      [
+        "65616e2b.f2bee"
+      ]
+    ]
+  },
+  {
+    "id": "1efb8e03.d28582",
+    "type": "http response",
+    "z": "ab6a6cbf.14f7c",
+    "name": "respondToRequest",
+    "statusCode": "201",
+    "headers": {
+      "content-type": "text/plain"
+    },
+    "x": 1510,
+    "y": 460,
+    "wires": []
+  },
+  {
+    "id": "65616e2b.f2bee",
+    "type": "http request",
+    "z": "ab6a6cbf.14f7c",
+    "name": "GetAnomalyData",
+    "method": "use",
+    "ret": "txt",
+    "paytoqs": false,
+    "url": "",
+    "tls": "",
+    "proxy": "",
+    "authType": "basic",
+    "x": 650,
+    "y": 320,
+    "wires": [
+      [
+        "2e5405c7.92926a",
+        "b60cb02a.1435d"
+      ]
+    ]
+  },
+  {
+    "id": "2e5405c7.92926a",
+    "type": "switch",
+    "z": "ab6a6cbf.14f7c",
+    "name": "success",
+    "property": "statusCode",
+    "propertyType": "msg",
+    "rules": [
+      {
+        "t": "eq",
+        "v": "200",
+        "vt": "str"
+      }
+    ],
+    "checkall": "true",
+    "repair": false,
+    "outputs": 1,
+    "x": 880,
+    "y": 360,
+    "wires": [
+      [
+        "b01c854c.0ae6b8"
+      ]
+    ]
+  },
+  {
+    "id": "b01c854c.0ae6b8",
+    "type": "json",
+    "z": "ab6a6cbf.14f7c",
+    "name": "",
+    "property": "payload",
+    "action": "",
+    "pretty": false,
+    "x": 1050,
+    "y": 360,
+    "wires": [
+      [
+        "8fc615eb.4ce488"
+      ]
+    ]
+  },
+  {
+    "id": "8fc615eb.4ce488",
+    "type": "function",
+    "z": "ab6a6cbf.14f7c",
+    "name": "buildUpdateCommandLog",
+    "func": "msg.headers = {'Content-Type': 'application/json'};\nmsg.rejectUnauthorized = false\nmsg.headers['Authorization'] = 'Basic YWRtaW46YWRtaW4=';\n\nmsg.url = \"http://hedge-elasticsearch:9200/commandlog_index/_bulk?refresh\"\n\n// Read the command_logs hits and update only the status to Delete\n\npayload = msg.payload\nif ( payload.hits.total.value == 0) {\n    //Nothing to update\n    msg.payload=\"NoData\"\n    return msg\n}\n\ndocs =  payload.hits.hits\n\nvar updatestmt=\"\"\n\nvar i;\nfor (i = 0; i < docs.length; i++) {\n    updatestmt = updatestmt+ \"{ \\\"update\\\" : {\\\"_id\\\" : \\\"\"+ docs[i]._id+\"\\\"} }\\n\"\n    updatestmt += \"{ \\\"doc\\\" : {\\\"status\\\" : \\\"Deleted\\\"} }\\n\"\n}\n\nmsg.payload = updatestmt\nmsg.method = \"PUT\"\nreturn msg;",
+    "outputs": 1,
+    "timeout": "",
+    "noerr": 0,
+    "initialize": "",
+    "finalize": "",
+    "libs": [],
+    "x": 1250,
+    "y": 360,
+    "wires": [
+      [
+        "3ba7baae.b50a16",
+        "5e48ef6b.acdd2",
+        "1efb8e03.d28582"
+      ]
+    ]
+  },
+  {
+    "id": "3ba7baae.b50a16",
+    "type": "debug",
+    "z": "ab6a6cbf.14f7c",
+    "name": "PrintDeletePayload",
+    "active": true,
+    "tosidebar": true,
+    "console": false,
+    "tostatus": false,
+    "complete": "payload",
+    "targetType": "msg",
+    "x": 1550,
+    "y": 360,
+    "wires": []
+  },
+  {
+    "id": "5e48ef6b.acdd2",
+    "type": "switch",
+    "z": "ab6a6cbf.14f7c",
+    "name": "Found",
+    "property": "payload",
+    "propertyType": "msg",
+    "rules": [
+      {
+        "t": "neq",
+        "v": "NoData",
+        "vt": "str"
+      }
+    ],
+    "checkall": "true",
+    "repair": false,
+    "outputs": 1,
+    "x": 1470,
+    "y": 240,
+    "wires": [
+      [
+        "ff4333a5.33877"
+      ]
+    ]
+  },
+  {
+    "id": "ff4333a5.33877",
+    "type": "http request",
+    "z": "ab6a6cbf.14f7c",
+    "name": "BulkUpdateStatusDeleted",
+    "method": "use",
+    "ret": "txt",
+    "paytoqs": "ignore",
+    "url": "",
+    "tls": "",
+    "persist": false,
+    "proxy": "",
+    "authType": "basic",
+    "senderr": false,
+    "x": 1690,
+    "y": 240,
+    "wires": [
+      [
+        "a0df49fb.7676a8"
+      ]
+    ]
+  },
+  {
+    "id": "a0df49fb.7676a8",
+    "type": "debug",
+    "z": "ab6a6cbf.14f7c",
+    "name": "printBulkUpdateDeletedStatus",
+    "active": true,
+    "tosidebar": true,
+    "console": false,
+    "tostatus": false,
+    "complete": "true",
+    "targetType": "full",
+    "x": 2010,
+    "y": 240,
+    "wires": []
+  },
+  {
+    "id": "26cd0d97.eb4512",
+    "type": "inject",
+    "z": "ab6a6cbf.14f7c",
+    "name": "",
+    "props": [
+      {
+        "p": "payload"
+      },
+      {
+        "p": "topic",
+        "vt": "str"
+      }
+    ],
+    "repeat": "86400",
+    "crontab": "",
+    "once": true,
+    "onceDelay": 0.1,
+    "topic": "",
+    "payload": "",
+    "payloadType": "date",
+    "x": 90,
+    "y": 960,
+    "wires": [
+      [
+        "8b706c4b.1d86d",
+        "c69865ac.986988",
+        "408911b5.b81c3",
+        "af391a5e6081a4fe"
+      ]
+    ]
+  },
+  {
+    "id": "8b706c4b.1d86d",
+    "type": "function",
+    "z": "ab6a6cbf.14f7c",
+    "name": "SET Seed data WindTurbine",
+    "func": "msg.headers = {};\ntimestamp = msg.payload\nmsg.headers['Authorization'] = 'Basic YWRtaW46Ym1jQWRtMW4hCg==';\n\nvar deviceName = [\"AltaNS12\", \"AltaNS286\", \"AltaNS14\", \"AltaNS237\",\"AltaNS219\",\"AltaNS203\",\"AltaNS196\",\"AltaNS167\",\"AltaNS145\",\"AltaNS116\",\"AltaNS107\",\"AltaNS66\",\"AltaNS49\",\"AltaNS16\"]\nvar msgBody=[\" : Oil Level reduced by 50 %\",\" : Increase in Vibration of Turbine Shroud detected\"]\nvar ids=[\"-9a05fecd7cf5\",\"-9a05fecd7er8\"]\nvar outputMsgs = [];\nvar i \nvar j\nmsg.rejectUnauthorized = false\nfor (i = 0; i < ids.length; i++){\n\tfor (j=0;j<deviceName.length;j++) {\n\t\tif (i===1){\n\t\t\tif (j % 2 === 0){\n\t\t\t\tcontinue;\n\t\t\t}\n\t\t}\n\t\tvar deviceInfo = {\n\t\t\"id\": deviceName[j]+ids[i],\n\t\t\"deviceName\": deviceName[j],\n\t\t\"class\": \"EVENT\",\n\t\t\"name\": deviceName[j]+\"-Event\",\n\t\t\"msg\": deviceName[j] +msgBody[i],\n\t\t\"severity\": \"Low\",\n\t\t\"priority\": \"Low\",\n\t\t\"sourceNode\": \"edge-node-01\",\n\t\t\"status\": \"Open\",\n\t\t\"relatedMetric\": \"TotalVariance\",\n\t\t\"threshold\": 0,\n\t\t\"actualValue\": 0,\n\t\t\"unit\": \"sigma\",\n\t\t\"site\": \"San Francisco\",\n\t\t\"remediationId\": \"\",\n\t\t\"created\": timestamp,\n\t\t\"modified\": timestamp,\n\t\t\"eventSource\": \"edge-node-01\",\n\t\t\"correlationId\":deviceName[j]+ids[i],\n\t\t\"profile\": \"WindTurbine\",\n\t\t\"devicelabels\": [\n\t\t  \"Wind Turbine\"\n\t\t] \n\t\t}\n\t\t\n\t\t  msg.payload = deviceInfo\n\t\t  msg.url = \"http://hedge-elasticsearch:9200/event_index/_doc/\"+deviceInfo.id+\"?refresh\"\n\t\t  msg.method = \"PUT\"\n\t\t  \n\t\t  node.warn(msg)\n\t\t  \n\t\t  node.send(msg)\n\t}\n  \n//   outputMsgs.push(msg);\n}\n\n\n\n",
+    "outputs": 1,
+    "timeout": "",
+    "noerr": 0,
+    "initialize": "",
+    "finalize": "",
+    "libs": [],
+    "x": 340,
+    "y": 920,
+    "wires": [
+      [
+        "7e06df0e.60eb7"
+      ]
+    ]
+  },
+  {
+    "id": "7e06df0e.60eb7",
+    "type": "http request",
+    "z": "ab6a6cbf.14f7c",
+    "name": "post to HttpBin",
+    "method": "use",
+    "ret": "txt",
+    "paytoqs": "ignore",
+    "url": "",
+    "tls": "",
+    "persist": false,
+    "proxy": "",
+    "insecureHTTPParser": false,
+    "authType": "",
+    "senderr": false,
+    "headers": [],
+    "x": 620,
+    "y": 960,
+    "wires": [
+      [
+        "7c1e7b58.6d5794"
+      ]
+    ]
+  },
+  {
+    "id": "7c1e7b58.6d5794",
+    "type": "debug",
+    "z": "ab6a6cbf.14f7c",
+    "name": "",
+    "active": true,
+    "tosidebar": true,
+    "console": false,
+    "tostatus": false,
+    "complete": "true",
+    "targetType": "full",
+    "x": 810,
+    "y": 960,
+    "wires": []
+  },
+  {
+    "id": "c69865ac.986988",
+    "type": "function",
+    "z": "ab6a6cbf.14f7c",
+    "name": "SET Seed data TelcoTower",
+    "func": "msg.headers = {};\ntimestamp = msg.payload\nmsg.headers['Authorization'] = 'Basic YWRtaW46YWRtaW4=';\n\nvar deviceName = [\"San Francisco.SF Carlolina 20th\",\"San Francisco.SF Balboa\",\"San Francisco.SF Glen Canyon\",\"San Francisco.SF Moscone Center\"]\n// var deviceName = [\"San Francisco.SF Carlolina 20th\"]\n\nvar outputMsgs = [];\nvar i \n\nmsg.rejectUnauthorized = false\nfor (i = 0; i < deviceName.length; i++){\n  var deviceInfo = {\n    \"id\": deviceName[i]+\"-9a05fecd7cf5\",\n    \"deviceName\": deviceName[i],\n    \"class\": \"EVENT\",\n    \"name\": deviceName[i]+\"-Event\",\n    \"msg\": deviceName[i] +\" : Signal Strength reduced by 20 %\",\n    \"severity\": \"Low\",\n    \"priority\": \"Low\",\n    \"sourceNode\": \"edge-node-01\",\n    \"status\": \"Open\",\n    \"relatedMetric\": \"TotalVariance\",\n    \"threshold\": 0,\n    \"actualValue\": 0,\n    \"unit\": \"sigma\",\n    \"site\": \"San Francisco\",\n    \"remediationId\": \"\",\n    \"created\": timestamp,\n    \"modified\": timestamp,\n    \"eventSource\": \"edge-node-01\",\n    \"correlationId\":deviceName[i]+\"-9a05fecd7cf5\",\n    \"profile\": \"Telco-Tower\",\n    \"devicelabels\": [\n        \"Telco-Tower-A\",\n        \"Telcommunication Tower Call Status and temperature\"\n    ] \n  }\n  msg.payload = deviceInfo\n  msg.url = \"http://hedge-elasticsearch:9200/event_index/_doc/\"+deviceInfo.id+\"?refresh\"\n  msg.method = \"PUT\"\n  node.send(msg)\n//   outputMsgs.push(msg);\n}\n\n\n",
+    "outputs": 1,
+    "timeout": "",
+    "noerr": 0,
+    "initialize": "",
+    "finalize": "",
+    "libs": [],
+    "x": 340,
+    "y": 1000,
+    "wires": [
+      [
+        "7e06df0e.60eb7"
+      ]
+    ]
+  },
+  {
+    "id": "f3f10ff.17b0df",
+    "type": "function",
+    "z": "ab6a6cbf.14f7c",
+    "name": "set payload and headers Command Log",
+    "func": "msg.headers = {};\ntimestamp = msg.payload\nmsg.headers['Authorization'] = 'Basic YWRtaW46YWRtaW4=';\nvar deviceName = [\"Telco-Transceiver-A\",\"Telco-Tower-A\",\"AltaNS12\",\"AltaNS14\"]\nvar profile = [\"Telco-Transceiver\",\"Telco-Tower\",\"WindTurbine\",\"WindTurbine\"]\nvar problem = [\"Erratic Weak Signal strength in Radio Tower\",\"Power backup Battery nearing end of life in 3 months\",\"Increase in Vibration of Turbine Shroud detected\",\"Increase in Vibration of Turbine Shroud detected\"]\nvar summary = [\"Service Technician been notified to investigate and fix\",\"Battery replacement scheduled with the vendor to replace the Battery\",\"Onsite Inspection scheduled\",\"Onsite Inspection scheduled\"]\nvar ticket = [\"15900\",\"14171\",\"14801\",\"14809\"]\nmsg.rejectUnauthorized = false\nvar i \nfor (i = 0; i < deviceName.length; i++){\n    var commandLog = {\n    \"id\": deviceName[i]+\":b2941807\",\n    \"deviceName\": deviceName[i],\n    \"profile\": profile[i],\n    \"commandType\": \"NewServiceRequest\",\n    \"problem\": problem[i],\n    \"ticketId\": ticket[i],\n    \"status\": \"Success\",\n    \"summary\": summary[i],\n    \"eventId\": \"b2941807\",\n    \"severity\": \"low\",\n    \"refLink\": \"https://mobility19-dsom-dwp.trybmc.com/dwp/app/#/activity\",\n    \"correlationId\": \"Telco-Transceiver-A:b2941807\",\n    \"created\": \"1613917379000\",\n    \"modified\": timestamp,\n    \"ticketType\": \"Change-Request\",\n    \"devicelabels\": [\n        \"Telco-Tower-A\",\n        \"Telcommunication Tower Call Status and temperature\"\n    ]\n    }\n    if (profile[i] == \"WindTurbine\") {\n        commandLog.devicelabels = [ \"Wind Turbine\"] \n    }\n    msg.payload = commandLog\n    msg.url = \"http://hedge-elasticsearch:9200/commandlog_index/_doc/\"+msg.payload.id+\"?refresh\"\n    msg.method = \"POST\"\n    node.send(msg)\n\n}\n\n\n",
+    "outputs": 1,
+    "timeout": "",
+    "noerr": 0,
+    "initialize": "",
+    "finalize": "",
+    "libs": [],
+    "x": 380,
+    "y": 500,
+    "wires": [
+      [
+        "b6041cd8.e2437"
+      ]
+    ]
+  },
+  {
+    "id": "b6041cd8.e2437",
+    "type": "http request",
+    "z": "ab6a6cbf.14f7c",
+    "name": "post to HttpBin",
+    "method": "use",
+    "ret": "bin",
+    "paytoqs": false,
+    "url": "",
+    "tls": "",
+    "proxy": "",
+    "authType": "basic",
+    "x": 840,
+    "y": 600,
+    "wires": [
+      [
+        "f5ae6299.34b5b"
+      ]
+    ]
+  },
+  {
+    "id": "f5ae6299.34b5b",
+    "type": "debug",
+    "z": "ab6a6cbf.14f7c",
+    "name": "",
+    "active": true,
+    "tosidebar": true,
+    "console": false,
+    "tostatus": false,
+    "complete": "true",
+    "targetType": "full",
+    "x": 1030,
+    "y": 600,
+    "wires": []
+  },
+  {
+    "id": "60396847.c63668",
+    "type": "function",
+    "z": "ab6a6cbf.14f7c",
+    "name": "set payload and headers Event",
+    "func": "msg.headers = {};\ntimestamp = msg.payload\nmsg.headers['Authorization'] = 'Basic YWRtaW46YWRtaW4=';\n\nmsg.rejectUnauthorized = false\nmsg.payload = {\n    \"id\": \"Telco-Transceiver-A:b2941807\",\n    \"deviceName\": \"Telco-Transceiver-A\",\n    \"class\": \"EVENT\",\n    \"name\": \"Telco-Transceiver-A-Event\",\n    \"msg\": \"Telco-Tower-A : Signal Strength less than 20%\",\n    \"severity\": \"Low\",\n    \"priority\": \"Low\",\n    \"sourceNode\": \"edge-node-01\",\n    \"status\": \"Open\",\n    \"relatedMetric\": \"TotalVariance\",\n    \"threshold\": 1.486756443977356,\n    \"actualValue\": 0.4,\n    \"unit\": \"sigma\",\n    \"site\": \"San Francisco\",\n    \"remediationId\": \"\",\n    \"created\": \"1613917379000\",\n    \"modified\": timestamp,\n    \"type\":\"EVENT\",\n    \"eventSource\": \"edge-node-01\",\n    \"correlationId\": \"Telco-Transceiver-A:b2941807\",\n    \"profile\": \"Telco-Transceiver\",\n    \"devicelabels\": [\n        \"Telco-Tower-A\",\n        \"Telcommunication Tower Call Status and temperature\"\n    ]\n}\nmsg.url = \"http://hedge-elasticsearch:9200/event_index/_doc/\"+msg.payload.id+\"?refresh\"\nmsg.method = \"POST\"\nreturn msg;\n\n",
+    "outputs": 1,
+    "timeout": "",
+    "noerr": 0,
+    "initialize": "",
+    "finalize": "",
+    "libs": [],
+    "x": 370,
+    "y": 560,
+    "wires": [
+      [
+        "b6041cd8.e2437"
+      ]
+    ]
+  },
+  {
+    "id": "53c82b8d.6b0ed4",
+    "type": "function",
+    "z": "ab6a6cbf.14f7c",
+    "name": "Close Ticket Log Victoria",
+    "func": "msg.headers = {};\ntimestamp = msg.payload\n//msg.headers['Authorization'] = 'Basic YWRtaW46YWRtaW4=';\n\nmsg.rejectUnauthorized = false\n\nmsg.payload='Ticket {device=\"Telco-Transceiver-A\", summary=\"Telco-Transceiver-A: Signal Strength reduced by 20 %\", id=\"15900\", type=\"NewServiceRequest\", edgeNode=\"edge-node-01\",'\nmsg.payload=msg.payload + 'valuetype=\"int64\", profile=\"Telco-Transceiver\", devicelabels=\"Telco-Tower-A,Telcommunication Tower Call Status and temperature\"} 0'\n\nmsg.url = \"http://hedge-victoria-metrics:8428/api/v1/import/prometheus\"\nmsg.method = \"POST\"\nreturn msg;\n\n",
+    "outputs": 1,
+    "timeout": "",
+    "noerr": 0,
+    "initialize": "",
+    "finalize": "",
+    "libs": [],
+    "x": 350,
+    "y": 620,
+    "wires": [
+      [
+        "b6041cd8.e2437"
+      ]
+    ]
+  },
+  {
+    "id": "57cb0ac9.1cd6c4",
+    "type": "inject",
+    "z": "ab6a6cbf.14f7c",
+    "name": "",
+    "props": [
+      {
+        "p": "payload"
+      },
+      {
+        "p": "topic",
+        "vt": "str"
+      }
+    ],
+    "repeat": "10800",
+    "crontab": "",
+    "once": true,
+    "onceDelay": 0.1,
+    "topic": "",
+    "payload": "",
+    "payloadType": "date",
+    "x": 90,
+    "y": 560,
+    "wires": [
+      [
+        "53c82b8d.6b0ed4",
+        "a2a4ad4d.ac778",
+        "60396847.c63668",
+        "f3f10ff.17b0df",
+        "9a2cd0de.ebeeb",
+        "4c919da4.9c5ba4"
+      ]
+    ]
+  },
+  {
+    "id": "a2a4ad4d.ac778",
+    "type": "function",
+    "z": "ab6a6cbf.14f7c",
+    "name": "Close Event Log Victoria",
+    "func": "msg.headers = {};\ntimestamp = msg.payload\n//msg.headers['Authorization'] = 'Basic YWRtaW46YWRtaW4=';\n\nmsg.rejectUnauthorized = false\n\nmsg.payload='IoTEvent {device=\"Telco-Transceiver-A\", summary=\"Telco-Transceiver-A: Signal Strength reduced by 20 %\", id=\"Telco-Transceiver-A:b2941807:b2941807\", type=\"EVENT\", edgeNode=\"edge-node-01\",'\nmsg.payload=msg.payload + 'valuetype=\"int64\", profile=\"Telco-Transceiver\", devicelabels=\"Telco-Tower-A,Telcommunication Tower Call Status and temperature\"} 0'\n\nmsg.url = \"http://hedge-victoria-metrics:8428/api/v1/import/prometheus\"\nmsg.method = \"POST\"\nreturn msg;\n\n",
+    "outputs": 1,
+    "timeout": "",
+    "noerr": 0,
+    "initialize": "",
+    "finalize": "",
+    "libs": [],
+    "x": 350,
+    "y": 700,
+    "wires": [
+      [
+        "b6041cd8.e2437"
+      ]
+    ]
+  },
+  {
+    "id": "9a2cd0de.ebeeb",
+    "type": "function",
+    "z": "ab6a6cbf.14f7c",
+    "name": "set payload for Command ",
+    "func": "var body =  [\n {\n    \"name\" : \"ChangeAverage\",\n    \"parameters\" : {\n        \"device\": \"Telco-Transceiver-A\",\n        \"metric\": \"SignalStrengthPercent\",\n        \"average\": \"65\"\n    }\n }\n]\n\nserver = flow.get(\"edgeXserver\")\nif ( server === null || server === undefined ) {\n    server = \"device-virtual\"\n}\n\nurl = \"http://\"+server+\":49991/api/v1/dataGenerator/commands\"\n\nmsg.payload = body\nmsg.url = url\nmsg.method = \"PUT\"\nreturn msg;\n\n\n\n",
+    "outputs": 1,
+    "timeout": "",
+    "noerr": 0,
+    "initialize": "",
+    "finalize": "",
+    "libs": [],
+    "x": 350,
+    "y": 420,
+    "wires": [
+      [
+        "b6041cd8.e2437"
+      ]
+    ]
+  },
+  {
+    "id": "5bafaef4.e3c7",
+    "type": "function",
+    "z": "ab6a6cbf.14f7c",
+    "name": "Open Event Log Victoria",
+    "func": "msg.headers = {};\ntimestamp = msg.payload\n//msg.headers['Authorization'] = 'Basic YWRtaW46YWRtaW4=';\n\nmsg.rejectUnauthorized = false\n\nmsg.payload='IoTEvent {device=\"Telco-Transceiver-A\", summary=\"Telco-Transceiver-A: Signal Strength reduced by 20 %\", id=\"Telco-Transceiver-A:b2941807:b2941807\", type=\"EVENT\", edgeNode=\"edge-node-01\",'\nmsg.payload=msg.payload + 'valuetype=\"int64\", profile=\"Telco-Transceiver\", devicelabels=\"Telco-Tower-A,Telcommunication Tower Call Status and temperature\"} 1'\n\nmsg.url = \"http://hedge-victoria-metrics:8428/api/v1/import/prometheus\"\nmsg.method = \"POST\"\nreturn msg;\n\n",
+    "outputs": 1,
+    "noerr": 0,
+    "initialize": "",
+    "finalize": "",
+    "libs": [],
+    "x": 350,
+    "y": 820,
+    "wires": [
+      [
+        "b6041cd8.e2437"
+      ]
+    ]
+  },
+  {
+    "id": "373fec63.203434",
+    "type": "function",
+    "z": "ab6a6cbf.14f7c",
+    "name": "Open Ticket Log Victoria",
+    "func": "msg.headers = {};\ntimestamp = msg.payload\n//msg.headers['Authorization'] = 'Basic YWRtaW46YWRtaW4=';\n\nmsg.rejectUnauthorized = false\n\nmsg.payload='Ticket {device=\"Telco-Transceiver-A\", summary=\"Telco-Transceiver-A: Signal Strength reduced by 20 %\", id=\"15900\", type=\"NewServiceRequest\", edgeNode=\"edge-node-01\",'\nmsg.payload=msg.payload + 'valuetype=\"int64\", profile=\"Telco-Transceiver\", devicelabels=\"Telco-Tower-A,Telcommunication Tower Call Status and temperature\"} 1'\n\nmsg.url = \"http://hedge-victoria-metrics:8428/api/v1/import/prometheus\"\nmsg.method = \"POST\"\nreturn msg;\n\n",
+    "outputs": 1,
+    "noerr": 0,
+    "initialize": "",
+    "finalize": "",
+    "libs": [],
+    "x": 350,
+    "y": 760,
+    "wires": [
+      [
+        "b6041cd8.e2437"
+      ]
+    ]
+  },
+  {
+    "id": "4c919da4.9c5ba4",
+    "type": "delay",
+    "z": "ab6a6cbf.14f7c",
+    "name": "",
+    "pauseType": "delay",
+    "timeout": "1",
+    "timeoutUnits": "minutes",
+    "rate": "1",
+    "nbRateUnits": "1",
+    "rateUnits": "second",
+    "randomFirst": "1",
+    "randomLast": "5",
+    "randomUnits": "seconds",
+    "drop": false,
+    "outputs": 1,
+    "x": 140,
+    "y": 800,
+    "wires": [
+      [
+        "373fec63.203434",
+        "5bafaef4.e3c7"
+      ]
+    ]
+  },
+  {
+    "id": "87a927cb.0dd518",
+    "type": "debug",
+    "z": "ab6a6cbf.14f7c",
+    "name": "anomalyDataOutput",
+    "active": true,
+    "tosidebar": true,
+    "console": false,
+    "tostatus": false,
+    "complete": "payload",
+    "targetType": "msg",
+    "x": 1180,
+    "y": 140,
+    "wires": []
+  },
+  {
+    "id": "b60cb02a.1435d",
+    "type": "switch",
+    "z": "ab6a6cbf.14f7c",
+    "name": "Failure",
+    "property": "statusCode",
+    "propertyType": "msg",
+    "rules": [
+      {
+        "t": "neq",
+        "v": "200",
+        "vt": "str"
+      }
+    ],
+    "checkall": "true",
+    "repair": false,
+    "outputs": 1,
+    "x": 870,
+    "y": 240,
+    "wires": [
+      [
+        "87a927cb.0dd518",
+        "33593f29.85127"
+      ]
+    ]
+  },
+  {
+    "id": "33593f29.85127",
+    "type": "http response",
+    "z": "ab6a6cbf.14f7c",
+    "name": "respondToRequestFailure",
+    "statusCode": "401",
+    "headers": {
+      "content-type": "text/plain"
+    },
+    "x": 1190,
+    "y": 240,
+    "wires": []
+  },
+  {
+    "id": "a658ac15.c228c",
+    "type": "function",
+    "z": "ab6a6cbf.14f7c",
+    "name": "buildTelcoFuelResetPayload",
+    "func": "var telcoDemoResetFuelPayload = [\n    {\n        \"name\": \"ResetValue\",\n        \"parameters\": {\n            \"device\": \"Telco-PowerSupply-A\",\n            \"metric\": \"FuelLevelPercent\"\n        }\n    },\n    {\n        \"name\": \"ResetValue\",\n        \"parameters\": {\n            \"device\": \"Telco-Antenna-North\",\n            \"metric\": \"AntennaDislocation\"\n        }\n    },\n    {\n        \"name\": \"ResetValue\",\n        \"parameters\": {\n            \"device\": \"Telco-Tower-A\",\n            \"metric\": \"CallDrops\"\n        }\n    }\n]\n\nserver = flow.get(\"edgeXserver\")\nif ( server === null || server === undefined ) {\n    server = \"device-virtual\"\n}\nmsg.url = \"http://\"+server+\":49991/api/v1/dataGenerator/commands\"\n\nmsg.headers = {'Content-Type': 'application/json'};\nmsg.rejectUnauthorized = false\n\nmsg.method = \"PUT\"\nmsg.payload = telcoDemoResetFuelPayload\nreturn msg;\n\n\n\n",
+    "outputs": 1,
+    "noerr": 0,
+    "initialize": "",
+    "finalize": "",
+    "libs": [],
+    "x": 560,
+    "y": 80,
+    "wires": [
+      [
+        "15eb1f68.214241"
+      ]
+    ]
+  },
+  {
+    "id": "643657fc.691428",
+    "type": "switch",
+    "z": "ab6a6cbf.14f7c",
+    "name": "telco",
+    "property": "req.params.domain",
+    "propertyType": "msg",
+    "rules": [
+      {
+        "t": "cont",
+        "v": "telco",
+        "vt": "str"
+      }
+    ],
+    "checkall": "true",
+    "repair": false,
+    "outputs": 1,
+    "x": 350,
+    "y": 80,
+    "wires": [
+      [
+        "a658ac15.c228c"
+      ]
+    ]
+  },
+  {
+    "id": "4e9c9215.d52bfc",
+    "type": "function",
+    "z": "ab6a6cbf.14f7c",
+    "name": "buildWindFarmInitializePayload",
+    "func": "var resetWindFarmDataPayload = [\n      {\n        \"name\": \"ResetValue\",\n        \"parameters\": {\n            \"device\": \"AltaNS12\",\n            \"metric\": \"GenGearOilLevelPercent\"\n        }\n    },\n    {\n        \"name\": \"ResetValue\",\n        \"parameters\": {\n            \"device\": \"AltaNS12\",\n            \"metric\": \"GenGearboxVibrations\"\n        }\n    },\n    {\n        \"name\": \"ResetValue\",\n        \"parameters\": {\n            \"device\": \"AltaNS12\",\n            \"metric\": \"GenBearingTemperature\"\n        }\n    },\n    {\n        \"name\": \"ResetValue\",\n        \"parameters\": {\n            \"device\": \"AltaNS12\",\n            \"metric\": \"RotorSpeed\"\n        }\n    },\n    {\n        \"name\": \"Wait\",\n        \"parameters\": {\n            \"waitDuration\": \"15s\"\n        }\n    },\n    {\n        \"name\": \"ResetValue\",\n        \"parameters\": {\n            \"device\": \"AltaNS12\",\n            \"metric\": \"TurbinePower\"\n        }\n    }\n]\n\nserver = flow.get(\"edgeXserver\")\nif ( server === null || server === undefined ) {\n    server = \"device-virtual\"\n}\nmsg.url = \"http://\"+server+\":49991/api/v1/dataGenerator/commands\"\n\nmsg.headers = {'Content-Type': 'application/json'};\nmsg.rejectUnauthorized = false\n\nmsg.method = \"PUT\"\nmsg.payload = resetWindFarmDataPayload\nreturn msg;\n\n\n\n",
+    "outputs": 1,
+    "noerr": 0,
+    "x": 630,
+    "y": 180,
+    "wires": [
+      [
+        "15eb1f68.214241"
+      ]
+    ]
+  },
+  {
+    "id": "15eb1f68.214241",
+    "type": "http request",
+    "z": "ab6a6cbf.14f7c",
+    "name": "",
+    "method": "use",
+    "ret": "txt",
+    "paytoqs": false,
+    "url": "",
+    "tls": "",
+    "proxy": "",
+    "authType": "",
+    "x": 790,
+    "y": 80,
+    "wires": [
+      [
+        "749661f8.4df48"
+      ]
+    ]
+  },
+  {
+    "id": "749661f8.4df48",
+    "type": "debug",
+    "z": "ab6a6cbf.14f7c",
+    "name": "printResetOilFuelResponse",
+    "active": true,
+    "tosidebar": true,
+    "console": false,
+    "tostatus": false,
+    "complete": "true",
+    "targetType": "full",
+    "x": 1020,
+    "y": 80,
+    "wires": []
+  },
+  {
+    "id": "26316b30.e1c2b4",
+    "type": "switch",
+    "z": "ab6a6cbf.14f7c",
+    "name": "windturbine",
+    "property": "req.params.domain",
+    "propertyType": "msg",
+    "rules": [
+      {
+        "t": "cont",
+        "v": "wind",
+        "vt": "str"
+      }
+    ],
+    "checkall": "true",
+    "repair": false,
+    "outputs": 1,
+    "x": 390,
+    "y": 180,
+    "wires": [
+      [
+        "4e9c9215.d52bfc"
+      ]
+    ]
+  },
+  {
+    "id": "408911b5.b81c3",
+    "type": "function",
+    "z": "ab6a6cbf.14f7c",
+    "name": "SET Seed data Water Cooler",
+    "func": "msg.headers = {};\ntimestamp = msg.payload\nmsg.headers['Authorization'] = 'Basic YWRtaW46YWRtaW4=';\n\nvar deviceName = [\"New York.NY Battery Park\",\"New York.NY Elizabeth Grand\",\"New York.NY Desbrosses West\",\"New York.NY Manhattan Square\"]\n// var deviceName = [\"San Francisco.SF Carlolina 20th\"]\n\nvar outputMsgs = [];\nvar i \n\nmsg.rejectUnauthorized = false\nfor (i = 0; i < deviceName.length; i++){\n  var deviceInfo = {\n    \"id\": deviceName[i]+\"-9a05fecd7cf5\",\n    \"deviceName\": deviceName[i],\n    \"class\": \"EVENT\",\n    \"name\": deviceName[i]+\"-Event\",\n    \"msg\": deviceName[i] +\" : Power Consumption increased by 10 %\",\n    \"severity\": \"Low\",\n    \"priority\": \"Low\",\n    \"sourceNode\": \"edge-node-01\",\n    \"status\": \"Open\",\n    \"relatedMetric\": \"TotalVariance\",\n    \"threshold\": 0,\n    \"actualValue\": 0,\n    \"unit\": \"sigma\",\n    \"site\": \"New York\",\n    \"remediationId\": \"\",\n    \"created\": timestamp,\n    \"modified\": timestamp,\n    \"eventSource\": \"edge-node-01\",\n    \"correlationId\":deviceName[i]+\"-9a05fecd7cf5\",\n    \"profile\": \"Telco-Tower\",\n    \"devicelabels\": [\n        \"Water Cooler\",\n        \"Telcommunication Tower Call Status and temperature\"\n    ] \n  }\n  msg.payload = deviceInfo\n  msg.url = \"http://hedge-elasticsearch:9200/event_index/_doc/\"+deviceInfo.id+\"?refresh\"\n  msg.method = \"PUT\"\n  node.send(msg)\n//   outputMsgs.push(msg);\n}\n\n\n",
+    "outputs": 1,
+    "timeout": "",
+    "noerr": 0,
+    "initialize": "",
+    "finalize": "",
+    "libs": [],
+    "x": 340,
+    "y": 1080,
+    "wires": [
+      [
+        "7e06df0e.60eb7"
+      ]
+    ]
+  },
+  {
+    "id": "1dd9b4935215c8d1",
+    "type": "function",
+    "z": "ab6a6cbf.14f7c",
+    "name": "SET Seed data USAF C130",
+    "func": "//var fs = require('fs');\n\n//timestamp = msg.payload\n//msg.headers['Authorization'] = 'Basic YWRtaW46Ym1jQWRtMW4hCg==';\nvar filePath = '/data/flight_data_prom.gz';\n\nmsg.payload = msg.payload; //fs.createReadStream(filePath)\nmsg.headers = {'Content-Encoding': 'gzip'};\nmsg.url = \"http://hedge-victoria-metrics:8428/api/v1/import/prometheus\"\nmsg.method = \"POST\"\nnode.send(msg)",
+    "outputs": 1,
+    "timeout": "",
+    "noerr": 0,
+    "initialize": "",
+    "finalize": "",
+    "libs": [],
+    "x": 420,
+    "y": 1160,
+    "wires": [
+      [
+        "7e06df0e.60eb7"
+      ]
+    ]
+  },
+  {
+    "id": "af391a5e6081a4fe",
+    "type": "file in",
+    "z": "ab6a6cbf.14f7c",
+    "name": "tgz",
+    "filename": "/demo/demo-scripts/Airplane-USAF/op/flight_data_prom.gz",
+    "filenameType": "str",
+    "format": "",
+    "chunk": false,
+    "sendError": false,
+    "encoding": "none",
+    "allProps": false,
+    "x": 210,
+    "y": 1160,
+    "wires": [
+      [
+        "1dd9b4935215c8d1"
+      ]
+    ]
+  },
+  {
+    "id": "file_in",
+    "type": "file in",
+    "z": "ab6a6cbf.14f7c",
+    "name": "Read File",
+    "filename": "/demo/demo-scripts/Manufacturing/sample-input.txt",
+    "filenameType": "str",
+    "format": "lines",
+    "encoding": "utf8",
+    "allProps": false,
+    "x": 260,
+    "y": 1380,
+    "wires": [
+      [
+        "90e5959e8c763a80"
+      ]
+    ]
+  },
+  {
+    "id": "extract_numbers",
+    "type": "function",
+    "z": "ab6a6cbf.14f7c",
+    "name": "Extract Nums",
+    "func": "const logLine = msg.payload;\n// Skip if the line is empty\nif (logLine === \"\") {\n    return null;\n}\n\nconst match = logLine.match(/Angle\\(ABCDXYZ\\):([^|]+)/);\nif (!match) {\n    return null;\n}\nconst numbers = match[1].split(',').map(value => parseFloat(value.trim()));\nmsg.payload = numbers.slice(0, 6);\nreturn msg;",
+    "outputs": 1,
+    "timeout": "",
+    "noerr": 0,
+    "initialize": "",
+    "finalize": "",
+    "libs": [],
+    "x": 600,
+    "y": 1380,
+    "wires": [
+      [
+        "format_data",
+        "be3e6c361255df49"
+      ]
+    ]
+  },
+  {
+    "id": "format_data",
+    "type": "function",
+    "z": "ab6a6cbf.14f7c",
+    "name": "Format Data",
+    "func": "const metrics = [\n    \"wristRotation\",\n    \"baseRotation\",\n    \"lowerArm\",\n    \"upperArm\",\n    \"wristAngle\",\n    \"endAngle\"\n];\nconst readings = [];\nmsg.payload.forEach((value, index) => {\n    readings.push({\n        \"name\": metrics[index],\n        \"value\": value + 0.1\n    });\n});\nmsg.payload = { readings };\nreturn msg;",
+    "outputs": 1,
+    "timeout": "",
+    "noerr": 0,
+    "initialize": "",
+    "finalize": "",
+    "libs": [],
+    "x": 790,
+    "y": 1380,
+    "wires": [
+      [
+        "http_request"
+      ]
+    ]
+  },
+  {
+    "id": "9f75be42611191e1",
+    "type": "inject",
+    "z": "ab6a6cbf.14f7c",
+    "name": "",
+    "props": [
+      {
+        "p": "payload"
+      },
+      {
+        "p": "topic",
+        "vt": "str"
+      }
+    ],
+    "repeat": "600",
+    "crontab": "",
+    "once": true,
+    "onceDelay": 0.1,
+    "topic": "",
+    "payload": "",
+    "payloadType": "date",
+    "x": 90,
+    "y": 1380,
+    "wires": [
+      [
+        "file_in"
+      ]
+    ]
+  },
+  {
+    "id": "be3e6c361255df49",
+    "type": "debug",
+    "z": "ab6a6cbf.14f7c",
+    "name": "debug roboticarm",
+    "active": true,
+    "tosidebar": true,
+    "console": false,
+    "tostatus": false,
+    "complete": "payload",
+    "targetType": "msg",
+    "statusVal": "",
+    "statusType": "auto",
+    "x": 870,
+    "y": 1440,
+    "wires": []
+  },
+  {
+    "id": "90e5959e8c763a80",
+    "type": "delay",
+    "z": "ab6a6cbf.14f7c",
+    "name": "2 sec delay",
+    "pauseType": "rate",
+    "timeout": "2",
+    "timeoutUnits": "seconds",
+    "rate": "1",
+    "nbRateUnits": "2",
+    "rateUnits": "second",
+    "randomFirst": "1",
+    "randomLast": "5",
+    "randomUnits": "seconds",
+    "drop": false,
+    "allowrate": false,
+    "outputs": 1,
+    "x": 430,
+    "y": 1380,
+    "wires": [
+      [
+        "extract_numbers"
+      ]
+    ]
+  },
+  {
+    "id": "dbb090bb70b620a0",
+    "type": "comment",
+    "z": "ab6a6cbf.14f7c",
+    "name": "Pump robotic arm data. Replay every 10min since file contains ~300 lines, each line read with 2 sec delay",
+    "info": "",
+    "x": 360,
+    "y": 1300,
+    "wires": []
+  },
+  {
+    "id": "http_request",
+    "type": "http request",
+    "z": "ab6a6cbf.14f7c",
+    "name": "Send to device-rest",
+    "method": "POST",
+    "ret": "txt",
+    "paytoqs": "ignore",
+    "url": "http://device-rest:59986/api/v3/resource/RightPicker",
+    "tls": "",
+    "persist": false,
+    "proxy": "",
+    "insecureHTTPParser": false,
+    "authType": "basic",
+    "senderr": false,
+    "headers": [
+      {
+        "keyType": "other",
+        "keyValue": "Content-Type",
+        "valueType": "other",
+        "valueValue": "application/json"
+      },
+      {
+        "keyType": "other",
+        "keyValue": "X-Csrf-Token",
+        "valueType": "other",
+        "valueValue": "dummy"
+      },
+      {
+        "keyType": "other",
+        "keyValue": "Cookie",
+        "valueType": "other",
+        "valueValue": "csrf_token=dummy"
+      }
+    ],
+    "x": 990,
+    "y": 1380,
+    "wires": [
+      []
+    ]
+  }
+]

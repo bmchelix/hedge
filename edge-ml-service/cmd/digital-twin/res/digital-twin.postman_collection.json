@@ -1,0 +1,259 @@
+{
+	"info": {
+		"_postman_id": "62f2f6a8-2da2-4211-9eb6-76973a0f8224",
+		"name": "digital-twin",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "1316125"
+	},
+	"item": [
+		{
+			"name": "Create Twin Definition",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"WindTurbineFarm\",\n    \"description\": \"WindTurbine Farm Digital Twin\",\n    \"entities\": [\n        {\n            \"name\": \"AltaNS12\",\n            \"entityType\": 0\n        },\n        {\n            \"name\": \"AltaNS14\",\n            \"entityType\": 0\n        }\n    ],\n    \"connections\": [\n        {\n            \"fromTwin\": \"AltaNS12\",\n            \"targetTwin\": \"AltaNS14\",\n            \"connectionType\": 0\n        }\n    ],\n    \"externalParameters\": [\n        {\n            \"type\": \"METRIC\",\n            \"name\": \"WindSpeed\",\n            \"isInput\": true,\n            \"range\": {\n                \"min\": 200.0,\n                \"max\": 300.0\n            }\n        },\n        {\n            \"type\": \"METRIC\",\n            \"name\": \"TurbinePower\",\n            \"isInput\": false,\n            \"range\": {\n                \"min\": 950.0,\n                \"max\": 1050.0\n            }\n        }\n    ],\n    \"status\": 0\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:48090/api/v3/twin/definition",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "48090",
+					"path": [
+						"api",
+						"v3",
+						"twin",
+						"definition"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Twin Definition",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:48090/api/v3/twin/definition/name/WindTurbineFarm",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "48090",
+					"path": [
+						"api",
+						"v3",
+						"twin",
+						"definition",
+						"name",
+						"WindTurbineFarm"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Twin Devices",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:48090/api/v3/twin/definition/name/WindTurbineFarm/devices",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "48090",
+					"path": [
+						"api",
+						"v3",
+						"twin",
+						"definition",
+						"name",
+						"WindTurbineFarm",
+						"devices"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "List Twin Definitions",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:48090/api/v3/twin/definitions",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "48090",
+					"path": [
+						"api",
+						"v3",
+						"twin",
+						"definitions"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Twin Definition",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:48090/api/v3/twin/definition?id=FCAEHGWRqbGS2sMYaBg4qU",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "48090",
+					"path": [
+						"api",
+						"v3",
+						"twin",
+						"definition"
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "FCAEHGWRqbGS2sMYaBg4qU"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create Twin Simulation Definition",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\n    \"model_config\": {\n        \"name\": \"HedgeAnomaly\",\n        \"version\": \"1.0\",\n        \"description\": \"autoencoder used to detect anomalies\",\n        \"type\": \"ML algorithm\",\n        \"enabled\": true,\n        \"supervised\": false,\n        \"inputFeaturePredefined\": false,\n        \"outputFeaturesPredefined\": false,\n        \"inputFeatures\": [\"temperature\", \"wind_speed\", \"humidity\"],\n        \"outputFeatures\": [\"power\"],\n        \"trainingComputeProvider\": \"AIF\",\n        \"inferenceEndPointURL\": \"http://localhost:45000\"\n    },\n    \"input_parameters\": [\"temperature\", \"wind_speed\", \"humidity\", \"pressure\"],\n    \"output_parameters\": [\"power\"]\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:48090/api/v3/twinconfig",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "48090",
+					"path": [
+						"api",
+						"v3",
+						"twinconfig"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "List Twin Simulation Definitions",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:48090/api/v3/twinconfigs",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "48090",
+					"path": [
+						"api",
+						"v3",
+						"twinconfigs"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Twin Simulation Definition",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:48090/api/v3/twin/simulation?id=Pjz2rLLSNTQF6tZs7QTEYs",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "48090",
+					"path": [
+						"api",
+						"v3",
+						"twin",
+						"simulation"
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "Pjz2rLLSNTQF6tZs7QTEYs"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Twin Simulation Definition",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:48090/api/v3/twin/simulation?id=D4JdNbccPdMJQS6PGHUt7V",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "48090",
+					"path": [
+						"api",
+						"v3",
+						"twin",
+						"simulation"
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "D4JdNbccPdMJQS6PGHUt7V"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

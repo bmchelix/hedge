@@ -1,0 +1,38 @@
+Writable:
+  LogLevel: "INFO"
+  StoreAndForward:
+    Enabled: false
+    RetryInterval: "5m"
+    MaxRetryCount: 2
+
+Service:
+  Host: localhost
+  Port: 48105
+  StartupMsg: hedge remediate on MQTT command topic started
+
+SecretStore:
+  Path: app-hedge-remediate/
+  TokenFile: /tmp/edgex/secrets/app-hedge-remediate/secrets-token.json
+
+MessageBus:
+  Disabled: true
+
+Trigger:
+  Type: external-mqtt
+  SubscribeTopics: '$share/remediate/+/+/commands, $share/remediate/+/commands'
+  PublishTopic: ''
+  ExternalMqtt:
+    Url: 'tcp://localhost:1883'
+    ConnectTimeout: 30s
+    AutoReconnect: true
+    KeepAlive: 300
+    QoS: 0
+    Retain: false
+    SkipCertVerify: false
+    SecretName: mbconnection
+    AuthMode: usernamepassword
+
+ApplicationSettings:
+  EventPipelineTriggerURL: 'http://localhost:48102/api/v3/trigger'
+  PersistOnError: 'false'
+  EdgeNodeName: "node-01"

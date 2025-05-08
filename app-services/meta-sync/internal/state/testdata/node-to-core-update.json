@@ -1,0 +1,162 @@
+{
+  "core": {
+    "core_state_version": "12b23012-4a3b-4a01-b5e2-9c5369b63db0",
+    "node": {
+      "nodeId": "CORE-1",
+      "hostName": "CORE-1",
+      "isRemoteHost": false,
+      "ruleEndPoint": "/hedge/api/v3/rules/edgex-kuiper/",
+      "workflowEndPoint": "/hedge/hedge-node-red/hedge-node-red/"
+    },
+    "node_type": "CORE",
+    "devices_info": {
+      "sample-image": {
+        "sum": "5665177e9ebd7874c55fdce0550f26a5b",
+        "node_id": "NODE-1"
+      },
+      "sample-json": {
+        "sum": "e703baa48ecbd8d4f5955b9ec0146cc1d",
+        "node_id": "NODE-1"
+      },
+      "sample-numeric": {
+        "sum": "24f3ef20191d8241f69878d1a76bde6dc",
+        "node_id": "NODE-1"
+      }
+    },
+    "profiles_info": {
+      "HVAC": {
+        "sum": "7a9072d0767dc4de87574321520a90f47"
+      },
+      "HedgeDataGenController": {
+        "sum": "a4ef7137cc3bd6d54fcde5adcfd64959e"
+      },
+      "Power-Supplies": {
+        "sum": "838b714b508cbd26954d98847f00acd1f"
+      },
+      "Telco-Antenna": {
+        "sum": "ceecf9a04cb8d85227204540d4104ff5a"
+      },
+      "Telco-Tower": {
+        "sum": "6857c9d73659dfae1e63363f27a131ed5"
+      },
+      "Telco-Tower-OSS": {
+        "sum": "8def5f87d86abd876f46c5a128ed0c2c4"
+      },
+      "Telco-Transceiver": {
+        "sum": "2ffc067d8642d9d109d05777bb16c0f14"
+      },
+      "USAFProfile": {
+        "sum": "569b1bed559c9dd075f15926d27c870e7"
+      },
+      "WindTurbine": {
+        "sum": "3e99ca846012b2d2c7612acca0d1b7e9f"
+      },
+      "sample-image": {
+        "sum": "cf93c890daf239dad0c73f86925cec6f7"
+      },
+      "sample-json": {
+        "sum": "08422b277a4e794d8903af6277ecf1261"
+      },
+      "sample-numeric": {
+        "sum": "41652e26e847d18dff0b50ce4e8a57610"
+      }
+    },
+    "services_info": {
+      "device-rest": {
+        "sum": "a7033bb1c8197aad4f4cf163b8ab3f44e"
+      },
+      "device-virtual": {
+        "sum": "f50b4a7a0e9484efd16f2d7af2ffd73e2"
+      }
+    },
+    "raw_data_config_info": {
+      "CORE-1": {
+        "sum": "d4f819c0f28c5a552419fadca4fee83f",
+        "node_id": "CORE-1"
+      },
+      "NODE-1": {
+        "sum": "d4f819c0f28c5a55d2419fadca4fee83f",
+        "node_id": "NODE-1"
+      }
+    },
+    "timestamp": 1719740646
+  },
+    "node": {
+      "core_state_version": "12b23012-4a3b-4a01-b5e2-9c5369b63db0",
+      "node": {
+        "nodeId": "NODE-1",
+        "hostName": "NODE-1",
+        "isRemoteHost": false,
+        "ruleEndPoint": "",
+        "workflowEndPoint": ""
+      },
+      "node_type": "NODE",
+      "devices_info": {
+        "sample-image": {
+          "sum": "5665177e9eb7874c55fdce0550f26a5b",
+          "node_id": "edgex-core-consul"
+        },
+        "sample-json": {
+          "sum": "e703baa48ecbd84f5955b9ec0146cc1d",
+          "node_id": "edgex-core-consul"
+        },
+        "sample-numeric": {
+          "sum": "24f3ef201918241f69878d1a76bde6dc",
+          "node_id": "edgex-core-consul"
+        }
+      },
+      "profiles_info": {
+        "HVAC": {
+          "sum": "7a9072d0767c4de87574321520a90f47"
+        },
+        "HedgeDataGenController": {
+          "sum": "a4ef7137cc3b6d54fcde5adcfd64959e"
+        },
+        "Power-Supplies": {
+          "sum": "838b714b508cb26954d98847f00acd1f"
+        },
+        "Telco-Antenna": {
+          "sum": "ceecf9a04cb885227204540d4104ff5a"
+        },
+        "Telco-Tower": {
+          "sum": "6857c9d73659fae1e63363f27a131ed5"
+        },
+        "Telco-Tower-OSS": {
+          "sum": "8def5f87d86ab876f46c5a128ed0c2c4"
+        },
+        "Telco-Transceiver": {
+          "sum": "2ffc067d8642d9109d05777bb16c0f14"
+        },
+        "USAFProfile": {
+          "sum": "569b1bed559c9d075f15926d27c870e7"
+        },
+        "WindTurbine": {
+          "sum": "3e99ca846012b22c7612acca0d1b7e9f"
+        },
+        "sample-image": {
+          "sum": "cf93c890daf239ad0c73f86925cec6f7"
+        },
+        "sample-json": {
+          "sum": "08422b277a4e7948903af6277ecf1261"
+        },
+        "sample-numeric": {
+          "sum": "41652e26e847d18ff0b50ce4e8a57610"
+        }
+      },
+      "services_info": {
+        "device-rest": {
+          "sum": "a7033bb1c8197aa4f4cf163b8ab3f44e"
+        },
+        "device-virtual": {
+          "sum": "f50b4a7a0e9484ef16f2d7af2ffd73e2"
+        }
+      },
+      "raw_data_config_info": {
+        "NODE-1": {
+          "sum": "d4f819c0f28c5a552419fadca4fee83f",
+          "node_id": "NODE-1"
+        }
+      },
+      "timestamp": 1719738016
+    }
+  }

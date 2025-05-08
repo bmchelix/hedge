@@ -1,0 +1,201 @@
+deviceList:
+  - name: AC-130_69-6570
+    profileName: USAFProfile
+    description: USAF airplane Instance AC-130_69-6570
+    labels:
+      - USAF Airplane AC-130_69-6570
+    protocols:
+      other:
+        address: usaf-airplane-01.AC-130_69-6570
+        port: '300'
+    autoEvents:
+      - interval: 20s
+        onChange: false
+        sourceName: freq_aft_mws_rwr
+      - interval: 20s
+        onChange: false
+        sourceName: signal_aft_mws_rwr
+      - interval: 20s
+        onChange: false
+        sourceName: freq_mid_dispensers
+      - interval: 20s
+        onChange: false
+        sourceName: signal_mid_dispensers
+      - interval: 20s
+        onChange: false
+        sourceName: freq_fwd_mws_rwr
+      - interval: 20s
+        onChange: false
+        sourceName: signal_fwd_mws_rwr
+      - interval: 20s
+        onChange: false
+        sourceName: freq_fwd_dispensers
+      - interval: 20s
+        onChange: false
+        sourceName: signal_fwd_dispensers
+      - interval: 20s
+        onChange: false
+        sourceName: freq_pylon_dispensers
+      - interval: 20s
+        onChange: false
+        sourceName: signal_pylon_dispensers
+      - interval: 20s
+        onChange: false
+        sourceName: freq_ircm_transmitters
+      - interval: 20s
+        onChange: false
+        sourceName: signal_ircm_transmitters
+      - interval: 20s
+        onChange: false
+        sourceName: freq_rwr_cd_antenna_array
+      - interval: 20s
+        onChange: false
+        sourceName: signal_rwr_cd_antenna_array
+      - interval: 20s
+        onChange: false
+        sourceName: freq_tail_dispensers
+      - interval: 20s
+        onChange: false
+        sourceName: signal_tail_dispensers
+      - interval: 10s
+        onChange: false
+        sourceName: rwr_signal
+      - interval: 10s
+        onChange: false
+        sourceName: rwr_modulation
+      - interval: 5s
+        onChange: false
+        sourceName: radar-blip-x1
+      - interval: 5s
+        onChange: false
+        sourceName: radar-blip-y1
+      - interval: 10s
+        onChange: false
+        sourceName: radar-blip-x2
+      - interval: 10s
+        onChange: false
+        sourceName: radar-blip-y2
+      - interval: 12s
+        onChange: false
+        sourceName: radar-blip-x3
+      - interval: 12s
+        onChange: false
+        sourceName: radar-blip-y3
+      - interval: 10s
+        onChange: false
+        sourceName: radar-threat-level
+      - interval: 10s
+        onChange: false
+        sourceName: airspeed
+      - interval: 10s
+        onChange: false
+        sourceName: attitude-roll-deg
+      - interval: 10s
+        onChange: false
+        sourceName: attitude-pitch-deg
+      - interval: 10s
+        onChange: false
+        sourceName: altitude
+      - interval: 10s
+        onChange: false
+        sourceName: turn-coordinator-roll
+      - interval: 10s
+        onChange: false
+        sourceName: turn-coordinator-slip
+      - interval: 10s
+        onChange: false
+        sourceName: heading
+      - interval: 10s
+        onChange: false
+        sourceName: vertical_speed
+  - name: XXXXXX_XX_XXXX
+    profileName: USAFProfile
+    description: USAF airplane Instance XXXXXX_XX_XXXX
+    labels:
+      - USAF Airplane XXXXXX_XX_XXXX
+    protocols:
+      other:
+        address: usaf-airplane-02.XXXXXX_XX_XXXX
+        port: '300'
+    autoEvents:
+      - interval: 20s
+        onChange: false
+        sourceName: freq_aft_mws_rwr
+      - interval: 20s
+        onChange: false
+        sourceName: signal_aft_mws_rwr
+      - interval: 20s
+        onChange: false
+        sourceName: freq_mid_dispensers
+      - interval: 20s
+        onChange: false
+        sourceName: signal_mid_dispensers
+      - interval: 20s
+        onChange: false
+        sourceName: freq_fwd_mws_rwr
+      - interval: 20s
+        onChange: false
+        sourceName: signal_fwd_mws_rwr
+      - interval: 20s
+        onChange: false
+        sourceName: freq_fwd_dispensers
+      - interval: 20s
+        onChange: false
+        sourceName: signal_fwd_dispensers
+      - interval: 20s
+        onChange: false
+        sourceName: freq_pylon_dispensers
+      - interval: 20s
+        onChange: false
+        sourceName: signal_pylon_dispensers
+      - interval: 20s
+        onChange: false
+        sourceName: freq_ircm_transmitters
+      - interval: 20s
+        onChange: false
+        sourceName: signal_ircm_transmitters
+      - interval: 20s
+        onChange: false
+        sourceName: freq_rwr_cd_antenna_array
+      - interval: 20s
+        onChange: false
+        sourceName: signal_rwr_cd_antenna_array
+      - interval: 20s
+        onChange: false
+        sourceName: freq_tail_dispensers
+      - interval: 20s
+        onChange: false
+        sourceName: signal_tail_dispensers
+      - interval: 10s
+        onChange: false
+        sourceName: rwr_signal
+      - interval: 10s
+        onChange: false
+        sourceName: rwr_modulation
+      - interval: 10s
+        onChange: false
+        sourceName: radar-threat-level
+      - interval: 10s
+        onChange: false
+        sourceName: airspeed
+      - interval: 10s
+        onChange: false
+        sourceName: attitude-roll-deg
+      - interval: 10s
+        onChange: false
+        sourceName: attitude-pitch-deg
+      - interval: 10s
+        onChange: false
+        sourceName: altitude
+      - interval: 10s
+        onChange: false
+        sourceName: turn-coordinator-roll
+      - interval: 10s
+        onChange: false
+        sourceName: turn-coordinator-slip
+      - interval: 10s
+        onChange: false
+        sourceName: heading
+      - interval: 10s
+        onChange: false
+        sourceName: vertical_speed

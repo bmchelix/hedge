@@ -1,0 +1,973 @@
+[
+  {
+    "id": "f46bd2b5.6f0de",
+    "type": "tab",
+    "label": "Demo Simulator UI",
+    "disabled": false,
+    "info": ""
+  },
+  {
+    "id": "fe537393.12b79",
+    "type": "function",
+    "z": "f46bd2b5.6f0de",
+    "name": "BuildTelcoEventResetPayload",
+    "func": "msg.headers = {'Content-Type': 'application/json'};\nmsg.rejectUnauthorized = false\n\nmsg.url = \"http://hedge-node-red:1880/anomaly/reset/telco\"\n\nmsg.payload = {}\nmsg.method = \"PUT\"\nreturn msg;",
+    "outputs": 1,
+    "noerr": 0,
+    "x": 470,
+    "y": 100,
+    "wires": [
+      [
+        "906189d1.cd53f8"
+      ]
+    ]
+  },
+  {
+    "id": "a6f077f0.844bd8",
+    "type": "ui_button",
+    "z": "f46bd2b5.6f0de",
+    "name": "ResetTelcoAnomalies",
+    "group": "32c86848.b74db8",
+    "order": 1,
+    "width": 0,
+    "height": 0,
+    "passthru": false,
+    "label": "Reset Current Anomalies",
+    "tooltip": "Reset current Anomalies in dashboard",
+    "color": "",
+    "bgcolor": "",
+    "icon": "",
+    "payload": "",
+    "payloadType": "str",
+    "topic": "",
+    "x": 180,
+    "y": 100,
+    "wires": [
+      [
+        "fe537393.12b79"
+      ]
+    ]
+  },
+  {
+    "id": "8933fbfc.9b3498",
+    "type": "ui_button",
+    "z": "f46bd2b5.6f0de",
+    "name": "Start Telco Demo",
+    "group": "32c86848.b74db8",
+    "order": 2,
+    "width": 0,
+    "height": 0,
+    "passthru": false,
+    "label": "Start Demo",
+    "tooltip": "Click here and then move to the Telco Dashboard",
+    "color": "",
+    "bgcolor": "",
+    "icon": "",
+    "payload": "",
+    "payloadType": "str",
+    "topic": "",
+    "x": 170,
+    "y": 180,
+    "wires": [
+      [
+        "4adedb12.27d1f4"
+      ]
+    ]
+  },
+  {
+    "id": "4adedb12.27d1f4",
+    "type": "function",
+    "z": "f46bd2b5.6f0de",
+    "name": "buildTelcoDemoDataPayload",
+    "func": "var telcoDemoPayload = [\n    {\n        \"name\": \"ChangeAverage\",\n        \"parameters\": {\n            \"device\": \"Telco-PowerSupply-A\",\n            \"metric\": \"FuelLevelPercent\",\n            \"average\": \"25\"\n        }\n    },\n    {\n        \"name\": \"Wait\",\n        \"parameters\": {\n            \"waitDuration\": \"4s\"\n        }\n    },\n    {\n        \"name\": \"ChangeAverage\",\n        \"parameters\": {\n            \"device\": \"Telco-Antenna-North\",\n            \"metric\": \"AntennaDislocation\",\n            \"average\": \"10\"\n        }\n    },\n    {\n        \"name\": \"Wait\",\n        \"parameters\": {\n            \"waitDuration\": \"1s\"\n        }\n    },\n    {\n        \"name\": \"ChangeAverage\",\n        \"parameters\": {\n            \"device\": \"Telco-Tower-A\",\n            \"metric\": \"CallDrops\",\n            \"average\": \"9\"\n        }\n    }\n]\n\nserver = flow.get(\"edgeXserver\")\nif ( server === null || server === undefined ) {\n    server = \"device-virtual\"\n}\nmsg.url = \"http://\"+server+\":49991/api/v1/dataGenerator/commands\"\n\nmsg.headers = {'Content-Type': 'application/json'};\nmsg.rejectUnauthorized = false\n\nmsg.method = \"PUT\"\nmsg.payload = telcoDemoPayload\nreturn msg;\n\n\n\n",
+    "outputs": 1,
+    "noerr": 0,
+    "x": 460,
+    "y": 180,
+    "wires": [
+      [
+        "906189d1.cd53f8"
+      ]
+    ]
+  },
+  {
+    "id": "906189d1.cd53f8",
+    "type": "http request",
+    "z": "f46bd2b5.6f0de",
+    "name": "fireHttp command",
+    "method": "use",
+    "ret": "txt",
+    "paytoqs": false,
+    "url": "",
+    "tls": "",
+    "proxy": "",
+    "authType": "",
+    "x": 770,
+    "y": 180,
+    "wires": [
+      [
+        "a3cd02f4.923ef"
+      ]
+    ]
+  },
+  {
+    "id": "a3cd02f4.923ef",
+    "type": "debug",
+    "z": "f46bd2b5.6f0de",
+    "name": "printHttpStatus",
+    "active": true,
+    "tosidebar": true,
+    "console": false,
+    "tostatus": false,
+    "complete": "true",
+    "targetType": "full",
+    "x": 990,
+    "y": 180,
+    "wires": []
+  },
+  {
+    "id": "e9a5dae2.76e878",
+    "type": "ui_button",
+    "z": "f46bd2b5.6f0de",
+    "name": "Reset Windfarm Anomalies",
+    "group": "983bf1b1.cef0a",
+    "order": 1,
+    "width": 0,
+    "height": 0,
+    "passthru": false,
+    "label": "Reset Anomalies & Events",
+    "tooltip": "Closes Open Anomalies for a clean start",
+    "color": "",
+    "bgcolor": "",
+    "icon": "",
+    "payload": "",
+    "payloadType": "str",
+    "topic": "",
+    "x": 200,
+    "y": 260,
+    "wires": [
+      [
+        "6630e8a.457bb18"
+      ]
+    ]
+  },
+  {
+    "id": "6630e8a.457bb18",
+    "type": "function",
+    "z": "f46bd2b5.6f0de",
+    "name": "BuildWindFarmResetPayload",
+    "func": "msg.headers = {'Content-Type': 'application/json'};\nmsg.rejectUnauthorized = false\n\nmsg.url = \"http://hedge-node-red:1880/anomaly/reset/windfarm\"\n\nmsg.payload = {}\nmsg.method = \"PUT\"\nreturn msg;",
+    "outputs": 1,
+    "noerr": 0,
+    "x": 480,
+    "y": 260,
+    "wires": [
+      [
+        "906189d1.cd53f8"
+      ]
+    ]
+  },
+  {
+    "id": "c204d561.6a2bb8",
+    "type": "ui_dropdown",
+    "z": "f46bd2b5.6f0de",
+    "name": "deviceName",
+    "label": "Wind Tower",
+    "tooltip": "Select the WInd tower for which you want to update the data",
+    "place": "Select option",
+    "group": "54bb1d9a.ed98e4",
+    "order": 1,
+    "width": 0,
+    "height": 0,
+    "passthru": true,
+    "multiple": false,
+    "options": [],
+    "payload": "",
+    "topic": "",
+    "x": 1330,
+    "y": 660,
+    "wires": [
+      [
+        "112cddd0.167da2"
+      ]
+    ]
+  },
+  {
+    "id": "f647af03.8feec",
+    "type": "inject",
+    "z": "f46bd2b5.6f0de",
+    "name": "Delay 70 secs so edgex starts",
+    "repeat": "",
+    "crontab": "",
+    "once": true,
+    "onceDelay": "70",
+    "topic": "",
+    "payload": "",
+    "payloadType": "date",
+    "x": 150,
+    "y": 860,
+    "wires": [
+      [
+        "f4a17527.56a018"
+      ]
+    ]
+  },
+  {
+    "id": "9143494a.6f0f18",
+    "type": "http request",
+    "z": "f46bd2b5.6f0de",
+    "name": "getDeviceList",
+    "method": "GET",
+    "ret": "txt",
+    "paytoqs": false,
+    "url": "",
+    "tls": "",
+    "proxy": "",
+    "authType": "",
+    "x": 480,
+    "y": 780,
+    "wires": [
+      [
+        "43cc1519.cdfecc",
+        "f8311f68.8fd03"
+      ]
+    ]
+  },
+  {
+    "id": "f4a17527.56a018",
+    "type": "function",
+    "z": "f46bd2b5.6f0de",
+    "name": "buildGetDeviceListByProfile",
+    "func": "profileName = \"WindTurbine\"\n\n\nmsg.headers = {\n   // \"Authorization\" : \"apiKey \"+API_KEY,\n    \"Content-Type\" : \"application/json\"\n}\n  \nmsg.rejectUnauthorized = false\n\n//server = flow.get(\"edgeXServer\")\n\nmetadataserver = \"edgex-core-metadata\"\n\nmsg.url = \"http://\"+metadataserver+\":59881/api/v3/device/profile/name/\"+ profileName\nreturn msg;\n",
+    "outputs": 1,
+    "noerr": 0,
+    "initialize": "",
+    "finalize": "",
+    "libs": [],
+    "x": 240,
+    "y": 780,
+    "wires": [
+      [
+        "9143494a.6f0f18"
+      ]
+    ]
+  },
+  {
+    "id": "b59901a1.4085",
+    "type": "debug",
+    "z": "f46bd2b5.6f0de",
+    "name": "",
+    "active": true,
+    "tosidebar": true,
+    "console": false,
+    "tostatus": false,
+    "complete": "true",
+    "targetType": "full",
+    "x": 1370,
+    "y": 720,
+    "wires": []
+  },
+  {
+    "id": "7add9678.50a6e8",
+    "type": "function",
+    "z": "f46bd2b5.6f0de",
+    "name": "buildDeviceListArray",
+    "func": "var body=msg.payload\nvar devices=[]\nvar metricNames=[]\nvar metricToAvgMap = {\n    WindSpeed : 0,\n    GenGearOilViscosity:0,\n    GenBearingTemperature: 0,\n    GenGearboxVibrations : 0,\n    TurbinePower: 0,\n    RotorSpeed: 0,\n    NacelleCableTwistRotations: 0,\n    GenGearOilLevelPercent: 0\n}\n\nvar i;\nfor (i = 0; i < body.length; i++) {\n    devices.push(body[i].name)\n }\n\nif (devices.length >0) {\n    var deviceResources = body[0].profile.deviceResources\n   \n    metricNames.push(\"WindSpeed\")\n    metricNames.push(\"GenGearOilViscosity\")\n    metricNames.push(\"GenBearingTemperature\")\n    metricNames.push(\"GenGearboxVibrations\")\n    \n    metricNames.push(\"TurbinePower\")\n    metricNames.push(\"RotorSpeed\")\n    metricNames.push(\"NacelleCableTwistRotations\")\n    \n    metricNames.push(\"GenGearOilLevelPercent\")\n    metricNames.push(\"NacelleYawError\")\n    \n   // \n    \n    \n    // for the above, set the avg profile values\n    for ( var j=0; j<deviceResources.length; j++ ) {\n\n        if ( metricNames.includes(deviceResources[j].name) ) {\n            metric = deviceResources[j].name\n            console.log('Matched deviceResource='+metric)\n            var min = deviceResources[j].attributes.min\n            var max =  deviceResources[j].attributes.max\n            var avg = (Number(min)+Number(max))/2\n            console.log('avg='+avg)\n            if (metric.includes(\"WindSpeed\")) {\n                metricToAvgMap.WindSpeed = avg\n            } else if (metric.includes(\"GenGearOilViscosity\") ) {\n                metricToAvgMap.GenGearOilViscosity = avg\n            } else if (metric.includes(\"GenBearingTemperature\") ) {\n                metricToAvgMap.GenBearingTemperature = avg\n            } else if (metric.includes(\"GenGearboxVibrations\") ) {\n                metricToAvgMap.GenGearboxVibrations = avg\n            }  else if (metric.includes(\"TurbinePower\") ) {\n                metricToAvgMap.TurbinePower = avg\n            }  else if (metric.includes(\"RotorSpeed\") ) {\n                metricToAvgMap.RotorSpeed = avg\n            }  else if (metric.includes(\"NacelleCableTwistRotations\") ) {\n                metricToAvgMap.NacelleCableTwistRotations = avg\n            } else if (metric.includes(\"GenGearOilLevelPercent\") ) {\n                metricToAvgMap.GenGearOilLevelPercent = avg\n            }  else if (metric.includes(\"NacelleYawError\") ) {\n                metricToAvgMap.NacelleYawError = avg\n            }\n        }\n    \n    }\n}\n\nflow.set(\"metricToAvgMap\", metricToAvgMap)\nflow.set(\"metricNames\", metricNames)\nflow.set(\"selectedMetric\",null)\nflow.set(\"selectedDevice\", null)\nmsg.payload=devices\nreturn msg;",
+    "outputs": 1,
+    "noerr": 0,
+    "initialize": "",
+    "finalize": "",
+    "libs": [],
+    "x": 860,
+    "y": 720,
+    "wires": [
+      [
+        "d6c907df.da6748",
+        "4a2b19bf.125878"
+      ]
+    ]
+  },
+  {
+    "id": "43cc1519.cdfecc",
+    "type": "json",
+    "z": "f46bd2b5.6f0de",
+    "name": "",
+    "property": "payload",
+    "action": "",
+    "pretty": false,
+    "x": 650,
+    "y": 720,
+    "wires": [
+      [
+        "7add9678.50a6e8"
+      ]
+    ]
+  },
+  {
+    "id": "d6c907df.da6748",
+    "type": "change",
+    "z": "f46bd2b5.6f0de",
+    "name": "",
+    "rules": [
+      {
+        "t": "set",
+        "p": "options",
+        "pt": "msg",
+        "to": "payload",
+        "tot": "msg"
+      }
+    ],
+    "action": "",
+    "property": "",
+    "from": "",
+    "to": "",
+    "reg": false,
+    "x": 1100,
+    "y": 680,
+    "wires": [
+      [
+        "c204d561.6a2bb8",
+        "b59901a1.4085"
+      ]
+    ]
+  },
+  {
+    "id": "4a2b19bf.125878",
+    "type": "change",
+    "z": "f46bd2b5.6f0de",
+    "name": "",
+    "rules": [
+      {
+        "t": "set",
+        "p": "options",
+        "pt": "msg",
+        "to": "metricNames",
+        "tot": "flow"
+      }
+    ],
+    "action": "",
+    "property": "",
+    "from": "",
+    "to": "",
+    "reg": false,
+    "x": 1100,
+    "y": 800,
+    "wires": [
+      [
+        "bc946a41.2fe018"
+      ]
+    ]
+  },
+  {
+    "id": "bc946a41.2fe018",
+    "type": "ui_dropdown",
+    "z": "f46bd2b5.6f0de",
+    "name": "metricName",
+    "label": "Metric Name",
+    "tooltip": "Select the metric name for which you want to update the data",
+    "place": "Select option",
+    "group": "54bb1d9a.ed98e4",
+    "order": 2,
+    "width": 0,
+    "height": 0,
+    "passthru": true,
+    "options": [
+      {
+        "label": "",
+        "value": "",
+        "type": "str"
+      }
+    ],
+    "payload": "",
+    "topic": "",
+    "x": 1290,
+    "y": 800,
+    "wires": [
+      [
+        "a5704011.ebd24"
+      ]
+    ]
+  },
+  {
+    "id": "112cddd0.167da2",
+    "type": "change",
+    "z": "f46bd2b5.6f0de",
+    "name": "setDeviceName",
+    "rules": [
+      {
+        "t": "set",
+        "p": "selectedDevice",
+        "pt": "flow",
+        "to": "payload",
+        "tot": "msg"
+      }
+    ],
+    "action": "",
+    "property": "",
+    "from": "",
+    "to": "",
+    "reg": false,
+    "x": 1500,
+    "y": 660,
+    "wires": [
+      []
+    ]
+  },
+  {
+    "id": "a5704011.ebd24",
+    "type": "change",
+    "z": "f46bd2b5.6f0de",
+    "name": "",
+    "rules": [
+      {
+        "t": "set",
+        "p": "selectedMetric",
+        "pt": "flow",
+        "to": "payload",
+        "tot": "msg"
+      }
+    ],
+    "action": "",
+    "property": "",
+    "from": "",
+    "to": "",
+    "reg": false,
+    "x": 1500,
+    "y": 800,
+    "wires": [
+      [
+        "6b084dbf.3e0c74"
+      ]
+    ]
+  },
+  {
+    "id": "6b084dbf.3e0c74",
+    "type": "function",
+    "z": "f46bd2b5.6f0de",
+    "name": "lookupAvg",
+    "func": " var metric = flow.get(\"selectedMetric\")\n var metricToAvgMap = flow.get(\"metricToAvgMap\")\n console.log(metricToAvgMap)\n\nvar avg=0\nif (metric.includes(\"WindSpeed\")) {\n    avg = metricToAvgMap.WindSpeed \n} else if (metric.includes(\"GenGearOilViscosity\") ) {\n    avg = metricToAvgMap.GenGearOilViscosity \n} else if (metric.includes(\"GenBearingTemperature\") ) {\n    avg = metricToAvgMap.GenBearingTemperature\n} else if (metric.includes(\"GenGearboxVibrations\") ) {\n    avg = metricToAvgMap.GenGearboxVibrations\n    \n}  else if (metric.includes(\"TurbinePower\") ) {\n    avg = metricToAvgMap.TurbinePower\n}  else if (metric.includes(\"RotorSpeed\") ) {\n    avg = metricToAvgMap.RotorSpeed\n}  else if (metric.includes(\"NacelleCableTwistRotations\") ) {\n    avg = metricToAvgMap.NacelleCableTwistRotations\n}  else if (metric.includes(\"GenGearOilLevelPercent\") ) {\n    avg = metricToAvgMap.GenGearOilLevelPercent\n} else if (metric.includes(\"NacelleYawError\") ) {\n    avg = metricToAvgMap.NacelleYawError\n}\n\n\n \nconsole.log('Avg for selection='+avg)\n\nmsg.payload=avg\nreturn msg;",
+    "outputs": 1,
+    "noerr": 0,
+    "x": 1690,
+    "y": 800,
+    "wires": [
+      [
+        "8454efd3.2de4"
+      ]
+    ]
+  },
+  {
+    "id": "f835ea6c.a2cbd8",
+    "type": "ui_button",
+    "z": "f46bd2b5.6f0de",
+    "name": "submit Windfarm settings",
+    "group": "54bb1d9a.ed98e4",
+    "order": 4,
+    "width": 0,
+    "height": 0,
+    "passthru": false,
+    "label": "submit",
+    "tooltip": "",
+    "color": "",
+    "bgcolor": "",
+    "icon": "",
+    "payload": "",
+    "payloadType": "str",
+    "topic": "",
+    "x": 170,
+    "y": 420,
+    "wires": [
+      [
+        "669b6914.b64508"
+      ]
+    ]
+  },
+  {
+    "id": "14a08510.26366b",
+    "type": "change",
+    "z": "f46bd2b5.6f0de",
+    "name": "",
+    "rules": [
+      {
+        "t": "set",
+        "p": "metricValue",
+        "pt": "flow",
+        "to": "payload",
+        "tot": "msg"
+      }
+    ],
+    "action": "",
+    "property": "",
+    "from": "",
+    "to": "",
+    "reg": false,
+    "x": 2150,
+    "y": 800,
+    "wires": [
+      []
+    ]
+  },
+  {
+    "id": "669b6914.b64508",
+    "type": "function",
+    "z": "f46bd2b5.6f0de",
+    "name": "buildControlWindTurbineCmd",
+    "func": "var metricName = flow.get('selectedMetric')\nvar deviceName = flow.get('selectedDevice')\nvar metricValueStrWithDecimal = flow.get('metricValue')\nvar metricValue = parseInt(metricValueStrWithDecimal)\n\nvar command = [  \n    {\n        \"name\": \"ChangeAverage\",\n        \"parameters\": {\n            \"device\": deviceName,\n            \"metric\": metricName,\n            \"average\": metricValue.toString()\n        }\n    }\n]\n\nserver = flow.get(\"edgeXserver\")\nif ( server === null || server === undefined ) {\n    server = \"device-virtual\"\n}\nmsg.url = \"http://\"+server+\":49991/api/v1/dataGenerator/commands\"\n\nmsg.headers = {'Content-Type': 'application/json'};\nmsg.rejectUnauthorized = false\n\nmsg.method = \"PUT\"\nmsg.payload = command\nreturn msg;\n",
+    "outputs": 1,
+    "noerr": 0,
+    "initialize": "",
+    "finalize": "",
+    "libs": [],
+    "x": 460,
+    "y": 420,
+    "wires": [
+      [
+        "873c65f7.2c1a48",
+        "906189d1.cd53f8"
+      ]
+    ]
+  },
+  {
+    "id": "f8311f68.8fd03",
+    "type": "debug",
+    "z": "f46bd2b5.6f0de",
+    "name": "",
+    "active": true,
+    "tosidebar": true,
+    "console": false,
+    "tostatus": false,
+    "complete": "false",
+    "x": 690,
+    "y": 800,
+    "wires": []
+  },
+  {
+    "id": "8454efd3.2de4",
+    "type": "ui_text_input",
+    "z": "f46bd2b5.6f0de",
+    "name": "",
+    "label": "Average Metric Value",
+    "tooltip": "Set the new metric Value ( avg is already listed)",
+    "group": "54bb1d9a.ed98e4",
+    "order": 3,
+    "width": 0,
+    "height": 0,
+    "passthru": true,
+    "mode": "text",
+    "delay": 300,
+    "topic": "",
+    "x": 1900,
+    "y": 800,
+    "wires": [
+      [
+        "14a08510.26366b"
+      ]
+    ]
+  },
+  {
+    "id": "873c65f7.2c1a48",
+    "type": "switch",
+    "z": "f46bd2b5.6f0de",
+    "name": "IfGearOilPercent",
+    "property": "selectedMetric",
+    "propertyType": "flow",
+    "rules": [
+      {
+        "t": "eq",
+        "v": "GenGearOilLevelPercent",
+        "vt": "str"
+      }
+    ],
+    "checkall": "true",
+    "repair": false,
+    "outputs": 1,
+    "x": 730,
+    "y": 420,
+    "wires": [
+      [
+        "f89a4916.fdf838",
+        "89853d8f.b6fdc"
+      ]
+    ]
+  },
+  {
+    "id": "27efdc49.e6c014",
+    "type": "change",
+    "z": "f46bd2b5.6f0de",
+    "name": "IncreaseTemperature",
+    "rules": [
+      {
+        "t": "set",
+        "p": "payload[0].parameters.metric",
+        "pt": "msg",
+        "to": "GenBearingTemperature",
+        "tot": "str"
+      },
+      {
+        "t": "set",
+        "p": "payload[0].parameters.average",
+        "pt": "msg",
+        "to": "87",
+        "tot": "str"
+      }
+    ],
+    "action": "",
+    "property": "",
+    "from": "",
+    "to": "",
+    "reg": false,
+    "x": 1280,
+    "y": 260,
+    "wires": [
+      [
+        "b6bf1228.4412f"
+      ]
+    ]
+  },
+  {
+    "id": "2e39591e.a72826",
+    "type": "http request",
+    "z": "f46bd2b5.6f0de",
+    "name": "InCreateGearboxTemperature",
+    "method": "use",
+    "ret": "txt",
+    "paytoqs": false,
+    "url": "",
+    "tls": "",
+    "proxy": "",
+    "authType": "",
+    "x": 1730,
+    "y": 380,
+    "wires": [
+      [
+        "5dd860a8.bfe9d"
+      ]
+    ]
+  },
+  {
+    "id": "5dd860a8.bfe9d",
+    "type": "debug",
+    "z": "f46bd2b5.6f0de",
+    "name": "printhttpTempVibResponse",
+    "active": true,
+    "tosidebar": true,
+    "console": false,
+    "tostatus": false,
+    "complete": "true",
+    "targetType": "full",
+    "x": 2020,
+    "y": 380,
+    "wires": []
+  },
+  {
+    "id": "f89a4916.fdf838",
+    "type": "switch",
+    "z": "f46bd2b5.6f0de",
+    "name": "Decrease in GearboxOil below 50",
+    "property": "metricValue",
+    "propertyType": "flow",
+    "rules": [
+      {
+        "t": "lt",
+        "v": "50",
+        "vt": "num"
+      }
+    ],
+    "checkall": "true",
+    "repair": false,
+    "outputs": 1,
+    "x": 960,
+    "y": 340,
+    "wires": [
+      [
+        "27efdc49.e6c014",
+        "b71322d3.2a023"
+      ]
+    ]
+  },
+  {
+    "id": "b6bf1228.4412f",
+    "type": "delay",
+    "z": "f46bd2b5.6f0de",
+    "name": "Delay",
+    "pauseType": "delay",
+    "timeout": "5",
+    "timeoutUnits": "seconds",
+    "rate": "1",
+    "nbRateUnits": "1",
+    "rateUnits": "second",
+    "randomFirst": "1",
+    "randomLast": "5",
+    "randomUnits": "seconds",
+    "drop": false,
+    "outputs": 1,
+    "x": 1510,
+    "y": 300,
+    "wires": [
+      [
+        "2e39591e.a72826"
+      ]
+    ]
+  },
+  {
+    "id": "89853d8f.b6fdc",
+    "type": "switch",
+    "z": "f46bd2b5.6f0de",
+    "name": "Increase in GearboxOil above 60",
+    "property": "metricValue",
+    "propertyType": "flow",
+    "rules": [
+      {
+        "t": "gt",
+        "v": "60",
+        "vt": "num"
+      }
+    ],
+    "checkall": "true",
+    "repair": false,
+    "outputs": 1,
+    "x": 960,
+    "y": 500,
+    "wires": [
+      [
+        "57e6fad2.61ae84",
+        "7e658921.c6a658"
+      ]
+    ]
+  },
+  {
+    "id": "57e6fad2.61ae84",
+    "type": "change",
+    "z": "f46bd2b5.6f0de",
+    "name": "DecreaseTemperature",
+    "rules": [
+      {
+        "t": "set",
+        "p": "payload[0].parameters.metric",
+        "pt": "msg",
+        "to": "GenBearingTemperature",
+        "tot": "str"
+      },
+      {
+        "t": "set",
+        "p": "payload[0].parameters.average",
+        "pt": "msg",
+        "to": "54",
+        "tot": "str"
+      }
+    ],
+    "action": "",
+    "property": "",
+    "from": "",
+    "to": "",
+    "reg": false,
+    "x": 1260,
+    "y": 360,
+    "wires": [
+      [
+        "b6bf1228.4412f"
+      ]
+    ]
+  },
+  {
+    "id": "b71322d3.2a023",
+    "type": "change",
+    "z": "f46bd2b5.6f0de",
+    "name": "IncreaseVibration",
+    "rules": [
+      {
+        "t": "set",
+        "p": "payload[0].parameters.metric",
+        "pt": "msg",
+        "to": "GenGearboxVibrations",
+        "tot": "str"
+      },
+      {
+        "t": "set",
+        "p": "payload[0].parameters.average",
+        "pt": "msg",
+        "to": "17",
+        "tot": "str"
+      }
+    ],
+    "action": "",
+    "property": "",
+    "from": "",
+    "to": "",
+    "reg": false,
+    "x": 1270,
+    "y": 180,
+    "wires": [
+      [
+        "59d45972.ea0de8",
+        "db3f0707.ce0a38"
+      ]
+    ]
+  },
+  {
+    "id": "59d45972.ea0de8",
+    "type": "delay",
+    "z": "f46bd2b5.6f0de",
+    "name": "Delay",
+    "pauseType": "delay",
+    "timeout": "15",
+    "timeoutUnits": "seconds",
+    "rate": "1",
+    "nbRateUnits": "1",
+    "rateUnits": "second",
+    "randomFirst": "1",
+    "randomLast": "5",
+    "randomUnits": "seconds",
+    "drop": false,
+    "outputs": 1,
+    "x": 1490,
+    "y": 440,
+    "wires": [
+      [
+        "2e39591e.a72826"
+      ]
+    ]
+  },
+  {
+    "id": "7e658921.c6a658",
+    "type": "change",
+    "z": "f46bd2b5.6f0de",
+    "name": "DecreaseVibration",
+    "rules": [
+      {
+        "t": "set",
+        "p": "payload[0].parameters.metric",
+        "pt": "msg",
+        "to": "GenGearboxVibrations",
+        "tot": "str"
+      },
+      {
+        "t": "set",
+        "p": "payload[0].parameters.average",
+        "pt": "msg",
+        "to": "7",
+        "tot": "str"
+      }
+    ],
+    "action": "",
+    "property": "",
+    "from": "",
+    "to": "",
+    "reg": false,
+    "x": 1250,
+    "y": 440,
+    "wires": [
+      [
+        "59d45972.ea0de8"
+      ]
+    ]
+  },
+  {
+    "id": "db3f0707.ce0a38",
+    "type": "debug",
+    "z": "f46bd2b5.6f0de",
+    "name": "PrintNewPayload",
+    "active": true,
+    "tosidebar": true,
+    "console": false,
+    "tostatus": false,
+    "complete": "true",
+    "targetType": "full",
+    "x": 1550,
+    "y": 180,
+    "wires": []
+  },
+  {
+    "id": "41da84f2.28c47c",
+    "type": "ui_button",
+    "z": "f46bd2b5.6f0de",
+    "name": "Start Windfarm Demo",
+    "group": "983bf1b1.cef0a",
+    "order": 2,
+    "width": 0,
+    "height": 0,
+    "passthru": false,
+    "label": "Start Demo",
+    "tooltip": "Click to start simulation for events and Anomalies",
+    "color": "",
+    "bgcolor": "",
+    "icon": "",
+    "payload": "",
+    "payloadType": "str",
+    "topic": "",
+    "x": 180,
+    "y": 360,
+    "wires": [
+      [
+        "8358c736.32a458"
+      ]
+    ]
+  },
+  {
+    "id": "8358c736.32a458",
+    "type": "function",
+    "z": "f46bd2b5.6f0de",
+    "name": "buildWindFarmInitializePayload",
+    "func": "var resetWindFarmDataPayload = [\n    {\n        \"name\": \"ResetValue\",\n        \"parameters\": {\n            \"device\": \"AltaNS12\",\n            \"metric\": \"GenGearOilLevelPercent\"\n        }\n    },\n    {\n        \"name\": \"ResetValue\",\n        \"parameters\": {\n            \"device\": \"AltaNS12\",\n            \"metric\": \"GenGearboxVibrations\"\n        }\n    },\n    {\n        \"name\": \"ResetValue\",\n        \"parameters\": {\n            \"device\": \"AltaNS12\",\n            \"metric\": \"GenBearingTemperature\"\n        }\n    },\n    {\n        \"name\": \"ResetValue\",\n        \"parameters\": {\n            \"device\": \"AltaNS12\",\n            \"metric\": \"RotorSpeed\"\n        }\n    },\n    {\n        \"name\": \"Wait\",\n        \"parameters\": {\n            \"waitDuration\": \"15s\"\n        }\n    },\n    {\n        \"name\": \"ResetValue\",\n        \"parameters\": {\n            \"device\": \"AltaNS12\",\n            \"metric\": \"TurbinePower\"\n        }\n    },\n    {\n        \"name\": \"Wait\",\n        \"parameters\": {\n            \"waitDuration\": \"30s\"\n        }\n    },\n    {\n        \"name\": \"ChangeAverage\",\n        \"parameters\": {\n            \"device\": \"AltaNS12\",\n            \"metric\": \"GenGearOilLevelPercent\",\n            \"average\": \"28\"\n        }\n    },\n    {\n        \"name\": \"Wait\",\n        \"parameters\": {\n            \"waitDuration\": \"5s\"\n        }\n    },\n    {\n        \"name\": \"ChangeAverage\",\n        \"parameters\": {\n            \"device\": \"AltaNS12\",\n            \"metric\": \"GenBearingTemperature\",\n            \"average\": \"87\"\n        }\n    },\n    {\n        \"name\": \"Wait\",\n        \"parameters\": {\n            \"waitDuration\": \"5s\"\n        }\n    },\n    {\n        \"name\": \"ChangeAverage\",\n        \"parameters\": {\n            \"device\": \"AltaNS12\",\n            \"metric\": \"GenGearboxVibrations\",\n            \"average\": \"17\"\n        }\n    }\n]\n\nserver = flow.get(\"edgeXserver\")\nif ( server === null || server === undefined ) {\n    server = \"device-virtual\"\n}\nmsg.url = \"http://\"+server+\":49991/api/v1/dataGenerator/commands\"\n\nmsg.headers = {'Content-Type': 'application/json'};\nmsg.rejectUnauthorized = false\n\nmsg.method = \"PUT\"\nmsg.payload = resetWindFarmDataPayload\nreturn msg;\n\n\n\n",
+    "outputs": 1,
+    "noerr": 0,
+    "initialize": "",
+    "finalize": "",
+    "libs": [],
+    "x": 470,
+    "y": 360,
+    "wires": [
+      [
+        "906189d1.cd53f8"
+      ]
+    ]
+  },
+  {
+    "id": "32c86848.b74db8",
+    "type": "ui_group",
+    "name": "Telco Demo Controls",
+    "tab": "63c96d.c703c694",
+    "order": 1,
+    "disp": true,
+    "width": "6",
+    "collapse": false
+  },
+  {
+    "id": "983bf1b1.cef0a",
+    "type": "ui_group",
+    "name": "Demo ShortCuts",
+    "tab": "9100a70f.c1e668",
+    "order": 3,
+    "disp": true,
+    "width": "6",
+    "collapse": false
+  },
+  {
+    "id": "54bb1d9a.ed98e4",
+    "type": "ui_group",
+    "name": "WindTower Demo Data Controls",
+    "tab": "9100a70f.c1e668",
+    "order": 1,
+    "disp": true,
+    "width": "9",
+    "collapse": false
+  },
+  {
+    "id": "63c96d.c703c694",
+    "type": "ui_tab",
+    "name": "Telco",
+    "icon": "dashboard",
+    "order": 3,
+    "disabled": false,
+    "hidden": false
+  },
+  {
+    "id": "9100a70f.c1e668",
+    "type": "ui_tab",
+    "name": "WindMill",
+    "icon": "dashboard",
+    "order": 4,
+    "disabled": false,
+    "hidden": false
+  }
+]

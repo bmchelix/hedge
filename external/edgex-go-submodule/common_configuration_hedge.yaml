@@ -1,0 +1,185 @@
+all-services:
+  Writable:
+    LogLevel: "INFO"
+
+    InsecureSecrets:
+      DB:
+        SecretName: "redisdb"
+        SecretData:
+          username: ""
+          password: ""
+      OpenSearch:
+        SecretName: "opensearch"
+        SecretData:
+          username: ""
+          password: ""
+      MQTT:
+        SecretName: "mbconnection"
+        SecretData:
+          username: ''
+          password: ''
+      REGISTRY:
+        SecretName: "registryconnection"
+        SecretData:
+          username: "bilhedge"
+          password: "7IeL8av#$[U12igKQ2Q85f^.:"
+
+    Telemetry:
+      Interval: "0s" # Disable telemetry by default, MetricReportInterval is what decides the telemetry polling interval for hedge
+      Metrics:
+        # Common Security Service Metrics
+        SecuritySecretsRequested: false
+        SecuritySecretsStored: false
+        SecurityConsulTokensRequested: false
+        SecurityConsulTokenDuration: false
+        SecurityRuntimeSecretTokenDuration: false
+        SecurityGetSecretDuration: false
+#     Tags: # Contains the service level tags to be attached to all the service's metrics
+      #  Gateway: "my-iot-gateway" # Tag must be added here or via Consul Env Override can only change existing value, not added new ones.
+      
+  Service:
+    HealthCheckInterval: "10s"
+    ServerBindAddr: 0.0.0.0
+    MaxResultCount: 1024
+    MaxRequestSize: 0 # Not currently used. Defines the maximum size of http request body in bytes
+    RequestTimeout: "60s"
+    EnableNameFieldEscape: false # The name field escape could allow the system to use special or Chinese characters in the different name fields, including device, profile, and so on.  If the EnableNameFieldEscape is false, some special characters might cause system error.  TODO: This is set to false by default to avoid breaking change and will be removed in EdgeX 4.0
+    CORSConfiguration:
+      EnableCORS: false
+      CORSAllowCredentials: false
+      CORSAllowedOrigin: "https://localhost"
+      CORSAllowedMethods: "GET, POST, PUT, PATCH, DELETE"
+      CORSAllowedHeaders: "Authorization, Accept, Accept-Language, Content-Language, Content-Type, X-Correlation-ID"
+      CORSExposeHeaders: "Cache-Control, Content-Language, Content-Length, Content-Type, Expires, Last-Modified, Pragma, X-Correlation-ID"
+      CORSMaxAge: 3600
+
+  Registry:
+    Host: "localhost"
+    Port: 8500
+    Type: "consul"
+  
+  Database:
+    Host: "localhost"
+    Port: 6379
+    Timeout: "15s"
+    Type: "redisdb"
+
+  SecretStore:
+    Type: vault
+    Host: localhost
+    Port: 8200
+    Protocol: http
+    RootCaCertPath: ''
+    ServerName: ''
+    Authentication:
+      AuthType: X-Vault-Token
+
+  MessageBus:
+    Protocol: "redis"
+    Host: "localhost"
+    Port: 6379
+    Type: "redis"
+    AuthMode: "usernamepassword"  # required for redis MessageBus (secure or insecure).
+    SecretName: "redisdb"
+    BaseTopicPrefix: "hedge" # prepended to all topics as "hedge/<additional topic levels>
+    Optional:
+      # Default MQTT Specific options that need to be here to enable environment variable overrides of them
+      Qos:  "0" # Quality of Service values are 0 (At most once), 1 (At least once) or 2 (Exactly once)
+      KeepAlive: "10" # Seconds (must be 2 or greater)
+      Retained: "false"
+      AutoReconnect: "true"
+      ConnectTimeout: "10" # Seconds
+      SkipCertVerify: "false"
+      # Additional Default NATS Specific options that need to be here to enable environment variable overrides of them
+      Format: "nats"
+      RetryOnFailedConnect: "true"
+      QueueGroup: ""
+      Durable: ""
+      AutoProvision: "true"
+      Deliver: "new"
+      DefaultPubRetryAttempts: "2"
+      Subject: "edgex/#" # Required for NATS JetStream only for stream auto-provisioning
+
+app-services:
+  Writable:
+    StoreAndForward:
+      Enabled: false
+      RetryInterval: "5m"
+      MaxRetryCount: 5
+    Telemetry:
+      Interval: "0s" # 0s implies near infinite interval ie no telemetry polling, need to overwrite in respective services to enable telemetry
+      Metrics:
+        MessagesReceived: false
+        InvalidMessagesReceived: false
+        PipelineMessagesProcessed: false # Pipeline IDs are added as the tag for this metric for each pipeline defined
+        PipelineMessageProcessingTime: false # Pipeline IDs are added as the tag for this metric for each pipeline defined
+        PipelineProcessingErrors: false # Pipeline IDs are added as the tag for this metric for each pipeline defined
+        HttpExportSize: false #  Url is added as tag for this metric for each HTTP export defined
+        HttpExportErrors: false # Url is added as tag for this metric for each HTTP export defined
+        MqttExportSize: false # BrokerAddress and Topic are added as the tag for this metric for each MQTT export defined
+        MqttExportErrors: false # BrokerAddress and Topic are added as the tag for this metric for each MQTT export defined
+  Clients:
+    core-metadata:
+      Protocol: "http"
+      Host: "localhost"
+      Port: 59881
+  Trigger:
+    Type: "edgex-messagebus"
+    SubscribeTopics: "events/#" # Base topic is prepended to this topic when using edgex-messagebus
+
+  ApplicationSettings:
+    # MQTT Broker configuration
+    scheme: tcp
+    MqttServer: localhost
+    MqttPort: '1883'
+    MqttAuthMode: usernamepassword
+    MqttSecretName: 'mbconnection'
+    QoS: '0'
+    Retain: "false"
+    # not sure if we need persistOnerror, so remove after checking all
+    PersistOnError: 'false'
+    # Redis connection details
+    RedisHost: localhost
+    RedisName: metadata
+    RedisPort: '6379'
+    RedisTimeout: '5000'
+    # Common Hedge services that are used by other services
+    Device_Extn: 'http://localhost:48097'
+    MetaDataServiceUrl: 'http://localhost:59881'
+    MetaSyncUrl: 'http://localhost:48108'
+    HedgeAdminURL: 'http://localhost:48098'
+
+    # To be updated later to use the prefix builder
+    MetricPublishTopicPrefix: 'hedge/telemetry'
+    MetricReportInterval: '300'
+
+
+device-services:
+  MaxEventSize: 0 # value 0 represents unlimited  maximum event size that can be sent to message bus or core-data
+  Writable:
+    Reading:
+      ReadingUnits: true
+    Telemetry:
+      Metrics:
+        EventsSent: false
+        ReadingsSent: false
+        LastConnected: false
+  Clients:
+    core-metadata:
+      Protocol: "http"
+      Host: "localhost"
+      Port: 59881
+  Device:
+    DataTransform: true
+    MaxCmdOps: 128
+    MaxCmdValueLen: 256
+    ProfilesDir: "./res/profiles"
+    DevicesDir: "./res/devices"
+    # ProvisionWatchersDir is omitted here since most Device Services don't use it.
+    # Those that do will have it in their private config
+    EnableAsyncReadings: true
+    AsyncBufferSize: 16
+    Labels: []
+    Discovery:
+      Enabled: false
+      Interval: "30s"

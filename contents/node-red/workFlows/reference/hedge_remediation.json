@@ -1,0 +1,497 @@
+[
+  {
+    "id": "e0c3396b.3b4828",
+    "type": "tab",
+    "label": "hedge_remediation ",
+    "disabled": false,
+    "info": ""
+  },
+  {
+    "id": "9a01c236.2003d",
+    "type": "mqtt in",
+    "z": "e0c3396b.3b4828",
+    "name": "ReadEvent",
+    "topic": "BMCEvents",
+    "qos": "2",
+    "datatype": "json",
+    "broker": "bf47c3db.d1bc",
+    "nl": false,
+    "rap": false,
+    "inputs": 0,
+    "x": 60,
+    "y": 200,
+    "wires": [
+      [
+        "96edfc33.6741c"
+      ]
+    ]
+  },
+  {
+    "id": "caf8cc62.029c6",
+    "type": "switch",
+    "z": "e0c3396b.3b4828",
+    "name": "CheckIfAnomaly",
+    "property": "payload.class",
+    "propertyType": "msg",
+    "rules": [
+      {
+        "t": "eq",
+        "v": "ANOMALY",
+        "vt": "str"
+      }
+    ],
+    "checkall": "true",
+    "repair": false,
+    "outputs": 1,
+    "x": 380,
+    "y": 120,
+    "wires": [
+      [
+        "cddfadca9d3b71d8"
+      ]
+    ]
+  },
+  {
+    "id": "fa07f156.03a6a",
+    "type": "switch",
+    "z": "e0c3396b.3b4828",
+    "name": "LowOilLevel",
+    "property": "payload.name",
+    "propertyType": "msg",
+    "rules": [
+      {
+        "t": "eq",
+        "v": "LowOilLevel",
+        "vt": "str"
+      }
+    ],
+    "checkall": "true",
+    "repair": false,
+    "outputs": 1,
+    "x": 510,
+    "y": 280,
+    "wires": [
+      [
+        "c4ab746b.71e998"
+      ]
+    ]
+  },
+  {
+    "id": "d0cddbc0.952f88",
+    "type": "switch",
+    "z": "e0c3396b.3b4828",
+    "name": "LowFuelLevel",
+    "property": "payload.name",
+    "propertyType": "msg",
+    "rules": [
+      {
+        "t": "eq",
+        "v": "LowFuelLevel",
+        "vt": "str"
+      }
+    ],
+    "checkall": "true",
+    "repair": false,
+    "outputs": 1,
+    "x": 520,
+    "y": 360,
+    "wires": [
+      [
+        "18ba5d3.6074aa3"
+      ]
+    ]
+  },
+  {
+    "id": "96edfc33.6741c",
+    "type": "switch",
+    "z": "e0c3396b.3b4828",
+    "name": "Status Open / Closed",
+    "property": "payload.status",
+    "propertyType": "msg",
+    "rules": [
+      {
+        "t": "eq",
+        "v": "Open",
+        "vt": "str"
+      },
+      {
+        "t": "eq",
+        "v": "Closed",
+        "vt": "str"
+      }
+    ],
+    "checkall": "true",
+    "repair": false,
+    "outputs": 2,
+    "x": 260,
+    "y": 260,
+    "wires": [
+      [
+        "caf8cc62.029c6",
+        "fa07f156.03a6a",
+        "d0cddbc0.952f88"
+      ],
+      [
+        "7bfa65d9.bcf4ac",
+        "335d3982.63eef6"
+      ]
+    ]
+  },
+  {
+    "id": "18ba5d3.6074aa3",
+    "type": "function",
+    "z": "e0c3396b.3b4828",
+    "name": "build low Fuel Level Open Command",
+    "func": "\nvar command = {\n    \"id\": msg.payload.id,\n    \"correlationId\":msg.payload.correlationId,\n    \"deviceName\":msg.payload.deviceName,\n\t\"name\":msg.payload.name,\n\t\"type\": \"NewServiceRequest\",\n\t\"executionNodeType\":\"Edge\", // Check with Girish\n\t\"problem\":msg.payload.msg,\n\t\"sourceNode\":msg.payload.sourceNode,\n\t\"severity\":msg.payload.severity,\n\t\"eventId\":msg.payload.id,\n\t\"remediationId\":msg.payload.remediationId,\n\t\"status\":msg.payload.status,\n\t\"commandParameters\": {\n\t    \"serviceID\": \"11903\",\n        \"refLink\": \"https://mobility19-dsom-dwp.trybmc.com/dwp/app/#/activity\",\n        \"Fuel Level\": msg.payload.actualValue.toString(),\n        \"Reason for Request\": msg.payload.msg,\n        \"summary\": \"Order Onsite Fuel Service\",\n        \"ticketType\" : \"Work-Order\"\n  },\n}\n\nmsg.payload = command\nreturn msg;\n\n\n\n",
+    "outputs": 1,
+    "noerr": 0,
+    "x": 770,
+    "y": 360,
+    "wires": [
+      [
+        "9e47b292.5a3d4"
+      ]
+    ]
+  },
+  {
+    "id": "7bfa65d9.bcf4ac",
+    "type": "function",
+    "z": "e0c3396b.3b4828",
+    "name": "build Close Command Payload",
+    "func": "\nvar command = {\n    \"deviceName\":msg.payload.deviceName,\n\t\"name\":msg.payload.name,\n\t\"type\": \"CloseServiceRequest\",\n\t\"problem\":msg.payload.msg,\n\t\"sourceNode\":msg.payload.sourceNode,\n\t\"severity\":msg.payload.severity,\n\t\"eventId\":msg.payload.id,\n\t\"correlationId\":msg.payload.correlationId,\n\t\"remediationId\":msg.payload.remediationId,\n\t\"status\":msg.payload.status,\n\t\"commandParameters\": {\n    \"summary\": \"Closing the service request\"\n  },\n}\n\nmsg.payload = command\n\nreturn msg;\n",
+    "outputs": 1,
+    "noerr": 0,
+    "x": 590,
+    "y": 440,
+    "wires": [
+      [
+        "9e47b292.5a3d4",
+        "335d3982.63eef6"
+      ]
+    ]
+  },
+  {
+    "id": "c8858d66.205b",
+    "type": "inject",
+    "z": "e0c3396b.3b4828",
+    "name": "",
+    "repeat": "",
+    "crontab": "",
+    "once": false,
+    "onceDelay": 0.1,
+    "topic": "",
+    "payload": "",
+    "payloadType": "date",
+    "x": 60,
+    "y": 440,
+    "wires": [
+      [
+        "39b5cb16.5b3e74"
+      ]
+    ]
+  },
+  {
+    "id": "39b5cb16.5b3e74",
+    "type": "change",
+    "z": "e0c3396b.3b4828",
+    "name": "",
+    "rules": [
+      {
+        "t": "set",
+        "p": "payload",
+        "pt": "msg",
+        "to": "{\"id\":\"f82aea52-0794-4ea5-a588-468b1f55e9c9\",\"deviceName\":\"AltaNS12\",\"class\":\"EVENT\",\"name\":\"LowOilLevel\",\"msg\":\"Gearbox Oil below 37%\",\"severity\":\"High\",\"priority\":\"Medium\",\"sourceNode\":\"raspi-pune.bmc.com\",\"status\":\"Open\",\"relatedMetric\":\"GearOilLevel\",\"threshold\":50,\"actualValue\":37,\"unit\":\"%\",\"site\":\"Mojave, CA, USA\",\"remediationType\":\"Order Generator Gear Oil via 15717\",\"remediationId\":\"15717\",\"version\":155175,\"created\":1607935428514,\"modified\":1612949370228,\"correlationId\":\"AltaNS12LowGearOil_Rule\"}",
+        "tot": "json"
+      }
+    ],
+    "action": "",
+    "property": "",
+    "from": "",
+    "to": "",
+    "reg": false,
+    "x": 220,
+    "y": 500,
+    "wires": [
+      [
+        "96edfc33.6741c"
+      ]
+    ]
+  },
+  {
+    "id": "c4ab746b.71e998",
+    "type": "function",
+    "z": "e0c3396b.3b4828",
+    "name": "build low Oil Level Open Command",
+    "func": "\nvar command = {\n    \"id\": msg.payload.id,\n    \"correlationId\":msg.payload.correlationId,\n    \"deviceName\":msg.payload.deviceName,\n\t\"name\":msg.payload.name,\n\t\"type\": \"NewServiceRequest\",\n\t\"executionNodeType\":\"Edge\", // Check with Girish\n\t\"problem\":msg.payload.msg,\n\t\"sourceNode\":msg.payload.sourceNode,\n\t\"severity\":msg.payload.severity,\n\t\"eventId\":msg.payload.id,\n\t\"remediationId\":msg.payload.remediationId,\n\t\"status\":msg.payload.status,\n\t\"commandParameters\": {\n\t    \"serviceID\": \"11901\",\n        \"refLink\": \"https://mobility19-dsom-dwp.trybmc.com/dwp/app/#/activity\",\n        \"Generator gear oil level\": msg.payload.actualValue.toString(),\n        \"Reason for Request\": msg.payload.msg,\n        \"summary\": \"Order Generator Gear Oil\",\n         \"ticketType\" : \"Work-Order\"\n  },\n}\n\nmsg.payload = command\nreturn msg;\n\n\n\n",
+    "outputs": 1,
+    "noerr": 0,
+    "x": 760,
+    "y": 280,
+    "wires": [
+      [
+        "9e47b292.5a3d4"
+      ]
+    ]
+  },
+  {
+    "id": "1210efdf.0a4b4",
+    "type": "function",
+    "z": "e0c3396b.3b4828",
+    "name": "buildAnomaly Wind Farm Cmd Payload",
+    "func": "\nvar command = {\n    \"id\": msg.payload.id,\n    \"correlationId\":msg.payload.correlationId,\n    \"deviceName\":msg.payload.deviceName,\n\t\"name\":msg.payload.name,\n\t\"type\": \"NewServiceRequest\",\n\t\"executionNodeType\":\"Edge\", // Check with Girish\n\t\"problem\":msg.payload.msg,\n\t\"sourceNode\":msg.payload.sourceNode,\n\t\"severity\":msg.payload.severity,\n\t\"eventId\":msg.payload.id,\n\t\"remediationId\":msg.payload.remediationId,\n\t\"status\":msg.payload.status,\n\t\"commandParameters\": {\n\t    \"serviceID\": \"11902\",\n        \"refLink\":\"https://mobility19-dsom-dwp.trybmc.com/dwp/app/#/activity\",\n        \"Anomaly Id\": msg.payload.id,\n        \"Anomaly description\" : msg.payload.msg,\n        \"Impacted device\": \"Turbine Power Generation :\"+msg.payload.deviceName,\n        \"Impacted Site\": \"Mojave, CA, USA\",\n        \"summary\": msg.payload.msg,\n        \"ticketType\" : \"Change-Request\"\n  },\n}\nmsg.payload = command\nreturn msg;\n\n",
+    "outputs": 1,
+    "noerr": 0,
+    "x": 1040,
+    "y": 220,
+    "wires": [
+      [
+        "9e47b292.5a3d4"
+      ]
+    ]
+  },
+  {
+    "id": "9e47b292.5a3d4",
+    "type": "json",
+    "z": "e0c3396b.3b4828",
+    "name": "",
+    "property": "payload",
+    "action": "",
+    "pretty": false,
+    "x": 1490,
+    "y": 260,
+    "wires": [
+      [
+        "4a0b518d.6e8a4"
+      ]
+    ]
+  },
+  {
+    "id": "4a0b518d.6e8a4",
+    "type": "mqtt out",
+    "z": "e0c3396b.3b4828",
+    "name": "PublishToBMCCommands",
+    "topic": "BMCCommands",
+    "qos": "0",
+    "retain": "",
+    "broker": "bf47c3db.d1bc",
+    "x": 1770,
+    "y": 260,
+    "wires": []
+  },
+  {
+    "id": "5dc42810.32b0a8",
+    "type": "switch",
+    "z": "e0c3396b.3b4828",
+    "name": "IsAWindFarmDevice",
+    "property": "payload.deviceName",
+    "propertyType": "msg",
+    "rules": [
+      {
+        "t": "cont",
+        "v": "Alta",
+        "vt": "str"
+      }
+    ],
+    "checkall": "true",
+    "repair": false,
+    "outputs": 1,
+    "x": 720,
+    "y": 200,
+    "wires": [
+      [
+        "1210efdf.0a4b4",
+        "4c167f6.e54938"
+      ]
+    ]
+  },
+  {
+    "id": "217f427b.45307e",
+    "type": "switch",
+    "z": "e0c3396b.3b4828",
+    "name": "Antenna Misalignment",
+    "property": "payload.correlationId",
+    "propertyType": "msg",
+    "rules": [
+      {
+        "t": "cont",
+        "v": "TelcoTowerAnomaly_",
+        "vt": "str"
+      }
+    ],
+    "checkall": "true",
+    "repair": false,
+    "outputs": 1,
+    "x": 700,
+    "y": 120,
+    "wires": [
+      [
+        "8d2f59e3.9aec28",
+        "8aa4c44d.eb7648"
+      ]
+    ]
+  },
+  {
+    "id": "8d2f59e3.9aec28",
+    "type": "function",
+    "z": "e0c3396b.3b4828",
+    "name": "buildAnomaly Antenna Mis CmdPayload",
+    "func": "\nvar command = {\n    \"id\": msg.payload.id,\n    \"correlationId\":msg.payload.correlationId,\n    \"deviceName\":msg.payload.deviceName,\n    \"profile\" : msg.payload.profile,\n\t\"name\":msg.payload.name,\n\t\"type\": \"NewServiceRequest\",\n\t\"executionNodeType\":\"Edge\", // Check with Girish\n\t\"problem\":msg.payload.msg,\n\t\"sourceNode\":msg.payload.sourceNode,\n\t\"severity\":msg.payload.severity,\n\t\"eventId\":msg.payload.id,\n\t\"remediationId\":msg.payload.remediationId,\n\t\"status\":msg.payload.status,\n\t\"commandParameters\": {\n\t    \"serviceID\": \"11904\",\n        \"refLink\":\"https://mobility19-dsom-dwp.trybmc.com/dwp/app/#/activity\",\n        \"DeviceName\" : msg.payload.devicename,\n        \"summary\": msg.payload.msg,\n        \"ticketType\": \"Change-Request\"\n  },\n}\nmsg.payload = command\nreturn msg;\n\n",
+    "outputs": 1,
+    "noerr": 0,
+    "initialize": "",
+    "finalize": "",
+    "libs": [],
+    "x": 1060,
+    "y": 120,
+    "wires": [
+      [
+        "9e47b292.5a3d4"
+      ]
+    ]
+  },
+  {
+    "id": "335d3982.63eef6",
+    "type": "debug",
+    "z": "e0c3396b.3b4828",
+    "name": "Print Close",
+    "active": true,
+    "tosidebar": true,
+    "console": false,
+    "tostatus": true,
+    "complete": "true",
+    "targetType": "full",
+    "x": 510,
+    "y": 540,
+    "wires": []
+  },
+  {
+    "id": "28039654.dc8a0a",
+    "type": "delay",
+    "z": "e0c3396b.3b4828",
+    "name": "",
+    "pauseType": "delay",
+    "timeout": "5",
+    "timeoutUnits": "seconds",
+    "rate": "1",
+    "nbRateUnits": "1",
+    "rateUnits": "second",
+    "randomFirst": "1",
+    "randomLast": "5",
+    "randomUnits": "seconds",
+    "drop": false,
+    "outputs": 1,
+    "x": 1340,
+    "y": 60,
+    "wires": [
+      [
+        "9e47b292.5a3d4",
+        "17c9ba96.7ebc95"
+      ]
+    ]
+  },
+  {
+    "id": "8aa4c44d.eb7648",
+    "type": "function",
+    "z": "e0c3396b.3b4828",
+    "name": "Build Command -Autoremediate-AntennaAlignment",
+    "func": "var body =  [\n {\n    \"name\" : \"ResetValue\",\n    \"parameters\" : {\n        \"device\": \"Telco-Antenna-North\",\n        \"metric\": \"AntennaDislocation\"\n    }\n },\n  {\n    \"name\" : \"ResetValue\",\n    \"parameters\" : {\n        \"device\": \"Telco-Tower-A\",\n        \"metric\": \"CallDrops\"\n    }\n }\n\n]\n\nserver = flow.get(\"edgeXserver\")\nif ( server === null || server === undefined ) {\n    server = \"device-virtual\"\n}\nurl = \"http://\"+server+\":49991/api/v1/dataGenerator/commands\"\n\nvar command = {\n    \"id\": msg.payload.id,\n    \"correlationId\":msg.payload.correlationId,\n    \"deviceName\":msg.payload.deviceName,\n     \"profile\" : msg.payload.profile,\n\t\"name\":msg.payload.name,\n\t\"commandURI\":url,\n\t\"type\": \"DeviceCommand\",\n\t\"executionNodeType\":\"Edge\", // Check with Girish\n\t\"problem\":msg.payload.msg,\n\t\"sourceNode\":msg.payload.sourceNode,\n\t\"severity\":msg.payload.severity,\n\t\"eventId\":msg.payload.id,\n\t\"remediationId\":msg.payload.remediationId,\n\t\"status\":msg.payload.status,\n\t\"commandParameters\": {\n\t    \"DeviceName\" : msg.payload.deviceName,\n\t    \"method\":\"PUT\",\n        \"summary\": \"Hedge Automation successfully executed automatic re-alignment of antenna\",\n        \"ticketType\": \"Change-Request\",\n        \"body\":body \n  },\n}\nmsg.payload = command\nreturn msg;\n\n\n\n",
+    "outputs": 1,
+    "noerr": 0,
+    "initialize": "",
+    "finalize": "",
+    "libs": [],
+    "x": 1050,
+    "y": 60,
+    "wires": [
+      [
+        "28039654.dc8a0a"
+      ]
+    ]
+  },
+  {
+    "id": "4c167f6.e54938",
+    "type": "function",
+    "z": "e0c3396b.3b4828",
+    "name": "Build Command - AutoRemediation-Rotor",
+    "func": "var body =  [\n    {\n        \"name\": \"ChangeAverage\",\n        \"parameters\": {\n            \"device\": \"AltaNS12\",\n            \"metric\": \"RotorSpeed\",\n            \"average\": \"14\"\n        }\n    },\n\n]\n\nserver = flow.get(\"edgeXserver\")\nif ( server === null || server === undefined ) {\n    server = \"device-virtual\"\n}\nurl = \"http://\"+server+\":49991/api/v1/dataGenerator/commands\"\n\nvar command = {\n    \"id\": msg.payload.id,\n    \"correlationId\":msg.payload.correlationId,\n    \"deviceName\":\"AltaNS12\",\n\t\"name\":msg.payload.name,\n\t\"commandURI\":url,\n\t\"type\": \"DeviceCommand\",\n\t\"executionNodeType\":\"Edge\", // Check with Girish\n\t\"problem\":msg.payload.msg,\n\t\"sourceNode\":msg.payload.sourceNode,\n\t\"severity\":msg.payload.severity,\n\t\"eventId\":msg.payload.id,\n\t\"remediationId\":msg.payload.remediationId,\n\t\"status\":msg.payload.status,\n\t\"commandParameters\": {\n\t    \"DeviceName\" : \"AltaNS12\",\n\t    \"method\":\"PUT\",\n        \"summary\": \"Power production cut by 50% & New bearings ordered\",\n        \"body\":body \n  },\n}\nmsg.payload = command\nreturn msg;\n\n\n\n",
+    "outputs": 1,
+    "noerr": 0,
+    "initialize": "",
+    "finalize": "",
+    "libs": [],
+    "x": 1040,
+    "y": 180,
+    "wires": [
+      [
+        "28039654.dc8a0a"
+      ]
+    ]
+  },
+  {
+    "id": "17c9ba96.7ebc95",
+    "type": "debug",
+    "z": "e0c3396b.3b4828",
+    "name": "Device Command Log",
+    "active": true,
+    "tosidebar": true,
+    "console": false,
+    "tostatus": false,
+    "complete": "true",
+    "targetType": "full",
+    "x": 1580,
+    "y": 60,
+    "wires": []
+  },
+  {
+    "id": "cddfadca9d3b71d8",
+    "type": "switch",
+    "z": "e0c3396b.3b4828",
+    "name": "CheckHighSeverity",
+    "property": "payload.severity",
+    "propertyType": "msg",
+    "rules": [
+      {
+        "t": "eq",
+        "v": "High",
+        "vt": "str"
+      }
+    ],
+    "checkall": "true",
+    "repair": false,
+    "outputs": 1,
+    "x": 490,
+    "y": 180,
+    "wires": [
+      [
+        "217f427b.45307e",
+        "5dc42810.32b0a8"
+      ]
+    ]
+  },
+  {
+    "id": "bf47c3db.d1bc",
+    "type": "mqtt-broker",
+    "name": "MessageBroker - Hedge",
+    "broker": "edgex-mqtt-broker",
+    "port": "1883",
+    "autoConnect": true,
+    "usetls": false,
+    "compatmode": false,
+    "protocolVersion": "4",
+    "keepalive": "60",
+    "cleansession": true,
+    "birthTopic": "",
+    "birthQos": "0",
+    "birthPayload": "",
+    "birthMsg": {},
+    "closeTopic": "",
+    "closeQos": "0",
+    "closePayload": "",
+    "closeMsg": {},
+    "willTopic": "",
+    "willQos": "0",
+    "willPayload": "",
+    "willMsg": {},
+    "sessionExpiry": ""
+  }
+]

@@ -1,0 +1,40 @@
+Writable:
+  LogLevel: INFO
+  StoreAndForward:
+    Enabled: false
+    RetryInterval: "1m"
+    MaxRetryCount: 7
+
+Service:
+  Host: localhost
+  Port: 59740
+  StartupMsg: data-enrichment Application Service has started
+
+Clients:
+  support-notifications:
+    Protocol: "http"
+    Host: "localhost"
+    Port: 59860
+
+SecretStore:
+  Path: app-data-enrichment/
+  TokenFile: /tmp/edgex/secrets/app-data-enrichment/secrets-token.json
+  Authentication:
+    AuthType: X-Vault-Token
+
+Trigger:
+  Type: "edgex-messagebus"
+
+ApplicationSettings:
+  # Actual Subscribe topic in here will be hedge/events/device/# based on prefix config in common
+  SubscribeTopics: events/device/#
+
+  #MetricReportInterval: '120'
+  MqttTopic: "metrics"
+  #MetricPublishTopicPrefix: hedge/telemetry
+  #Device_Extn: 'http://localhost:48097'
+  #MetaDataServiceUrl: 'http://localhost:59881'
+  EventsPublisherURL: 'http://localhost:48102'
+  monitorMemory: 'true'
+  CacheRefreshIntervalSecs: '86400'
+  MetricsBatchSize: '1000'

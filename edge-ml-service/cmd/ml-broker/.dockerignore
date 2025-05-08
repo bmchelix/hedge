@@ -1,0 +1,8 @@
+logs
+.git
+*.md
+.cache
+.zip
+.tar.gz
+.txt
+.tar

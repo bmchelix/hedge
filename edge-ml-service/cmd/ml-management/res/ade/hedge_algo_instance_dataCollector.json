@@ -1,0 +1,13 @@
+{
+  "templateId": "{{templateId}}",
+  "name": "DataCollector",
+  "description": "DataCollector algo instance, hyperparameters to be passed as env var in jobScript, while runtime parmeters is provide in the config file",
+  "enable": "true",
+  "executionMode": "OnDemand",
+  "definition": {
+    "input": {
+      "config_json_fileId": "{{config_json_fileId}}",
+      "collecting_type": "{{collecting_type}}"
+    }
+  }
+}

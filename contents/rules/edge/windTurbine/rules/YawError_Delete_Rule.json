@@ -1,0 +1,27 @@
+{
+    "id": "YawError_Delete_Rule",
+    "sql": "SELECT meta(deviceName) as device, meta(id) as id, round(avg(nacelleYawError)) as yawError  FROM enrichedStream where device=\"AltaNS12\" AND yawError <= 9.0 GROUP BY TUMBLINGWINDOW(ss,30)",
+    "options": {
+        "qos": 1
+    },
+    "actions": [
+        {
+            "rest": {
+                "url": "http://hedge-event-publisher:48102/api/v3/trigger",
+                "method": "post",
+                "isEvent": true,
+                "name" : "generateEvent",
+                "dataTemplate": "{\"id\": \"{{.id}}\", \"device_name\": \"{{.device}}\", \"class\": \"OT_EVENT\",  \"msg\": \"Yaw Error above {{.yawError}} degree\", \"site\": \"Mojave, CA, USA\", \"status\": \"Closed\", \"event_type\": \"EVENT\", \"name\": \"YawError\", \"severity\": \"High\", \"related_metric\": \"NacelleYawError\", \"threshold\": 9, \"actual_value\":{{.yawError}}, \"unit\": \"degree\", \"correlation_id\" : \"{{.device}}YawError_Rule\"}",
+                "sendSingle": true,
+                "retryInterval": 4,
+                "cacheLength": 20,
+                "omitIfEmpty": true
+            }
+        },
+        {
+            "log": {
+                "name" : "log"
+            }
+        }
+    ]
+}

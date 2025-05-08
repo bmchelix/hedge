@@ -1,0 +1,50 @@
+ARG PYTHON_BASE=psg-hrbr-aus.bmc.com/iot/hedge-ml-python-base:internal
+FROM ${PYTHON_BASE}
+
+USER root
+
+# Set working directory for your application
+WORKDIR /edge-iot
+
+ARG ROOT_FOLDER=timeseries/multivariate_deepVAR
+
+# set environment variables
+ENV PYTHONDONTWRITEBYTECODE 1
+ENV PYTHONUNBUFFERED 1
+
+WORKDIR /edge-iot
+
+RUN ls -altr 
+
+RUN mkdir -p /edge-iot/${ROOT_FOLDER}
+
+COPY ${ROOT_FOLDER}/train/requirements.txt requirements.txt
+COPY ${ROOT_FOLDER}/env.yaml timeseries/multivariate_deepVAR/env.yaml
+
+# Install Python packages
+RUN pip install --no-cache-dir --upgrade pip && \
+    pip install -r requirements.txt && \
+    rm -rf /root/.cache /tmp/*
+
+# Copy additional files
+RUN mkdir -p /edge-iot/common/
+RUN mkdir -p /edge-iot/train/
+RUN mkdir -p /edge-iot/tmp/hedge
+
+COPY ${ROOT_FOLDER}/../../common/ common/
+COPY ${ROOT_FOLDER}/train/ train/
+COPY ${ROOT_FOLDER}/tests/test_data/deepVAR-TimeSeries.zip /tmp/hedge/
+RUN chmod 777 /tmp/hedge/deepVAR-TimeSeries.zip
+RUN chmod 777 /tmp/hedge
+
+# Set the ownership and permissions for the application directory
+RUN chown -R mluser:mluser /edge-iot && \
+    chmod a+x train/src/main/task.py
+
+# Use the non-root user created in the base image
+USER mluser
+
+# Set the PYTHONPATH environment variable
+ENV PYTHONPATH="/edge-iot"
+
+ENTRYPOINT ["python", "./train/src/main/task.py"]

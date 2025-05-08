@@ -1,0 +1,77 @@
+name: "Power-Supplies"
+manufacturer: "Seimens"
+model: "NA"
+labels:
+  - "Electricity"
+  - "Battery"
+  - "Fuel"
+  - "DG Set"
+description: "Power system from multiple sources"
+
+deviceResources:
+  -
+    name: "GridPower"
+    description: "Grid Power in KW"
+    attributes:
+      { dataGenerator: "float", min: "900", max: "1100", useMultiplier: "false" }
+    isHidden: false
+    properties:
+      valueType: "Float64"
+      readWrite: "R"
+      defaultValue: "1000"
+      units : "KW"
+  -
+    name: "DGPower"
+    description: "Power from DG Set"
+    attributes:
+      { dataGenerator: "float", min: "20", max: "40", useMultiplier: "false" }
+    isHidden: false
+    properties:
+      valueType: "Float64"
+      readWrite: "R"
+      defaultValue: "30"
+      units : "KW"
+  -
+    name: "BatteryPower"
+    description: "Power from Battery in KW"
+    attributes:
+      { dataGenerator: "float", min: "3", max: "6", useMultiplier: "false"}
+    isHidden: false
+    properties:
+      valueType: "Float64"
+      readWrite: "R"
+      defaultValue: "5"
+      units : "KW"
+  -
+    name: "BatteryChargePercent"
+    description: "Power from Battery in KW"
+    attributes:
+      { dataGenerator: "float", min: "80", max: "90", useMultiplier: "false" }
+    isHidden: false
+    properties:
+      valueType: "Float64"
+      readWrite: "R"
+      defaultValue: "85"
+      units : "%"
+  -
+    name: "FuelLevelPercent"
+    description: "Fuel Level in %"
+    attributes:
+      { dataGenerator: "float", min: "74", max: "75", useMultiplier: "false" }
+    isHidden: false
+    properties:
+      valueType: "Float64"
+      readWrite: "R"
+      defaultValue: "74"
+      units : "%"
+  -
+    name: "DCFanSpeed"
+    description: "Whether the fan is off or on"
+    attributes:
+      { dataGenerator: "float", min: "300", max: "375", useMultiplier: "false" }
+    isHidden: false
+    properties:
+      valueType: "Float64"
+      readWrite: "R"
+      defaultValue: "350"
+      units : "rpm"

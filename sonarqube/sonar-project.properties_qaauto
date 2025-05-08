@@ -1,0 +1,11 @@
+sonar.host.url=http://clm-aus-w8rrkh.bmc.com:9000
+sonar.projectKey=TEST-SONAR-HEDGE-QAAUTO
+sonar.projectName=TEST-SONAR-HEDGE-QAAUTO
+sonar.projectVersion=1.0
+sonar.sourceEncoding=UTF-8
+sonar.sources=app-services,edge-ml-service
+sonar.exclusions=**/*_test.go,**/tests/**,**/test/**,app-services/export-biz-data/**,app-services/node-data-sync/**,edge-ml-service/cmd/test-mqtt/**,edge-ml-service/anomaly-gcp-trng/**,app-services/hedge-remediate/**
+sonar.log.level=DEBUG
+sonar.verbose=true
+sonar.analysisParameter=
+sonar.go.coverage.reportPaths=coverage.qaauto.out

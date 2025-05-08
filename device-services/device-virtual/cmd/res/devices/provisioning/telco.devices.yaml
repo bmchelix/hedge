@@ -1,0 +1,131 @@
+deviceList:
+  - name: HVAC-A
+    profileName: HVAC
+    description: HVAC System
+    labels:
+      - Telco-Tower-A
+      - HVAC
+      - Temperature
+      - Pressure
+      - Humidity
+    protocols:
+      other:
+        address: hvac-system-01
+        port: '300'
+    autoEvents:
+      - interval: 20s
+        onChange: false
+        sourceName: Temperature
+      - interval: 20s
+        onChange: false
+        sourceName: Humidity
+  - name: Telco-Tower-A
+    profileName: Telco-Tower
+    description: Telcommunication Tower
+    labels:
+      - Telco-Tower-A
+      - Telcommunication Tower Call Status and temperature
+    protocols:
+      other:
+        address: telco-tower-01
+        port: '300'
+    autoEvents:
+      - interval: 10s
+        onChange: false
+        sourceName: CallDrops
+  - name: San-Francisco-SF-Fulton-Broderick
+    profileName: Telco-Tower
+    description: Telcommunication Tower - SF Fulton Broderick
+    labels:
+      - Telcommunication Tower Call Status and temperature
+    protocols:
+      other:
+        address: telco-tower-sf-fulton-broderick
+        port: '300'
+    autoEvents:
+      - interval: 15s
+        onChange: false
+        sourceName: CallDrops
+  - name: Telco-Tower-OSS
+    profileName: Telco-Tower-OSS
+    description: Telcommunication Tower Fault status provider
+    labels:
+      - Telco-Tower-A
+      - Telcommunication Tower Fault Status Provider
+    protocols:
+      other:
+        address: telco-tower-faultStatus-01
+        port: '300'
+      callVolume:
+        address: telco-tower-callvolume-01
+        port: '301'
+    autoEvents:
+      - interval: 20s
+        onChange: false
+        sourceName: FaultStatus
+      - interval: 20s
+        onChange: false
+        sourceName: CallVolume
+  - name: Telco-Antenna-North
+    profileName: Telco-Antenna
+    description: Telcommunication Antenna North Side
+    labels:
+      - Telco-Tower-A
+      - Telcommunication Antenna orientation North
+    protocols:
+      other:
+        address: telco-antenna-north
+        port: '300'
+    autoEvents:
+      - interval: 20s
+        onChange: false
+        sourceName: AntennaDislocation
+  - name: Telco-Transceiver-A
+    profileName: Telco-Transceiver
+    description: Telcommunication Transceiver A
+    labels:
+      - Telco-Tower-A
+      - Telcommunication Transceiver health status
+    protocols:
+      other:
+        address: telco-transceiver-A
+        port: '300'
+    autoEvents:
+      - interval: 20s
+        onChange: false
+        sourceName: TransceiverHealth
+      - interval: 20s
+        onChange: false
+        sourceName: SignalStrengthPercent
+  - name: Telco-PowerSupply-A
+    profileName: Power-Supplies
+    description: Power-Supplies that includes grid dg set and battery
+    labels:
+      - Telco-Tower-A
+      - Grid
+      - Power
+      - Diesel Power
+      - Battery
+    protocols:
+      other:
+        address: telco-powerSupply-A
+        port: '300'
+    autoEvents:
+      - interval: 20s
+        onChange: false
+        sourceName: GridPower
+      - interval: 20s
+        onChange: false
+        sourceName: DGPower
+      - interval: 20s
+        onChange: false
+        sourceName: BatteryPower
+      - interval: 20s
+        onChange: false
+        sourceName: BatteryChargePercent
+      - interval: 20s
+        onChange: false
+        sourceName: FuelLevelPercent
+      - interval: 20s
+        onChange: false
+        sourceName: DCFanSpeed

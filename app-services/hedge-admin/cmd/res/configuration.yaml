@@ -1,0 +1,30 @@
+Writable:
+  LogLevel: INFO
+
+Service:
+  Host: localhost
+  Port: 48098
+  StartupMsg: hedge-admin service started
+
+SecretStore:
+  Path: app-hedge-admin/
+  TokenFile: /tmp/edgex/secrets/app-hedge-admin/secrets-token.json
+
+MessageBus:
+  Disabled: true
+
+Trigger:
+  Type: http
+
+ApplicationSettings:
+  ContentDir: /contents
+  NodeType: "CORE"
+  Node_Id: localhost-nodeid-01
+  Node_HostName: localhost
+  ConsulHost: localhost
+  ConsulPort: '8500'
+  # MqttURL is required here to set the secrets in node-red
+  MqttURL: 'tcp://localhost:1883'
+  DefaultNodeGroup_Name: DefaultNodeGroup
+  DefaultNodeGroup_Display_Name: Nodes
+  MaxImportExportFileSizeMB: '5'

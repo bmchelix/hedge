@@ -1,0 +1,612 @@
+networks:
+  edgex-network:
+    driver: bridge
+
+x-common-env-variables: &x-edgex-env-variables
+  IS_K8S_ENV: false
+  EDGEX_DISABLE_JWT_VALIDATION: true
+  EDGEX_SECURITY_SECRET_STORE: true
+  SECRETSTORE_HOST: edgex-vault
+  SECRETSTORE_PORT: '8200'
+  EDGEX_GROUP: '2001'
+  EDGEX_USER: '2002'
+  DATABASES_PRIMARY_HOST: edgex-redis
+  DATABASE_HOST: edgex-redis
+  MESSAGEQUEUE_EXTERNAL_URL: tcp://edgex-mqtt-broker:1883
+  MESSAGEQUEUE_HOST: edgex-redis
+  MESSAGEQUEUE_INTERNAL_HOST: edgex-redis
+  CLIENTS_CORE_COMMAND_HOST: edgex-core-command
+  CLIENTS_SUPPORT_SCHEDULER_HOST: edgex-support-scheduler
+  STAGEGATE_BOOTSTRAPPER_HOST: edgex-security-bootstrapper
+  STAGEGATE_BOOTSTRAPPER_STARTPORT: '54321'
+  STAGEGATE_DATABASE_HOST: edgex-redis
+  STAGEGATE_DATABASE_PORT: '6379'
+  STAGEGATE_DATABASE_READYPORT: '6379'
+  STAGEGATE_DB_HOST: hedge-db
+  STAGEGATE_DB_PORT: '5432'
+  STAGEGATE_DB_READYPORT: '55432'
+  STAGEGATE_READY_TORUNPORT: '54329'
+  STAGEGATE_REGISTRY_HOST: ${CURRENT_HEDGE_NODE_SERVER_NAME}
+  STAGEGATE_REGISTRY_PORT: '8500'
+  STAGEGATE_REGISTRY_READYPORT: '54324'
+  STAGEGATE_PROXYSETUP_READYPORT: "54325"
+  STAGEGATE_SECRETSTORESETUP_HOST: edgex-security-secretstore-setup
+  STAGEGATE_SECRETSTORESETUP_TOKENS_READYPORT: '54322'
+  STAGEGATE_WAITFOR_TIMEOUT: 60s
+  CURRENT_HEDGE_NODE_SERVER_NAME: ${CURRENT_HEDGE_NODE_SERVER_NAME}
+  CURRENT_HEDGE_NODE_ID: ${CURRENT_HEDGE_NODE_ID}
+  CURRENT_HEDGE_NODE_TYPE: ${CURRENT_HEDGE_NODE_TYPE}
+  META_SYNC_HOST: meta-sync
+  META_SYNC_PORT: '48108'
+  APPLICATIONSETTINGS_MQTTSERVER: ${REMOTE_HEDGE_CORE_SERVER_IP:-edgex-mqtt-broker}
+  APPLICATIONSETTINGS_MQTTPORT: 1883
+  APPLICATIONSETTINGS_MQTTAUTHMODE: usernamepassword
+  APPLICATIONSETTINGS_MQTTSECRETNAME: mbconnection
+  APPLICATIONSETTINGS_EDGENODENAME: ${CURRENT_HEDGE_NODE_FRIENDLY_NAME:-hedge-core1}
+  HEDGE_DEVICE_EXTENSIONS_HOST: hedge-device-extensions
+  HEDGE_DEVICE_EXTENSIONS_PORT: '48097'
+  PROXY_SETUP_HOST: edgex-security-proxy-setup
+  IS_EXTERNAL_AUTH: ${IS_EXTERNAL_AUTH:-false}
+  GODEBUG: "tlsrsakex=1"
+
+x-secretstore-env-variables: &x-secretstore-env-variables
+  SECRETSTORE_REVOKEROOTTOKENS: "true"      # NOTE: never set this to false in production
+  EDGEX_ADD_KNOWN_SECRETS: redisdb[app-data-enrichment],redisdb[app-hedge-admin],redisdb[app-hedge-device-extensions],redisdb[app-hedge-event],redisdb[app-hedge-event-publisher],redisdb[app-hedge-export],redisdb[app-hedge-remediate],redisdb[app-hedge-user-app-mgmt],redisdb[app-export-biz-data],redisdb[app-meta-sync],redisdb[app-metadata-notifier],redisdb[app-nats-proxy],redisdb[app-hedge-ml-management],redisdb[app-hedge-ml-sandbox],redisdb[app-digital-twin],redisdb[app-hedge-ml-broker],redisdb[app-hedge-ml-edge-agent],redisdb[hedge-init],redisdb[hedge-ui-server],redisdb[device-virtual],redisdb[device-doms],redisdb[device-obd-go]
+  EDGEX_ADD_SECRETSTORE_TOKENS: 'app-data-enrichment,app-hedge-admin,app-hedge-device-extensions,app-hedge-event,app-hedge-event-publisher,app-hedge-export,app-hedge-remediate,app-hedge-user-app-mgmt,app-export-biz-data,app-meta-sync,app-metadata-notifier,app-nats-proxy,app-hedge-ml-management,,app-hedge-ml-sandbox,app-digital-twin,app-hedge-ml-broker,app-hedge-ml-edge-agent,hedge-init,hedge-ui-server,hedge-fleet-db,device-virtual,device-doms,device-obd-go'
+
+x-registry-acl-env-variables: &x-registry-acl-env-variables
+  EDGEX_ADD_REGISTRY_ACL_ROLES: 'app-data-enrichment,app-hedge-admin,app-hedge-device-extensions,app-hedge-event,app-hedge-event-publisher,app-hedge-export,app-hedge-remediate,app-hedge-user-app-mgmt,app-export-biz-data,app-meta-sync,app-metadata-notifier,app-nats-proxy,app-hedge-ml-management,,app-hedge-ml-sandbox,app-digital-twin,app-hedge-ml-broker,app-hedge-ml-edge-agent,hedge-init,hedge-ui-server,hedge-grafana,hedge-fleet-db,device-virtual,device-doms,device-obd-go'
+  STAGEGATE_REGISTRY_ACL_BOOTSTRAPTOKENPATH: /tmp/edgex/secrets/consul-acl-token/bootstrap_token.json
+  STAGEGATE_REGISTRY_ACL_MANAGEMENTTOKENPATH: /tmp/edgex/secrets/consul-acl-token/mgmt_token.json
+  STAGEGATE_REGISTRY_ACL_SENTINELFILEPATH: /consul/config/consul_acl_done
+
+services:
+  hedge-secret-bootstrapper:
+    #command: /hedge/run.sh
+    container_name: hedge-secret-bootstrapper
+    environment:
+      <<: *x-edgex-env-variables
+      SERVICE_HOST: hedge-secret-bootstrapper
+      CURRENT_HEDGE_NODE_SERVER_IP: ${CURRENT_HEDGE_NODE_SERVER_IP}
+      CONSUL_ACL_BOOTSTRAPTOKENPATH: /consul-acl-token/bootstrap_token.json
+      MQTT_USERNAME: ${MQTT_USERNAME}
+      MQTT_ENCPWD_INP_FILE: ${MQTT_ENCPWD_INP_FILE}
+      CNSL_ENCTKN_INP_FILE: ${CNSL_ENCTKN_INP_FILE}
+      NATS_TLS_CRT: ${NATS_TLS_CRT}
+      NATS_TLS_KEY: ${NATS_TLS_KEY}
+      NATS_SERVER_NAME: ${NATS_SERVER_NAME}
+      NATS_SERVER_IP: ${NATS_SERVER_IP}
+      EXECUTION_MODE: ${EXECUTION_MODE:-SEED_SECRETS}
+      REGISTRY_USER: ${REGISTRY_USER:-}
+      REGISTRY_PASSWORD: ${REGISTRY_PASSWORD:-}
+    hostname: hedge-secret-bootstrapper
+    image: ${REGISTRY}hedge-init:${HEDGE_INIT_DOCKER_TAG:-latest}
+    networks:
+      edgex-network: {}
+    read_only: false
+    user: root:root
+    volumes:
+      - hedge-scripts:/hedge/hedge-scripts
+      - hedge-secrets:/tmp/hedge-secrets
+      - consul-acl-token:/consul-acl-token
+      - nginx-tls:/certs
+      - /tmp:/tmp:z
+
+  security-bootstrapper:
+    container_name: edgex-security-bootstrapper
+    environment:
+      <<: *x-edgex-env-variables
+    hostname: edgex-security-bootstrapper
+    image: ${REGISTRY}hedgext-security-bootstrapper:${HEDGEXT_SECURITY_BOOTSTRAPPER_DOCKER_TAG:-latest}
+    networks:
+      edgex-network: {}
+    read_only: true
+    restart: always
+    security_opt:
+      - no-new-privileges:true
+    user: root:root
+    volumes:
+      - edgex-init:/edgex-init
+
+  security-secretstore-setup:
+    container_name: edgex-security-secretstore-setup
+    depends_on:
+      - security-bootstrapper
+      - vault
+    environment:
+      <<: [ *x-edgex-env-variables, *x-secretstore-env-variables ]
+      SECUREMESSAGEBUS_TYPE: redis
+    hostname: edgex-security-secretstore-setup
+    image: ${REGISTRY}hedgext-security-secretstore-setup:${HEDGEXT_SECURITY_SECRETSTORE_SETUP_DOCKER_TAG:-latest}
+    ports:
+      - 127.0.0.1:54322:54322/tcp
+    networks:
+      edgex-network: {}
+    read_only: true
+    restart: always
+    security_opt:
+      - no-new-privileges:true
+    tmpfs:
+      - /run
+      - /vault
+    user: root:root
+    volumes:
+      - edgex-init:/edgex-init
+      - kuiper-sources:/tmp/kuiper
+      - kuiper-connections:/tmp/kuiper-connections
+      - vault-config:/vault/config
+      - /etc/localtime:/etc/localtime:z
+      - /tmp/edgex/secrets:/tmp/edgex/secrets:z
+
+  consul:
+    container_name: edgex-core-consul
+    depends_on:
+      - security-bootstrapper
+      - vault
+    entrypoint:
+      - /tmp/hedge-scripts/consul_wait_install_hedge.sh
+    environment:
+      <<: [*x-edgex-env-variables, *x-registry-acl-env-variables]
+      CURRENT_HEDGE_NODE_FRIENDLY_NAME: ${CURRENT_HEDGE_NODE_FRIENDLY_NAME}
+      CURRENT_HEDGE_NODE_SERVER_IP: ${CURRENT_HEDGE_NODE_SERVER_IP}
+      REMOTE_HEDGE_CORE_SERVER_NAME: ${REMOTE_HEDGE_CORE_FQDN_NAME}
+      REMOTE_HEDGE_CORE_SERVER_IP: ${REMOTE_HEDGE_CORE_SERVER_IP}
+      CONSUL_LOCAL_CONFIG: "{
+        \"datacenter\": \"${CURRENT_HEDGE_NODE_DC_NAME:-HEDGE_MANAGEMENT}\",
+        \"primary_datacenter\": \"${CURRENT_HEDGE_NODE_DC_NAME:-HEDGE-MANAGEMENT}\",
+        \"bind_addr\": \"${CURRENT_HEDGE_NODE_SERVER_IP}\",
+        \"client_addr\": \"${CURRENT_HEDGE_NODE_SERVER_IP}\",
+        \"enable_local_script_checks\": true, 
+        \"disable_update_check\": true, 
+        \"ports\": { \"dns\": -1 }, 
+        \"acl\": {
+          \"enabled\": true, 
+          \"default_policy\": \"deny\",
+          \"down_policy\":\"extend-cache\", 
+          \"enable_token_persistence\": true, 
+          \"enable_token_replication\": true
+        } 
+      }"
+    hostname: edgex-core-consul
+    image: ${REGISTRY}hedgext-consul:${HEDGEXT_CONSUL_DOCKER_TAG:-latest}
+    network_mode: "host"
+    read_only: true
+    restart: always
+    security_opt:
+      - no-new-privileges:true
+    user: root:root
+    volumes:
+      - consul-config:/consul/config
+      - consul-data:/consul/data
+      - edgex-init:/edgex-init
+      - hedge-scripts:/tmp/hedge-scripts
+      - hedge-secrets:/tmp/hedge-secrets
+      - consul-acl-token:/tmp/edgex/secrets/consul-acl-token
+      - /tmp/edgex/secrets/edgex-consul:/tmp/edgex/secrets/edgex-consul:ro,z
+
+  core-common-config-bootstrapper:
+    command:
+      - /core-common-config-bootstrapper
+      - -cp=consul.http://${CURRENT_HEDGE_NODE_SERVER_NAME}:8500
+    container_name: edgex-core-common-config-bootstrapper
+    depends_on:
+      - consul
+      - security-bootstrapper
+      - security-secretstore-setup
+    entrypoint:
+      - /edgex-init/ready_to_run_wait_install.sh
+    environment:
+      <<: *x-edgex-env-variables
+      ALL_SERVICES_DATABASE_HOST: edgex-redis
+      ALL_SERVICES_MESSAGEBUS_HOST: edgex-redis
+      ALL_SERVICES_REGISTRY_HOST: ${CURRENT_HEDGE_NODE_SERVER_NAME}
+      ALL_SERVICES_MESSAGEBUS_BASETOPICPREFIX: hedge
+      APP_SERVICES_CLIENTS_CORE_METADATA_HOST: edgex-core-metadata
+      DEVICE_SERVICES_CLIENTS_CORE_METADATA_HOST: edgex-core-metadata
+      MESSAGEQUEUE_EXTERNAL_URL: tcp://edgex-mqtt-broker:1883
+      APP_SERVICES_APPLICATIONSETTINGS_MQTTSERVER: ${REMOTE_HEDGE_CORE_SERVER_IP:-edgex-mqtt-broker}
+      APP_SERVICES_APPLICATIONSETTINGS_MQTTPORT: 1883
+      APP_SERVICES_APPLICATIONSETTINGS_MQTTAUTHMODE: usernamepassword
+      APP_SERVICES_APPLICATIONSETTINGS_MQTTSECRETNAME: mbconnection
+      APP_SERVICES_APPLICATIONSETTINGS_REDISHOST: edgex-redis
+      APP_SERVICES_APPLICATIONSETTINGS_METASYNCURL: http://meta-sync:48108
+      APP_SERVICES_APPLICATIONSETTINGS_METADATASERVICEURL: http://edgex-core-metadata:59881
+      APP_SERVICES_APPLICATIONSETTINGS_DEVICE_EXTN: http://hedge-device-extensions:48097
+      APP_SERVICES_APPLICATIONSETTINGS_VICTORIAMETRICSURL: http://hedge-victoria-metrics:8428
+      APP_SERVICES_APPLICATIONSETTINGS_HEDGEADMINURL: http://hedge-admin:48098
+    hostname: edgex-core-common-config-bootstrapper
+    image: ${REGISTRY}hedgext-core-common-config-bootstrapper:${HEDGEXT_CORE_COMMON_CONFIG_BOOTSTRAPPER_DOCKER_TAG:-latest}
+    networks:
+      edgex-network: {}
+    read_only: true
+    security_opt:
+      - no-new-privileges:true
+    user: 2002:2001
+    volumes:
+      - edgex-init:/edgex-init
+      - /etc/localtime:/etc/localtime:z
+      - /tmp/edgex/secrets/core-common-config-bootstrapper:/tmp/edgex/secrets/core-common-config-bootstrapper:z
+
+  vault:
+    cap_add:
+      - IPC_LOCK
+    command: server
+    container_name: edgex-vault
+    depends_on:
+      - security-bootstrapper
+    entrypoint:
+      - /edgex-init/vault_wait_install.sh
+    environment:
+      <<: *x-edgex-env-variables
+      VAULT_ADDR: http://edgex-vault:8200
+      VAULT_CONFIG_DIR: /vault/config
+      VAULT_UI: "true"
+    hostname: edgex-vault
+    image: ${REGISTRY}hedgext-vault:${HEDGEXT_VAULT_DOCKER_TAG:-latest}
+    networks:
+      edgex-network: {}
+    ports:
+      - 127.0.0.1:8200:8200/tcp
+    restart: always
+    tmpfs:
+      - /vault/config
+    user: root:root
+    volumes:
+      - edgex-init:/edgex-init
+      - vault-file:/vault/file
+      - vault-logs:/vault/logs
+
+  redis:
+    container_name: edgex-redis
+    depends_on:
+      - security-bootstrapper
+      - security-secretstore-setup
+    entrypoint:
+      - /edgex-init/redis_wait_install.sh
+    environment:
+      <<: *x-edgex-env-variables
+      DATABASECONFIG_NAME: redis.conf
+      DATABASECONFIG_PATH: /run/redis/conf
+    hostname: edgex-redis
+    image: ${REGISTRY}hedgext-redis:${HEDGEXT_REDIS_DOCKER_TAG:-latest}
+    networks:
+      edgex-network: {}
+    ports:
+      - 127.0.0.1:6379:6379/tcp
+    read_only: false
+    restart: always
+    security_opt:
+      - no-new-privileges:true
+    tmpfs:
+      - /run
+    user: root:root
+    volumes:
+      - edgex-init:/edgex-init
+      - hedge-secrets:/tmp/hedge-secrets
+      - redis-data:/data
+      - redis-config:/run/redis/conf
+      - /tmp/edgex/secrets/security-bootstrapper-redis:/tmp/edgex/secrets/security-bootstrapper-redis:ro,z
+
+  notifications:
+    command: /support-notifications -cp=consul.http://${CURRENT_HEDGE_NODE_SERVER_NAME}:8500 --registry --configDir=/res
+    container_name: edgex-support-notifications
+    depends_on:
+      - consul
+      - redis
+      - security-secretstore-setup
+      - security-bootstrapper
+    entrypoint:
+      - /edgex-init/ready_to_run_wait_install.sh
+    environment:
+      <<: *x-edgex-env-variables
+      SERVICE_HOST: edgex-support-notifications
+    hostname: edgex-support-notifications
+    image: ${REGISTRY}hedgext-support-notifications:${HEDGEXT_SUPPORT_NOTIFICATIONS_DOCKER_TAG:-latest}
+    networks:
+      edgex-network: {}
+    ports:
+      - 127.0.0.1:59860:59860/tcp
+    read_only: true
+    restart: always
+    security_opt:
+      - no-new-privileges:true
+    volumes:
+      - edgex-init:/edgex-init
+      - /tmp/edgex/secrets/support-notifications:/tmp/edgex/secrets/support-notifications:ro,z
+
+  metadata:
+    command: /core-metadata -cp=consul.http://${CURRENT_HEDGE_NODE_SERVER_NAME}:8500 --registry --configDir=/res
+    container_name: edgex-core-metadata
+    depends_on:
+      - consul
+      - redis
+      - security-secretstore-setup
+      - security-bootstrapper
+    entrypoint:
+      - /edgex-init/ready_to_run_wait_install.sh
+    environment:
+      <<: *x-edgex-env-variables
+      SERVICE_HOST: edgex-core-metadata
+      #NOTIFICATIONS_SENDER: edgex-core-metadata
+      #NOTIFICATIONS_POSTDEVICECHANGES: true
+    hostname: edgex-core-metadata
+    image: ${REGISTRY}hedgext-core-metadata:${HEDGEXT_CORE_METADATA_DOCKER_TAG:-latest}
+    networks:
+      edgex-network: {}
+    ports:
+      - 127.0.0.1:59881:59881/tcp
+    read_only: true
+    restart: always
+    security_opt:
+      - no-new-privileges:true
+    volumes:
+      - edgex-init:/edgex-init
+      - /tmp/edgex/secrets/core-metadata:/tmp/edgex/secrets/core-metadata:ro,z
+
+  hedge-admin:
+    command: /hedge-admin -cp=consul.http://${CURRENT_HEDGE_NODE_SERVER_NAME}:8500 --registry --configDir=/res
+    container_name: hedge-admin
+    entrypoint:
+      - /edgex-init/ready_to_run_wait_install.sh
+    environment:
+      <<: *x-edgex-env-variables
+      SERVICE_HOST: hedge-admin
+      SECRETSTORE_DISABLESCRUBSECRETSFILE: false
+      SECRETSTORE_SECRETSFILE: /tmp/hedge-secrets/hedge_admin_secrets.json
+      APPLICATIONSETTINGS_NODETYPE: ${CURRENT_HEDGE_NODE_TYPE}
+      APPLICATIONSETTINGS_CONSULHOST: ${CURRENT_HEDGE_NODE_SERVER_NAME}
+      APPLICATIONSETTINGS_MQTTURL: tcp://${REMOTE_HEDGE_CORE_SERVER_IP:-edgex-mqtt-broker}:1883
+      APPLICATIONSETTINGS_NODE_ID: ${CURRENT_HEDGE_NODE_ID}
+      APPLICATIONSETTINGS_NODE_HOSTNAME: ${CURRENT_HEDGE_NODE_FQDN_NAME}
+      HEDGE_CONSUL_TOKEN_FILE: /tmp/hedge-secrets/.consultoken
+      COMPOSE_PROFILES: ${COMPOSE_PROFILES:-}
+    hostname: hedge-admin
+    image: ${REGISTRY}hedge-admin:${HEDGE_ADMIN_DOCKER_TAG:-latest}
+    networks:
+      edgex-network: {}
+    ports:
+      - 127.0.0.1:48098:48098/tcp
+    read_only: true
+    restart: always
+    security_opt:
+      - no-new-privileges:true
+    volumes:
+      - edgex-init:/edgex-init
+      - grafana-storage:/var/lib/grafana
+      - hedge-content:/contents
+      - hedge-secrets:/tmp/hedge-secrets
+      - /tmp/edgex/secrets/app-hedge-admin:/tmp/edgex/secrets/app-hedge-admin:ro,z
+
+  hedge-device-extensions:
+    command: /hedge-device-extensions -cp=consul.http://${CURRENT_HEDGE_NODE_SERVER_NAME}:8500 --registry --configDir=/res
+    #command: /usr/bin/tail -f /dev/null
+    container_name: hedge-device-extensions
+    depends_on:
+      - consul
+      - redis
+      - metadata
+      - security-secretstore-setup
+      - security-bootstrapper
+      - hedge-admin
+    entrypoint:
+      - /edgex-init/ready_to_run_wait_install.sh
+    environment:
+      <<: *x-edgex-env-variables
+      SERVICE_HOST: hedge-device-extensions
+      SECRETSTORE_DISABLESCRUBSECRETSFILE: false
+      SECRETSTORE_SECRETSFILE: /tmp/hedge-secrets/hedge_device_extensions_secrets.json
+      #TRIGGER_EDGEXMESSAGEBUS_PUBLISHHOST_HOST: edgex-redis
+      #TRIGGER_EDGEXMESSAGEBUS_SUBSCRIBEHOST_HOST: edgex-redis
+      APPLICATIONSETTINGS_VICTORIAMETRICSURL: http://hedge-victoria-metrics:8428
+      APPLICATIONSETTINGS_PERSISTONERROR: ${PERSISTONERROR:-false}
+      APPLICATIONSETTINGS_IMAGEDIR: /content/images
+      #WRITABLE_STOREANDFORWARD_ENABLED: ${PERSISTONERROR:-false}
+    hostname: hedge-device-extensions
+    image: ${REGISTRY}hedge-device-extensions:${HEDGE_DEVICE_EXTENSIONS_DOCKER_TAG:-latest}
+    networks:
+      edgex-network: {}
+    ports:
+      - 127.0.0.1:48097:48097/tcp
+    read_only: true
+    restart: always
+    security_opt:
+      - no-new-privileges:true
+    volumes:
+      - edgex-init:/edgex-init
+      - hedge-content:/content
+      - hedge-secrets:/tmp/hedge-secrets
+      - /tmp/edgex/secrets/app-hedge-device-extensions:/tmp/edgex/secrets/app-hedge-device-extensions:ro,z
+
+  meta-sync:
+    command: /meta-sync -cp=consul.http://${CURRENT_HEDGE_NODE_SERVER_NAME}:8500 --registry --configDir=/res
+    container_name: meta-sync
+    depends_on:
+      - consul
+      - security-secretstore-setup
+      - security-bootstrapper
+      - metadata
+      - hedge-admin
+      - hedge-device-extensions
+      - notifications
+    entrypoint:
+      - /tmp/hedge-scripts/meta-sync_wait_install_hedge.sh
+    environment:
+      <<: *x-edgex-env-variables
+      SERVICE_HOST: meta-sync
+      SECRETSTORE_DISABLESCRUBSECRETSFILE: false
+      SECRETSTORE_SECRETSFILE: /tmp/hedge-secrets/hedge_meta_sync_secrets.json
+      #APPLICATIONSETTINGS_DEVICEEXTSERVICEURL: http://hedge-device-extensions:48097
+      #APPLICATIONSETTINGS_NOTIFICATIONSERVICEURL: http://edgex-support-notifications:59860
+      CLIENTS_SUPPORT_NOTIFICATIONS_HOST: edgex-support-notifications
+      APPLICATIONSETTINGS_NODETYPE: ${CURRENT_HEDGE_NODE_TYPE}
+      APPLICATIONSETTINGS_META_SYNC_HOST: meta-sync
+      TRIGGER_EXTERNALMQTT_URL: tcp://${REMOTE_HEDGE_CORE_SERVER_IP:-edgex-mqtt-broker}:1883
+      #APPLICATIONSETTINGS_PERSISTONERROR: ${PERSISTONERROR:-false}
+    hostname: meta-sync
+    image: ${REGISTRY}hedge-meta-sync:${HEDGE_META_SYNC_DOCKER_TAG:-latest}
+    networks:
+      edgex-network: {}
+    ports:
+      - 127.0.0.1:48108:48108/tcp
+    read_only: true
+    restart: always
+    security_opt:
+      - no-new-privileges:true
+    volumes:
+      - edgex-init:/edgex-init
+      - hedge-scripts:/tmp/hedge-scripts
+      - hedge-secrets:/tmp/hedge-secrets
+      - /tmp/edgex/secrets/app-meta-sync:/tmp/edgex/secrets/app-meta-sync:ro,z
+
+  metadata-notifier:
+    command: /metadata-notifier -cp=consul.http://${CURRENT_HEDGE_NODE_SERVER_NAME}:8500 --registry --configDir=/res
+    container_name: metadata-notifier
+    depends_on:
+      - consul
+      - security-secretstore-setup
+      - security-bootstrapper
+      - notifications
+    entrypoint:
+      - /edgex-init/ready_to_run_wait_install.sh
+    environment:
+      <<: *x-edgex-env-variables
+      SERVICE_HOST: metadata-notifier
+      TRIGGER_EDGEXMESSAGEBUS_PUBLISHHOST_HOST: edgex-redis
+      TRIGGER_EDGEXMESSAGEBUS_SUBSCRIBEHOST_HOST: edgex-redis
+      CLIENTS_SUPPORT_NOTIFICATIONS_HOST: edgex-support-notifications
+    hostname: metadata-notifier
+    image: ${REGISTRY}hedge-metadata-notifier:${HEDGE_METADATA_NOTIFIER_DOCKER_TAG:-latest}
+    networks:
+      edgex-network: {}
+    ports:
+      - 127.0.0.1:48860:48860/tcp
+    read_only: true
+    restart: always
+    security_opt:
+      - no-new-privileges:true
+    volumes:
+      - edgex-init:/edgex-init
+      - /tmp/edgex/secrets/app-metadata-notifier:/tmp/edgex/secrets/app-metadata-notifier:ro,z
+
+  hedge-event-publisher:
+    command: /hedge-event-publisher -cp=consul.http://${CURRENT_HEDGE_NODE_SERVER_NAME}:8500 --registry --configDir=/res
+    container_name: hedge-event-publisher
+    depends_on:
+      - consul
+      - security-secretstore-setup
+      - security-bootstrapper
+      - hedge-admin
+    entrypoint:
+      - /edgex-init/ready_to_run_wait_install.sh
+    environment:
+      <<: *x-edgex-env-variables
+      SERVICE_HOST: hedge-event-publisher
+      SECRETSTORE_DISABLESCRUBSECRETSFILE: false
+      SECRETSTORE_SECRETSFILE: /tmp/hedge-secrets/hedge_event_publisher_secrets.json
+      TRIGGER_EXTERNALMQTT_URL: tcp://${REMOTE_HEDGE_CORE_SERVER_IP:-edgex-mqtt-broker}:1883
+      TRIGGER_EXTERNALMQTT_AUTHMODE: usernamepassword
+      TRIGGER_EXTERNALMQTT_SECRETNAME: mbconnection
+      APPLICATIONSETTINGS_NODENAME: ${CURRENT_HEDGE_NODE_SERVER_NAME}
+    hostname: hedge-event-publisher
+    image: ${REGISTRY}hedge-event-publisher:${HEDGE_EVENT_PUBLISHER_DOCKER_TAG:-latest}
+    networks:
+      edgex-network: {}
+    ports:
+      - 127.0.0.1:48102:48102/tcp
+    read_only: true
+    restart: always
+    security_opt:
+      - no-new-privileges:true
+    volumes:
+      - edgex-init:/edgex-init
+      - hedge-secrets:/tmp/hedge-secrets
+      - /tmp/edgex/secrets/app-hedge-event-publisher:/tmp/edgex/secrets/app-hedge-event-publisher:ro,z
+
+  hedge-remediate:
+    command: /hedge-remediate -cp=consul.http://${CURRENT_HEDGE_NODE_SERVER_NAME}:8500 --registry --configDir=/res
+    container_name: hedge-remediate
+    depends_on:
+      - consul
+      - security-secretstore-setup
+      - security-bootstrapper
+      - hedge-admin
+    entrypoint:
+      - /edgex-init/ready_to_run_wait_install.sh
+    environment:
+      <<: *x-edgex-env-variables
+      SERVICE_HOST: hedge-remediate
+      SECRETSTORE_DISABLESCRUBSECRETSFILE: false
+      SECRETSTORE_SECRETSFILE: /tmp/hedge-secrets/hedge_remediate_secrets.json
+      TRIGGER_EXTERNALMQTT_URL: tcp://${REMOTE_HEDGE_CORE_SERVER_IP:-edgex-mqtt-broker}:1883
+      TRIGGER_EXTERNALMQTT_AUTHMODE: usernamepassword
+      TRIGGER_EXTERNALMQTT_SECRETNAME: mbconnection
+      TRIGGER_SUBSCRIBETOPICS: '$$share/remediate/+/${NODE_TOPIC_PREFIX}commands'
+      APPLICATIONSETTINGS_EVENTPIPELINETRIGGERURL: http://hedge-event-publisher:48102/api/v3/trigger
+      #APPLICATIONSETTINGS_NODETYPE: ${CURRENT_HEDGE_NODE_TYPE:-Core}
+    hostname: hedge-remediate
+    image: ${REGISTRY}hedge-remediate:${HEDGE_REMEDIATE_DOCKER_TAG:-latest}
+    networks:
+      edgex-network: {}
+    ports:
+      - 127.0.0.1:48105:48105/tcp
+    read_only: true
+    restart: always
+    security_opt:
+      - no-new-privileges:true
+    volumes:
+      - edgex-init:/edgex-init
+      - hedge-secrets:/tmp/hedge-secrets
+      - /tmp/edgex/secrets/app-hedge-remediate:/tmp/edgex/secrets/app-hedge-remediate:ro,z
+
+  nats-proxy:
+    command: /nats-proxy -cp=consul.http://${CURRENT_HEDGE_NODE_SERVER_NAME}:8500 --registry --configDir=/res
+    container_name: nats-proxy
+    depends_on:
+      - consul
+      - security-secretstore-setup
+      - security-bootstrapper
+      - hedge-admin
+    entrypoint:
+      - /edgex-init/ready_to_run_wait_install.sh
+    environment:
+      <<: *x-edgex-env-variables
+      SERVICE_HOST: nats-proxy
+      APPLICATIONSETTINGS_EDGEXNATSSERVER: wss://${NATS_SERVER:-edgex-nats-server}:8080
+      APPLICATIONSETTINGS_NODETYPE: ${CURRENT_HEDGE_NODE_TYPE}
+      APPICATIONSETTING_STREAMNAME: core_node_comm
+    hostname: nats-proxy
+    image: ${REGISTRY}hedge-nats-proxy:${HEDGE_NATS_PROXY_DOCKER_TAG:-latest}
+    networks:
+      edgex-network: {}
+    ports:
+      - 127.0.0.1:48200:48200/tcp
+    user: root:root
+    restart: always
+    security_opt:
+      - no-new-privileges:true
+    volumes:
+      - edgex-init:/edgex-init
+      - nginx-tls:/etc/ssl/certs
+      - hedge-scripts:/tmp/hedge-scripts
+      - hedge-secrets:/tmp/hedge-secrets
+      - /tmp/edgex/secrets/app-nats-proxy:/tmp/edgex/secrets/app-nats-proxy:ro,z
+
+volumes:
+  consul-acl-token: {}
+  consul-config: {}
+  consul-data: {}
+  grafana-storage: {}
+  redis-data: {}
+  redis-config: {}
+  edgex-init: {}
+  nats-data: {}
+  kuiper-connections: {}
+  kuiper-sources: {}
+  postgres-data: {}
+  hedge-content: {}
+  nginx-tls: {}
+  vault-config: {}
+  vault-file: {}
+  vault-logs: {}
+  hedge-scripts: {}
+  hedge-secrets: {}

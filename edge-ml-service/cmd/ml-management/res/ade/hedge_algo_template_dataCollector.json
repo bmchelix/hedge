@@ -1,0 +1,56 @@
+{
+  "name": "DataCollector",
+  "type": "Anomaly",
+  "jobScript": "YXBpVmVyc2lvbjogYmF0Y2gvdjEKa2luZDogSm9iCm1ldGFkYXRhOgogIG5hbWU6IGhlZGdlLWRhdGEtam9iCiAgbmFtZXNwYWNlOiBfX05BTUVTUEFDRV9fCnNwZWM6CiAgdHRsU2Vjb25kc0FmdGVyRmluaXNoZWQ6IDI0MAogIGJhY2tvZmZMaW1pdDogMAogIHRlbXBsYXRlOgogICAgc3BlYzoKICAgICAgaW1hZ2VQdWxsU2VjcmV0czoKICAgICAgICAtIG5hbWU6IF9fSU1BR0VfUFVMTF9TRUNSRVRTX18KICAgICAgY29udGFpbmVyczoKICAgICAgICAtIG5hbWU6IGhlZGdlLWRhdGEtam9iCiAgICAgICAgICBpbWFnZTogX19ET0NLRVJfUkVHSVNUUllfUFJFRklYX18vaGVkZ2UtbWwtdHJnLWRhdGEtY29sbGVjdG9yOjI1LjIuMDBfbGF0ZXN0CiAgICAgICAgICAjY29tbWFuZDogWydzaCcsICctYycsICdlY2hvICJIZWxsbywgSGVkZ2UgTUwgZGVidWdnZXJzISIgJiYgc2xlZXAgMzYwMCddCiAgICAgICAgICAjaW1hZ2VQdWxsUG9saWN5OiBJZk5vdFByZXNlbnQKICAgICAgICAgIGltYWdlUHVsbFBvbGljeTogQWx3YXlzCiAgICAgICAgICByZXNvdXJjZXM6CiAgICAgICAgICAgIHJlcXVlc3RzOgogICAgICAgICAgICAgIG1lbW9yeTogIjI1Nk1pIgogICAgICAgICAgICAgIGNwdTogIjIwMG0iCiAgICAgICAgICAgIGxpbWl0czoKICAgICAgICAgICAgICBtZW1vcnk6ICIxR2kiCiAgICAgICAgICAgICAgY3B1OiAiNzUwbSIKICAgICAgICAgIHZvbHVtZU1vdW50czoKICAgICAgICAgICAgLSBuYW1lOiBrYWZrYS1wZW0tdm9sCiAgICAgICAgICAgICAgbW91bnRQYXRoOiAvb3B0L2JtYy9zZWN1cml0eQogICAgICAgICAgZW52OgogICAgICAgICAgICAtIG5hbWU6IFRFTkFOVF9JRAogICAgICAgICAgICAgIHZhbHVlOiAiIgogICAgICAgICAgICAtIG5hbWU6IE5BTUVTUEFDRQogICAgICAgICAgICAgIHZhbHVlOiAiIgogICAgICAgICAgICAtIG5hbWU6IFVTRVJfSUQKICAgICAgICAgICAgICB2YWx1ZTogIiIKICAgICAgICAgICAgLSBuYW1lOiBBTEdPUklUSE1fSlNPTgogICAgICAgICAgICAgIHZhbHVlOiAiIgogICAgICAgICAgICAtIG5hbWU6IEFMR09SSVRITV9JRAogICAgICAgICAgICAgIHZhbHVlOiAiIgogICAgICAgICAgICAtIG5hbWU6IEVYRUNVVElPTl9JRAogICAgICAgICAgICAgIHZhbHVlOiAiIgogICAgICAgICAgICAtIG5hbWU6IE1PREVMRElSCiAgICAgICAgICAgICAgdmFsdWU6ICIvdG1wL2hlZGdlIgogICAgICAgICAgICAtIG5hbWU6IEFJRl9DT1JFX1NFUlZJQ0VfU0VSVklDRV9IT1NUCiAgICAgICAgICAgICAgdmFsdWU6ICJhaWYtY29yZS1zZXJ2aWNlIgogICAgICAgICAgICAtIG5hbWU6IEFJRl9DT1JFX1NFUlZJQ0VfU0VSVklDRV9QT1JUCiAgICAgICAgICAgICAgdmFsdWU6ICI1MDE3NyIKICAgICAgICAgICAgLSBuYW1lOiBJU19TRUNVUkUKICAgICAgICAgICAgICB2YWx1ZTogIiIKICAgICAgICAgICAgLSBuYW1lOiBDTE9VRF9BQ0NFU1NfS0VZCiAgICAgICAgICAgICAgdmFsdWVGcm9tOgogICAgICAgICAgICAgICAgc2VjcmV0S2V5UmVmOgogICAgICAgICAgICAgICAgICBrZXk6IEFXU19BQ0NFU1NfS0VZX0lEX0FJRgogICAgICAgICAgICAgICAgICBuYW1lOiBhd3NzM3NlY3JldAogICAgICAgICAgICAtIG5hbWU6IENMT1VEX1NFQ1JFVF9LRVkKICAgICAgICAgICAgICB2YWx1ZUZyb206CiAgICAgICAgICAgICAgICBzZWNyZXRLZXlSZWY6CiAgICAgICAgICAgICAgICAgIGtleTogQVdTX1NFQ1JFVF9BQ0NFU1NfS0VZX0FJRgogICAgICAgICAgICAgICAgICBuYW1lOiBhd3NzM3NlY3JldAogICAgICAgICAgICAtIG5hbWU6IENMT1VEX0VORFBPSU5UCiAgICAgICAgICAgICAgdmFsdWU6IGh0dHA6Ly9taW5pbzo5MDAwCiAgICAgICAgICAgIC0gbmFtZTogQVdTX1MzX1JFR0lPTgogICAgICAgICAgICAgIHZhbHVlRnJvbToKICAgICAgICAgICAgICAgIHNlY3JldEtleVJlZjoKICAgICAgICAgICAgICAgICAga2V5OiBBV1NfUzNfUkVHSU9OCiAgICAgICAgICAgICAgICAgIG5hbWU6IGF3c3Mzc2VjcmV0CiAgICAgICAgICAgIC0gbmFtZTogQ0xPVURfQlVDS0VUX05BTUUKICAgICAgICAgICAgICB2YWx1ZTogImFpLW1sLW1vZGVscyIKICAgICAgICAgICAgLSBuYW1lOiBTM0ZTX0xPR0dJTkdfTEVWRUwKICAgICAgICAgICAgICB2YWx1ZTogREVCVUcKICAgICAgICAgICAgLSBuYW1lOiBLQUZLQV9DT05ORUNUX1NUUklORwogICAgICAgICAgICAgIHZhbHVlRnJvbToKICAgICAgICAgICAgICAgIHNlY3JldEtleVJlZjoKICAgICAgICAgICAgICAgICAga2V5OiBLQUZLQV9DTFVTVEVSCiAgICAgICAgICAgICAgICAgIG5hbWU6IGthZmthc2VjcmV0CgogICAgICByZXN0YXJ0UG9saWN5OiBOZXZlcgogICAgICBhdXRvbW91bnRTZXJ2aWNlQWNjb3VudFRva2VuOiBmYWxzZQogICAgICB2b2x1bWVzOgogICAgICAgIC0gbmFtZToga2Fma2EtcGVtLXZvbAogICAgICAgICAgc2VjcmV0OgogICAgICAgICAgICBzZWNyZXROYW1lOiBrYWZrYS1wZW0KICAgICAgICAgICAgb3B0aW9uYWw6IHRydWUK",
+  "description": "This is predefined algorithm template to collect training data",
+  "productType": "IOT",
+  "algorithmSchema": {
+    "$schema": "http://json-schema.org/draft-06/schema#",
+    "$ref": "#/template/definition",
+    "template": {
+      "definition": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "input": {
+            "$ref": "#/template/input"
+          },
+          "config": {
+            "$ref": "#/template/config"
+          }
+        },
+        "title": "HedgeAlgorithmSchema"
+      },
+      "input": {
+        "type": "object",
+        "additionalProperties": true,
+        "properties": {
+          "config_json_fileId": {
+            "type": "string"
+          },
+          "collecting_type": {
+            "type": "string"
+          }
+        },
+        "title" : "Runtime parameters to initiate data collection job"
+      },
+      "config": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "name": {
+            "type": "string",
+            "const": "DataCollector"
+          },
+          "batch_size": {
+            "type": "integer"
+          },
+          "num_epochs": {
+            "type": "integer"
+          }
+        },
+        "title": "ConfigSchema"
+      }
+    }
+  }
+}

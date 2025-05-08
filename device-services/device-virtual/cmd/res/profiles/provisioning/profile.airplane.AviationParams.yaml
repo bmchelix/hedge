@@ -1,0 +1,193 @@
+name: AirplaneAviationParamsProfile
+manufacturer: Lockheed Martin
+model: C-130 Hercules
+labels:
+  - "Airplane"
+  - "C-130 Hercules"
+  - "Aviation Parameters"
+description: "Airplane aviation parameters of the C-130 Hercules Military Airplane"
+
+deviceResources:
+  - name: State
+    description: |
+      State of the aircraft:
+        0.0-0.9: Parked,
+        1.0-1.9: TakeOff,
+        2.0-2.9: InFlight,
+        3.0-3.9: Landing)
+    attributes:
+      {dataGenerator: "float", "min": "2.0", "max": "2.9", "useMultiplier": "false"}
+    properties:
+      valueType: Float64
+      readWrite: RW
+      units: none
+
+  - name: Altitude
+    description: Altitude of the aircraft (min:0, max:400) feet
+    attributes:
+      {dataGenerator: "float", "min": "0.0", "max": "30.0", "useMultiplier": "false"}
+    properties:
+      valueType: Float64
+      readWrite: RW
+      units: feet
+
+  - name: Latitude
+    description: Latitude of the aircraft
+    attributes:
+      {dataGenerator: "float", "min": "36.170908", "max": "36.170908", "useMultiplier": "false"}
+    properties:
+      valueType: Float64
+      readWrite: RW
+      units: degrees
+
+  - name: Longitude
+    description: Longitude of the aircraft
+    attributes:
+      {dataGenerator: "float", "min": "-115.190805", "max": "-115.190805", "useMultiplier": "false"}
+    properties:
+      valueType: Float64
+      readWrite: RW
+      units: degrees
+
+  - name: Lift
+    description: Lift force acting on the aircraft (min:0, max:20) newtons
+    attributes:
+      {dataGenerator: "float", "min": "0.0", "max": "20.0", "useMultiplier": "false"}
+    properties:
+      valueType: Float64
+      readWrite: RW
+      units: newtons
+
+  - name: Drag
+    description: Drag force acting on the aircraft (min:5, max:15) newtons
+    attributes:
+      {dataGenerator: "float", "min": "5.0", "max": "15.0", "useMultiplier": "false"}
+    properties:
+      valueType: Float64
+      readWrite: RW
+      units: newtons
+
+  - name: Speed
+    description: Speed of the aircraft (min:30, max:200) knots
+    attributes:
+      {dataGenerator: "float", "min": "120.0", "max": "125.0", "useMultiplier": "false"}
+    properties:
+      valueType: Float64
+      readWrite: RW
+      units: knots
+
+  - name: VerticalSpeed
+    description: Vertical speed of the aircraft (min:-6000, max:+6000) feet/min
+    attributes:
+      {dataGenerator: "float", "min": "-20.0", "max": "20.0", "useMultiplier": "false"}
+    properties:
+      valueType: Float64
+      readWrite: RW
+      units: feet per minute
+
+  - name: Heading
+    description: Heading of the aircraft (min:0, max:360) degrees
+    attributes:
+      {dataGenerator: "float", "min": "295.0", "max": "297.0", "useMultiplier": "false"}
+    properties:
+      valueType: Float64
+      readWrite: RW
+      units: degrees
+
+
+  - name: OilPressure
+    description: Oil pressure in the engine
+    attributes:
+      {dataGenerator: "float", "min": "0.0", "max": "100.0", "useMultiplier": "false"}
+    properties:
+      valueType: Float64
+      readWrite: RW
+      units: psi
+
+  - name: OilTemperature
+    description: Oil temperature in the engine
+    attributes:
+      {dataGenerator: "float", "min": "0.0", "max": "150.0", "useMultiplier": "false"}
+    properties:
+      valueType: Float64
+      readWrite: RW
+      units: degrees Celsius
+
+  - name: FuelLevel
+    description: Fuel level in the aircraft
+    attributes:
+      {dataGenerator: "float", "min": "0.0", "max": "100.0", "useMultiplier": "false"}
+    properties:
+      valueType: Float64
+      readWrite: RW
+      units: percent
+
+  - name: OutsideAirTemperature
+    description: Outside air temperature (OAT)
+    attributes:
+      {dataGenerator: "float", "min": "-50.0", "max": "50.0", "useMultiplier": "false"}
+    properties:
+      valueType: Float64
+      readWrite: RW
+      units: degrees Celsius
+
+  - name: Humidity
+    description: Humidity outside the aircraft
+    attributes:
+      {dataGenerator: "float", "min": "0.0", "max": "100.0", "useMultiplier": "false"}
+    properties:
+      valueType: Float64
+      readWrite: RW
+      units: percent
+
+  - name: WindSpeed
+    description: Wind speed
+    attributes:
+      {dataGenerator: "float", "min": "0.0", "max": "100.0", "useMultiplier": "false"}
+    properties:
+      valueType: Float64
+      readWrite: RW
+      units: knots
+
+  - name: WindDirection
+    description: Wind direction
+    attributes:
+      {dataGenerator: "float", "min": "0.0", "max": "360.0", "useMultiplier": "false"}
+    properties:
+      valueType: Float64
+      readWrite: RW
+      units: degrees
+
+deviceCommands:
+  - name: "Get-RC-AviationParams-Data"
+    readWrite: "R"
+    resourceOperations:
+      - { operation: "get", deviceResource: "State" }
+      - { operation: "get", deviceResource: "Altitude" }
+      - { operation: "get", deviceResource: "Latitude" }
+      - { operation: "get", deviceResource: "Longitude" }
+      - { operation: "get", deviceResource: "Lift" }
+      - { operation: "get", deviceResource: "Drag" }
+      - { operation: "get", deviceResource: "Speed" }
+      - { operation: "get", deviceResource: "VerticalSpeed" }
+      - { operation: "get", deviceResource: "Heading" }
+
+  - name: "Get-Full-AviationParams-Data"
+    readWrite: "R"
+    resourceOperations:
+      - { operation: "get", deviceResource: "State" }
+      - { operation: "get", deviceResource: "Altitude" }
+      - { operation: "get", deviceResource: "Latitude" }
+      - { operation: "get", deviceResource: "Longitude" }
+      - { operation: "get", deviceResource: "Lift" }
+      - { operation: "get", deviceResource: "Drag" }
+      - { operation: "get", deviceResource: "Speed" }
+      - { operation: "get", deviceResource: "VerticalSpeed" }
+      - { operation: "get", deviceResource: "Heading" }
+      - { operation: "get", deviceResource: "OilPressure" }
+      - { operation: "get", deviceResource: "OilTemperature" }
+      - { operation: "get", deviceResource: "FuelLevel" }
+      - { operation: "get", deviceResource: "OutsideAirTemperature" }
+      - { operation: "get", deviceResource: "Humidity" }
+      - { operation: "get", deviceResource: "WindSpeed" }
+      - { operation: "get", deviceResource: "WindDirection" }

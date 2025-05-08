@@ -1,0 +1,45 @@
+Writable:
+  LogLevel: INFO
+  StoreAndForward:
+    Enabled: false
+    RetryInterval: "2m"
+    MaxRetryCount: 5
+
+Service:
+  Host: localhost
+  Port: 48108
+  StartupMsg: Meta-Sync started
+
+Clients:
+    support-notifications:
+      Protocol: "http"
+      Host: "localhost"
+      Port: 59860
+
+SecretStore:
+  Path: app-meta-sync/
+  TokenFile: /tmp/edgex/secrets/app-meta-sync/secrets-token.json
+
+MessageBus:
+  Disabled: true
+
+Trigger:
+  Type: external-mqtt
+  SubscribeTopics: hedge/meta-sync-state, hedge/meta-sync-request, hedge/meta-sync-data
+  ExternalMqtt:
+    Url: 'tcp://localhost:1883'
+    ConnectTimeout: 30s
+    AutoReconnect: true
+    KeepAlive: 300
+    QoS: 0
+    Retain: false
+    SkipCertVerify: false
+    SecretName: mbconnection
+    AuthMode: usernamepassword
+
+ApplicationSettings:
+  NodeType: "CORE"
+  StateIntervalMin: "180"
+  StateEventsIntervalSec: "10"
+  DiscoveryEnable: "false"
+  DiscoveryNamespace: 'hedge'

@@ -1,0 +1,53 @@
+{
+  "name": "AutoEncoder",
+  "type": "Anomaly",
+  "jobScript": "YXBpVmVyc2lvbjogYmF0Y2gvdjEKa2luZDogSm9iCm1ldGFkYXRhOgogIG5hbWU6IGhlZGdlLWF1dG8tam9iCiAgbmFtZXNwYWNlOiBfX05BTUVTUEFDRV9fCnNwZWM6CiAgdHRsU2Vjb25kc0FmdGVyRmluaXNoZWQ6IDI0MAogIGJhY2tvZmZMaW1pdDogMAogIHRlbXBsYXRlOgogICAgc3BlYzoKICAgICAgaW1hZ2VQdWxsU2VjcmV0czoKICAgICAgICAtIG5hbWU6IF9fSU1BR0VfUFVMTF9TRUNSRVRTX18KICAgICAgY29udGFpbmVyczoKICAgICAgICAtIG5hbWU6IGhlZGdlLWF1dG8tam9iCiAgICAgICAgICBpbWFnZTogX19ET0NLRVJfUkVHSVNUUllfUFJFRklYX18vaGVkZ2UtbWwtdHJnLWFub21hbHktYXV0b2VuY29kZXI6MjUuMi4wMF9sYXRlc3QKICAgICAgICAgICNjb21tYW5kOiBbJ3NoJywgJy1jJywgJ2VjaG8gIkhlbGxvLCBIZWRnZSBNTCBkZWJ1Z2dlcnMhIiAmJiBzbGVlcCAzNjAwJ10KICAgICAgICAgICNpbWFnZVB1bGxQb2xpY3k6IElmTm90UHJlc2VudAogICAgICAgICAgaW1hZ2VQdWxsUG9saWN5OiBBbHdheXMKICAgICAgICAgIHJlc291cmNlczoKICAgICAgICAgICAgcmVxdWVzdHM6CiAgICAgICAgICAgICAgbWVtb3J5OiAiMjU2TWkiCiAgICAgICAgICAgICAgY3B1OiAiMjAwbSIKICAgICAgICAgICAgbGltaXRzOgogICAgICAgICAgICAgIG1lbW9yeTogIjFHaSIKICAgICAgICAgICAgICBjcHU6ICI3NTBtIgogICAgICAgICAgdm9sdW1lTW91bnRzOgogICAgICAgICAgICAtIG5hbWU6IGthZmthLXBlbS12b2wKICAgICAgICAgICAgICBtb3VudFBhdGg6IC9vcHQvYm1jL3NlY3VyaXR5CiAgICAgICAgICBlbnY6CiAgICAgICAgICAgIC0gbmFtZTogVEVOQU5UX0lECiAgICAgICAgICAgICAgdmFsdWU6ICIiCiAgICAgICAgICAgIC0gbmFtZTogTkFNRVNQQUNFCiAgICAgICAgICAgICAgdmFsdWU6ICIiCiAgICAgICAgICAgIC0gbmFtZTogVVNFUl9JRAogICAgICAgICAgICAgIHZhbHVlOiAiIgogICAgICAgICAgICAtIG5hbWU6IEFMR09SSVRITV9KU09OCiAgICAgICAgICAgICAgdmFsdWU6ICIiCiAgICAgICAgICAgIC0gbmFtZTogQUxHT1JJVEhNX0lECiAgICAgICAgICAgICAgdmFsdWU6ICIiCiAgICAgICAgICAgIC0gbmFtZTogRVhFQ1VUSU9OX0lECiAgICAgICAgICAgICAgdmFsdWU6ICIiCiAgICAgICAgICAgIC0gbmFtZTogTU9ERUxESVIKICAgICAgICAgICAgICB2YWx1ZTogIi90bXAvaGVkZ2UiCiAgICAgICAgICAgIC0gbmFtZTogQUlGX0NPUkVfU0VSVklDRV9TRVJWSUNFX0hPU1QKICAgICAgICAgICAgICB2YWx1ZTogImFpZi1jb3JlLXNlcnZpY2UiCiAgICAgICAgICAgIC0gbmFtZTogQUlGX0NPUkVfU0VSVklDRV9TRVJWSUNFX1BPUlQKICAgICAgICAgICAgICB2YWx1ZTogIjUwMTc3IgogICAgICAgICAgICAtIG5hbWU6IElTX1NFQ1VSRQogICAgICAgICAgICAgIHZhbHVlOiAiIgogICAgICAgICAgICAtIG5hbWU6IENMT1VEX0FDQ0VTU19LRVkKICAgICAgICAgICAgICB2YWx1ZUZyb206CiAgICAgICAgICAgICAgICBzZWNyZXRLZXlSZWY6CiAgICAgICAgICAgICAgICAgIGtleTogQVdTX0FDQ0VTU19LRVlfSURfQUlGCiAgICAgICAgICAgICAgICAgIG5hbWU6IGF3c3Mzc2VjcmV0CiAgICAgICAgICAgIC0gbmFtZTogQ0xPVURfU0VDUkVUX0tFWQogICAgICAgICAgICAgIHZhbHVlRnJvbToKICAgICAgICAgICAgICAgIHNlY3JldEtleVJlZjoKICAgICAgICAgICAgICAgICAga2V5OiBBV1NfU0VDUkVUX0FDQ0VTU19LRVlfQUlGCiAgICAgICAgICAgICAgICAgIG5hbWU6IGF3c3Mzc2VjcmV0CiAgICAgICAgICAgIC0gbmFtZTogQ0xPVURfRU5EUE9JTlQKICAgICAgICAgICAgICB2YWx1ZUZyb206CiAgICAgICAgICAgICAgICBzZWNyZXRLZXlSZWY6CiAgICAgICAgICAgICAgICAgIGtleTogQVdTX1MzX0VORFBPSU5UX1dJVEhfUkVHSU9OCiAgICAgICAgICAgICAgICAgIG5hbWU6IGF3c3Mzc2VjcmV0CiAgICAgICAgICAgIC0gbmFtZTogQVdTX1MzX1JFR0lPTgogICAgICAgICAgICAgIHZhbHVlRnJvbToKICAgICAgICAgICAgICAgIHNlY3JldEtleVJlZjoKICAgICAgICAgICAgICAgICAga2V5OiBBV1NfUzNfUkVHSU9OCiAgICAgICAgICAgICAgICAgIG5hbWU6IGF3c3Mzc2VjcmV0CiAgICAgICAgICAgIC0gbmFtZTogQ0xPVURfQlVDS0VUX05BTUUKICAgICAgICAgICAgICB2YWx1ZTogImFpZi1tbC1tb2RlbHMiCiAgICAgICAgICAgIC0gbmFtZTogUzNGU19MT0dHSU5HX0xFVkVMCiAgICAgICAgICAgICAgdmFsdWU6IERFQlVHCiAgICAgICAgICAgIC0gbmFtZTogS0FGS0FfQ09OTkVDVF9TVFJJTkcKICAgICAgICAgICAgICB2YWx1ZUZyb206CiAgICAgICAgICAgICAgICBzZWNyZXRLZXlSZWY6CiAgICAgICAgICAgICAgICAgIGtleTogS0FGS0FfQ0xVU1RFUgogICAgICAgICAgICAgICAgICBuYW1lOiBrYWZrYXNlY3JldAoKICAgICAgcmVzdGFydFBvbGljeTogTmV2ZXIKICAgICAgYXV0b21vdW50U2VydmljZUFjY291bnRUb2tlbjogZmFsc2UKICAgICAgdm9sdW1lczoKICAgICAgICAtIG5hbWU6IGthZmthLXBlbS12b2wKICAgICAgICAgIHNlY3JldDoKICAgICAgICAgICAgc2VjcmV0TmFtZToga2Fma2EtcGVtCiAgICAgICAgICAgIG9wdGlvbmFsOiB0cnVlCg==",
+  "description": "This is predefined algorithm template to train anomaly model using autoencoder, the output is a model that will be deployed at customer edge",
+  "productType": "IOT",
+  "algorithmSchema": {
+    "$schema": "http://json-schema.org/draft-06/schema#",
+    "$ref": "#/template/definition",
+    "template": {
+      "definition": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "input": {
+            "$ref": "#/template/input"
+          },
+          "config": {
+            "$ref": "#/template/config"
+          }
+        },
+        "title": "HedgeAlgorithmSchema"
+      },
+      "input": {
+        "type": "object",
+        "additionalProperties": true,
+        "properties": {
+          "training_input_fileId": {
+            "type": "string"
+          }
+        },
+        "title" : "Runtime parameters to initiate train job for Hedge Autoencoder"
+      },
+      "config": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "name": {
+            "type": "string",
+            "const": "AutoEncoder"
+          },
+          "batch_size": {
+            "type": "integer"
+          },
+          "num_epochs": {
+            "type": "integer"
+          }
+        },
+        "title": "ConfigSchema"
+      }
+    }
+  }
+}

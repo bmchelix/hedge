@@ -1,0 +1,3 @@
+{
+    "sql": "create stream enrichedStream() WITH (FORMAT=\"JSON\", CONF_KEY=\"enricheddata_conf\", TYPE=\"edgex\", KEY=\"ts\", TIMESTAMP=\"ts\", SHARED=\"true\")"
+}

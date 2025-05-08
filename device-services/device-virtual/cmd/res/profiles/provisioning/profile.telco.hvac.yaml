@@ -1,0 +1,42 @@
+name: "HVAC"
+manufacturer: "L & T"
+model: "HVAC Model SG"
+labels:
+  - "Pressure"
+  - "Water"
+description: "HVAC System"
+
+deviceResources:
+  -
+    name: "Temperature"
+    description: "Temperature in degree C"
+    attributes:
+      { dataGenerator: "float", min: "30", max: "40", useMultiplier: "false" }
+    properties:
+      valueType: "Float64"
+      readWrite: "R"
+      defaultValue: "35"
+      units : "degree C"
+  -
+    name: "Humidity"
+    description: "Humidity in %"
+    attributes:
+      { dataGenerator: "float", min: "40", max: "60", useMultiplier: "false" }
+    properties:
+      valueType: "Float64"
+      readWrite: "R"
+      defaultValue: "50"
+
+deviceCommands:
+  -
+    name: "Temperature"
+    isHidden: false
+    readWrite: "R"
+    resourceOperations:
+      - { deviceResource: "Temperature", defaultValue: "20" }
+  -
+    name: "Humidity"
+    isHidden: false
+    readWrite: "R"
+    resourceOperations:
+      - { deviceResource: "Humidity", defaultValue: "55" }

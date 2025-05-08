@@ -1,0 +1,1182 @@
+{
+	"info": {
+		"_postman_id": "f81422e5-8fd1-48fa-ba6a-b02392342071",
+		"name": "Device & Profile Extensions",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "2298628"
+	},
+	"item": [
+		{
+			"name": "Create Device Association",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "admin",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "admin",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "[\n    {\n        \"nodeType\": \"device\",\n        \"nodeName\": \"gktestdevice2\"\n    },\n    {\n        \"nodeType\": \"device\",\n        \"nodeName\": \"gktestdevice1\"\n    }\n]",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/api/v3/metadata/association/device/gktestdevice3",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"v2",
+						"metadata",
+						"association",
+						"device",
+						"gktestdevice3"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Device Association",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "admin",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "admin",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/api/v3/metadata/association/device/gktestdevice1",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"v2",
+						"metadata",
+						"association",
+						"device",
+						"gktestdevice1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create Profile Extension",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "admin",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "admin",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "[\n    {\n        \"field\": \"serialNo\",\n        \"default\": \"1234\",\n        \"isMandatory\": true\n    },\n    {\n        \"field\": \"version\",\n        \"default\": \"123\",\n        \"isMandatory\": false\n    },\n    {\n        \"field\": \"blah\",\n        \"default\": \"blahblah\",\n        \"isMandatory\": false\n    }\n]",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/api/v3/metadata/deviceprofile/extn/gktestprofile3",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"v2",
+						"metadata",
+						"deviceprofile",
+						"extn",
+						"gktestprofile3"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update Profile Extension",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "admin",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "admin",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "[\n    {\n        \"field\": \"serialNo\",\n        \"isMandatory\": true\n    },\n    {\n        \"field\": \"version\",\n        \"default\": \"345\",\n        \"isMandatory\": false\n    },\n    {\n        \"field\": \"blah\",\n        \"default\": \"blahblah\",\n        \"isMandatory\": false\n    },\n    {\n        \"field\": \"blah4\",\n        \"default\": \"blahblah4\",\n        \"isMandatory\": true\n    }\n]",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/api/v3/metadata/deviceprofile/extn/gktestprofile3",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"v2",
+						"metadata",
+						"deviceprofile",
+						"extn",
+						"gktestprofile3"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Profile Extension",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "admin",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "admin",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/api/v3/metadata/deviceprofile/extn/gktestprofile3",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"v2",
+						"metadata",
+						"deviceprofile",
+						"extn",
+						"gktestprofile3"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Profile Extension",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "admin",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "admin",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "[\n    {\n        \"field\": \"serialNo\",\n        \"valDefault\": \"1234\",\n        \"isMandatory\": true\n    },\n    {\n        \"field\": \"version\",\n        \"valDefault\": \"123\",\n        \"isMandatory\": false\n    },\n    {\n        \"field\": \"blah\",\n        \"valDefault\": \"blahblah\",\n        \"isMandatory\": false\n    }\n]",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/api/v3/metadata/deviceprofile/extn/gktestprofile3",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"v2",
+						"metadata",
+						"deviceprofile",
+						"extn",
+						"gktestprofile3"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create Device Extension",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "admin",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "admin",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "[\n    {\n        \"field\": \"serialNo\",\n        \"value\": \"1234\"\n    },\n    {\n        \"field\": \"version\",\n        \"value\": \"123\"\n    },\n    {\n        \"field\": \"blah\",\n        \"value\": \"blahblah\"\n    }\n]",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/api/v3/metadata/device/extn/gktestdevice3",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"v2",
+						"metadata",
+						"device",
+						"extn",
+						"gktestdevice3"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update Device Extension",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "admin",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "admin",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "[\n    {\n        \"field\": \"serialNo\",\n        \"value\": \"123\"\n    },\n    {\n        \"field\": \"blah4\",\n        \"value\": \"blahblah4\"\n    }\n]",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/api/v3/metadata/device/extn/gktestdevice3",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"v2",
+						"metadata",
+						"device",
+						"extn",
+						"gktestdevice3"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Device Extension",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "admin",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "admin",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/api/v3/metadata/device/extn/gktestdevice3",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"v2",
+						"metadata",
+						"device",
+						"extn",
+						"gktestdevice3"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Device Extension",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "admin",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "admin",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "[\n    {\n        \"field\": \"serialNo\",\n        \"value\": \"123\"\n    },\n    {\n        \"field\": \"version\",\n        \"value\": \"12\"\n    },\n    {\n        \"field\": \"blah\",\n        \"value\": \"blahblah2\"\n    }\n]",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/api/v3/metadata/device/extn/gktestdevice3",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"v2",
+						"metadata",
+						"device",
+						"extn",
+						"gktestdevice3"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create Profile Biz attributes",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "admin",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "admin",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "[\n    \"key1\",\n    \"key2\"\n]",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/api/v3/metadata/deviceprofile/biz/gktestprofile3",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"v2",
+						"metadata",
+						"deviceprofile",
+						"biz",
+						"gktestprofile3"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Profile Biz attributes",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "admin",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "admin",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"key1\": \"val1\",\n    \"key2\": \"val2\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/api/v3/metadata/deviceprofile/biz/gktestprofile3",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"v2",
+						"metadata",
+						"deviceprofile",
+						"biz",
+						"gktestprofile3"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Profile Biz attributes",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "admin",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "admin",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"key1\": \"val1\",\n    \"key2\": \"val2\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/api/v3/metadata/deviceprofile/biz/gktestprofile3",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"v2",
+						"metadata",
+						"deviceprofile",
+						"biz",
+						"gktestprofile3"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create Device Biz attributes",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "admin",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "admin",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"key1\": \"devval1\",\n    \"key2\": \"devval2\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/api/v3/metadata/device/biz/gktestdevice3",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"v2",
+						"metadata",
+						"device",
+						"biz",
+						"gktestdevice3"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Device Biz attributes",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "admin",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "admin",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/api/v3/metadata/device/biz/gktestdevice3",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"v2",
+						"metadata",
+						"device",
+						"biz",
+						"gktestdevice3"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create Device Wrapper",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "admin",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "admin",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"apiVersion\": \"v2\",\n    \"device\": {\n        \"description\": \"gk device3 description\",\n        \"adminState\": \"UNLOCKED\",\n        \"operatingState\": \"UP\",\n        \"labels\": [\n            \"gkdevlabel3\",\n            \"gkdevlabel4\"\n        ],\n        \"location\": {\n            \"lat\": \"45.45\",\n            \"long\": \"47.80\"\n        },\n        \"serviceName\": \"gktestdeviceservice1\",\n        \"profileName\": \"gktestprofile3\",\n        \"autoEvents\": [\n            {\n                \"interval\": \"300ms\",\n                \"onChange\": true,\n                \"sourceName\": \"CurrentHumidity\"\n            }\n        ],\n        \"protocols\": {\n            \"gk-protocol\": {\n                \"gkprotkey1\": \"gkprotval1\",\n                \"gkprotkey2\": \"gkprotval2\"\n            }\n        },\n        \"notify\": false\n    },\n    \"associations\": [\n        {\n            \"nodeType\": \"device\",\n            \"nodeName\": \"gktestdevice2\"\n        },\n        {\n            \"nodeType\": \"device\",\n            \"nodeName\": \"gktestdevice1\"\n        }\n    ],\n    \"extensions\": [\n        {\n            \"field\": \"serialNo\",\n            \"value\": \"1234\"\n        },\n        {\n            \"field\": \"version\",\n            \"value\": \"123\"\n        },\n        {\n            \"field\": \"blah\",\n            \"value\": \"blahblah\"\n        }\n    ]\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/api/v3/deviceinfo/device/name/gktestdevice3",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"v2",
+						"deviceinfo",
+						"device",
+						"name",
+						"gktestdevice3"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update Device Wrapper",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "admin",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "admin",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"apiVersion\": \"v2\",\n    \"device\": {\n        \"description\": \"gk device3 description\",\n        \"adminState\": \"UNLOCKED\",\n        \"operatingState\": \"UP\",\n        \"labels\": [\n            \"gkdevlabel3\",\n            \"gkdevlabel4\"\n        ],\n        \"location\": {\n            \"lat\": \"45.45\",\n            \"long\": \"47.80\"\n        },\n        \"serviceName\": \"gktestdeviceservice1\",\n        \"profileName\": \"gktestprofile3\",\n        \"autoEvents\": [\n            {\n                \"interval\": \"300ms\",\n                \"onChange\": true,\n                \"sourceName\": \"CurrentHumidity\"\n            }\n        ],\n        \"protocols\": {\n            \"gk-protocol\": {\n                \"gkprotkey1\": \"gkprotval1\",\n                \"gkprotkey2\": \"gkprotval2\"\n            }\n        },\n        \"notify\": false\n    },\n    \"extensions\": [\n        {\n            \"field\": \"serialNo\",\n            \"value\": \"12345\"\n        },\n        {\n            \"field\": \"version\",\n            \"value\": \"123\"\n        },\n        {\n            \"field\": \"blah\",\n            \"value\": \"blahblah\"\n        }\n    ]\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/api/v3/deviceinfo/device/name/gktestdevice3",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"v2",
+						"deviceinfo",
+						"device",
+						"name",
+						"gktestdevice3"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Device Wrapper",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "admin",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "admin",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/api/v3/deviceinfo/device/name/gktestdevice3",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"v2",
+						"deviceinfo",
+						"device",
+						"name",
+						"gktestdevice3"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Device Wrapper",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "admin",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "admin",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/api/v3/deviceinfo/device/name/gktestdevice3",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"v2",
+						"deviceinfo",
+						"device",
+						"name",
+						"gktestdevice3"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create Profile Wrapper",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "admin",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "admin",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"apiVersion\": \"v2\",\n    \"profile\": {\n        \"manufacturer\": \"gkman3\",\n        \"model\": \"gkmodel3\",\n        \"labels\": [\n            \"gkproflabel2\",\n            \"gkproflabel3\",\n            \"gkproflabel4\"\n        ],\n        \"description\": \"gktestdescription3\",\n        \"deviceResources\": [\n            {\n                \"name\": \"gkresource1\",\n                \"properties\": {\n                    \"valueType\": \"Int64\",\n                    \"readWrite\": \"RW\",\n                    \"defaultValue\": \"\",\n                    \"units\": \"\"\n                },\n                \"attributes\": {\n                    \"isproperty\": \"\"\n                }\n            },\n            {\n                \"name\": \"gkresource4\",\n                \"properties\": {\n                    \"valueType\": \"String\",\n                    \"readWrite\": \"RW\",\n                    \"defaultValue\": \"\",\n                    \"units\": \"\"\n                },\n                \"attributes\": {\n                    \"isproperty\": \"\"\n                }\n            }\n        ],\n        \"deviceCommands\": []\n    }\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/api/v3/deviceinfo/profile/name/gktestprofile3",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"v2",
+						"deviceinfo",
+						"profile",
+						"name",
+						"gktestprofile3"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update Profile Wrapper",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "admin",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "admin",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"apiVersion\": \"v2\",\n    \"profile\": {\n        \"manufacturer\": \"gkman4\",\n        \"model\": \"gkmodel4\",\n        \"labels\": [\n            \"gkproflabel2\",\n            \"gkproflabel3\",\n            \"gkproflabel4\"\n        ],\n        \"description\": \"gktestdescription4\",\n        \"deviceResources\": [\n            {\n                \"name\": \"gkresource1\",\n                \"properties\": {\n                    \"valueType\": \"Int64\",\n                    \"readWrite\": \"RW\",\n                    \"defaultValue\": \"\",\n                    \"units\": \"\"\n                },\n                \"attributes\": {\n                    \"isproperty\": \"\"\n                }\n            },\n            {\n                \"name\": \"gkresource4\",\n                \"properties\": {\n                    \"valueType\": \"String\",\n                    \"readWrite\": \"RW\",\n                    \"defaultValue\": \"\",\n                    \"units\": \"\"\n                },\n                \"attributes\": {\n                    \"isproperty\": \"\"\n                }\n            }\n        ],\n        \"deviceCommands\": []\n    },\n    \"extensions\": [\n        {\n            \"field\": \"serialNo\",\n            \"default\": \"12345\",\n            \"isMandatory\": true\n        },\n        {\n            \"field\": \"version\",\n            \"default\": \"123\",\n            \"isMandatory\": false\n        },\n        {\n            \"field\": \"blah\",\n            \"default\": \"blahblah\",\n            \"isMandatory\": false\n        }\n    ]\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/api/v3/deviceinfo/profile/name/gktestprofile4",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"v2",
+						"deviceinfo",
+						"profile",
+						"name",
+						"gktestprofile4"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Profile Wrapper",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "admin",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "admin",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/api/v3/deviceinfo/profile/name/gktestprofile3",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"v2",
+						"deviceinfo",
+						"profile",
+						"name",
+						"gktestprofile3"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Profile Wrapper",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "admin",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "admin",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/api/v3/deviceinfo/profile/name/gktestprofile3",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"v2",
+						"deviceinfo",
+						"profile",
+						"name",
+						"gktestprofile3"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Summary for given Devices",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "admin",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "admin",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "[\"gktestdevice9\",\"gktestdevice2\",\"gktestdevice3\"]",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/api/v3/deviceinfo/devices",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"v2",
+						"deviceinfo",
+						"devices"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Service Protocols",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "admin",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "admin",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/api/v3/deviceinfo/deviceservice/hedge-virtual-device/protocols",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"v2",
+						"deviceinfo",
+						"deviceservice",
+						"hedge-virtual-device",
+						"protocols"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

@@ -1,0 +1,141 @@
+[
+  {
+    "id": "f3807c1d17334f61",
+    "type": "tab",
+    "label": "Simulate_trigger",
+    "disabled": false,
+    "info": "",
+    "env": []
+  },
+  {
+    "id": "802dd6e11d5ac538",
+    "type": "http request",
+    "z": "f3807c1d17334f61",
+    "name": "fireHttp command",
+    "method": "use",
+    "ret": "txt",
+    "paytoqs": false,
+    "url": "",
+    "tls": "",
+    "proxy": "",
+    "authType": "",
+    "x": 670,
+    "y": 180,
+    "wires": [
+      [
+        "5a8716d42216c319"
+      ]
+    ]
+  },
+  {
+    "id": "785a4b1fbe89d044",
+    "type": "function",
+    "z": "f3807c1d17334f61",
+    "name": "BuildWindFarmResetPayload",
+    "func": "msg.headers = {'Content-Type': 'application/json'};\n//msg.rejectUnauthorized = false\n\nmsg.url = \"http://clm-aus-w4gmrd.bmc.com:49991/api/v1/dataGenerator/commands\"\n\nmsg.payload = [\n    {\n    \"name\": \"ChangeAverage\",\n    \"parameters\": {\n        \"device\": \"AltaNS12\",\n        \"metric\": \"GenGearOilLevelPercent\",\n        \"average\": \"23\",\n\n    }\n    },\n    {\n    \"name\": \"ChangeAverage\",\n    \"parameters\": {\n        \"device\": \"AltaNS12\",\n        \"metric\": \"TurbinePower\",\n        \"average\": \"350\",\n\n    }},\n        {\n    \"name\": \"ChangeAverage\",\n    \"parameters\": {\n        \"device\": \"AltaNS12\",\n        \"metric\": \"GenBearingTemperature\",\n        \"average\": \"100\",\n\n    }\n\n}]\n\nmsg.method = \"PUT\"\nreturn msg;",
+    "outputs": 1,
+    "noerr": 0,
+    "initialize": "",
+    "finalize": "",
+    "libs": [],
+    "x": 380,
+    "y": 120,
+    "wires": [
+      [
+        "802dd6e11d5ac538"
+      ]
+    ]
+  },
+  {
+    "id": "c0b5ce2c24d8ca4f",
+    "type": "inject",
+    "z": "f3807c1d17334f61",
+    "name": "",
+    "props": [
+      {
+        "p": "payload"
+      },
+      {
+        "p": "topic",
+        "vt": "str"
+      }
+    ],
+    "repeat": "",
+    "crontab": "",
+    "once": false,
+    "onceDelay": 0.1,
+    "topic": "",
+    "payload": "",
+    "payloadType": "date",
+    "x": 140,
+    "y": 120,
+    "wires": [
+      [
+        "785a4b1fbe89d044"
+      ]
+    ]
+  },
+  {
+    "id": "5a8716d42216c319",
+    "type": "debug",
+    "z": "f3807c1d17334f61",
+    "name": "printHttpStatus",
+    "active": true,
+    "tosidebar": true,
+    "console": false,
+    "tostatus": false,
+    "complete": "true",
+    "targetType": "full",
+    "x": 920,
+    "y": 180,
+    "wires": []
+  },
+  {
+    "id": "1ea441d33877a998",
+    "type": "inject",
+    "z": "f3807c1d17334f61",
+    "name": "",
+    "props": [
+      {
+        "p": "payload"
+      },
+      {
+        "p": "topic",
+        "vt": "str"
+      }
+    ],
+    "repeat": "",
+    "crontab": "",
+    "once": false,
+    "onceDelay": 0.1,
+    "topic": "",
+    "payload": "",
+    "payloadType": "date",
+    "x": 140,
+    "y": 220,
+    "wires": [
+      [
+        "9b6cded57fdd6fc9"
+      ]
+    ]
+  },
+  {
+    "id": "9b6cded57fdd6fc9",
+    "type": "function",
+    "z": "f3807c1d17334f61",
+    "name": "ResetWindFarmValues",
+    "func": "msg.headers = {'Content-Type': 'application/json'};\n//msg.rejectUnauthorized = false\n\nmsg.url = \"http://clm-aus-w4gmrd.bmc.com:49991/api/v1/dataGenerator/commands\"\n\nmsg.payload = [\n    {\n    \"name\": \"ResetValue\",\n    \"parameters\": {\n        \"device\": \"AltaNS12\",\n        \"metric\": \"GenGearOilLevelPercent\"\n\n    }\n    },\n    {\n    \"name\": \"ResetValue\",\n    \"parameters\": {\n        \"device\": \"AltaNS12\",\n        \"metric\": \"TurbinePower\"\n\n    }},\n        {\n    \"name\": \"ResetValue\",\n    \"parameters\": {\n        \"device\": \"AltaNS12\",\n        \"metric\": \"GenBearingTemperature\"\n\n    }\n\n}]\n\nmsg.method = \"PUT\"\nreturn msg;",
+    "outputs": 1,
+    "noerr": 0,
+    "initialize": "",
+    "finalize": "",
+    "libs": [],
+    "x": 380,
+    "y": 220,
+    "wires": [
+      [
+        "802dd6e11d5ac538"
+      ]
+    ]
+  }
+]

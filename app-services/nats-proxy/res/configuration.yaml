@@ -1,0 +1,22 @@
+Writable:
+  LogLevel: INFO
+Service:
+  Host: localhost
+  Port: 48200
+  StartupMsg: Nats-Proxy started
+
+SecretStore:
+  Path: app-nats-proxy/
+  TokenFile: /tmp/edgex/secrets/app-nats-proxy/secrets-token.json
+
+MessageBus:
+  Disabled: true
+
+Trigger:
+  Type: http
+
+ApplicationSettings:
+  EdgexNatsServer: 'ws://localhost:8080'
+  #HedgeAdminURL: 'http://localhost:48098'
+  NodeType: "CORE"
+  StreamName: "core_node_comm"

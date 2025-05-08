@@ -1,0 +1,28 @@
+name: Run Make on PR
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+jobs:
+  run-make:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Set up Go
+      uses: actions/setup-go@v4
+      with:
+        go-version-file: 'go.mod'
+        cache: true
+
+    - name: Build
+      run: |
+        go mod download all
+
+    - name: Unit Test
+      run: go test ./edge-ml-service/...

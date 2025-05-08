@@ -1,0 +1,85 @@
+# Binaries for programs and plugins
+*.exe
+*.exe~
+*.dll
+*.lib
+*.so
+*.dylib
+*.log
+*.idea
+#.vscode
+.DS_Store
+glide.lock
+_build
+.cache
+.yarn
+jest-temp
+dump.*
+.vscode/
+venv/
+.venv/
+
+# Models downloaded from GCP or locally created
+keras_tensorboard/
+training_data/
+_contents/
+
+# Test binary, built with `go test -c`
+*.test
+
+# Sonar output
+*.scannerwork
+
+# Output of the go coverage tool, specifically when used with LiteIDE
+*.out
+# Kubernetes out directory
+hedge-deployment/k8s/out/
+# Kubernetes charts
+hedge-deployment/k8s/helm/hedge/**/Chart.yaml*
+hedge-deployment/k8s/helm/hedge/**/charts/
+hedge-deployment/k8s/helm/hedge/librarycharts-*.tgz
+
+# Hedge packages
+package/
+
+tools/
+
+# Dependency directories (remove the comment below to include it)
+#vendor/
+
+# EdgeX App and Device Service binaries
+app-service
+device-service
+ui-admin
+# node_modules from local builds
+node_modules/
+
+
+*.pyc
+.license_accepted
+.platcrd
+
+edge-ml-service/anomaly-gcp-trng/autoencoderv2/tests/test_data/
+pkg/mod
+pkg/sumdb
+edge-ml-service/pkg/mod
+*.log
+pkg/mod/sumdb
+edge-ml-service/pkg/mod
+
+/edge-ml-service/anomaly-detection/train/src/main/autoencoder-class/
+
+*history/*
+
+**/tests/models/
+
+/edge-ml-service/python-code/multi-test
+/edge-ml-service/python-code/timeseries/univariate-ets/tests
+/edge-ml-service/python-code/timeseries/univariate-ets/tests
+
+_dev/elasticsearch_data
+_dev/opensearch_data
+_dev/victoriametrics_data
+_dev/grafana_data
+**/*.swp
+**/*.orig

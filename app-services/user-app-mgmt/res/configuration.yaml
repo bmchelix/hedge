@@ -1,0 +1,40 @@
+Writable:
+  LogLevel: INFO
+  InsecureSecrets:
+    hedgedb:
+      SecretName: dbconnection
+      SecretData:
+        username: hedge
+        password: qz6zqfjkAgYHxguOsbzzd8T5dfZlUKtjDrorzvhdoFI=
+
+Service:
+  Host: localhost
+  Port: 48111
+  StartupMsg: hedge user application management service started
+
+SecretStore:
+  Path: app-hedge-user-app-mgmt/
+  TokenFile: /tmp/edgex/secrets/app-hedge-user-app-mgmt/secrets-token.json
+
+MessageBus:
+  Disabled: true
+
+Trigger:
+  Type: http
+
+ApplicationSettings:
+  Usr_db_host: bcx-pun-4e49866.bmc.com
+  Usr_db_port: '5432'
+  Usr_db_name: hedge
+  Usr_db_user: hedge
+  USERNAME: admin
+  USER_EMAIL: admin@bmc.com
+  Usr_application_name: Helix IoT Edge Platform
+  #Is_External_Auth: 'true'
+  UserId_header: X-Credential-Identifier
+  Grafana_Server: 'http://bcx-pun-4e49866.bmc.com:8000/hedge/hedge-grafana'
+  Grafana_Admin: admin
+  Grafana_Pass: bmcAdm1n!
+  Grafana_DataSync_Interval_mins: 5m
+  Enable_Grafana_sync: 'true'
+  Consul_DC_Name: HEDGE_MANAGEMENT

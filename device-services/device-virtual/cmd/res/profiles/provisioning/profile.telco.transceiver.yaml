@@ -1,0 +1,30 @@
+name: "Telco-Transceiver"
+manufacturer: "AT and T"
+model: "Telco-Transceiver-Model-XP2"
+labels:
+  - "Transceiver"
+description: "Telecommunication Transceiver"
+
+deviceResources:
+  -
+    name: "SignalStrengthPercent"
+    description: "Signal Strength in Percent"
+    attributes:
+      { dataGenerator: "float", min: "70", max: "90", useMultiplier: "false" }
+    isHidden: false
+    properties:
+      valueType: "Float64"
+      readWrite: "R"
+      defaultValue: "80"
+      units: "Percent"
+  -
+    name: "TransceiverHealth"
+    description: "Transceiver working status to indicate if it is working or not"
+    attributes:
+      { dataGenerator: "bool", value: "true"}
+    isHidden: false
+    properties:
+      valueType: "Bool"
+      readWrite: "R"
+      defaultValue: "true"
+      units: "Success/Failure"

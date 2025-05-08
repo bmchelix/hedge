@@ -1,0 +1,10 @@
+sonar.host.url=http://clm-aus-w8rrkh.bmc.com:9000
+sonar.projectKey=TEST-SONAR-HEDGE-UI
+sonar.projectName=TEST-SONAR-HEDGE-UI
+sonar.projectVersion=1.0
+sonar.sourceEncoding=UTF-8
+sonar.sources=ui/edge-portal/projects/shell/src
+sonar.exclusions=**/node_modules/**,ui/edge-portal/projects/shell/src/app/app-initializer.ts,ui/edge-portal/projects/shell/src/app/app-routing.module.ts,ui/edge-portal/projects/shell/src/environments/**,ui/edge-portal/projects/shell/src/main.ts,ui/edge-portal/projects/shell/src/proxy.conf.js,ui/edge-portal/projects/shell/src/test.ts
+sonar.tests=/hedge
+sonar.test.inclusions=**/*.spec.ts
+sonar.javascript.lcov.reportPaths=/hedge/sonarqube/coverage.ui.out

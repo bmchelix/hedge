@@ -1,0 +1,19 @@
+name: "Telco-Tower"
+manufacturer: "L & T"
+model: "Telco-Tower-Model-XP"
+labels:
+  - "telco-tower"
+description: "Telecommunication Tower"
+
+deviceResources:
+  -
+    name: "CallDrops"
+    description: "Metric that indicates the number of calls that failed"
+    attributes:
+      { dataGenerator: "float", min: "2.0", max: "4.0", useMultiplier: "false"  }
+    isHidden: false
+    properties:
+      valueType: "Float64"
+      readWrite: "R"
+      defaultValue: "2.0"
+      units : "%"

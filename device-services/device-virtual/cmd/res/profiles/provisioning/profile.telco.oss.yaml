@@ -1,0 +1,30 @@
+name: "Telco-Tower-OSS"
+manufacturer: "BMC Softwares"
+model: "NA"
+labels:
+  - "OSS"
+  - "OT-IT Convergence"
+description: "Telecommunication Faults, call volumes"
+
+deviceResources:
+  -
+    name: "CallVolume"
+    description: "Call Volume per second"
+    isHidden: false
+    properties:
+      valueType: "Float64"
+      readWrite: "R"
+      defaultValue: "150"
+      units : "count"
+    attributes:
+      { dataGenerator: "float", min: "125", max: "175", useMultiplier: "true" }
+  -
+    name: "FaultStatus"
+    description: "Metric that indicates failures since the last queried time, multiple readings if there is more than one fault"
+    isHidden: false
+    properties:
+      valueType: "Bool"
+      readWrite: "R"
+      defaultValue: "true"
+      units: "Failure"
+

@@ -1,0 +1,34 @@
+Writable:
+  LogLevel: "INFO"
+  StoreAndForward:
+    Enabled: true
+    RetryInterval: "1m"
+    MaxRetryCount: 10
+
+Service:
+  Host: localhost
+  Port: 48102
+  StartupMsg: bmc event publisher service triggered via http, it also removes duplicate events
+
+SecretStore:
+  Path: app-hedge-event-publisher/
+  TokenFile: /tmp/edgex/secrets/app-hedge-event-publisher/secrets-token.json
+
+MessageBus:
+  Disabled: true
+
+Trigger:
+  Type: http
+
+ApplicationSettings:
+  #scheme: tcp
+  #MqttServer: localhost
+  #MqttPort: '1883'
+  #MqttAuthMode: none
+  #MqttSecretPath: ''
+  EventTopic: events # Publish to hedge/events
+  #HedgeAdminURL: 'http://localhost:48098'
+  #RedisHost: localhost
+  #RedisName: metadata
+  #RedisPort: '6379'
+  #RedisTimeout: '5000'
