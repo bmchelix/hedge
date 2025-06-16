@@ -86,4 +86,4 @@ awk '
 # starting redis with config file
 # security-bootstrapper in this case should just wait for the Redis's port
 echo "$(date) Starting edgex-redis ..."
-exec /usr/local/bin/docker-entrypoint.sh redis-server "${DATABASECONFIG_PATH}"/"${DATABASECONFIG_NAME}" --loadmodule "/usr/local/bin/redisearch.so"
+exec /usr/local/bin/docker-entrypoint.sh redis-server "${DATABASECONFIG_PATH}"/"${DATABASECONFIG_NAME}"
