@@ -158,9 +158,9 @@ _EXTERNAL_SERVICES_PATHS_RAW := \
 	external/redis
 
 # dependencies for external services
-hedge-ext-nginx-deps :=	external/nginx
+hedge-ext-nginx-deps :=	external/nginx external/edgex-go-submodule
 hedge-ext-node-red-deps := external/node-red
-hedge-ext-redis-deps :=	external/redis
+hedge-ext-redis-deps :=	external/redis external/edgex-go-submodule
 
 # Cleaned service paths
 APP_SERVICES_PATHS := $(foreach p,$(_APP_SERVICES_PATHS_RAW),$(strip $(p)))
