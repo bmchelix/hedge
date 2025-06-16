@@ -28,6 +28,8 @@ ApplicationSettings:
   Usr_db_name: hedge
   Usr_db_user: hedge
   USERNAME: admin
+  PLATCRD:
+  HTPASSWD_FILE_PATH: /tmp/.htpasswd
   USER_EMAIL: admin@domain.com
   Usr_application_name: hEdge IoT Platform
   #Is_External_Auth: 'true'

@@ -2,14 +2,14 @@
 * Contributors: BMC Helix, Inc.
 *
 * (c) Copyright 2020-2025 BMC Helix, Inc.
- 
+
 * SPDX-License-Identifier: Apache-2.0
 *******************************************************************************/
-
 
 package service
 
 import (
+	"encoding/base64"
 	"encoding/json"
 	"fmt"
 	"github.com/edgexfoundry/app-functions-sdk-go/v3/pkg/interfaces"
@@ -102,7 +102,37 @@ func NewUserManagementService(appService interfaces.ApplicationService, dbConfig
 //}
 
 func (s UserManagementService) InitializeHedgeDB() error {
-	return s.userManagementRepository.InitializeHedgeDB()
+
+	err := s.userManagementRepository.InitializeHedgeDB()
+	if err != nil {
+		return err
+	}
+	// Initialize the admin userid and password. In general, if SSO is in place, this one will not be used
+	// We still set this more as recovery one
+	username, err := s.appService.GetAppSetting("USERNAME")
+	if err != nil {
+		s.appService.LoggingClient().Warnf("USERNAME not found in configuration, admin user will be assumed")
+		username = "admin"
+	} else {
+		username = strings.TrimSpace(username)
+	}
+
+	pwdEncoded, err := s.appService.GetAppSetting("PLATCRD")
+	if err != nil || pwdEncoded == "" {
+		s.appService.LoggingClient().Warnf("PLATCRD not found in configuration, so admin password will not be set")
+		return nil
+	}
+
+	// pass the password from env and use it in here to update the password
+	pwd, err := base64.StdEncoding.DecodeString(pwdEncoded)
+	if err != nil {
+		s.appService.LoggingClient().Warnf("decode error: %v, admin password will not be set", err)
+		return nil
+	}
+	loginInputs := LoginInputs{Username: username, Password: string(pwd[:len(pwd)-1])}
+	err = s.CreateCredential(loginInputs)
+	// donot return error in case of CreateCredential at the startup since there is a default already in place
+	return nil
 }
 
 // GetUser Gets User

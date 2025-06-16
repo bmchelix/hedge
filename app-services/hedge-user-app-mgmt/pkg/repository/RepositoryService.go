@@ -166,12 +166,13 @@ func (r *UserManagementRepository) GetInactiveUser(kongUsername string) ([]dto.U
 // CreateCredential Creates User Credentials
 func (r *UserManagementRepository) CreateCredential(username, password string) error {
 	r.appService.LoggingClient().Debugf("user_mgmt.CreateCredential():: Start")
-	cp := os.Getenv(credentialsPathVariable)
+	cp, err := r.appService.GetAppSetting(credentialsPathVariable)
 
 	// Execute htpasswd command to add a new user
 	cmd := exec.Command("htpasswd", "-B", "-b", cp, username, password)
-	err := cmd.Run()
+	err = cmd.Run()
 	if err != nil {
+		r.appService.LoggingClient().Errorf("Error while executing command htpasswd, error: %v", err)
 		return err
 	}
 
@@ -182,11 +183,11 @@ func (r *UserManagementRepository) CreateCredential(username, password string) e
 // DeleteCredential Deletes User Credentials
 func (s *UserManagementRepository) DeleteCredential(username string) error {
 	s.appService.LoggingClient().Debugf("user_mgmt.DeleteCredentials():: Start")
-	cp := os.Getenv(credentialsPathVariable)
+	cp, err := s.appService.GetAppSetting(credentialsPathVariable)
 
 	// Execute htpasswd command to delete a user
 	cmd := exec.Command("htpasswd", "-D", cp, username)
-	err := cmd.Run()
+	err = cmd.Run()
 	if err != nil {
 		return err
 	}
