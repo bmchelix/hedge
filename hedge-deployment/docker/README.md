@@ -1,4 +1,4 @@
-# Deploy hEdge in a docker environment
+# How to deploy hEdge in a docker environment
 ### 1.	Pre-requisites
 a.  Install docker \
 b.  Configure docker-bridge \
