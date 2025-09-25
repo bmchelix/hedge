@@ -5,7 +5,7 @@ uvicorn==0.29.0
 pandas==2.2.3
 scikit-learn==1.5.0
 coverage==7.4.4
-starlette==0.40.0
+starlette==0.47.2
 certifi==2024.7.4
 requests==2.32.0
 urllib3==2.2.2
