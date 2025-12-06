@@ -10,7 +10,7 @@ coverage==7.4.4
 starlette==0.40.0
 certifi==2024.7.4
 requests==2.32.0
-urllib3==2.2.2
+urllib3==2.6.0
 setuptools==70.0.0
 python-multipart==0.0.18
 pyyaml==6.0
